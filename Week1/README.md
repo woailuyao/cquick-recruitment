@@ -1,24 +1,16 @@
-# 第 1 周 · 环境搭建与 ROS2 入门
+# 第1周考核 - wangxuanhe
+姓名：王煊赫
+完成日期：2026-10-22
 
-> 本周任务：导入 Ubuntu 22.04 虚拟机 → 装上 ROS2 Humble → 跑通小乌龟 → 用 Git 规范提交。
-> 详细考核细则、评分标准、提交流程，见群内《招新考核细则（第 1 周）》。
+## 任务1：环境自检
+完成Ubuntu22.04与ROS2 Humble安装配置，使用ros2 --version校验版本。
+踩坑：新开终端找不到ros2命令；
+解决：把 source /opt/ros/humble/setup.bash 写入 ~/.bashrc，自动加载环境变量。
 
-## 提交目录
+## 任务2：小乌龟
+节点是ROS2里独立运行的程序，turtlesim_node用来显示乌龟窗口，turtle_teleop_key接收键盘按键。
+话题是节点之间传递数据的通道。键盘节点往 /turtle1/cmd_vel 发布速度消息，乌龟节点订阅这个话题，接收指令移动。
 
-请在本目录下新建你的个人文件夹（姓名拼音），结构如下：
-
-```
-Week1/
-└── <你的姓名拼音>/
-    ├── 01_环境自检.png      # 虚拟机桌面 + ros2 --help 输出
-    ├── 02_小乌龟.png        # 小乌龟移动后截图
-    ├── 02_节点列表.png      # ros2 node list 输出
-    ├── 02_话题列表.png      # ros2 topic list 输出
-    └── README.md            # 学习说明
-```
-
-## 提交流程（Fork + PR）
-
-1. Fork 本仓库 → 2. Clone 你自己的 Fork → 3. 按上面目录放截图和说明 → 4. commit + push → 5. 发起 Pull Request。
-
-> 完整步骤和评分标准，见群内《招新考核细则（第 1 周）》。
+## 任务3：Git提交
+学习Fork + PR提交流程。
+踩坑：作业文件必须放在Week1/wangxuanhe目录下，不能直接推送到主仓库。
