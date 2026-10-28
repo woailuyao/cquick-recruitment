@@ -1,0 +1,27 @@
+对比 A1：05_similar_bg.jpg，只改 S 下限
+  S>=40: detected=True u=710.0 v=300.2 area=144145 candidates=2
+  S>=80: detected=True u=300.0 v=300.0 area=23026 candidates=2
+  现象：S>=40 时蓝灰色背景进入 mask，面积 144145 的背景成为最大轮廓，中心点跑到 (710,300)，属于误检。
+
+对比 A2：05_similar_bg.jpg，只改 H 下限
+  H>=100: detected=True u=300.0 v=300.0 area=23026 candidates=2
+  H>=110: detected=False u=0.0 v=0.0 area=0 candidates=0
+  现象：目标蓝色像素 H=109，阈值收紧到 110 后整个目标被排除，detected=False，属于漏检。
+
+对比 B：04_small.jpg，只改最小面积
+  min_area=2000: detected=True u=620.0 v=140.0 area=3116 candidates=1
+  min_area=5000: detected=False u=0.0 v=0.0 area=0 candidates=0
+  现象：小目标面积 3116，阈值提到 5000 后没有候选轮廓，整张图报未检测到目标属于合理的拒检，但对真实存在的小目标就是漏检。
+
+对比 C：07_noisy.jpg，最小面积固定为 10，只改开运算
+  无形态学: detected=True u=400.0 v=300.0 area=25190 candidates=100
+  开运算11x11: detected=True u=400.0 v=300.0 area=25188 candidates=1
+  现象：无开运算时 mask 中保留大量蓝色噪点，候选轮廓 100 个；11x11 开运算把直径小于 11 像素的噪点全部腐蚀掉，候选降为 1 个。
+  注意：本轮把最小面积临时设为 10，否则面积过滤会先把噪点去掉，看不出开运算本身的作用。
+
+对比 D：sample.jpg vs sample3.jpg（不调参数，对比光照）
+  清晰图: detected=True u=320.0 v=240.0 area=39994 candidates=1
+  高光图: detected=True u=479.5 v=359.9 area=70660 candidates=1
+  高光图轮廓内部有 7.4% 的像素没被阈值选中（高光洞）。
+  现象：高光处 S 只有 28（低于 S 下限 80），mask 中出现空洞；但 findContours 用 RETR_EXTERNAL 只取外轮廓，所以中心点和面积基本不受影响。若高光分裂目标或遮挡边缘，中心点才会偏移。
+
