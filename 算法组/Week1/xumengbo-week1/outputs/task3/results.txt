@@ -1,0 +1,3 @@
+test1_dark_big,orange_rect,center=(320,240),area=50400.0,rect=(180,150,281,181),status=OK
+test2_bright_mid,green_circle,center=(320,240),area=31130.0,rect=(221,141,199,199),status=OK
+test3_mid_small,blue_circle,center=(200,240),area=9318.0,rect=(146,186,109,109),status=OK
