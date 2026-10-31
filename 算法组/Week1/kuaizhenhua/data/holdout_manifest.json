@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "source_script": "src/make_holdout_image.py",
+  "source": "本地 OpenCV 几何绘图与 NumPy 固定种子噪声；不是实拍，未使用外部图片。",
+  "seed": 20261027,
+  "image_path": "data/images/holdout/06_holdout.png",
+  "mask_path": "data/ground_truth/06_holdout_mask.png",
+  "image_size_wh": [
+    640,
+    480
+  ],
+  "target_vertices_xy": [
+    [
+      258,
+      116
+    ],
+    [
+      341,
+      149
+    ],
+    [
+      389,
+      223
+    ],
+    [
+      353,
+      303
+    ],
+    [
+      274,
+      343
+    ],
+    [
+      207,
+      271
+    ],
+    [
+      222,
+      191
+    ]
+  ],
+  "target_hsv_opencv": [
+    112,
+    190,
+    195
+  ],
+  "true_target_count": 1,
+  "expected_candidate_count": 1,
+  "mask_definition": "人工指定顶点生成的目标真值；255=目标，0=背景和干扰物；不是预测掩膜。",
+  "coordinate_system": "原点左上角，x 向右、y 向下，单位像素。",
+  "scene": "渐变带噪声背景上的蓝色不规则七边形，含橙色旋转椭圆、绿色多边形和红线干扰。",
+  "holdout_status": "新增图未用于原五图演示；原 blue.json 参数保持不变。图案属于同类可控合成分布。",
+  "image_sha256": "2ff0a1e4f04c369f20942e246a076126940f0c0dd53e86b8be5d51464db3f0e5",
+  "mask_sha256": "e6cbc7124d2490f988be543b51ccb831a99053f00bf5fd16449ebf4ab246544c",
+  "verification": {
+    "passed": true,
+    "config": {
+      "hsv_lower": [
+        95,
+        80,
+        70
+      ],
+      "hsv_upper": [
+        130,
+        255,
+        255
+      ],
+      "open_kernel": 3,
+      "close_kernel": 5,
+      "min_area": 500
+    },
+    "parameters_adjusted_for_this_image": false,
+    "candidate_count": 1,
+    "detections": [
+      {
+        "id": 1,
+        "center_xy": [
+          293.233,
+          230.59
+        ],
+        "contour_area_px2": 26638.0,
+        "bbox_xywh": [
+          207,
+          116,
+          183,
+          228
+        ]
+      }
+    ],
+    "true_target_center_xy": [
+      293.223998,
+      230.554829
+    ],
+    "true_target_contour_area_px2": 26638.5,
+    "true_target_pixel_count": 26911,
+    "mask_iou": 0.99996284,
+    "centroid_error_px": 0.036304965,
+    "contour_area_relative_error": 1.877e-05,
+    "image_file_bytes": 329232,
+    "acceptance": {
+      "candidate_count": 1,
+      "minimum_iou": 0.97,
+      "maximum_centroid_error_px": 2,
+      "maximum_area_relative_error": 0.01,
+      "image_smaller_than_bytes": 1000000
+    },
+    "scope": "Single synthetic holdout image; not real-world accuracy or proof of personal practice."
+  }
+}

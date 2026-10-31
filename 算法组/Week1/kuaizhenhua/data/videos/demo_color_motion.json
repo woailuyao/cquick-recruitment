@@ -1,0 +1,2038 @@
+{
+  "synthetic": true,
+  "provenance_zh": "由 OpenCV 几何绘图和 NumPy 生成的合成教学视频，不是实拍或摄像头记录。",
+  "source_script": "src/make_demo_video.py",
+  "video_path": "data/videos/demo_color_motion.avi",
+  "sha256": "c9872bd68d9f844d534e751af00e5d23d1061af78541ac312eff6eed7d550395",
+  "seed": 20261020,
+  "codec": "MJPG",
+  "frame_size_wh": [
+    640,
+    480
+  ],
+  "fps": 10,
+  "frame_count": 120,
+  "duration_seconds": 12.0,
+  "normal_target_hsv_before_compression": [
+    110,
+    200,
+    210
+  ],
+  "dark_target_hsv_before_compression": [
+    110,
+    200,
+    50
+  ],
+  "coordinate_system": "像素坐标；左上角为原点，x 向右，y 向下；帧号从 0 开始。",
+  "compression_note_zh": "MJPG 有损压缩会略微改变颜色和边界；以下真值为压缩前绘图值。",
+  "default_detector_config": {
+    "hsv_lower": [
+      95,
+      80,
+      70
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "open_kernel": 3,
+    "close_kernel": 5,
+    "min_area": 500
+  },
+  "validation": {
+    "all_frames_decoded": true,
+    "decoded_frame_count": 120,
+    "candidate_counts_match_expectations": true,
+    "camera_used": false,
+    "personal_practice_record": false
+  },
+  "stages": [
+    {
+      "name": "moving_target",
+      "description_zh": "移动蓝色矩形，默认参数应检出一个候选。",
+      "frame_range_start_inclusive_end_exclusive": [
+        0,
+        30
+      ],
+      "time_range_seconds_start_inclusive_end_exclusive": [
+        0.0,
+        3.0
+      ],
+      "expected_candidate_count_default_config": 1,
+      "observed_candidate_count_histogram": {
+        "1": 30
+      }
+    },
+    {
+      "name": "small_target",
+      "description_zh": "移动的小蓝色圆，面积仍高于 500，默认参数应检出一个候选。",
+      "frame_range_start_inclusive_end_exclusive": [
+        30,
+        60
+      ],
+      "time_range_seconds_start_inclusive_end_exclusive": [
+        3.0,
+        6.0
+      ],
+      "expected_candidate_count_default_config": 1,
+      "observed_candidate_count_histogram": {
+        "1": 30
+      }
+    },
+    {
+      "name": "dark_target",
+      "description_zh": "蓝色矩形的 V=50，低于默认下限 70，预期漏检。",
+      "frame_range_start_inclusive_end_exclusive": [
+        60,
+        90
+      ],
+      "time_range_seconds_start_inclusive_end_exclusive": [
+        6.0,
+        9.0
+      ],
+      "expected_candidate_count_default_config": 0,
+      "observed_candidate_count_histogram": {
+        "0": 30
+      }
+    },
+    {
+      "name": "same_color_distractor",
+      "description_zh": "矩形是真实目标，右侧更大的蓝色圆为干扰，预期两个候选。",
+      "frame_range_start_inclusive_end_exclusive": [
+        90,
+        120
+      ],
+      "time_range_seconds_start_inclusive_end_exclusive": [
+        9.0,
+        12.0
+      ],
+      "expected_candidate_count_default_config": 2,
+      "observed_candidate_count_histogram": {
+        "2": 30
+      }
+    }
+  ],
+  "ground_truth_per_frame": [
+    {
+      "frame_index": 0,
+      "time_seconds": 0.0,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        149.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        90,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 1,
+      "time_seconds": 0.1,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        160.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        101,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 2,
+      "time_seconds": 0.2,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        170.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        111,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 3,
+      "time_seconds": 0.3,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        181.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        122,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 4,
+      "time_seconds": 0.4,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        192.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        133,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 5,
+      "time_seconds": 0.5,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        202.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        143,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 6,
+      "time_seconds": 0.6,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        213.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        154,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 7,
+      "time_seconds": 0.7,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        224.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        165,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 8,
+      "time_seconds": 0.8,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        235.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        176,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 9,
+      "time_seconds": 0.9,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        245.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        186,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 10,
+      "time_seconds": 1.0,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        256.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        197,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 11,
+      "time_seconds": 1.1,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        267.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        208,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 12,
+      "time_seconds": 1.2,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        277.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        218,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 13,
+      "time_seconds": 1.3,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        288.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        229,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 14,
+      "time_seconds": 1.4,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        299.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        240,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 15,
+      "time_seconds": 1.5,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        309.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        250,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 16,
+      "time_seconds": 1.6,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        320.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        261,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 17,
+      "time_seconds": 1.7,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        331.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        272,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 18,
+      "time_seconds": 1.8,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        341.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        282,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 19,
+      "time_seconds": 1.9,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        352.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        293,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 20,
+      "time_seconds": 2.0,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        363.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        304,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 21,
+      "time_seconds": 2.1,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        373.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        314,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 22,
+      "time_seconds": 2.2,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        384.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        325,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 23,
+      "time_seconds": 2.3,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        395.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        336,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 24,
+      "time_seconds": 2.4,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        406.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        347,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 25,
+      "time_seconds": 2.5,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        416.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        357,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 26,
+      "time_seconds": 2.6,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        427.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        368,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 27,
+      "time_seconds": 2.7,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        438.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        379,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 28,
+      "time_seconds": 2.8,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        448.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        389,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 29,
+      "time_seconds": 2.9,
+      "stage": "moving_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        459.5,
+        244.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        400,
+        200,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 30,
+      "time_seconds": 3.0,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        200,
+        240
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        176,
+        216,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 31,
+      "time_seconds": 3.1,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        208,
+        246
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        184,
+        222,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 32,
+      "time_seconds": 3.2,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        217,
+        253
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        193,
+        229,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 33,
+      "time_seconds": 3.3,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        225,
+        258
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        201,
+        234,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 34,
+      "time_seconds": 3.4,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        233,
+        263
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        209,
+        239,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 35,
+      "time_seconds": 3.5,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        241,
+        267
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        217,
+        243,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 36,
+      "time_seconds": 3.6,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        250,
+        269
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        226,
+        245,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 37,
+      "time_seconds": 3.7,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        258,
+        270
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        234,
+        246,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 38,
+      "time_seconds": 3.8,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        266,
+        270
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        242,
+        246,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 39,
+      "time_seconds": 3.9,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        274,
+        268
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        250,
+        244,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 40,
+      "time_seconds": 4.0,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        283,
+        265
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        259,
+        241,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 41,
+      "time_seconds": 4.1,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        291,
+        261
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        267,
+        237,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 42,
+      "time_seconds": 4.2,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        299,
+        255
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        275,
+        231,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 43,
+      "time_seconds": 4.3,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        308,
+        250
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        284,
+        226,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 44,
+      "time_seconds": 4.4,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        316,
+        243
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        292,
+        219,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 45,
+      "time_seconds": 4.5,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        324,
+        237
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        300,
+        213,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 46,
+      "time_seconds": 4.6,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        332,
+        230
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        308,
+        206,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 47,
+      "time_seconds": 4.7,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        341,
+        225
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        317,
+        201,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 48,
+      "time_seconds": 4.8,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        349,
+        219
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        325,
+        195,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 49,
+      "time_seconds": 4.9,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        357,
+        215
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        333,
+        191,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 50,
+      "time_seconds": 5.0,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        366,
+        212
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        342,
+        188,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 51,
+      "time_seconds": 5.1,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        374,
+        210
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        350,
+        186,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 52,
+      "time_seconds": 5.2,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        382,
+        210
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        358,
+        186,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 53,
+      "time_seconds": 5.3,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        390,
+        211
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        366,
+        187,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 54,
+      "time_seconds": 5.4,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        399,
+        213
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        375,
+        189,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 55,
+      "time_seconds": 5.5,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        407,
+        217
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        383,
+        193,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 56,
+      "time_seconds": 5.6,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        415,
+        222
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        391,
+        198,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 57,
+      "time_seconds": 5.7,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        423,
+        227
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        399,
+        203,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 58,
+      "time_seconds": 5.8,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        432,
+        234
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        408,
+        210,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 59,
+      "time_seconds": 5.9,
+      "stage": "small_target",
+      "true_target_shape": "circle",
+      "true_target_center_xy_before_compression": [
+        440,
+        240
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        416,
+        216,
+        49,
+        49
+      ]
+    },
+    {
+      "frame_index": 60,
+      "time_seconds": 6.0,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        199.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        140,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 61,
+      "time_seconds": 6.1,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        205.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        146,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 62,
+      "time_seconds": 6.2,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        211.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        152,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 63,
+      "time_seconds": 6.3,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        218.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        159,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 64,
+      "time_seconds": 6.4,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        224.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        165,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 65,
+      "time_seconds": 6.5,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        230.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        171,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 66,
+      "time_seconds": 6.6,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        236.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        177,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 67,
+      "time_seconds": 6.7,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        242.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        183,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 68,
+      "time_seconds": 6.8,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        249.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        190,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 69,
+      "time_seconds": 6.9,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        255.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        196,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 70,
+      "time_seconds": 7.0,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        261.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        202,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 71,
+      "time_seconds": 7.1,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        267.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        208,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 72,
+      "time_seconds": 7.2,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        273.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        214,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 73,
+      "time_seconds": 7.3,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        280.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        221,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 74,
+      "time_seconds": 7.4,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        286.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        227,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 75,
+      "time_seconds": 7.5,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        292.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        233,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 76,
+      "time_seconds": 7.6,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        298.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        239,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 77,
+      "time_seconds": 7.7,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        305.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        246,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 78,
+      "time_seconds": 7.8,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        311.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        252,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 79,
+      "time_seconds": 7.9,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        317.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        258,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 80,
+      "time_seconds": 8.0,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        323.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        264,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 81,
+      "time_seconds": 8.1,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        329.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        270,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 82,
+      "time_seconds": 8.2,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        336.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        277,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 83,
+      "time_seconds": 8.3,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        342.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        283,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 84,
+      "time_seconds": 8.4,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        348.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        289,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 85,
+      "time_seconds": 8.5,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        354.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        295,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 86,
+      "time_seconds": 8.6,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        360.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        301,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 87,
+      "time_seconds": 8.7,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        367.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        308,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 88,
+      "time_seconds": 8.8,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        373.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        314,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 89,
+      "time_seconds": 8.9,
+      "stage": "dark_target",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        379.5,
+        254.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        320,
+        210,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 90,
+      "time_seconds": 9.0,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        139.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        80,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 91,
+      "time_seconds": 9.1,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        140.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        81,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 92,
+      "time_seconds": 9.2,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        141.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        82,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 93,
+      "time_seconds": 9.3,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        142.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        83,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 94,
+      "time_seconds": 9.4,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        143.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        84,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 95,
+      "time_seconds": 9.5,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        144.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        85,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 96,
+      "time_seconds": 9.6,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        145.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        86,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 97,
+      "time_seconds": 9.7,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        146.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        87,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 98,
+      "time_seconds": 9.8,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        147.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        88,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 99,
+      "time_seconds": 9.9,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        148.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        89,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 100,
+      "time_seconds": 10.0,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        149.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        90,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 101,
+      "time_seconds": 10.1,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        150.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        91,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 102,
+      "time_seconds": 10.2,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        151.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        92,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 103,
+      "time_seconds": 10.3,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        152.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        93,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 104,
+      "time_seconds": 10.4,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        153.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        94,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 105,
+      "time_seconds": 10.5,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        155.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        96,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 106,
+      "time_seconds": 10.6,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        156.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        97,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 107,
+      "time_seconds": 10.7,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        157.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        98,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 108,
+      "time_seconds": 10.8,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        158.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        99,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 109,
+      "time_seconds": 10.9,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        159.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        100,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 110,
+      "time_seconds": 11.0,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        160.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        101,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 111,
+      "time_seconds": 11.1,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        161.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        102,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 112,
+      "time_seconds": 11.2,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        162.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        103,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 113,
+      "time_seconds": 11.3,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        163.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        104,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 114,
+      "time_seconds": 11.4,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        164.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        105,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 115,
+      "time_seconds": 11.5,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        165.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        106,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 116,
+      "time_seconds": 11.6,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        166.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        107,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 117,
+      "time_seconds": 11.7,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        167.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        108,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 118,
+      "time_seconds": 11.8,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        168.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        109,
+        220,
+        120,
+        90
+      ]
+    },
+    {
+      "frame_index": 119,
+      "time_seconds": 11.9,
+      "stage": "same_color_distractor",
+      "true_target_shape": "rectangle",
+      "true_target_center_xy_before_compression": [
+        169.5,
+        264.5
+      ],
+      "true_target_bbox_xywh_before_compression": [
+        110,
+        220,
+        120,
+        90
+      ]
+    }
+  ]
+}

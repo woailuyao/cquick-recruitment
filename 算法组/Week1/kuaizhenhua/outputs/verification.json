@@ -1,0 +1,937 @@
+{
+  "passed": true,
+  "scope": "Synthetic demo geometry, deliberate failures, saved-output records and PNG readability; not real-world accuracy or personal learning completion.",
+  "output_directory": "outputs",
+  "check_count": 118,
+  "failed_check_count": 0,
+  "png_count": 171,
+  "reopened_png_count": 171,
+  "task1": {
+    "image_count": 5,
+    "verified_output_png_count": 15
+  },
+  "task2": {
+    "configuration_count": 5,
+    "verified_stage_png_count": 20,
+    "grayscale_shape": [
+      480,
+      640
+    ]
+  },
+  "task3": [
+    {
+      "image": "01_clean.png",
+      "expected_candidate_count": 1,
+      "actual_candidate_count": 1,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ],
+      "mask_iou": 0.999792,
+      "mask_white_pixels": 19196,
+      "extra_pixels_outside_true_target": 0,
+      "centroid_error_px": 0.0
+    },
+    {
+      "image": "02_clutter.png",
+      "expected_candidate_count": 1,
+      "actual_candidate_count": 1,
+      "true_target_center_xy": [
+        400.0,
+        250.0
+      ],
+      "mask_iou": 1.0,
+      "mask_white_pixels": 13273,
+      "extra_pixels_outside_true_target": 0,
+      "centroid_error_px": 0.0
+    },
+    {
+      "image": "03_small.png",
+      "expected_candidate_count": 1,
+      "actual_candidate_count": 1,
+      "true_target_center_xy": [
+        319.998,
+        255.021
+      ],
+      "mask_iou": 0.999233,
+      "mask_white_pixels": 2609,
+      "extra_pixels_outside_true_target": 2,
+      "centroid_error_px": 0.014866
+    },
+    {
+      "image": "04_dark_fail.png",
+      "expected_candidate_count": 0,
+      "actual_candidate_count": 0,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ],
+      "mask_iou": 0.0,
+      "mask_white_pixels": 0,
+      "extra_pixels_outside_true_target": 0
+    },
+    {
+      "image": "05_same_color_fail.png",
+      "expected_candidate_count": 2,
+      "actual_candidate_count": 2,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ],
+      "mask_iou": 0.42997,
+      "mask_white_pixels": 44641,
+      "extra_pixels_outside_true_target": 25445
+    }
+  ],
+  "source_hashes": {
+    "status": "checked",
+    "reason": null,
+    "source_count": 5
+  },
+  "checks": [
+    {
+      "check": "manifest_has_five_synthetic_cases",
+      "passed": true,
+      "image_count": 5
+    },
+    {
+      "check": "task3_aggregate_images",
+      "passed": true,
+      "actual_images": [
+        "01_clean.png",
+        "02_clutter.png",
+        "03_small.png",
+        "04_dark_fail.png",
+        "05_same_color_fail.png"
+      ]
+    },
+    {
+      "check": "task3_aggregate_matches_individual/01_clean.png",
+      "passed": true
+    },
+    {
+      "check": "task3_aggregate_matches_individual/02_clutter.png",
+      "passed": true
+    },
+    {
+      "check": "task3_aggregate_matches_individual/03_small.png",
+      "passed": true
+    },
+    {
+      "check": "task3_aggregate_matches_individual/04_dark_fail.png",
+      "passed": true
+    },
+    {
+      "check": "task3_aggregate_matches_individual/05_same_color_fail.png",
+      "passed": true
+    },
+    {
+      "check": "task3_count/01_clean",
+      "passed": true,
+      "image": "01_clean.png",
+      "expected_candidate_count": 1,
+      "actual_candidate_count": 1,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ]
+    },
+    {
+      "check": "task3_mask_shape/01_clean",
+      "passed": true,
+      "detected_shape": [
+        480,
+        640
+      ],
+      "truth_shape": [
+        480,
+        640
+      ],
+      "source_shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "check": "task3_mask_binary/01_clean",
+      "passed": true
+    },
+    {
+      "check": "task3_source_hash/01_clean",
+      "passed": true
+    },
+    {
+      "check": "task3_detection_geometry/01_clean/1",
+      "passed": true,
+      "detection": {
+        "id": 1,
+        "center_xy": [
+          249.5,
+          229.5
+        ],
+        "contour_area_px2": 18919.0,
+        "bbox_xywh": [
+          170,
+          170,
+          160,
+          120
+        ]
+      }
+    },
+    {
+      "check": "task3_normal_mask_iou/01_clean",
+      "passed": true,
+      "value": 0.999792,
+      "minimum": 0.97
+    },
+    {
+      "check": "task3_normal_centroid/01_clean",
+      "passed": true,
+      "error_px": 0.0,
+      "maximum_px": 2
+    },
+    {
+      "check": "task3_count/02_clutter",
+      "passed": true,
+      "image": "02_clutter.png",
+      "expected_candidate_count": 1,
+      "actual_candidate_count": 1,
+      "true_target_center_xy": [
+        400.0,
+        250.0
+      ]
+    },
+    {
+      "check": "task3_mask_shape/02_clutter",
+      "passed": true,
+      "detected_shape": [
+        480,
+        640
+      ],
+      "truth_shape": [
+        480,
+        640
+      ],
+      "source_shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "check": "task3_mask_binary/02_clutter",
+      "passed": true
+    },
+    {
+      "check": "task3_source_hash/02_clutter",
+      "passed": true
+    },
+    {
+      "check": "task3_detection_geometry/02_clutter/1",
+      "passed": true,
+      "detection": {
+        "id": 1,
+        "center_xy": [
+          400.0,
+          250.0
+        ],
+        "contour_area_px2": 13090.0,
+        "bbox_xywh": [
+          335,
+          185,
+          131,
+          131
+        ]
+      }
+    },
+    {
+      "check": "task3_normal_mask_iou/02_clutter",
+      "passed": true,
+      "value": 1.0,
+      "minimum": 0.97
+    },
+    {
+      "check": "task3_normal_centroid/02_clutter",
+      "passed": true,
+      "error_px": 0.0,
+      "maximum_px": 2
+    },
+    {
+      "check": "task3_count/03_small",
+      "passed": true,
+      "image": "03_small.png",
+      "expected_candidate_count": 1,
+      "actual_candidate_count": 1,
+      "true_target_center_xy": [
+        319.998,
+        255.021
+      ]
+    },
+    {
+      "check": "task3_mask_shape/03_small",
+      "passed": true,
+      "detected_shape": [
+        480,
+        640
+      ],
+      "truth_shape": [
+        480,
+        640
+      ],
+      "source_shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "check": "task3_mask_binary/03_small",
+      "passed": true
+    },
+    {
+      "check": "task3_source_hash/03_small",
+      "passed": true
+    },
+    {
+      "check": "task3_detection_geometry/03_small/1",
+      "passed": true,
+      "detection": {
+        "id": 1,
+        "center_xy": [
+          319.984,
+          255.016
+        ],
+        "contour_area_px2": 2525.0,
+        "bbox_xywh": [
+          288,
+          230,
+          65,
+          51
+        ]
+      }
+    },
+    {
+      "check": "task3_normal_mask_iou/03_small",
+      "passed": true,
+      "value": 0.999233,
+      "minimum": 0.97
+    },
+    {
+      "check": "task3_normal_centroid/03_small",
+      "passed": true,
+      "error_px": 0.014866,
+      "maximum_px": 2
+    },
+    {
+      "check": "task3_count/04_dark_fail",
+      "passed": true,
+      "image": "04_dark_fail.png",
+      "expected_candidate_count": 0,
+      "actual_candidate_count": 0,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ]
+    },
+    {
+      "check": "task3_mask_shape/04_dark_fail",
+      "passed": true,
+      "detected_shape": [
+        480,
+        640
+      ],
+      "truth_shape": [
+        480,
+        640
+      ],
+      "source_shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "check": "task3_mask_binary/04_dark_fail",
+      "passed": true
+    },
+    {
+      "check": "task3_source_hash/04_dark_fail",
+      "passed": true
+    },
+    {
+      "check": "task3_dark_target_deliberate_miss",
+      "passed": true,
+      "mask_white_pixels": 0
+    },
+    {
+      "check": "task3_count/05_same_color_fail",
+      "passed": true,
+      "image": "05_same_color_fail.png",
+      "expected_candidate_count": 2,
+      "actual_candidate_count": 2,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ]
+    },
+    {
+      "check": "task3_mask_shape/05_same_color_fail",
+      "passed": true,
+      "detected_shape": [
+        480,
+        640
+      ],
+      "truth_shape": [
+        480,
+        640
+      ],
+      "source_shape": [
+        480,
+        640,
+        3
+      ]
+    },
+    {
+      "check": "task3_mask_binary/05_same_color_fail",
+      "passed": true
+    },
+    {
+      "check": "task3_source_hash/05_same_color_fail",
+      "passed": true
+    },
+    {
+      "check": "task3_detection_geometry/05_same_color_fail/1",
+      "passed": true,
+      "detection": {
+        "id": 1,
+        "center_xy": [
+          500.0,
+          285.0
+        ],
+        "contour_area_px2": 25190.0,
+        "bbox_xywh": [
+          410,
+          195,
+          181,
+          181
+        ]
+      }
+    },
+    {
+      "check": "task3_detection_geometry/05_same_color_fail/2",
+      "passed": true,
+      "detection": {
+        "id": 2,
+        "center_xy": [
+          249.5,
+          229.5
+        ],
+        "contour_area_px2": 18919.0,
+        "bbox_xywh": [
+          170,
+          170,
+          160,
+          120
+        ]
+      }
+    },
+    {
+      "check": "task3_same_color_deliberate_false_positive",
+      "passed": true,
+      "extra_pixels_outside_true_target": 25445
+    },
+    {
+      "check": "task1_image_count",
+      "passed": true,
+      "recorded_image_count": 5,
+      "actual_records": 5
+    },
+    {
+      "check": "task1_readback_summary",
+      "passed": true
+    },
+    {
+      "check": "task1_three_outputs/01_clean.png",
+      "passed": true
+    },
+    {
+      "check": "task1_saved_png/01_clean.png/resized",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/01_clean.png/crop",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/01_clean.png/gray",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task1_source_dimensions/01_clean.png",
+      "passed": true
+    },
+    {
+      "check": "task1_three_outputs/02_clutter.png",
+      "passed": true
+    },
+    {
+      "check": "task1_saved_png/02_clutter.png/resized",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/02_clutter.png/crop",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/02_clutter.png/gray",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task1_source_dimensions/02_clutter.png",
+      "passed": true
+    },
+    {
+      "check": "task1_three_outputs/03_small.png",
+      "passed": true
+    },
+    {
+      "check": "task1_saved_png/03_small.png/resized",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/03_small.png/crop",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/03_small.png/gray",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task1_source_dimensions/03_small.png",
+      "passed": true
+    },
+    {
+      "check": "task1_three_outputs/04_dark_fail.png",
+      "passed": true
+    },
+    {
+      "check": "task1_saved_png/04_dark_fail.png/resized",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/04_dark_fail.png/crop",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/04_dark_fail.png/gray",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task1_source_dimensions/04_dark_fail.png",
+      "passed": true
+    },
+    {
+      "check": "task1_three_outputs/05_same_color_fail.png",
+      "passed": true
+    },
+    {
+      "check": "task1_saved_png/05_same_color_fail.png/resized",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/05_same_color_fail.png/crop",
+      "passed": true,
+      "shape": [
+        240,
+        320,
+        3
+      ]
+    },
+    {
+      "check": "task1_saved_png/05_same_color_fail.png/gray",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task1_source_dimensions/05_same_color_fail.png",
+      "passed": true
+    },
+    {
+      "check": "task1_png_readback_count",
+      "passed": true,
+      "actual_count": 15,
+      "expected_count": 15
+    },
+    {
+      "check": "task2_five_configurations",
+      "passed": true,
+      "actual_names": [
+        "baseline",
+        "gaussian_changed",
+        "threshold_changed",
+        "canny_changed",
+        "morphology_changed"
+      ]
+    },
+    {
+      "check": "task2_grayscale",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_four_stages/baseline",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/baseline/gaussian",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_shape/baseline/threshold",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/baseline/threshold",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/baseline/canny",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/baseline/canny",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/baseline/morphology",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/baseline/morphology",
+      "passed": true
+    },
+    {
+      "check": "task2_four_stages/gaussian_changed",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/gaussian_changed/gaussian",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_shape/gaussian_changed/threshold",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/gaussian_changed/threshold",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/gaussian_changed/canny",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/gaussian_changed/canny",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/gaussian_changed/morphology",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/gaussian_changed/morphology",
+      "passed": true
+    },
+    {
+      "check": "task2_four_stages/threshold_changed",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/threshold_changed/gaussian",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_shape/threshold_changed/threshold",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/threshold_changed/threshold",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/threshold_changed/canny",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/threshold_changed/canny",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/threshold_changed/morphology",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/threshold_changed/morphology",
+      "passed": true
+    },
+    {
+      "check": "task2_four_stages/canny_changed",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/canny_changed/gaussian",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_shape/canny_changed/threshold",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/canny_changed/threshold",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/canny_changed/canny",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/canny_changed/canny",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/canny_changed/morphology",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/canny_changed/morphology",
+      "passed": true
+    },
+    {
+      "check": "task2_four_stages/morphology_changed",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/morphology_changed/gaussian",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_shape/morphology_changed/threshold",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/morphology_changed/threshold",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/morphology_changed/canny",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/morphology_changed/canny",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_shape/morphology_changed/morphology",
+      "passed": true,
+      "shape": [
+        480,
+        640
+      ]
+    },
+    {
+      "check": "task2_stage_binary/morphology_changed/morphology",
+      "passed": true
+    },
+    {
+      "check": "task2_stage_count",
+      "passed": true,
+      "actual_count": 20,
+      "expected_count": 20
+    },
+    {
+      "check": "environment_hash_inventory",
+      "passed": true
+    },
+    {
+      "check": "original_source_sha256/01_clean.png",
+      "passed": true,
+      "expected_sha256": "9a78ed6f31db33da2e189831428bfc9d2617d462195614a1087105e53fe8eb74",
+      "actual_sha256": "9a78ed6f31db33da2e189831428bfc9d2617d462195614a1087105e53fe8eb74"
+    },
+    {
+      "check": "original_source_sha256/02_clutter.png",
+      "passed": true,
+      "expected_sha256": "5cad6102fe7ac8656af7dae0d82a1eb79378bc241e2a0d18a5957298241d6151",
+      "actual_sha256": "5cad6102fe7ac8656af7dae0d82a1eb79378bc241e2a0d18a5957298241d6151"
+    },
+    {
+      "check": "original_source_sha256/03_small.png",
+      "passed": true,
+      "expected_sha256": "5146e3a4fe1be8de459bec07fedd1463bbf9c4cca8c56e836d3769d59bd1a149",
+      "actual_sha256": "5146e3a4fe1be8de459bec07fedd1463bbf9c4cca8c56e836d3769d59bd1a149"
+    },
+    {
+      "check": "original_source_sha256/04_dark_fail.png",
+      "passed": true,
+      "expected_sha256": "385085a283cc2381105c8ef60db22a55f55bb36be9ff3464459daeb7a76135e7",
+      "actual_sha256": "385085a283cc2381105c8ef60db22a55f55bb36be9ff3464459daeb7a76135e7"
+    },
+    {
+      "check": "original_source_sha256/05_same_color_fail.png",
+      "passed": true,
+      "expected_sha256": "586ddb6341cb1e4c3591390681a54eaf3aa45945b8637fbcb2d77223e914ed18",
+      "actual_sha256": "586ddb6341cb1e4c3591390681a54eaf3aa45945b8637fbcb2d77223e914ed18"
+    },
+    {
+      "check": "all_output_pngs_reopen",
+      "passed": true,
+      "found_png_count": 171,
+      "reopened_png_count": 171,
+      "errors": []
+    }
+  ]
+}

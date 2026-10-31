@@ -1,0 +1,17 @@
+{
+  "python": "3.10.22",
+  "opencv": "4.12.0",
+  "numpy": "2.2.6",
+  "matplotlib": "3.10.7",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "source_images_unchanged": true,
+  "input_count": 5,
+  "source_sha256": {
+    "01_clean.png": "9a78ed6f31db33da2e189831428bfc9d2617d462195614a1087105e53fe8eb74",
+    "02_clutter.png": "5cad6102fe7ac8656af7dae0d82a1eb79378bc241e2a0d18a5957298241d6151",
+    "03_small.png": "5146e3a4fe1be8de459bec07fedd1463bbf9c4cca8c56e836d3769d59bd1a149",
+    "04_dark_fail.png": "385085a283cc2381105c8ef60db22a55f55bb36be9ff3464459daeb7a76135e7",
+    "05_same_color_fail.png": "586ddb6341cb1e4c3591390681a54eaf3aa45945b8637fbcb2d77223e914ed18"
+  },
+  "scope": "execution check, not a claim of real-world accuracy or completed personal learning"
+}

@@ -1,0 +1,7 @@
+{
+  "hsv_lower": [95, 80, 40],
+  "hsv_upper": [130, 255, 255],
+  "open_kernel": 3,
+  "close_kernel": 5,
+  "min_area": 500
+}
