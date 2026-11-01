@@ -1,0 +1,28 @@
+The compared pictures
+
+| Pictures | Nums | Ifread | Center(u,v) | Area | Other |
+| --- | --- | --- | --- | --- | --- |
+| sample_4 | base | True | (489,58) | 4025 | 标准参数，即原来的处理 |
+| sample_4 | loosen | True | (490,59) | 4624 | S/V下线放款：多暗的、淡的目标，更容易误判背景 |
+| sample_4 | tighten | True | (486,55) | 2599 | S/V下限收紧：只留最纯的，暗点的可能漏 |
+| sample_4 | kernel1 | True | (490,58) | 4034 | 不滤波处理：噪点多，有的面积偏大 |
+| sample_4 | kernel9 | True | (489,56) | 3622 | 核9x9：噪点干净但边缘被误消除，面积偏小 |
+| sample_4 | area2000 | True | (489,58) | 4025 | 面积下限提到2000：小目标直接不识别 |
+| sample_1 | base | True | (402,66) | 682 | 标准参数，即原来的处理 |
+| sample_1 | loosen | True | (68,63) | 6056 | S/V下线放款：多暗的、淡的目标，更容易误判背景 |
+| sample_1 | tighten | True | (403,61) | 363 | S/V下限收紧：只留最纯的，暗点的可能漏 |
+| sample_1 | kernel1 | True | (402,66) | 722 | 不滤波处理：噪点多，有的面积偏大 |
+| sample_1 | kernel9 | True | (403,63) | 498 | 核9x9：噪点干净但边缘被误消除，面积偏小 |
+| sample_1 | area2000 | False | - | 0 | 面积下限提到2000：小目标直接不识别 |
+| sample_3 | base | True | (299,44) | 1018 | 标准参数，即原来的处理 |
+| sample_3 | loosen | True | (298,49) | 1509 | S/V下线放款：多暗的、淡的目标，更容易误判背景 |
+| sample_3 | tighten | True | (302,41) | 662 | S/V下限收紧：只留最纯的，暗点的可能漏 |
+| sample_3 | kernel1 | True | (299,45) | 1078 | 不滤波处理：噪点多，有的面积偏大 |
+| sample_3 | kernel9 | True | (302,42) | 766 | 核9x9：噪点干净但边缘被误消除，面积偏小 |
+| sample_3 | area2000 | False | - | 0 | 面积下限提到2000：小目标直接不识别 |
+| sample_5 | base | True | (706,816) | 32184 | 标准参数，即原来的处理 |
+| sample_5 | loosen | True | (708,817) | 33448 | S/V下线放款：多暗的、淡的目标，更容易误判背景 |
+| sample_5 | tighten | True | (693,808) | 24420 | S/V下限收紧：只留最纯的，暗点的可能漏 |
+| sample_5 | kernel1 | True | (707,816) | 32203 | 不滤波处理：噪点多，有的面积偏大 |
+| sample_5 | kernel9 | True | (706,817) | 32514 | 核9x9：噪点干净但边缘被误消除，面积偏小 |
+| sample_5 | area2000 | True | (706,816) | 32184 | 面积下限提到2000：小目标直接不识别 |
