@@ -30,7 +30,7 @@ class TurtleGoalController(Node):
         self.turtle_y = 0.0
         self.turtle_theta = 0.0
 
-        # 控制参数（题目要求误差≤0.5）
+        # 控制参数
         self.dist_thresh = 0.5
         self.angle_thresh = 0.08
         self.kp_ang = 2.0
@@ -63,7 +63,7 @@ class TurtleGoalController(Node):
             self.pub_cmd.publish(twist)
             return
         if self.current_target_idx >= len(self.target_seq):
-            # 全部走完，只打印一次结束提示 + 误差汇总
+            # 全部走完，打印结束提示 + 误差汇总
             if not self.finished:
                 self.get_logger().info("3个目标点跑完")
                 self.get_logger().info(f"误差汇总：球1={self.error_list[0]:.2f}, 球2={self.error_list[1]:.2f}, 球3={self.error_list[2]:.2f}")
@@ -89,11 +89,11 @@ class TurtleGoalController(Node):
             twist.angular.z = 0.0
         else:
             if abs(angle_err) > self.angle_thresh:
-                # 角度差大 → 原地转，linear.x=0（题目要求：先对准再走）
+                # 角度差大 → 原地转，linear.x=0
                 twist.angular.z = self.kp_ang * angle_err
                 twist.linear.x = 0.0
             else:
-                # 角度对准了，边走边微调角度
+                # 对准角度，边走边微调角度
                 twist.linear.x = self.kp_lin * dist
                 twist.angular.z = self.kp_ang * angle_err
                 # 限速，防止冲过头
