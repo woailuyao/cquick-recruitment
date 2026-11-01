@@ -1,0 +1,4 @@
+﻿image,target,center_x,center_y,box_x,box_y,box_w,box_h,area,mask_raw_pct,mask_clean_pct
+obj1.jpg,1,399,319,325,125,151,346,44181,7.03,7.03
+obj2.jpg,1,400,319,325,125,151,346,44187,7.03,7.03
+obj3.jpg,1,458,301,341,230,245,176,9643,4.77,4.03
