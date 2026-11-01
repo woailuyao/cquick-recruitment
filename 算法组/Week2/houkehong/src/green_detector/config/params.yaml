@@ -1,0 +1,20 @@
+# /target_publisher 的参数（用 --ros-args --params-file 加载，或 ros2 param set 现场改）
+target_publisher:
+  ros__parameters:
+    # ---- 颜色阈值：HSV（OpenCV 的 H 是 0~179）；目标是蓝色球 ----
+    # S 下界取 120：把饱和度偏低的蓝天挡在外面（蓝天 S 通常 90~105）
+    hsv_lower: [95, 120, 60]
+    hsv_upper: [130, 255, 255]
+    # ---- 轮廓筛选 ----
+    min_area: 500.0
+    morph_kernel: 5
+    use_open: true
+    use_close: true
+    # ---- 数据源 ----
+    camera_index: -1          # -1 = 用测试图片；0 = 用 /dev/video0
+    image_dir: ""             # 空 = 包的 share/test_images
+    rate_hz: 2.0
+    loop: true
+    # ---- 调试：把每帧标注图存下来 ----
+    save_annotated: false
+    output_dir: out_ros
