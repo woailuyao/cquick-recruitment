@@ -1,0 +1,15 @@
+# colcon 编译产物
+build/
+install/
+log/
+
+# Python 缓存
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# 编辑器
+.vscode/
+.idea/
+
+# 注意：output/ 里的图片和结果是要提交的证据，别忽略它
