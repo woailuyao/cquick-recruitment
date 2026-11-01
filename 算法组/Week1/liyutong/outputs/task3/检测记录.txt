@@ -1,0 +1,8 @@
+               图片                               颜色           掩膜占比 目标数     中心              面积
+01_green_notebook.jpg                green          53.73%    1       (963,1181)      2196866
+02_orange_cream.jpg                  orange          43.78%    1      (2150,1498)     5131695
+03_blue_slipper.jpg                        blue           26.05%    1       (2085,1829)     3271948
+04_pen_small_target.jpg                red             0.28%      1       (1529,2061)     34311
+05_orange_on_orange_trap.jpg    orange         49.60%    1       (1390,1224)     2544175
+06_blue_powerbank.jpg                 blue           37.48%    1       (2110,1548)     4978500
+07_white_powerbank_dark.jpg      white          33.18%    1       (1259,1178)     1871701
