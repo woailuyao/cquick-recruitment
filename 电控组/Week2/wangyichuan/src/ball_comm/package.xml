@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ball_comm</name>
+  <version>0.0.1</version>
+  <description>第 2 周任务 1：自定义 BallPos 消息 + 发布/订阅</description>
+  <maintainer email="wangyichuan@example.com">wangyichuan</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 编译期：把 msg/BallPos.msg 生成 C++/Python 消息代码 -->
+  <build_depend>rosidl_default_generators</build_depend>
+
+  <!-- 运行期：生成出来的消息类型要能被节点 import -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- 发布/订阅节点用 Python 写，需要 rclpy -->
+  <depend>rclpy</depend>
+
+  <!-- 少这一行，colcon build 会报一堆 rosidl 相关的错 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
