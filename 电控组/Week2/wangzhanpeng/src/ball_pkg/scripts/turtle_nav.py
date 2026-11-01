@@ -11,7 +11,7 @@ class TurtleNavigator(Node):
     def __init__(self):
         super().__init__('turtle_navigator')
         self.cmd_pub=self.create_publisher(Twist,'/turtle1/cmd_vel',10)
-        self.ball_sub=self.create_subscription(BallPos,'/ball_pos',self.ball_callback,10)
+        self.ball_sub=self.create_subscription(BallPos,'ball_pos',self.ball_callback,10)
         self.pose_sub=self.create_subscription(Pose,'/turtle1/pose',self.pose_callback,10)
 
         self.balls={}
