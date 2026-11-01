@@ -92,7 +92,8 @@ for contour in target_contours1:
         print("图片1目标框：", x, y, w, h)
         print("图片1质心坐标：", cx, cy)
         print("图片1轮廓面积：", area)
-print("标注图1保存成功：", cv.imwrite("outputs/task3/color1/result.png", result1))
+print("标注图1保存成功：", cv.imwrite("outputs/task3/color1/result.jpg", result1,
+    [cv.IMWRITE_JPEG_QUALITY, 90]))
 
 result2 = image2.copy()
 for contour in target_contours2:
@@ -108,7 +109,7 @@ for contour in target_contours2:
         print("图片2质心坐标：", cx, cy)
         print("图片2轮廓面积：", area)
 print("标注图2保存成功：", cv.imwrite(
-    "outputs/task3/color2/result.png", result2))
+    "outputs/task3/color2/result.jpg", result2, [cv.IMWRITE_JPEG_QUALITY, 90]))
 
 result3 = image3.copy()
 for contour in target_contours3:
@@ -124,4 +125,4 @@ for contour in target_contours3:
         print("图片3质心坐标：", cx, cy)
         print("图片3轮廓面积：", area)
 print("标注图3保存成功：", cv.imwrite(
-    "outputs/task3/color3/result.png", result3))
+    "outputs/task3/color3/result.jpg", result3, [cv.IMWRITE_JPEG_QUALITY, 90]))

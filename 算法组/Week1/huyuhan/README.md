@@ -4,14 +4,19 @@
 
 ## 环境与运行方式
 
-首次解压后，需要在项目根目录创建虚拟环境。
-使用 Python 3.10.11、OpenCV 5.0.0、VS Code 和项目已有的 `.venv`。按任务文档安装依赖，`sys` 是标准库，无需另行安装：
+本次使用 Python 3.10.11、OpenCV 5.0.0 和 VS Code。仓库不包含虚拟环境，首次运行时需要在个人作业目录创建并安装依赖；`sys` 是标准库，无需另行安装。
+
+先在终端进入克隆得到的 `cquick-recruitment` 仓库根目录，再执行以下 PowerShell 命令。此处的相对路径不依赖仓库所在的盘符：
 
 ```powershell
+Set-Location ".\算法组\Week1\huyuhan"
+py -3.10 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install opencv-python numpy matplotlib
 ```
 
-图片统一放在 `data/images/`，视频放在 `data/video/test.mp4`。运行前手动准备下表中的输出目录；任务三还需创建 `color1/`、`color2/`、`color3/` 三个子目录。
+后文“项目根目录”均指这个包含 `README.md`、`src/`、`data/` 和 `outputs/` 的个人作业目录，不是整个仓库根目录。脚本按当前工作目录解析相对路径，运行时应停留在这里。
+
+测试图片已放在 `data/images/`，任务一至三所需的输出目录也已随结果提交，保留这些目录即可运行。
 
 | 任务 | 输入 | 脚本 | 结果目录 |
 |---|---|---|---|
@@ -20,17 +25,23 @@
 | 三 | color1.jpg、color2.jpg、color3.jpg | src/task3_color_detect.py | outputs/task3/|
 | 四 | test.mp4 | src/task4.py | outputs/task4/|
 
-四个脚本均从项目根目录运行，可分别执行：
+任务一至三均从项目根目录运行：
 
 ```powershell
-Set-Location F:\Cquick
 .\.venv\Scripts\python.exe .\src\task1_basics.py
 .\.venv\Scripts\python.exe .\src\task2_processing.py
 .\.venv\Scripts\python.exe .\src\task3_color_detect.py
+```
+
+任务四为选做的视频实验。原测试视频未随仓库提交，因此克隆后不能直接复现该视频实验。需自行准备测试视频，在项目根目录创建 `data/video/` 并将视频命名为 `test.mp4`，再运行：
+
+```powershell
 .\.venv\Scripts\python.exe .\src\task4.py
 ```
 
-任务一至三直接保存结果，`cv.imwrite()` 返回 True 表示保存成功，无需按 S。任务四只显示画面，通过截图记录结果。本文中的图片链接均相对于项目根目录。
+使用其他视频时，检测结果可能与本文截图不同。任务四按 `q` 退出；没有视频时可以先运行任务一至三。
+
+任务一至三直接保存结果，`cv.imwrite()` 返回 True 表示保存成功，无需按 S。任务三的标注图以 JPEG 质量90保存，保留原始图像尺寸以控制文件体积；掩膜和开闭运算结果仍保存为 PNG。任务四只显示画面，通过截图记录结果。本文中的图片链接均相对于项目根目录。
 
 ## 任务一：图像基础操作
 
@@ -143,9 +154,9 @@ HSV分别表示色调H、饱和度S、明度V。本次8位图像中H为0～179�
 
 | 图片 | 原始掩膜 | 开闭运算后 | 标注结果 |
 |---|---|---|---|
-| color1 | [mask.png](outputs/task3/color1/mask.png) | [cleaned.png](outputs/task3/color1/cleaned.png) | [result.png](outputs/task3/color1/result.png) |
-| color2 | [mask.png](outputs/task3/color2/mask.png) | [cleaned.png](outputs/task3/color2/cleaned.png) | [result.png](outputs/task3/color2/result.png) |
-| color3 | [mask.png](outputs/task3/color3/mask.png) | [cleaned.png](outputs/task3/color3/cleaned.png) | [result.png](outputs/task3/color3/result.png) |
+| color1 | [mask.png](outputs/task3/color1/mask.png) | [cleaned.png](outputs/task3/color1/cleaned.png) | [result.jpg](outputs/task3/color1/result.jpg) |
+| color2 | [mask.png](outputs/task3/color2/mask.png) | [cleaned.png](outputs/task3/color2/cleaned.png) | [result.jpg](outputs/task3/color2/result.jpg) |
+| color3 | [mask.png](outputs/task3/color3/mask.png) | [cleaned.png](outputs/task3/color3/cleaned.png) | [result.jpg](outputs/task3/color3/result.jpg) |
 
 三张图均生成主体框，但color2的分割不完整。目标与背景颜色区别明显时效果较好，强反光和相近颜色背景容易造成漏选或误选。
 
@@ -190,3 +201,4 @@ color2的强反光处在原图很亮，掩膜中却是黑色。取样位置 `[50
 ![书本场景底部背景被误检](outputs/task4/03.png)
 
 底部干扰区域通过了颜色和面积筛选，说明仅设置最小面积不能排除较大的相近颜色背景。后续可尝试加入宽高比或轮廓形状条件，并检查是否会误删旋转后的目标；本次保留误检结果，尚未加入这些改进。
+
