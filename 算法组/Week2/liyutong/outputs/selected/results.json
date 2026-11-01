@@ -1,0 +1,139 @@
+{
+  "results": [
+    {
+      "input": "images\\clear.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          200,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 100.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 997.0394728052672,
+      "v": 925.3962412107588,
+      "area": 459084.0,
+      "annotated": "outputs\\real_selected\\000001_clear_annotated.png",
+      "mask": "outputs\\real_selected\\000001_clear_mask.png",
+      "error": null,
+      "width": 2104,
+      "height": 1992
+    },
+    {
+      "input": "images\\small.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          200,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 100.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 1207.7650991798973,
+      "v": 809.0411539696411,
+      "area": 156769.0,
+      "annotated": "outputs\\real_selected\\000002_small_annotated.png",
+      "mask": "outputs\\real_selected\\000002_small_mask.png",
+      "error": null,
+      "width": 2364,
+      "height": 1773
+    },
+    {
+      "input": "images\\background.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          200,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 100.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 1181.6416976362177,
+      "v": 938.0941991543815,
+      "area": 1347022.0,
+      "annotated": "outputs\\real_selected\\000003_background_annotated.png",
+      "mask": "outputs\\real_selected\\000003_background_mask.png",
+      "error": null,
+      "width": 2249,
+      "height": 1864
+    },
+    {
+      "input": "images\\lighting.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          200,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 100.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 1151.8789404941076,
+      "v": 580.8599689985621,
+      "area": 495998.5,
+      "annotated": "outputs\\real_selected\\000004_lighting_annotated.png",
+      "mask": "outputs\\real_selected\\000004_lighting_mask.png",
+      "error": null,
+      "width": 2364,
+      "height": 1773
+    },
+    {
+      "input": "images\\absent.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          200,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 100.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": false,
+      "u": 0.0,
+      "v": 0.0,
+      "area": 0.0,
+      "annotated": "outputs\\real_selected\\000005_absent_annotated.png",
+      "mask": "outputs\\real_selected\\000005_absent_mask.png",
+      "error": null,
+      "width": 2364,
+      "height": 1773
+    }
+  ]
+}
