@@ -1,7 +1,7 @@
 # 第 2 周考核 · 袁佳欣
 
 - 姓名：袁佳欣（yuanjiaxin）
-- 完成日期：2026-10-30
+- 完成日期：2026-11-1
 - Ubuntu / ROS2 / Python / OpenCV 版本：Ubuntu 22.04 / ROS2 Humble / Python 3.10.12 / OpenCV 4.11.0
 
 ### 数据来源说明
