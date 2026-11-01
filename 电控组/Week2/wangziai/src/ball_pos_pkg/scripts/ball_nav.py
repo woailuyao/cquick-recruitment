@@ -56,11 +56,7 @@ class BallNav(Node):
 
     def control(self):
         if self.pose == None or len(self.targets) != 3 or self.idx == 3:
-            if self.idx == 3 and self.linear_x > 0.0:
-                # 三个球都走完：发一次零速度刹停，避免乌龟一直往前冲
-                self.linear_x = 0.0
-                self.angular_z = 0.0
-                self.cmd_pub.publish(Twist())
+            pass
         else:
             now = time.monotonic()
             dt = now - self.con_time                            # 秒（仅用于日志观察）
@@ -110,7 +106,6 @@ class BallNav(Node):
             if d <= 0.3:
                 self.idx += 1
                 self.get_logger().info(f'到达第 {self.idx} 个球，实际坐标 ({self.pose[0]:.3f}, {self.pose[1]:.3f})，误差 {d:.3f}')
-                self.cmd_pub.publish(Twist())   # 到点先刹停，避免带着速度切下一个目标
 
             self.con_time = time.monotonic()
 
