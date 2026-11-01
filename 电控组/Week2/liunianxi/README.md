@@ -55,9 +55,20 @@
 
 ## 五、踩过的坑 & 怎么解决的
 
-1. **建包时一直报错，不知道为什么不成功** → 一开始没搞清楚 `ament_python` 和 `ament_cmake` 的区别，随便选了一个就往里加 `.msg`，怎么都编不过；问了之后才明白「Python 包没有编译阶段，自定义消息必须走 CMake 去生成接口代码」这个缺陷 → 最后老老实实改用 `--build-type ament_cmake` 建包，问题解决。
-2. **编译到链接阶段报一堆 `rosidl` 错** → 看不懂报错，就去查，最后发现是 `package.xml` 里漏了「声明本包属于接口包分组」的那一行 → 补上 `member_of_group` 之后重新 `colcon build` 通过。
-3. **`ros2 topic info` 一开始显示 Publisher count: 0** → 节点刚起来，发现还没完成 → 等几秒再查就变成 1 / 1 了。
+1. **建包就报错，往里加 `.msg` 怎么都编不过**
+   - 现象：`colcon build` 一路红字，一开始以为是 `BallPos.msg` 里类型或格式写错了，改了几遍没用。
+   - 怎么查：`ros2 pkg create --help` 对比两种 build-type，再看自己建出来的 `package.xml`，是 `ament_python`。
+   - 结论：**Python 包没有编译阶段**，不会帮你生成接口代码，自定义消息必须走 CMake 那条路。改用 `--build-type ament_cmake` 重建，问题消失。
+
+2. **编译到链接阶段报一堆 `rosidl` 错**
+   - 现象：消息文件没报错，但生成 C/C++ 接口那一步失败，满屏 `rosidl` / `member_of_group` 关键字。
+   - 怎么查：把报错关键词原样搜，对照官方教程的「自定义 msg」那一节，逐行比 `package.xml`。
+   - 结论：漏了「声明本包属于接口包分组」那一行，补上 `<member_of_group>rosidl_interface_packages</member_of_group>` 再 `colcon build` 就过了。
+
+3. **`ros2 topic info /ball_pos` 一度显示 Publisher count: 0，订阅端一条也收不到**
+   - 现象：发布者窗口明明在刷「发送 id=1/2/3」，订阅端却干等，`topic info` 显示 0 个发布者。
+   - 怎么查：先确认两边都在跑（看各自日志），再换个终端 `ros2 topic list` 看话题在不在；发现只是查询时机太早。
+   - 结论：节点刚起来、发现还没同步完，等几秒再查就是 `Publisher 1 / Subscription 1`；拿不准时加 `--verbose` 直接看两边的 GID 是否对得上。
 
 ## 六、给下周自己的提醒
 
