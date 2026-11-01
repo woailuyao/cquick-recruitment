@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 轨迹记录器：订阅 /turtle1/pose，把乌龟真实走过的 (x, y) 存成 CSV。
-用法: ./record_pose.py /home/miku/shots/pose.csv
+用法: ./record_pose.py [输出路径，默认当前目录下的 pose.csv]
 """
 import csv
 import sys
@@ -34,7 +34,7 @@ class PoseRecorder(Node):
 
 
 def main():
-    path = sys.argv[1] if len(sys.argv) > 1 else '/home/miku/shots/pose.csv'
+    path = sys.argv[1] if len(sys.argv) > 1 else 'pose.csv'
     rclpy.init()
     node = PoseRecorder(path)
     try:

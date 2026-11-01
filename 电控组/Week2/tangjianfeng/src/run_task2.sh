@@ -7,10 +7,21 @@
 #   5) 导出画布 SVG，并打印完整日志
 set +u
 
-OUT_DIR="${1:-/home/miku/shots}"
+# 相对路径推导：本脚本所在目录（.../src）与其父目录（工作空间根）
+SRC_DIR="$(cd "$(dirname "$0")" && pwd)"
+WS_DIR="${ROS_WS:-$(dirname "$SRC_DIR")}"
+OUT_DIR="${1:-$PWD/shots}"
+
 mkdir -p "$OUT_DIR"
 source /opt/ros/humble/setup.bash
-source /home/miku/ros2_ws/install/setup.bash
+
+if [ -f "$WS_DIR/install/setup.bash" ]; then
+  source "$WS_DIR/install/setup.bash"
+else
+  echo "[WARN] 没找到 $WS_DIR/install/setup.bash"
+  echo "       先 colcon build，或用 ROS_WS 指定工作空间："
+  echo "       ROS_WS=~/ros2_ws $0"
+fi
 
 # 清理可能存在的旧实例
 pkill -f turtlesim_node 2>/dev/null
@@ -42,7 +53,7 @@ ros2 run cquick_ball ball_publisher > "$OUT_DIR/publisher.log" 2>&1 &
 PUB_PID=$!
 
 # 轨迹记录器：把乌龟真实位姿写成 CSV
-/usr/bin/python3 /home/miku/ros2_ws/tools/record_pose.py "$OUT_DIR/pose.csv" \
+/usr/bin/python3 "$SRC_DIR/tools/record_pose.py" "$OUT_DIR/pose.csv" \
   > "$OUT_DIR/recorder.log" 2>&1 &
 REC_PID=$!
 sleep 1
