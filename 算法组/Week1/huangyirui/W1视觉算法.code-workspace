@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "name": "W1视觉算法",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "python.defaultInterpreterPath": "C:\\Users\\31816\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.analysis.extraPaths": [
+      "${workspaceFolder}/src"
+    ],
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "terminal.integrated.env.windows": {
+      "PYTHONUTF8": "1",
+      "PYTHONIOENCODING": "utf-8",
+      "MPLCONFIGDIR": "D:\\DeepSeek\\_tools\\mpl-cache",
+      "TMP": "D:\\DeepSeek\\_tools\\tmp",
+      "TEMP": "D:\\DeepSeek\\_tools\\tmp",
+      "TMPDIR": "D:\\DeepSeek\\_tools\\tmp"
+    },
+    "files.encoding": "utf8",
+    "files.autoSave": "afterDelay",
+    "files.exclude": {
+      "**/__pycache__": true
+    }
+  }
+}
