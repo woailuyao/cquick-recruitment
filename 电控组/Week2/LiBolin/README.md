@@ -41,7 +41,7 @@
 
 | 通信方式 | 模型 | 特点 | 足球机器人场景 |
 |---|---|---|---|
-| 话题 Topic | 发布-订阅（publisher-subscriber） | | |
+| 话题 Topic | 发布-订阅（publisher-subscriber） |信息只由pub到sub单向传递，持续发布，无应答 | |
 | 服务 Service |请求-应答（request-response） | | |
 | 动作 Action | 目标-反馈-结果（goal-feedback-result）| | |
 
