@@ -9,9 +9,9 @@ class BallPublisher(Node):
         self.publisher_ = self.create_publisher(BallPos, 'ball_pos', 10)
         
         self.balls = [
-            (1, 1.0, 2.0), 
-            (2, 3.0, 4.0), 
-            (3, 5.0, 6.0)
+            (1, 2.0, 3.0), 
+            (2, 5.5, 8.0), 
+            (3, 9.0, 4.0)
         ]
         
         self.current_index = 0
