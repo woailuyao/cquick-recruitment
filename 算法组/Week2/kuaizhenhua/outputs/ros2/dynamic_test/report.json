@@ -1,0 +1,32 @@
+{
+  "name": "kuaizhenhua",
+  "started_at": "2026-10-31T18:11:54+08:00",
+  "finished_at": "2026-10-31T18:12:15+08:00",
+  "scope": "真实ROS2进程收发验收，可由本人或助手运行；日志不替代本人操作截图。",
+  "input": "data/real_images",
+  "ros_distro": "humble",
+  "topic": "/target_position",
+  "message_type": "color_target_interfaces/msg/TargetPosition",
+  "phases": [
+    {
+      "name": "baseline",
+      "lower_v": 70,
+      "received_count": 15,
+      "detected_true": 12,
+      "detected_false": 3,
+      "ordered_values_match_images": true,
+      "summary_file": "baseline/subscriber_20261031T101158_091897Z/summary.json"
+    },
+    {
+      "name": "lower_v_40",
+      "lower_v": 40,
+      "received_count": 15,
+      "detected_true": 12,
+      "detected_false": 3,
+      "ordered_values_match_images": true,
+      "summary_file": "lower_v_40/subscriber_20261031T101207_511246Z/summary.json"
+    }
+  ],
+  "dynamic_parameter_verified": true,
+  "passed": true
+}

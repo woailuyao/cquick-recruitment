@@ -1,0 +1,70 @@
+{
+  "synthetic": true,
+  "source": "prepare_demo_images.py",
+  "purpose": "算法预演；不代替本人照片、观察、ROS2运行或截图",
+  "images": [
+    {
+      "file": "01_clear.png",
+      "width": 640,
+      "height": 480,
+      "intended_center_uv": [
+        220,
+        240
+      ],
+      "note": "清晰蓝色圆，半径60像素。",
+      "sha256": "7d92ca4ca36dbe18a42bd80ce9ae4427a6a9146aa36a0cc507e90f50f62db52a"
+    },
+    {
+      "file": "02_small.png",
+      "width": 640,
+      "height": 480,
+      "intended_center_uv": [
+        330,
+        250
+      ],
+      "note": "小蓝圆；默认面积门槛500会漏掉，改为100后应检出。",
+      "sha256": "7db7ee9f5bee6835e7cbb08b24e6b959ea9b8f60a47625567777765e28f4ebea"
+    },
+    {
+      "file": "03_clutter.png",
+      "width": 640,
+      "height": 480,
+      "intended_center_uv": [
+        420,
+        230
+      ],
+      "note": "其他颜色和蓝色小噪点；蓝圆为目标。",
+      "sha256": "5301d269c7d7035c46bcbe62822030fa8ed23b629d2b39e5c80b53d5537a5f7e"
+    },
+    {
+      "file": "04_dark.png",
+      "width": 640,
+      "height": 480,
+      "intended_center_uv": [
+        220,
+        240
+      ],
+      "note": "只把清晰圆亮度降到V=50；默认V下限70会漏检。",
+      "sha256": "3fdbbac028f741cb9242b9123deb6ed0968d3c433ea0ec76fafaa5fac7d3a8a0"
+    },
+    {
+      "file": "05_same_color.png",
+      "width": 640,
+      "height": 480,
+      "intended_center_uv": [
+        220,
+        240
+      ],
+      "note": "左侧圆是预定目标；右侧同色矩形更大，最大面积规则会误选右侧。",
+      "sha256": "773b298bd65c9dbac8790d4f29dc3e9e943ec5d322aab0dd0097b423bcc34f2d"
+    },
+    {
+      "file": "06_absent.png",
+      "width": 640,
+      "height": 480,
+      "intended_center_uv": null,
+      "note": "没有蓝色目标；必须返回detected=false且三个数值为0。",
+      "sha256": "abc66d4aaa3d0881c07885d77d5f1c205359aec35a45fd72f333df91286022b3"
+    }
+  ]
+}

@@ -1,0 +1,602 @@
+{
+  "schema_version": 1,
+  "record_type": "automatic_run",
+  "note": "自动运行结果，需结合图像核对；不代表本人实操已完成。",
+  "parameters": {
+    "hsv_lower": [
+      95,
+      80,
+      70
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "min_area": 500.0,
+    "open_kernel": 3,
+    "close_kernel": 5
+  },
+  "results": [
+    {
+      "filename": "01_stress_ball.jpg",
+      "width": 1024,
+      "height": 768,
+      "detected": true,
+      "u": 508.0762180952912,
+      "v": 380.06135659947495,
+      "area": 80689.5,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "u": 508.0762180952912,
+          "v": 380.06135659947495,
+          "area": 80689.5,
+          "bbox": {
+            "x": 346,
+            "y": 220,
+            "width": 325,
+            "height": 323
+          },
+          "rank": 1,
+          "selected": true
+        }
+      ],
+      "source_sha256": "580aae9b72a50e495492f5bc4f780f2c2346d5e11a3c93541867573ea11b560d",
+      "output_subdirectory": "01_01_stress_ball",
+      "files": {
+        "raw_mask": "01_01_stress_ball/01_mask_raw.png",
+        "mask": "01_01_stress_ball/02_mask.png",
+        "annotated": "01_01_stress_ball/03_result.png",
+        "comparison": "01_01_stress_ball/04_comparison.png"
+      }
+    },
+    {
+      "filename": "02_table_ball.jpg",
+      "width": 960,
+      "height": 623,
+      "detected": true,
+      "u": 233.37945376687767,
+      "v": 358.3740447067019,
+      "area": 8134.5,
+      "candidate_count": 1,
+      "candidates": [
+        {
+          "u": 233.37945376687767,
+          "v": 358.3740447067019,
+          "area": 8134.5,
+          "bbox": {
+            "x": 176,
+            "y": 307,
+            "width": 108,
+            "height": 118
+          },
+          "rank": 1,
+          "selected": true
+        }
+      ],
+      "source_sha256": "35000c76d3a516499131689bc7e4bac74fd2867b69e8f59dfd81a25ed5bfb03c",
+      "output_subdirectory": "02_02_table_ball",
+      "files": {
+        "raw_mask": "02_02_table_ball/01_mask_raw.png",
+        "mask": "02_02_table_ball/02_mask.png",
+        "annotated": "02_02_table_ball/03_result.png",
+        "comparison": "02_02_table_ball/04_comparison.png"
+      }
+    },
+    {
+      "filename": "03_blue_flower.jpg",
+      "width": 960,
+      "height": 951,
+      "detected": true,
+      "u": 408.6701223967848,
+      "v": 194.8762178784557,
+      "area": 21896.0,
+      "candidate_count": 33,
+      "candidates": [
+        {
+          "u": 408.6701223967848,
+          "v": 194.8762178784557,
+          "area": 21896.0,
+          "bbox": {
+            "x": 217,
+            "y": 70,
+            "width": 343,
+            "height": 269
+          },
+          "rank": 1,
+          "selected": true
+        },
+        {
+          "u": 237.12087173579107,
+          "v": 425.4742943548387,
+          "area": 6944.0,
+          "bbox": {
+            "x": 107,
+            "y": 399,
+            "width": 271,
+            "height": 61
+          },
+          "rank": 2,
+          "selected": false
+        },
+        {
+          "u": 238.23111475084374,
+          "v": 342.4883611276553,
+          "area": 6716.0,
+          "bbox": {
+            "x": 116,
+            "y": 296,
+            "width": 251,
+            "height": 98
+          },
+          "rank": 3,
+          "selected": false
+        },
+        {
+          "u": 336.36643877802413,
+          "v": 556.3862712490761,
+          "area": 5412.0,
+          "bbox": {
+            "x": 214,
+            "y": 489,
+            "width": 206,
+            "height": 119
+          },
+          "rank": 4,
+          "selected": false
+        },
+        {
+          "u": 251.6549024145645,
+          "v": 505.7183136619609,
+          "area": 4321.0,
+          "bbox": {
+            "x": 166,
+            "y": 460,
+            "width": 170,
+            "height": 88
+          },
+          "rank": 5,
+          "selected": false
+        },
+        {
+          "u": 571.2272524982804,
+          "v": 228.6026621353724,
+          "area": 4119.5,
+          "bbox": {
+            "x": 514,
+            "y": 141,
+            "width": 127,
+            "height": 175
+          },
+          "rank": 6,
+          "selected": false
+        },
+        {
+          "u": 504.41359655220356,
+          "v": 590.7086519301172,
+          "area": 3596.5,
+          "bbox": {
+            "x": 464,
+            "y": 514,
+            "width": 80,
+            "height": 155
+          },
+          "rank": 7,
+          "selected": false
+        },
+        {
+          "u": 686.6431162549663,
+          "v": 396.8482754649623,
+          "area": 2894.5,
+          "bbox": {
+            "x": 597,
+            "y": 378,
+            "width": 180,
+            "height": 42
+          },
+          "rank": 8,
+          "selected": false
+        },
+        {
+          "u": 587.4462451647325,
+          "v": 579.7851140456182,
+          "area": 2499.0,
+          "bbox": {
+            "x": 544,
+            "y": 532,
+            "width": 85,
+            "height": 125
+          },
+          "rank": 9,
+          "selected": false
+        },
+        {
+          "u": 197.8700075930144,
+          "v": 576.4993166287016,
+          "area": 2195.0,
+          "bbox": {
+            "x": 145,
+            "y": 552,
+            "width": 113,
+            "height": 49
+          },
+          "rank": 10,
+          "selected": false
+        },
+        {
+          "u": 377.28296122209167,
+          "v": 338.5027810419115,
+          "area": 2127.5,
+          "bbox": {
+            "x": 320,
+            "y": 269,
+            "width": 95,
+            "height": 119
+          },
+          "rank": 11,
+          "selected": false
+        },
+        {
+          "u": 222.32042141951837,
+          "v": 273.68037072243345,
+          "area": 2104.0,
+          "bbox": {
+            "x": 160,
+            "y": 244,
+            "width": 116,
+            "height": 58
+          },
+          "rank": 12,
+          "selected": false
+        },
+        {
+          "u": 671.3279792746114,
+          "v": 287.06968911917096,
+          "area": 1930.0,
+          "bbox": {
+            "x": 602,
+            "y": 246,
+            "width": 131,
+            "height": 83
+          },
+          "rank": 13,
+          "selected": false
+        },
+        {
+          "u": 537.98437331609,
+          "v": 481.16025433775184,
+          "area": 1546.5,
+          "bbox": {
+            "x": 498,
+            "y": 448,
+            "width": 73,
+            "height": 58
+          },
+          "rank": 14,
+          "selected": false
+        },
+        {
+          "u": 414.00975609756097,
+          "v": 611.9913279132791,
+          "area": 1537.5,
+          "bbox": {
+            "x": 390,
+            "y": 572,
+            "width": 61,
+            "height": 72
+          },
+          "rank": 15,
+          "selected": false
+        },
+        {
+          "u": 645.1538461538462,
+          "v": 223.15901934322983,
+          "area": 1482.0,
+          "bbox": {
+            "x": 606,
+            "y": 193,
+            "width": 79,
+            "height": 67
+          },
+          "rank": 16,
+          "selected": false
+        },
+        {
+          "u": 623.451921993011,
+          "v": 495.3157479427347,
+          "area": 1478.5,
+          "bbox": {
+            "x": 576,
+            "y": 469,
+            "width": 90,
+            "height": 50
+          },
+          "rank": 17,
+          "selected": false
+        },
+        {
+          "u": 355.3137552742616,
+          "v": 668.8455696202532,
+          "area": 987.5,
+          "bbox": {
+            "x": 336,
+            "y": 631,
+            "width": 43,
+            "height": 84
+          },
+          "rank": 18,
+          "selected": false
+        },
+        {
+          "u": 695.8557692307693,
+          "v": 621.6076546003017,
+          "area": 884.0,
+          "bbox": {
+            "x": 655,
+            "y": 590,
+            "width": 82,
+            "height": 69
+          },
+          "rank": 19,
+          "selected": false
+        },
+        {
+          "u": 388.75308641975306,
+          "v": 745.8039886039886,
+          "area": 877.5,
+          "bbox": {
+            "x": 366,
+            "y": 715,
+            "width": 42,
+            "height": 60
+          },
+          "rank": 20,
+          "selected": false
+        },
+        {
+          "u": 170.94116512345678,
+          "v": 372.17496141975306,
+          "area": 864.0,
+          "bbox": {
+            "x": 133,
+            "y": 360,
+            "width": 76,
+            "height": 31
+          },
+          "rank": 21,
+          "selected": false
+        },
+        {
+          "u": 488.3878606965174,
+          "v": 395.3219900497512,
+          "area": 837.5,
+          "bbox": {
+            "x": 470,
+            "y": 378,
+            "width": 43,
+            "height": 35
+          },
+          "rank": 22,
+          "selected": false
+        },
+        {
+          "u": 562.5466581251334,
+          "v": 386.3203074951954,
+          "area": 780.5,
+          "bbox": {
+            "x": 537,
+            "y": 372,
+            "width": 61,
+            "height": 31
+          },
+          "rank": 23,
+          "selected": false
+        },
+        {
+          "u": 446.29017566688356,
+          "v": 471.50227716330517,
+          "area": 768.5,
+          "bbox": {
+            "x": 424,
+            "y": 445,
+            "width": 44,
+            "height": 47
+          },
+          "rank": 24,
+          "selected": false
+        },
+        {
+          "u": 262.7377349839523,
+          "v": 658.29527739569,
+          "area": 727.0,
+          "bbox": {
+            "x": 226,
+            "y": 629,
+            "width": 58,
+            "height": 80
+          },
+          "rank": 25,
+          "selected": false
+        },
+        {
+          "u": 333.6912983425414,
+          "v": 634.5504143646409,
+          "area": 724.0,
+          "bbox": {
+            "x": 320,
+            "y": 607,
+            "width": 29,
+            "height": 75
+          },
+          "rank": 26,
+          "selected": false
+        },
+        {
+          "u": 404.55001241002725,
+          "v": 266.60213452469594,
+          "area": 671.5,
+          "bbox": {
+            "x": 394,
+            "y": 226,
+            "width": 26,
+            "height": 79
+          },
+          "rank": 27,
+          "selected": false
+        },
+        {
+          "u": 440.8533854166666,
+          "v": 673.1901041666666,
+          "area": 640.0,
+          "bbox": {
+            "x": 430,
+            "y": 649,
+            "width": 25,
+            "height": 55
+          },
+          "rank": 28,
+          "selected": false
+        },
+        {
+          "u": 733.1373836891078,
+          "v": 293.896004378763,
+          "area": 609.0,
+          "bbox": {
+            "x": 708,
+            "y": 274,
+            "width": 50,
+            "height": 33
+          },
+          "rank": 29,
+          "selected": false
+        },
+        {
+          "u": 697.3803382057896,
+          "v": 487.6296933218687,
+          "area": 581.5,
+          "bbox": {
+            "x": 667,
+            "y": 473,
+            "width": 64,
+            "height": 27
+          },
+          "rank": 30,
+          "selected": false
+        },
+        {
+          "u": 641.8723710746182,
+          "v": 177.36675309709017,
+          "area": 578.5,
+          "bbox": {
+            "x": 618,
+            "y": 151,
+            "width": 46,
+            "height": 49
+          },
+          "rank": 31,
+          "selected": false
+        },
+        {
+          "u": 450.266171463943,
+          "v": 736.3454038997214,
+          "area": 538.5,
+          "bbox": {
+            "x": 436,
+            "y": 708,
+            "width": 25,
+            "height": 59
+          },
+          "rank": 32,
+          "selected": false
+        },
+        {
+          "u": 665.2090880203367,
+          "v": 572.5999364474102,
+          "area": 524.5,
+          "bbox": {
+            "x": 643,
+            "y": 551,
+            "width": 49,
+            "height": 38
+          },
+          "rank": 33,
+          "selected": false
+        }
+      ],
+      "source_sha256": "e8262e79ad7a71d0171ac0bbc137dd4c5d6320b48f74bc069d42b9632e660a81",
+      "output_subdirectory": "03_03_blue_flower",
+      "files": {
+        "raw_mask": "03_03_blue_flower/01_mask_raw.png",
+        "mask": "03_03_blue_flower/02_mask.png",
+        "annotated": "03_03_blue_flower/03_result.png",
+        "comparison": "03_03_blue_flower/04_comparison.png"
+      }
+    },
+    {
+      "filename": "04_blue_balloon.jpg",
+      "width": 960,
+      "height": 640,
+      "detected": true,
+      "u": 442.58864497037564,
+      "v": 493.9609951266993,
+      "area": 153421.0,
+      "candidate_count": 2,
+      "candidates": [
+        {
+          "u": 442.58864497037564,
+          "v": 493.9609951266993,
+          "area": 153421.0,
+          "bbox": {
+            "x": 168,
+            "y": 304,
+            "width": 585,
+            "height": 336
+          },
+          "rank": 1,
+          "selected": true
+        },
+        {
+          "u": 557.9754290755283,
+          "v": 74.45460082913907,
+          "area": 126959.0,
+          "bbox": {
+            "x": 0,
+            "y": 0,
+            "width": 960,
+            "height": 253
+          },
+          "rank": 2,
+          "selected": false
+        }
+      ],
+      "source_sha256": "64e845b92853cfc318bf407aa117ce4f8a5a25a215f77f005f012869c9f9f663",
+      "output_subdirectory": "04_04_blue_balloon",
+      "files": {
+        "raw_mask": "04_04_blue_balloon/01_mask_raw.png",
+        "mask": "04_04_blue_balloon/02_mask.png",
+        "annotated": "04_04_blue_balloon/03_result.png",
+        "comparison": "04_04_blue_balloon/04_comparison.png"
+      }
+    },
+    {
+      "filename": "05_red_ball.jpg",
+      "width": 960,
+      "height": 640,
+      "detected": false,
+      "u": 0.0,
+      "v": 0.0,
+      "area": 0.0,
+      "candidate_count": 0,
+      "candidates": [],
+      "source_sha256": "803f995abf86bb5e1bdb4a5920060292b17f29eb78af023236dce33f30d3f4dc",
+      "output_subdirectory": "05_05_red_ball",
+      "files": {
+        "raw_mask": "05_05_red_ball/01_mask_raw.png",
+        "mask": "05_05_red_ball/02_mask.png",
+        "annotated": "05_05_red_ball/03_result.png",
+        "comparison": "05_05_red_ball/04_comparison.png"
+      }
+    }
+  ]
+}

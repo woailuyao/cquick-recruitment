@@ -1,0 +1,11 @@
+{
+  "node": "target_subscriber",
+  "topic": "/target_position",
+  "started_at_utc": "2026-10-31T10:12:07.511043+00:00",
+  "finished_at_utc": "2026-10-31T10:12:14.842100+00:00",
+  "received_count": 15,
+  "at_least_10_received": true,
+  "end_reason": "max_messages",
+  "records_file": "received.jsonl",
+  "scope": "本节点实际接收记录；条数达标不等于视觉识别准确率。"
+}

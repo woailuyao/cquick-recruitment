@@ -1,0 +1,14 @@
+# Python缓存和本地环境不提交。
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# colcon生成目录不提交；源码、实测截图、少量结果应保留。
+build/
+install/
+log/
+*.zip
+*.avi
+*.mp4
