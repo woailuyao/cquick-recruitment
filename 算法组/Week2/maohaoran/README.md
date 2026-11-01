@@ -16,7 +16,7 @@
 ## 目录结构
 
 ```text
-视觉组/Week2/maohaoran/
+算法组/Week2/maohaoran/
 ├── 01_检测输出.png           任务 1 终端输出（含姓名、时间戳）
 ├── 02_结果可视化.png         原图 vs 标注图
 ├── 02_参数对比.png           4 组参数对比汇总
@@ -44,7 +44,7 @@
 
 ```bash
 # 任务 1、2：需要 Python + opencv-python + numpy
-cd 视觉组/Week2/maohaoran
+cd 算法组/Week2/maohaoran
 python src/task1_detect.py        # 结果写入 outputs/task1/
 python src/task2_visualize.py     # 结果写入 outputs/task2/
 python src/make_summary_images.py # 结果写入 outputs/summary/

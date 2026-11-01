@@ -1,7 +1,7 @@
 """任务 1：HSV 颜色分割 + 轮廓筛选 + 目标中心点。
 
 运行：
-    cd 视觉组/Week2/maohaoran
+    cd 算法组/Week2/maohaoran
     python src/task1_detect.py
 
 输出：

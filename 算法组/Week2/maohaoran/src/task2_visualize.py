@@ -1,7 +1,7 @@
 """任务 2：检测结果可视化 + 参数对比实验。
 
 运行：
-    cd 视觉组/Week2/maohaoran
+    cd 算法组/Week2/maohaoran
     python src/task2_visualize.py
 
 输出到 outputs/task2/：
