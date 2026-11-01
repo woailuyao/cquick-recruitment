@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_turtle_nav</name>
+  <version>0.0.1</version>
+  <description>第2周任务2：订阅 ball_pos，按 1->2->3 闭环走到三个球坐标</description>
+  <maintainer email="chenqishu@todo.todo">chenqishu</maintainer>
+  <license>Apache-2.0</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
+  <exec_depend>cquick_ball_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
