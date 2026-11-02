@@ -9,6 +9,9 @@
 我定义了 BallPos 消息（int32 id、float32 x、float32 y），用 ament_cmake 包编译，
 写了一个发布者每 0.5 秒发三颗球（坐标 2.0/3.0、5.5/8.0、9.0/4.0），
 另一个订阅者接收并打印。
+改参数观察：把发布频率从 0.5 秒（2 Hz）改成 0.2 秒（5 Hz）后，
+订阅端的打印密度明显变高，约是原来的 2.5 倍；说明两端的频率是一致的，
+只是发送节奏变快了。验证完已改回 0.5 秒。
 
 踩过的坑：
 - ros2 run 报 No executable found：CMakeLists.txt 少了 install(PROGRAMS ...)，
