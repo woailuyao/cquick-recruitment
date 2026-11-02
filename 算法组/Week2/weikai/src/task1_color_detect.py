@@ -65,7 +65,7 @@ def detect_target(img, lower, upper, min_area=MIN_AREA, kernel_size=KERNEL_SIZE)
     约定：未检测到时 detected=False，u/v/area 全为 0（不能用未初始化坐标）。
     """
     result = {"detected": False, "u": 0.0, "v": 0.0, "area": 0.0,
-              "radius": 0.0, "candidates": [], "mask": None, "contour": None}
+              "candidates": [], "mask": None, "contour": None}
 
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     lower_np = np.array(lower, dtype=np.uint8)
@@ -109,50 +109,10 @@ def detect_target(img, lower, upper, min_area=MIN_AREA, kernel_size=KERNEL_SIZE)
     best = candidates[0]
     result["detected"] = True
     result["area"] = best[0]
-    # 两级定位：颜色粗定位(白色质心) -> 霍夫圆精定位(球的几何中心)
-    result["u"], result["v"], result["radius"] = refine_with_hough(
-        img, best[3], best[1], best[2])
+    result["u"] = best[1]
+    result["v"] = best[2]
     result["contour"] = best[3]
     return result
-
-
-def refine_with_hough(img, contour, cx, cy):
-    """颜色粗定位之后，在候选的局部区域用霍夫圆变换做形状精定位。
-
-    为什么需要这一步：纯颜色法的质心是「白色像素的质心」——球面黑色贴片
-    和下半球阴影把白色区域挖掉一大块，质心会被拉向亮部，偏离真实球心。
-    但球是圆的：用霍夫圆在候选附近找「圆形」，可以把中心修正到球的几何中心，
-    这就是「颜色找哪里可能有球 + 形状确认球到底在哪」的特征融合。
-
-    返回 (u, v, radius)。霍夫找不到合适圆时，退回「凸包 + 最小外接圆」——
-    仍比裸质心稳（凸包能把被挖掉的白块缺口包回来），只是精度略低。
-    """
-    x, y, w, h = cv2.boundingRect(contour)
-    r_est = max(w, h) / 2.0
-    # 局部 ROI：外接矩形向外扩一个估计半径，给被阴影切掉的下半球留出空间
-    pad = int(r_est)
-    x0, y0 = max(0, x - pad), max(0, y - pad)
-    x1 = min(img.shape[1], x + w + pad)
-    y1 = min(img.shape[0], y + h + pad)
-    roi = img[y0:y1, x0:x1]
-    gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
-    gray = cv2.medianBlur(gray, 5)                  # 霍夫对噪声敏感，先平滑
-    circles = cv2.HoughCircles(
-        gray, cv2.HOUGH_GRADIENT, dp=1,
-        minDist=max(2 * r_est, 10),                 # 局部区域只有一个球，间距放开
-        param1=120,                                 # Canny 高阈值
-        param2=30,                                  # 圆心累加器阈值：越小越容易检出圆
-        minRadius=int(r_est * 0.5), maxRadius=int(r_est * 1.5))
-    if circles is not None:
-        circles = np.round(circles[0, :]).astype(float)
-        # 局部可能有多个圆，取「离颜色质心最近」的那个：颜色结果做门控，防止跳到别的圆形物体上
-        dist2 = (circles[:, 0] + x0 - cx) ** 2 + (circles[:, 1] + y0 - cy) ** 2
-        bc = circles[int(np.argmin(dist2))]
-        return float(bc[0] + x0), float(bc[1] + y0), float(bc[2])
-    # 霍夫失败 -> 凸包 + 最小外接圆
-    hull = cv2.convexHull(contour)
-    (fx, fy), fr = cv2.minEnclosingCircle(hull)
-    return float(fx), float(fy), float(fr)
 
 
 def draw_result(img, result, color=(0, 255, 0)):
@@ -164,9 +124,6 @@ def draw_result(img, result, color=(0, 255, 0)):
         x, y, w, h = cv2.boundingRect(c)
         cv2.rectangle(vis, (x, y), (x + w, y + h), (255, 0, 0), 2)
         u, v = int(round(result["u"])), int(round(result["v"]))
-        r = int(round(result.get("radius", 0.0)))
-        if r > 0:   # 霍夫圆/外接圆：形状精定位结果（黄色），能看出圆心是否在球心
-            cv2.circle(vis, (u, v), r, (0, 255, 255), 2)
         cv2.drawMarker(vis, (u, v), (0, 0, 255), cv2.MARKER_CROSS, 16, 2)
         cv2.circle(vis, (u, v), 4, (0, 0, 255), -1)
         text = "u=%d, v=%d, area=%.0f" % (u, v, result["area"])
