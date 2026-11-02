@@ -1,0 +1,15 @@
+﻿step,param,noise_std,sharpness,edge_pixels,fg_ratio,blobs
+gray,-,2.12,41.2,2007,-,-
+mean_k5,mean_ksize=5,0.96,2.0,2002,-,-
+gauss_k5,gauss_ksize=5,1.13,2.7,2006,-,-
+gauss_k15,gauss_ksize=15,0.77,0.7,1025,-,-
+median_k5,median_ksize=5,0.99,3.7,2009,-,-
+otsu_inv,threshold=150,-,-,-,0.0650,1
+fixed_thresh_inv,T=80,-,-,-,0.0023,1
+fixed_thresh_inv,T=127,-,-,-,0.0479,1
+fixed_thresh_inv,T=180,-,-,-,0.3013,39
+adaptive,"block=71,C=5",-,-,-,0.0205,1
+canny,canny_low=30/90,-,-,2007,-,-
+canny,canny_high=120/240,-,-,1027,-,-
+open,open 5x5,-,-,-,0.0640,1
+open_close,open+close 5x5,-,-,-,0.0641,1

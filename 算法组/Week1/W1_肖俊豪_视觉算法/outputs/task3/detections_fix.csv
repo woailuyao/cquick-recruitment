@@ -1,0 +1,5 @@
+﻿image,color,found,center_x,center_y,bbox_x,bbox_y,bbox_w,bbox_h,area_px,area_ratio,rect_w,rect_h,angle,candidates,hsv_lower,hsv_upper,min_area
+01_blue_cube_gray.jpg,orange,0,-,-,-,-,-,-,0,0,-,-,-,-,"(5, 90, 45)","(22, 255, 255)",2457
+02_green_bottle_wood.jpg,orange,1,639.5,479.5,0,0,1280,960,1226561,0.9982,959.0,1279.0,-90.0,1/1,"(5, 90, 45)","(22, 255, 255)",2457
+03_orange_ball_white.jpg,orange,1,799.4,499.7,625,325,350,350,95823,0.0780,349.0,349.0,-90.0,1/1,"(5, 90, 45)","(22, 255, 255)",2457
+04_hard_orange_shadow.jpg,orange,1,949.4,599.6,848,521,204,159,30368,0.0247,158.0,203.0,-90.0,1/1,"(5, 90, 45)","(22, 255, 255)",2457
