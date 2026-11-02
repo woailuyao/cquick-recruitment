@@ -20,7 +20,9 @@ def detect_target(image_path, hsv_lower, hsv_upper, min_area, kernel_size=5):
 
     说明：
         - HSV 上下界、最小面积都来自 ROS2 参数，可运行时调整（加分项）；
-        - 中心点用轮廓矩(moments)，m00==0 时退回外接矩形中心；
+        - 中心点用「颜色粗定位 + 霍夫圆精定位」两级定位（与任务1 一致）：
+          先轮廓矩(moments)求白色质心，再在候选局部用霍夫圆把中心修正到球的
+          几何中心——纯质心会被黑色贴片/阴影拉偏；
         - 未检测到时 detected=False 且 u/v/area 全为 0，订阅方靠 detected 判断。
     """
     # 仅在真正需要检测时才导入 cv2（演示模式无需安装 OpenCV）
@@ -51,15 +53,37 @@ def detect_target(image_path, hsv_lower, hsv_upper, min_area, kernel_size=5):
     c = max(candidates, key=cv2.contourArea)
     M = cv2.moments(c)
     if M["m00"] != 0:
-        u = M["m10"] / M["m00"]
-        v = M["m01"] / M["m00"]
+        cx = M["m10"] / M["m00"]
+        cy = M["m01"] / M["m00"]
     else:
         x, y, w, h = cv2.boundingRect(c)
-        u = x + w / 2.0
-        v = y + h / 2.0
+        cx = x + w / 2.0
+        cy = y + h / 2.0
+
+    # 颜色粗定位 -> 霍夫圆精定位（与任务1 的 refine_with_hough 逻辑一致）
+    x, y, w, h = cv2.boundingRect(c)
+    r_est = max(w, h) / 2.0
+    pad = int(r_est)
+    x0, y0 = max(0, x - pad), max(0, y - pad)
+    x1 = min(img.shape[1], x + w + pad)
+    y1 = min(img.shape[0], y + h + pad)
+    gray = cv2.cvtColor(img[y0:y1, x0:x1], cv2.COLOR_BGR2GRAY)
+    gray = cv2.medianBlur(gray, 5)
+    circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, dp=1,
+                               minDist=max(2 * r_est, 10), param1=120, param2=30,
+                               minRadius=int(r_est * 0.5), maxRadius=int(r_est * 1.5))
+    if circles is not None:
+        circles = np.round(circles[0, :]).astype(float)
+        dist2 = (circles[:, 0] + x0 - cx) ** 2 + (circles[:, 1] + y0 - cy) ** 2
+        bc = circles[int(np.argmin(dist2))]
+        u, v = float(bc[0] + x0), float(bc[1] + y0)
+    else:
+        hull = cv2.convexHull(c)
+        (fx, fy), _fr = cv2.minEnclosingCircle(hull)
+        u, v = float(fx), float(fy)
 
     area = float(cv2.contourArea(c))
-    return {"detected": True, "u": float(u), "v": float(v), "area": area}
+    return {"detected": True, "u": u, "v": v, "area": area}
 
 
 def detect_from_file(image_path, hsv_lower, hsv_upper, min_area):
