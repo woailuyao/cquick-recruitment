@@ -54,7 +54,7 @@ plt.title('Contours')
 plt.axis('off') 
 #--------------------------------第二张测试图---------------------------------
 print("-----------------------现在处理第二张测试图-------------------------------")
-input_path2 = 'images/test2 (2).jpg'
+input_path2 = 'images/test2.jpg'
 img2 = cv2.imread(input_path2)
 
 # 1. 转 HSV 空间
