@@ -54,7 +54,7 @@
 
 - **输入**：`data/images/` 下的 BGR 图片（`imread_safe` 读取，见「问题与解决过程」第 1 条）。
 - **处理步骤**：`BGR→HSV` → `cv2.inRange` 生成二值 mask → 形态学**开运算**去噪 → 形态学**闭运算**把球面被黑色贴片切碎的白色块连回整体 → `findContours` 取外轮廓 → **面积筛选**（`>= MIN_AREA`）+ **贴边轮廓过滤**（被图像边缘裁切的物体丢弃）→ `cv2.moments` 算质心 → 按面积降序排序取最大者。
-- **输出**：`detected / u / v / area / candidates`，以及 `outputs/task1_<图名>_mask.png`（掩膜）、`outputs/task1_<图名>_result.png`（标注结果图）。
+- **输出**：`detected / u / v / area / candidates`，以及每张测试图对应的掩膜与标注结果图：`task1_test_clear_mask.png`、`task1_test_clear_result.png`、`task1_test_small_mask.png`、`task1_test_small_result.png`、`task1_test_similar_bg_mask.png`、`task1_test_similar_bg_result.png`（均位于 `outputs/`）。
 - **如何成为下一步输入**：检测逻辑封装为 `detect_target(img, lower, upper, min_area, kernel_size)`，返回字典。任务 2 直接 import 它做可视化和参数对比；任务 3 的 `vision_detector/detector.py` 复用同一套逻辑，把返回值逐字段填进 ROS2 消息。**三个任务共用同一套检测规则，所以三处结果一致。**
 
 ### 1.2 统一验收参数
@@ -98,7 +98,7 @@
 - **输入**：与任务 1 相同的图片 + `detect_target()` 的返回结果。
 - **处理**：把轮廓（绿）、外接矩形（蓝）、中心点（红十字+红点）、坐标文字 `u=..., v=...` 画回原图；再**每次只改一个参数**重跑，生成左右并排对比图。未检测到时在图上打印 `NOT DETECTED`，不只靠终端提示。
 - **输出**：
-  - `outputs/task2_annotated_<图名>.png` —— 3 张图的标注结果（可视化验收点）
+  - `outputs/task2_annotated_test_clear.png`、`task2_annotated_test_small.png`、`task2_annotated_test_similar_bg.png` —— 3 张图的标注结果（可视化验收点）
   - `outputs/task2_compare_hsv.png` —— 参数对比 A
   - `outputs/task2_compare_minarea.png` —— 参数对比 B
   - `outputs/task2_false_detection.png` —— 误检案例
