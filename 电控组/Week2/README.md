@@ -7,23 +7,25 @@
 
 在本目录下新建你的个人文件夹（**姓名拼音，全小写**）：
 
+```
 电控组/Week2/
 └── <你的姓名拼音>/
-├── 01_interface_show.png
-├── 01_发布订阅分屏.png
-├── 01_话题信息.png
-├── 02_三个球轨迹.png
-├── 02_运行日志.png
-├── 03_回环测试.png ← 做了才交，没做不扣分
-├── 03_串口与总线舵机笔记.md ← 学习笔记正文
-├── README.md ← 总说明（模板见 README模板.md）
-└── src/
-├── <你的包>/ ← 任务 1 的 ROS2 包
-│ ├── package.xml
-│ ├── CMakeLists.txt
-│ ├── msg/BallPos.msg
-│ └── scripts/*.py
-└── <导航节点>.py ← 任务 2 的脚本
+    ├── 01_interface_show.png
+    ├── 01_发布订阅分屏.png
+    ├── 01_话题信息.png
+    ├── 02_三个球轨迹.png
+    ├── 02_运行日志.png
+    ├── 03_回环测试.png              ← 做了才交，没做不扣分
+    ├── 03_串口与总线舵机笔记.md      ← 学习笔记正文
+    ├── README.md                     ← 总说明（模板见 README模板.md）
+    └── src/
+        ├── <你的包>/                 ← 任务 1 的 ROS2 包
+        │   ├── package.xml
+        │   ├── CMakeLists.txt
+        │   ├── msg/BallPos.msg
+        │   └── scripts/*.py
+        └── <导航节点>.py             ← 任务 2 的脚本
+```
 
 ## 截图清单（对应细则的截图要求）
 
@@ -53,4 +55,4 @@
 
 1. Fork 本仓库 → 2. Clone 你的 Fork → 3. `cd 电控组/Week2/` 建 `<姓名拼音>/` → 4. 按上面结构放文件 → 5. `git add` / `commit` / `push` → 6. 发起 Pull Request（模板会自动带出自查清单）。
 
-> 提交前先自查：源码是否完整（`package.xml` 和 `CMakeLists.txt` 最容易漏）、路径是否相对路径、有没有把 `build/` `install/` `log/` 一起传上来（**不要传**，已在 `.gitignore`）。
+> 提交前先自查：源码是否完整（`package.xml` 和 `CMakeLists.txt` 最容易漏）、路径是否相对路径、有没有把 `build/` / `install/` / `log/` 一起传上来（**不要传**，已在 `.gitignore`）。
