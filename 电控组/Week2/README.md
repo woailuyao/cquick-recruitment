@@ -55,4 +55,5 @@
 
 1. Fork 本仓库 → 2. Clone 你的 Fork → 3. `cd 电控组/Week2/` 建 `<姓名拼音>/` → 4. 按上面结构放文件 → 5. `git add` / `commit` / `push` → 6. 发起 Pull Request（模板会自动带出自查清单）。
 
-> 提交前先自查：源码是否完整（`package.xml` 和 `CMakeLists.txt` 最容易漏）、路径是否相对路径、有没有把 `build/` / `install/` / `log/` 一起传上来（**不要传**，已在 `.gitignore`）。
+> 提交前先自查：源码是否完整（`package.xml` 和 `CMakeLists.txt` 最容易漏）、路径是否相对路径、有没有把 `build/` `install/` `log/` 一起传上来（**不要传**，已在 `.gitignore`）。
+
