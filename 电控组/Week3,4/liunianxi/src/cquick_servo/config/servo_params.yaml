@@ -1,0 +1,11 @@
+# 舵机参数（顶层 key 必须等于节点名 servo_driver）
+# 换板子/换舵机只改这个文件，代码一行不动。
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0     # udev 规则做好后建议写 /dev/servo
+    baudrate: 115200       # 8-N-1
+    pwm_min: 900           # 安全区间（默认 900~2100）
+    pwm_max: 2100
+    default_duration_ms: 800
+    servo_ids: [1, 2, 3, 4, 5, 6]   # 机械臂 6 个关节点位
+    startup_reset: true    # 启动时全部回中位 1500
