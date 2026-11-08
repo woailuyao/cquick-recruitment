@@ -2,7 +2,7 @@ cquick-recruiment/
 ├── Week2/
     └── zhengguoguo/
         ├── 01_输出1.png
-        ├── 01_colcon build截图.png
+        ├── 01_colcon_build截图.png
         ├── 01_输出2.png
         ├── 01_改频率截图.png         
         ├── 02_轨迹图.png
