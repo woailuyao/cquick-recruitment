@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import re
 import time
 
 import rclpy
@@ -20,7 +21,15 @@ FEEDBACK_HZ = 10
 FEEDBACK_DT = 1.0 / FEEDBACK_HZ
 
 # 波特率合法性白名单（不是实际使用的值，实际值来自参数 baudrate）
-VALID_BAUDRATES = (9600, 19200, 38400, 57600, 115200, 230400)
+VALID_BAUDRATES = (9600, 19200, 38400, 57600, 115200, 230400, 500000, 1000000)
+
+# 上电回中用的中位值；标定过 1500 的舵臂装上后直接生效
+CENTER_PWM = 1500
+
+# #001PRAD1500! 这种标准回复
+PRAD_RE = re.compile(r'#\s*\d{3}\s*P?\s*RAD\s*(-?\d+)')
+# 兜底：#001P1500! 这种省略了 RAD 前缀的固件
+NUM_RE = re.compile(r'-?\d+')
 
 
 class ServoDriver(Node):
@@ -49,6 +58,7 @@ class ServoDriver(Node):
         self.create_timer(0.2, self.publish_state)
 
         self.open_port()
+        self.apply_startup_reset()
 
         self.group = ReentrantCallbackGroup()
         self.action_server = ActionServer(
@@ -102,6 +112,24 @@ class ServoDriver(Node):
         except Exception as e:
             self.get_logger().warn('串口打不开（没硬件时正常）: %s' % e)
 
+    def apply_startup_reset(self):
+        """startup_reset=true 时，上电把所有配置过的舵机拉回中位 1500。
+
+        串口没打开（没硬件 / 模拟模式）就静默跳过，不打多余日志。
+        """
+        if self.ser is None:
+            return
+        if not self.get_parameter('startup_reset').value:
+            self.get_logger().info('startup_reset=false，跳过上电回中')
+            return
+        ids = list(self.get_parameter('servo_ids').value)
+        dur = int(self.get_parameter('default_duration_ms').value)
+        self.get_logger().info(
+            'startup_reset：%s 全部回中 %d（每个 %d ms）' % (ids, CENTER_PWM, dur))
+        for sid in ids:
+            self._write('#%03dPULR!' % sid)
+            self._write(self.build_command(sid, CENTER_PWM, dur))
+
     @staticmethod
     def build_command(sid, pwm, duration_ms):
         return '#%03dP%04dT%04d!' % (sid, pwm, duration_ms)
@@ -113,20 +141,53 @@ class ServoDriver(Node):
             self.ser.flush()
 
     def read_prad(self, sid):
+        """发 #001PRAD! 并解析回读角度，收不到就返回 None。"""
         if self.ser is None:
             return None
-        self.ser.reset_input_buffer()
-        self.ser.write(('#%03dPRAD!' % sid).encode())
-        self.ser.flush()
-        time.sleep(0.05)
-        data = self.ser.read(32).decode(errors='ignore')
-        for token in data.split('#'):
-            if 'P' in token:
-                try:
-                    return int(token.split('P')[1][:4])
-                except Exception:
-                    pass
-        return None
+        try:
+            self.ser.reset_input_buffer()
+            self.ser.write(('#%03dPRAD!' % sid).encode())
+            self.ser.flush()
+        except Exception as e:                            # 串口被拔掉之类
+            self.get_logger().warn('PRAD 发送失败: %s' % e)
+            return None
+
+        # 攒到 '!' 为止，最多等 300 ms —— 比 sleep+read 快，也不会把半截数据当结果
+        buf = b''
+        deadline = time.time() + 0.3
+        try:
+            while time.time() < deadline:
+                n = self.ser.in_waiting
+                if n:
+                    buf += self.ser.read(n)
+                    if b'!' in buf:
+                        break
+                else:
+                    time.sleep(0.005)
+        except Exception as e:                            # noqa: BLE001
+            self.get_logger().warn('PRAD 读取失败: %s' % e)
+            return None
+        return self.parse_prad(buf.decode('ascii', 'ignore'))
+
+    @staticmethod
+    def parse_prad(text):
+        """兼容 #001PRAD1500! 和 #001P1500! 两种回复格式。
+
+        只有回显（'#001PRAD!'）时看不到第 2 个数字，直接返回 None，
+        不会被误当成角度 1。
+        """
+        if not text:
+            return None
+        up = text.upper()
+        hits = PRAD_RE.findall(up)
+        if hits:
+            val = int(hits[-1])                           # 粘包时取最新那一帧
+        else:
+            nums = NUM_RE.findall(up)
+            if len(nums) < 2:                             # 只有一个数 = 只剩 ID，没有角度
+                return None
+            val = int(nums[-1])                           # 第一个数是 3 位 ID，取最后一个
+        return val if 0 <= val <= 3000 else None          # 离谱的数值当没收到
 
     # ---------- bag：状态发布 + 指令订阅（回放） ----------
     def publish_state(self):
