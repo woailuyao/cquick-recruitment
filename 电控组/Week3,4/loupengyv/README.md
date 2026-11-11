@@ -198,6 +198,39 @@ Goal finished with status: SUCCEEDED
 
 ---
 
+## 6.5 任务 2 的真机验证（不是模拟模式）
+
+一开始驱动只能在"模拟模式"下跑（串口打不开就去掉 PRAD 回读）。真机验证是在把 USB-TTL 接到控制板 `TX1/RX1` 之后才做成的：
+
+```
+$ ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB0
+[servo_driver-1] [INFO] 串口已打开: /dev/ttyUSB0 @ 115200
+[servo_driver-1] [INFO] servo_driver 就绪，Action: /move_servo
+[servo_driver-1] [INFO] 发送: #001PULR!
+[servo_driver-1] [INFO] 发送: #001P1800T1000!
+[servo_driver-1] [INFO] 完成：到位，PRAD=1786
+```
+
+```
+$ ros2 action send_goal /move_servo ... "{id: 1, pwm: 1800, duration_ms: 1000}" --feedback
+Result:
+    success: true
+    final_pwm: 1786
+    message: 到位，PRAD=1786
+Goal finished with status: SUCCEEDED
+```
+
+**这条链路是完整的**：ROS2 Action → 串口 ASCII → 控制板 → 舵机 → `PRAD` 回读 → result。
+
+### 过程中修掉的两个真问题
+
+| 问题 | 现象 | 修法 |
+|---|---|---|
+| 判"未到位"误报 | 目标 1800，报"实际 1630，差 170" | 等完 `duration_ms` 就立刻读位置，舵机还没停稳。改成**轮询 PRAD**（间隔 0.2s，最多 1.5s），到位就提前退出。参数 `tolerance_pwm` / `settle_ms` |
+| 舵机 PRAD 时有时无 | 两个 goal 并发时，某个舵机的 PRAD 读不到，报"模拟模式" | 两个 `execute_cb` 线程**共用同一个串口**，读写在打架。加 `threading.Lock` 互斥 + PRAD 重试 3 次。同时把"没回话"和"没串口"区分开，不再误报模拟模式 |
+
+---
+
 ## 7. bag 里录了什么、怎么回放
 
 ```bash
@@ -232,17 +265,48 @@ Topic: /servo/command  Count: 3
 
 ---
 
-## 8. 接线说明
+## 8. 接线说明（已实测）
 
-**待硬件**。最小系统接线计划（任务 1 用）：
+### 8.1 电脑 ↔ 控制板：有两条完全不同的路
 
-| 线色 | 接到 | 注意 |
+| 用途 | 怎么接 | 出现什么设备 |
 |---|---|---|
-| 橙/白（信号） | 控制板通道信号脚 | — |
-| 红（正极） | 电源正 5~8.4V | **上电前用万用表量电压** |
-| 棕/黑（负极） | 电源负 / GND | 必须与控制板、板卡共地 |
+| **上位机调试（Zide）** | 控制板 USB-C 直连电脑 | `0483:5750 STM32 Custom HID`（HID，不是串口） |
+| **ROS2 控制** | USB-TTL 接控制板的 `TX1/RX1/GND` 排针 | `/dev/ttyUSB0`，115200 |
 
-实测电压：待填（`01_电池电压.png`）
+**两条路可以同时接**：USB-C 给 Zide 用，USB-TTL 给 ROS2 用，互不干扰。
+
+### 8.2 USB-TTL ↔ 控制板（交叉接法）
+
+```
+USB-TTL          控制板（TX1 RX1 GND 5V 那组）
+  TXD  ────────  RX1
+  RXD  ────────  TX1
+  GND  ────────  GND
+  5V   ── 不接（板子另有电源）
+```
+
+> ⚠️ **必须交叉**：TX 接对方的 RX。接成 TX-TX 就永远收不到回包。
+> ⚠️ 母头插针排时**一定要插到底**——我最早就是没插紧，串口回环测试在板子这端怎么都收不到数据，白排除了半天。
+
+### 8.3 舵机 ↔ 控制板
+
+舵机插头直接插控制板的通道排针（0~23 任选，通道号只是物理位置，**真正的身份是舵机 ID**）。
+
+| 线色 | 含义 |
+|---|---|
+| 白/橙 | 信号 |
+| 红 | 正极 5~8.4V |
+| 黑/棕 | GND |
+
+### 8.4 供电
+
+| 方式 | 说明 |
+|---|---|
+| 电池 → 绿色端子 | 正规做法。**上电前用万用表量电压**，5~8.4V 才允许接 |
+| USB-TTL 的 5V → 绿色端子 | 临时测试用，单舵机空载够用（<500mA） |
+
+**实测电压**：缺万用表，暂未测量（`01_电池电压.png` 待补）。
 
 ---
 
