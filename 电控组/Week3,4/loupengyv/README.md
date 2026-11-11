@@ -1,0 +1,483 @@
+# 第 3、4 周提交说明 · 娄鹏宇（loupengyv）
+
+- 姓名拼音：loupengyv
+- 姓名：娄鹏宇
+- 完成时间：2026-11-07
+- 运行环境：Ubuntu 22.04 + ROS2 Humble（VMware 虚拟机）
+
+> **当前进度说明**：
+> - 任务 1（点亮单个舵机）✅ 已完成，真硬件跑通
+> - 任务 2（ROS2 接管舵机）✅ 已完成，代码在无硬件模拟模式下验证通过
+> - 任务 3（整机装配与动作组）/ 任务 4（安全下电）⬜ 待结构件到货后补做
+
+---
+
+## 0. 任务 1 · 点亮单个舵机（真硬件）
+
+### 硬件通路（和我一开始以为的完全不一样）
+
+```
+Zide 上位机 ──USB-C(HID)── 24 路控制板 ──总线── 总线舵机(ID=001)
+                  ↑
+          这不是串口！不需要 USB-TTL，也没有波特率
+```
+
+**踩坑经过**：一开始按细则的思路用 USB-TTL 接板子的 `TX4/RX4` 排针，扫了两组排针、两个波特率、24 个 ID，一个字节都没回来。后来才从手册确认：**24 路控制板是 HID 设备**（`lsusb` 里报 `0483:5750 STM32 Custom HID`），
+手册原文：「此类设备无需安装驱动、选择波特率等，自动连接、即插即用」。
+
+### 实际跑通的流程
+
+| 步 | 操作 | 结果 |
+|---|---|---|
+| 1 | 板子 USB-C 直连电脑，Zide 自动识别 | 图标变绿「HID已连接」 |
+| 2 | 配置 → 总线配置 → ID 号 `255`（广播）、改为 `001` → 点「写」 | 接收框返回 `#001P!`，ID 确认并改成 001 |
+| 3 | 配置 → 窗口配置 → 勾【ID 号】→ 把 S0 窗口的 ID 改成 `001` | 窗口才能对应到舵机（默认是 000，对不上就控制不了） |
+| 4 | 点「增加组」建出 G0001（**偏差调节组不可执行**） | 之前一直报「超出动作运行范围」就是缺这一步 |
+| 5 | S0 窗口 PWM 改 `1500`、Time 改 `1000` → 双击 G0001 行 | **舵机平滑转到中位** |
+| 6 | 发 `#001PRAD!` | 返回 `#001P1526!`，位置读回正常 |
+| 7 | 发 `#001PULK!` | 卸力，手能轻松转动；再发 `#001PULR!` 恢复 |
+
+**关键参数**：舵机 ID = `001`，中位 PWM = `1500`，通信 = USB HID（非串口）。
+
+---
+
+## 1. 架构图
+
+```
+                     键盘 / ros2 action send_goal / move_client
+                                    │
+                                    ▼  MoveServo.Goal(id, pwm, duration_ms)
+                          ┌──────────────────────┐
+                          │  servo_driver        │  Action Server: /move_servo
+                          │  （cquick_servo 包） │
+                          └──────────┬───────────┘
+                     goal 校验（pwm 限位 / ID 白名单）
+                                     │
+                                     ▼  发布 ServoCommand
+                          /servo/command（话题，同一个节点也订阅它）
+                                     │
+                                     ▼  on_cmd_topic → _write()
+                          "#001PULR!" + "#001P1700T1000!" → 串口 115200 8-N-1
+                                     │
+                                     ▼
+                     USB 转 TTL → 24 路舵机控制板 → 总线舵机
+
+         同时每 0.2 s 发布 /servo/state（当前 PWM），供 bag 录制与监控
+```
+
+**两个包**：
+
+| 包 | 类型 | 内容 |
+|---|---|---|
+| `cquick_servo_interfaces` | `ament_cmake` | `msg/ServoCommand.msg`、`action/MoveServo.action` |
+| `cquick_servo` | `ament_python` | `servo_driver.py`（Action Server）、`move_client.py`（Action Client）、`launch/servo.launch.py`、`config/servo_params.yaml` |
+
+**为什么 Action 和话题共用一条发送路径**：Action 的 `execute_cb` 不直接写串口，而是把指令发到 `/servo/command`，由订阅回调统一调用 `_write()`。这样 `ros2 bag play` 回放时走的是**同一行代码**，回放出来的动作和录制时必然一致。
+
+---
+
+## 2. 参数表
+
+| 参数 | 默认值 | 为什么是这个默认值 |
+|---|---|---|
+| `port` | `/dev/ttyUSB0` | CH340 插上后内核默认分配的设备名。**这是唯一需要按现场情况改的参数**（插了别的 USB 设备会变成 ttyUSB1） |
+| `baudrate` | `115200` | 众灵总线舵机的固定通信波特率，协议规定，不可改；改错就是一堆乱码 |
+| `pwm_min` | `900` | 保守下限。**不是**电气下限（电气是 500），先取一个偏内的值防止装配前撞限位，实测结构行程后再放开 |
+| `pwm_max` | `2100` | 同上，保守上限（电气 2500） |
+| `default_duration_ms` | `800` | 客户端没给 duration 时的兜底值，0.8 s 转完一个行程比较平缓，不会猛跳 |
+| `servo_ids` | `[1,2,3,4,5,6]` | 本机（桌面最小系统）只有 1 个舵机在线上，但先按整机 6 个配置，用来拒绝不存在的 ID；任务 1 扫完 ID 后按实际值改 |
+| `startup_reset` | `true` | 上电先全部回中位，避免上次断电停在奇怪角度 |
+
+配置在 `src/cquick_servo/config/servo_params.yaml`，**代码里没有任何一处使用字面量**（`grep` 自检见截图 `02_参数自检.png`，命中的全是 `declare_parameter` 声明和 `get_parameter` 读取）。
+
+---
+
+## 3. 接口契约
+
+### `MoveServo.action`
+
+**Goal**
+
+| 字段 | 类型 | 含义 |
+|---|---|---|
+| `id` | `uint8` | 舵机 ID |
+| `pwm` | `uint16` | 目标 PWM |
+| `duration_ms` | `uint16` | 从当前位置走到目标用多久 |
+
+**Feedback**（10 Hz 发布，转 1 秒至少 10 条）
+
+| 字段 | 含义 |
+|---|---|
+| `current_pwm` | 当前 PWM（真实硬件时由 `PRAD` 读回填充） |
+| `progress` | 进度 0.0 ~ 1.0 |
+
+**Result**
+
+| 字段 | 含义 |
+|---|---|
+| `success` | 成没成 |
+| `final_pwm` | 最终读回的 PWM |
+| `message` | 失败原因：`canceled` / `超出安全范围` / `未到位，差 N` |
+
+**goal 在什么时候被拒**（`goal_cb`，发指令之前就判断）：
+
+- `pwm` 不在 `pwm_min ~ pwm_max` 之间
+- `id` 不在 `servo_ids` 里
+- `duration_ms == 0`
+
+### `ServoCommand.msg`
+
+`uint8 id` / `uint16 pwm` / `uint16 duration_ms`，用于 `/servo/command`（指令流）和 `/servo/state`（状态流）。
+
+---
+
+## 4. 一条启动命令
+
+```bash
+ros2 launch cquick_servo servo.launch.py
+```
+
+实际输出：
+
+```
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [servo_driver-1]: process started with pid [8953]
+[servo_driver-1] [WARN] [servo_driver]: 串口打不开（现在没硬件，正常）: [Errno 2] could not open port /dev/ttyUSB0
+[servo_driver-1] [INFO] [servo_driver]: servo_driver 就绪，Action: /move_servo
+```
+
+带客户端演示：
+
+```bash
+ros2 launch cquick_servo servo.launch.py demo:=true
+```
+
+换串口（覆盖 yaml）：
+
+```bash
+ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB1
+```
+
+---
+
+## 5. 安全区间是多少、怎么来的
+
+当前 `pwm_min = 900`、`pwm_max = 2100`，**是保守的初始值，不是实测值**。
+
+- 电气极限是 500~2500，超出会损伤舵机；
+- 但机械行程一定小于电气行程，装进结构后**必须实测**：从 1500 起，每次 ±50，直到结构出现干涉或舵机开始「嗡嗡」响，记下两个边界再各留 50~100 的安全余量；
+- 实测后直接改 yaml，**不用改代码、不用重编译**（配合 `ros2 param set` 可在线试）。
+
+---
+
+## 6. 运行时改参数的演示记录（2.6 六步）
+
+```
+$ ros2 param get /servo_driver pwm_max
+Integer value is: 2100
+
+$ ros2 param set /servo_driver pwm_max 1600
+Set parameter successful
+
+$ ros2 action send_goal /move_servo ... "{id: 1, pwm: 1700, duration_ms: 1000}"
+Goal was rejected.          ← 没重启，新上限立刻生效
+
+$ ros2 param set /servo_driver pwm_max 100000
+Setting parameter failed: pwm_max 必须在 500~2500 之间，收到 100000
+
+$ ros2 param set /servo_driver pwm_max 2100
+Set parameter successful
+
+$ ros2 action send_goal /move_servo ... "{id: 1, pwm: 1700, duration_ms: 1000}"
+Goal finished with status: SUCCEEDED
+```
+
+截图见 `02_param_set现场.png`，驱动侧日志同时打印「goal 被拒：pwm 1700 超出安全范围 900~1600」。
+
+**关键实现**：`goal_cb` 里每次实时 `self.get_parameter('pwm_max').value`，**没有**在 `__init__` 里存副本；参数校验用 `add_on_set_parameters_callback`，越界值返回 `successful=False` 并带 reason。
+
+---
+
+## 6.5 任务 2 的真机验证（不是模拟模式）
+
+一开始驱动只能在"模拟模式"下跑（串口打不开就去掉 PRAD 回读）。真机验证是在把 USB-TTL 接到控制板 `TX1/RX1` 之后才做成的：
+
+```
+$ ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB0
+[servo_driver-1] [INFO] 串口已打开: /dev/ttyUSB0 @ 115200
+[servo_driver-1] [INFO] servo_driver 就绪，Action: /move_servo
+[servo_driver-1] [INFO] 发送: #001PULR!
+[servo_driver-1] [INFO] 发送: #001P1800T1000!
+[servo_driver-1] [INFO] 完成：到位，PRAD=1786
+```
+
+```
+$ ros2 action send_goal /move_servo ... "{id: 1, pwm: 1800, duration_ms: 1000}" --feedback
+Result:
+    success: true
+    final_pwm: 1786
+    message: 到位，PRAD=1786
+Goal finished with status: SUCCEEDED
+```
+
+**这条链路是完整的**：ROS2 Action → 串口 ASCII → 控制板 → 舵机 → `PRAD` 回读 → result。
+
+### 过程中修掉的两个真问题
+
+| 问题 | 现象 | 修法 |
+|---|---|---|
+| 判"未到位"误报 | 目标 1800，报"实际 1630，差 170" | 等完 `duration_ms` 就立刻读位置，舵机还没停稳。改成**轮询 PRAD**（间隔 0.2s，最多 1.5s），到位就提前退出。参数 `tolerance_pwm` / `settle_ms` |
+| 舵机 PRAD 时有时无 | 两个 goal 并发时，某个舵机的 PRAD 读不到，报"模拟模式" | 两个 `execute_cb` 线程**共用同一个串口**，读写在打架。加 `threading.Lock` 互斥 + PRAD 重试 3 次。同时把"没回话"和"没串口"区分开，不再误报模拟模式 |
+
+---
+
+## 7. bag 里录了什么、怎么回放
+
+```bash
+ros2 bag record -o run1 /servo/command /servo/state    # 只录这两个话题，不用 -a
+ros2 bag info run1
+ros2 bag play run1
+```
+
+`ros2 bag info` 结果（见 `02_bag_info.png`）：
+
+```
+Files:        run1_0.db3
+Bag size:     57.5 KiB
+Duration:     113.4s
+Messages:     571
+Topic: /servo/state    Count: 568
+Topic: /servo/command  Count: 3
+```
+
+**回放结果**：驱动侧重新发出
+
+```
+发送: #001PULR!
+发送: #001P2000T1000!
+发送: #001P1000T1000!
+发送: #001P1500T1000!
+```
+
+和录制时手动发的三条 goal 完全一致 → 动作复现成功。
+
+> `/servo/command` 只录到 3 条，是因为它只在**真正发指令**时发一条；`/servo/state` 是 5 Hz 心跳，所以 568 条。体积 57.5 KiB，远小于 10 MB 上限。
+
+---
+
+## 8. 接线说明（已实测）
+
+### 8.1 电脑 ↔ 控制板：有两条完全不同的路
+
+| 用途 | 怎么接 | 出现什么设备 |
+|---|---|---|
+| **上位机调试（Zide）** | 控制板 USB-C 直连电脑 | `0483:5750 STM32 Custom HID`（HID，不是串口） |
+| **ROS2 控制** | USB-TTL 接控制板的 `TX1/RX1/GND` 排针 | `/dev/ttyUSB0`，115200 |
+
+**两条路可以同时接**：USB-C 给 Zide 用，USB-TTL 给 ROS2 用，互不干扰。
+
+### 8.2 USB-TTL ↔ 控制板（交叉接法）
+
+```
+USB-TTL          控制板（TX1 RX1 GND 5V 那组）
+  TXD  ────────  RX1
+  RXD  ────────  TX1
+  GND  ────────  GND
+  5V   ── 不接（板子另有电源）
+```
+
+> ⚠️ **必须交叉**：TX 接对方的 RX。接成 TX-TX 就永远收不到回包。
+> ⚠️ 母头插针排时**一定要插到底**——我最早就是没插紧，串口回环测试在板子这端怎么都收不到数据，白排除了半天。
+
+### 8.3 舵机 ↔ 控制板
+
+舵机插头直接插控制板的通道排针（0~23 任选，通道号只是物理位置，**真正的身份是舵机 ID**）。
+
+| 线色 | 含义 |
+|---|---|
+| 白/橙 | 信号 |
+| 红 | 正极 5~8.4V |
+| 黑/棕 | GND |
+
+### 8.4 供电
+
+| 方式 | 说明 |
+|---|---|
+| 电池 → 绿色端子 | 正规做法。**上电前用万用表量电压**，5~8.4V 才允许接 |
+| USB-TTL 的 5V → 绿色端子 | 临时测试用，单舵机空载够用（<500mA） |
+
+**实测电压**：缺万用表，暂未测量（`01_电池电压.png` 待补）。
+
+---
+
+## 9. 动作 yaml 与播放器（任务 3）
+
+### 结构
+
+```
+src/cquick_servo/
+├── cquick_servo/sequence_player.py     播放器：读 yaml → 展开 goal → 按 result 同步
+└── config/actions/
+    ├── stand.yaml                       两舵机同时抬升 → 同时收回（2 步）
+    └── wave.yaml                        一号先动 → 二号跟上 → 一起回中（3 步）
+```
+
+### yaml 格式
+
+```yaml
+name: stand
+description: 两个舵机先同时抬到站立位，再同时收回中位
+steps:
+  - name: 同时抬升
+    joints:
+      - {id: 1, pwm: 1750, duration_ms: 800}
+      - {id: 2, pwm: 1300, duration_ms: 800}
+  - name: 同时收回
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 600}
+      - {id: 2, pwm: 1500, duration_ms: 600}
+```
+
+三条必须表达的能力：
+
+| 能力 | 怎么表达 |
+|---|---|
+| 一步内多舵机协同 | 同一个 `step` 的 `joints` 里写多条，**同时下发** |
+| 步与步串行 | 播放器等当前 step 的**全部 result** 回来才进下一步 |
+| 一步内有先后 | 先动的关节单独开一个 `step`（见 `wave.yaml`） |
+
+### 播放器逻辑
+
+```python
+for step in steps:                      # 一步步来
+    futures = [send(j) for j in step]   # 同一步的关节全部发出去
+    for f in futures:                   # 等每个 result 回来
+        rclpy.spin_until_future_complete(self, f)
+        log(result, 完成时刻)
+```
+
+**没有一处 `sleep` 用来等舵机**——同步信号是 Action 的 result。
+
+### 运行
+
+```bash
+# 终端 1
+ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB0
+
+# 终端 2
+ros2 run cquick_servo sequence_player --ros-args -p action_file:=stand.yaml
+
+# 换一套动作：代码一个字不改
+ros2 run cquick_servo sequence_player --ros-args -p action_file:=wave.yaml
+```
+
+### 实测日志（关键：result 同步 + 时间戳）
+
+```
+--- 第 1/2 步：同时抬升（2 个关节同时下发）
+  id=1 目标=1750 用时=800ms → 已接受
+  id=2 目标=1300 用时=800ms → 已接受
+  [result] id=1 success=True 实际=1734 耗时=1.58s 完成时刻=1794393472.069 msg=到位，PRAD=1734
+  [result] id=2 success=True 实际=1315 耗时=2.94s 完成时刻=1794393473.427 msg=到位，PRAD=1315
+--- 第 1 步结束，用时 2.94s
+--- 第 2/2 步：同时收回（2 个关节同时下发）
+  ...
+=== 动作组「stand」播放完毕，总用时 4.96s，全部到位 ===
+```
+
+**两个细节值得说**：
+1. 同一个 step 里 id=1 先回、id=2 后回（差 1.3s），但播放器**等到两个都回来**才进第 2 步——这就是 result 同步的意义。
+2. `wave.yaml` 跑出来的步数是 3 步，日志结构随之变化，**python 代码没有改动**。
+
+---
+
+## 9.5 装配现状与问题记录（任务 3 的"装配问题记录"项）
+
+### 手上有的物资
+
+| 件 | 数量 | 状态 |
+|---|---|---|
+| 总线舵机 20KG·CM（众灵） | 2 | ✅ |
+| 24 路舵机控制板 | 1 | ✅ |
+| 地瓜派 RDK X5 + 64G 卡 + 散热风扇 | 1 | ✅ |
+| 电池 1500mAh 45C（XT30 输出） | 1 | ✅ |
+| USB 转 TTL（CH340） | 1 | ✅ |
+| 3D 打印件 | 1 | ⚠️ 经比对是 **RDK X5 的散热外壳**（有风扇位），不是机构件 |
+| 舵臂（舵盘）/ 连杆 | 0 | ❌ **缺** |
+| 电池转接线（XT30 → 裸线） | 0 | ❌ **缺**（网购的只有空插头，需自焊） |
+
+### 问题 1：没有舵臂和连杆
+
+一开始我以为那个白色壳子是用来装舵机的，后来发现太小了，装不进去。
+
+再仔细看，里面没有舵臂也没有连杆。我以为是队友没拿，问了一下；既然现在没有，就先跳过去，以后再说。
+
+所以这两个舵机只能放在桌面上转，带不动任何东西。不过我想动作组这块主要是看 yaml 和 result 同步，不是看有没有连杆，就先把能证明的部分做了。
+
+### 问题 2：电池接不上
+
+队友只买了转接口，我买的转接线还要几天才能到。我拿胶带把转接口固定了一下，直接怼上去了。
+
+测试的时候还是会掉，所以干脆改用 **USB-TTL 的 5V** 给舵机供电（单舵机空载电流不大，够用）。
+
+### 问题 3：串口调了半天
+
+卡了半天，试了用大规模排查的方式来找舵机的编号、波特率什么的——两组排针、两个波特率、1 到 24 号 ID 全扫了一遍，什么都不回。
+
+后来才搞明白：板子的 USB 口是 **HID 设备**，根本不是串口，那些参数怎么试都没用。改走 Zide 上位机之后才连上。
+
+### 怎么确认动作组是对的
+
+多重复几次，换换 yaml 文件，看看成不成功。
+
+连跑三遍动作一样、换成 `wave.yaml` 之后步数从 2 步变成 3 步而代码没动，我才确定这套东西是通的。
+
+### 上电前的检查
+
+即使机构件不够，上电前还是按细则做了：手动晃动确认不松、检查插头有没有插到底（之前正是"母头没插紧"导致回环测试失败）、看线会不会扫到舵机转动范围、上电先听有没有嗡嗡声再发指令。
+
+## 10. 踩坑记录（现象 → 怀疑 → 验证 → 结论）
+详见 `调试记录.md`，简版：
+
+1. **`setup.py` 里 `data_files` 列了不存在的文件 → 整个包编不过**
+   现象是 `returned non-zero exit status 1`，真正的报错被刷掉了。`ls launch/` 发现目录是空的。补上文件后正常。
+2. **`ModuleNotFoundError: No module named 'serial'`**
+   装的是 `python3-serial`，但当时虚拟机没网装不上；先写了个 `try/except` 让它进模拟模式，等有网络才补装。
+3. **`ros2 node list` 出现两个 `/servo_driver`**
+   旧的 launch 没关干净。`pkill -f servo_driver` 清理后正常。**截图前一定先看 `ros2 node list`。**
+4. **取消不生效的隐患**
+   `execute_cb` 里用 `time.sleep` 会占死线程，回调进不来。必须 `MultiThreadedExecutor` + `ActionServer` 挂 `ReentrantCallbackGroup`。
+5. **`ros2 param set` 后行为没变**
+   最容易踩的坑：在 `__init__` 把值存成 `self.pwm_max` 就再也不读了。改成每次判断都实时 `get_parameter`。
+
+---
+
+## 11. 下电三步 + 每一步的原因（任务 4 · 已实操）
+
+真机实操，照片见 `04_卸力.jpg`、`04_断电.jpg`、`04_关机.jpg`。
+
+| 步骤 | 做什么 | 为什么是这个顺序 |
+|---|---|---|
+| ① 卸力 | 发 `#001PULK!`，所有舵机释放扭力 | 舵机断电前还在顶力矩，直接断电极易堵转发热，三分钟能烧穿 |
+| ② 断动力电 | 拔掉绿端子上的电源线（或拔电池） | 先断动力，避免控制板在电压跌落时乱发指令 |
+| ③ 关板卡 | 关 Zide → 拔 USB-C → 整机时 `sudo shutdown now` | 直接拔电会损坏文件系统，下次开不了机 |
+
+**实操验证**：发完 `PULK` 后用手拧舵机臂，从「拧不动」变成「轻松转动」，说明卸力确实生效了。
+
+**四条红线**：禁止带电插拔舵机线 / 禁止反接电源 / 电池鼓包立即停用 / 禁止让舵机硬顶结构。
+
+---
+
+## 12. 录屏链接
+
+| 内容 | 链接 |
+|---|---|
+| **任务 3 · 动作组演示（连跑三遍 + 换 yaml）** | <https://www.bilibili.com/video/BV1qRW26sEgd/> |
+| 任务 2 · 正反转回中位 | 待上传 |
+| 任务 2 · 取消打断 | 待上传 |
+| 任务 2 · 改参数后行为变化 | 待上传 |
+| 任务 2 · `ros2 bag play` 复现 | 待上传 |
+| 任务 4 · 下电流程 | 待上传 |
+
+> 任务 3 的视频里可以看到：驱动启动 → `stand.yaml` 两个舵机同时动作 → 连跑三遍 →
+> 换成 `wave.yaml` 后步数从 2 步变 3 步、代码未改 → 日志里每一步都有 `[result]` 和完成时刻。
