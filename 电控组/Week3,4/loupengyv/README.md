@@ -408,9 +408,12 @@ ros2 run cquick_servo sequence_player --ros-args -p action_file:=wave.yaml
 
 | 内容 | 链接 |
 |---|---|
+| **任务 3 · 动作组演示（连跑三遍 + 换 yaml）** | <https://www.bilibili.com/video/BV1qRW26sEgd/> |
 | 任务 2 · 正反转回中位 | 待上传 |
 | 任务 2 · 取消打断 | 待上传 |
 | 任务 2 · 改参数后行为变化 | 待上传 |
 | 任务 2 · `ros2 bag play` 复现 | 待上传 |
-| 任务 3 · 整机与动作组 | 待硬件 |
-| 任务 4 · 下电流程 | 待硬件 |
+| 任务 4 · 下电流程 | 待上传 |
+
+> 任务 3 的视频里可以看到：驱动启动 → `stand.yaml` 两个舵机同时动作 → 连跑三遍 →
+> 换成 `wave.yaml` 后步数从 2 步变 3 步、代码未改 → 日志里每一步都有 `[result]` 和完成时刻。
