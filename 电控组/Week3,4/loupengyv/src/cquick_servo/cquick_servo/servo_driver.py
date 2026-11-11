@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import re
+import threading
 import time
 
 import rclpy
@@ -20,16 +20,11 @@ from cquick_servo_interfaces.msg import ServoCommand
 FEEDBACK_HZ = 10
 FEEDBACK_DT = 1.0 / FEEDBACK_HZ
 
+# 判定到位时的轮询间隔（秒）
+SETTLE_DT = 0.2
+
 # 波特率合法性白名单（不是实际使用的值，实际值来自参数 baudrate）
-VALID_BAUDRATES = (9600, 19200, 38400, 57600, 115200, 230400, 500000, 1000000)
-
-# 上电回中用的中位值；标定过 1500 的舵臂装上后直接生效
-CENTER_PWM = 1500
-
-# #001PRAD1500! 这种标准回复
-PRAD_RE = re.compile(r'#\s*\d{3}\s*P?\s*RAD\s*(-?\d+)')
-# 兜底：#001P1500! 这种省略了 RAD 前缀的固件
-NUM_RE = re.compile(r'-?\d+')
+VALID_BAUDRATES = (9600, 19200, 38400, 57600, 115200, 230400)
 
 
 class ServoDriver(Node):
@@ -44,10 +39,13 @@ class ServoDriver(Node):
         self.declare_parameter('default_duration_ms', 800)
         self.declare_parameter('servo_ids', [1, 2, 3, 4, 5, 6])
         self.declare_parameter('startup_reset', True)
+        self.declare_parameter('tolerance_pwm', 40)
+        self.declare_parameter('settle_ms', 1500)
 
         self.add_on_set_parameters_callback(self.on_param_change)
 
         self.ser = None
+        self._lock = threading.Lock()  # 串口互斥锁
         self.current_pwm = 1500
 
         # ---- bag 用的两个话题 ----
@@ -58,7 +56,6 @@ class ServoDriver(Node):
         self.create_timer(0.2, self.publish_state)
 
         self.open_port()
-        self.apply_startup_reset()
 
         self.group = ReentrantCallbackGroup()
         self.action_server = ActionServer(
@@ -112,24 +109,6 @@ class ServoDriver(Node):
         except Exception as e:
             self.get_logger().warn('串口打不开（没硬件时正常）: %s' % e)
 
-    def apply_startup_reset(self):
-        """startup_reset=true 时，上电把所有配置过的舵机拉回中位 1500。
-
-        串口没打开（没硬件 / 模拟模式）就静默跳过，不打多余日志。
-        """
-        if self.ser is None:
-            return
-        if not self.get_parameter('startup_reset').value:
-            self.get_logger().info('startup_reset=false，跳过上电回中')
-            return
-        ids = list(self.get_parameter('servo_ids').value)
-        dur = int(self.get_parameter('default_duration_ms').value)
-        self.get_logger().info(
-            'startup_reset：%s 全部回中 %d（每个 %d ms）' % (ids, CENTER_PWM, dur))
-        for sid in ids:
-            self._write('#%03dPULR!' % sid)
-            self._write(self.build_command(sid, CENTER_PWM, dur))
-
     @staticmethod
     def build_command(sid, pwm, duration_ms):
         return '#%03dP%04dT%04d!' % (sid, pwm, duration_ms)
@@ -137,57 +116,28 @@ class ServoDriver(Node):
     def _write(self, cmd):
         self.get_logger().info('发送: %s' % cmd)
         if self.ser is not None:
-            self.ser.write(cmd.encode())
-            self.ser.flush()
+            with self._lock:      # 多个 execute_cb 线程共用一个串口，必须互斥
+                self.ser.write(cmd.encode())
+                self.ser.flush()
 
     def read_prad(self, sid):
-        """发 #001PRAD! 并解析回读角度，收不到就返回 None。"""
         if self.ser is None:
             return None
-        try:
-            self.ser.reset_input_buffer()
-            self.ser.write(('#%03dPRAD!' % sid).encode())
-            self.ser.flush()
-        except Exception as e:                            # 串口被拔掉之类
-            self.get_logger().warn('PRAD 发送失败: %s' % e)
-            return None
-
-        # 攒到 '!' 为止，最多等 300 ms —— 比 sleep+read 快，也不会把半截数据当结果
-        buf = b''
-        deadline = time.time() + 0.3
-        try:
-            while time.time() < deadline:
-                n = self.ser.in_waiting
-                if n:
-                    buf += self.ser.read(n)
-                    if b'!' in buf:
-                        break
-                else:
-                    time.sleep(0.005)
-        except Exception as e:                            # noqa: BLE001
-            self.get_logger().warn('PRAD 读取失败: %s' % e)
-            return None
-        return self.parse_prad(buf.decode('ascii', 'ignore'))
-
-    @staticmethod
-    def parse_prad(text):
-        """兼容 #001PRAD1500! 和 #001P1500! 两种回复格式。
-
-        只有回显（'#001PRAD!'）时看不到第 2 个数字，直接返回 None，
-        不会被误当成角度 1。
-        """
-        if not text:
-            return None
-        up = text.upper()
-        hits = PRAD_RE.findall(up)
-        if hits:
-            val = int(hits[-1])                           # 粘包时取最新那一帧
-        else:
-            nums = NUM_RE.findall(up)
-            if len(nums) < 2:                             # 只有一个数 = 只剩 ID，没有角度
-                return None
-            val = int(nums[-1])                           # 第一个数是 3 位 ID，取最后一个
-        return val if 0 <= val <= 3000 else None          # 离谱的数值当没收到
+        for _ in range(3):        # 总线偶尔丢包，重试几次
+            with self._lock:
+                self.ser.reset_input_buffer()
+                self.ser.write(('#%03dPRAD!' % sid).encode())
+                self.ser.flush()
+                time.sleep(0.05)
+                data = self.ser.read(32).decode(errors='ignore')
+            for token in data.split('#'):
+                if 'P' in token:
+                    try:
+                        return int(token.split('P')[1][:4])
+                    except Exception:
+                        pass
+            time.sleep(0.05)
+        return None
 
     # ---------- bag：状态发布 + 指令订阅（回放） ----------
     def publish_state(self):
@@ -258,14 +208,27 @@ class ServoDriver(Node):
             goal_handle.publish_feedback(fb)
             time.sleep(FEEDBACK_DT)
 
-        actual = self.read_prad(sid)
+        # 等舵机真正停稳再判定：轮询 PRAD，到位就提前退出
+        tol = self.get_parameter('tolerance_pwm').value
+        tries = max(1, int(self.get_parameter('settle_ms').value / 1000.0 / SETTLE_DT))
+        actual = None
+        for _ in range(tries):
+            actual = self.read_prad(sid)
+            if actual is None or abs(actual - pwm) <= tol:
+                break
+            time.sleep(SETTLE_DT)
+
         if actual is None:
-            result.success = True
             result.final_pwm = pwm
-            result.message = '模拟模式，未做 PRAD 回读'
+            if self.ser is None:
+                result.success = True
+                result.message = '模拟模式，未做 PRAD 回读'
+            else:
+                result.success = False
+                result.message = 'PRAD 无响应，舵机可能不在线'
         else:
             result.final_pwm = actual
-            if abs(actual - pwm) <= 30:
+            if abs(actual - pwm) <= tol:
                 result.success = True
                 result.message = '到位，PRAD=%d' % actual
             else:

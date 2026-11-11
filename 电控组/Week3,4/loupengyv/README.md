@@ -246,21 +246,84 @@ Topic: /servo/command  Count: 3
 
 ---
 
-## 9. 动作 yaml
+## 9. 动作 yaml 与播放器（任务 3）
 
-**待任务 3**。计划结构：
+### 结构
 
-```yaml
-action_name: stand_up
-steps:
-  - joints:                 # 同一个 step 内 = 同时下发
-      - {id: 1, pwm: 1700, duration_ms: 800}
-      - {id: 2, pwm: 1300, duration_ms: 800}
-  - joints:                 # 上一个 step 的 result 全回来才发这一步
-      - {id: 3, pwm: 1500, duration_ms: 500}
+```
+src/cquick_servo/
+├── cquick_servo/sequence_player.py     播放器：读 yaml → 展开 goal → 按 result 同步
+└── config/actions/
+    ├── stand.yaml                       两舵机同时抬升 → 同时收回（2 步）
+    └── wave.yaml                        一号先动 → 二号跟上 → 一起回中（3 步）
 ```
 
-播放器（`sequence_player.py`）读 yaml → 展开成 goal 序列 → **用 result 同步**（不用 sleep）。
+### yaml 格式
+
+```yaml
+name: stand
+description: 两个舵机先同时抬到站立位，再同时收回中位
+steps:
+  - name: 同时抬升
+    joints:
+      - {id: 1, pwm: 1750, duration_ms: 800}
+      - {id: 2, pwm: 1300, duration_ms: 800}
+  - name: 同时收回
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 600}
+      - {id: 2, pwm: 1500, duration_ms: 600}
+```
+
+三条必须表达的能力：
+
+| 能力 | 怎么表达 |
+|---|---|
+| 一步内多舵机协同 | 同一个 `step` 的 `joints` 里写多条，**同时下发** |
+| 步与步串行 | 播放器等当前 step 的**全部 result** 回来才进下一步 |
+| 一步内有先后 | 先动的关节单独开一个 `step`（见 `wave.yaml`） |
+
+### 播放器逻辑
+
+```python
+for step in steps:                      # 一步步来
+    futures = [send(j) for j in step]   # 同一步的关节全部发出去
+    for f in futures:                   # 等每个 result 回来
+        rclpy.spin_until_future_complete(self, f)
+        log(result, 完成时刻)
+```
+
+**没有一处 `sleep` 用来等舵机**——同步信号是 Action 的 result。
+
+### 运行
+
+```bash
+# 终端 1
+ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB0
+
+# 终端 2
+ros2 run cquick_servo sequence_player --ros-args -p action_file:=stand.yaml
+
+# 换一套动作：代码一个字不改
+ros2 run cquick_servo sequence_player --ros-args -p action_file:=wave.yaml
+```
+
+### 实测日志（关键：result 同步 + 时间戳）
+
+```
+--- 第 1/2 步：同时抬升（2 个关节同时下发）
+  id=1 目标=1750 用时=800ms → 已接受
+  id=2 目标=1300 用时=800ms → 已接受
+  [result] id=1 success=True 实际=1734 耗时=1.58s 完成时刻=1794393472.069 msg=到位，PRAD=1734
+  [result] id=2 success=True 实际=1315 耗时=2.94s 完成时刻=1794393473.427 msg=到位，PRAD=1315
+--- 第 1 步结束，用时 2.94s
+--- 第 2/2 步：同时收回（2 个关节同时下发）
+  ...
+=== 动作组「stand」播放完毕，总用时 4.96s，全部到位 ===
+```
+
+**两个细节值得说**：
+1. 同一个 step 里 id=1 先回、id=2 后回（差 1.3s），但播放器**等到两个都回来**才进第 2 步——这就是 result 同步的意义。
+2. `wave.yaml` 跑出来的步数是 3 步，日志结构随之变化，**python 代码没有改动**。
 
 ---
 

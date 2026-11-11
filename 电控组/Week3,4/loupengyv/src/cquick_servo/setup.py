@@ -1,3 +1,5 @@
+from glob import glob
+
 from setuptools import setup
 
 package_name = 'cquick_servo'
@@ -10,8 +12,9 @@ setup(
         ('share/ament_index/resource_index/packages',
          ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
-        ('share/' + package_name + '/launch', ['launch/servo.launch.py']),
+        ('share/' + package_name + '/launch', glob('launch/*.launch.py')),
         ('share/' + package_name + '/config', ['config/servo_params.yaml']),
+        ('share/' + package_name + '/config/actions', glob('config/actions/*.yaml')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -24,6 +27,7 @@ setup(
         'console_scripts': [
             'servo_driver = cquick_servo.servo_driver:main',
             'move_client = cquick_servo.move_client:main',
+            'sequence_player = cquick_servo.sequence_player:main',
         ],
     },
 )

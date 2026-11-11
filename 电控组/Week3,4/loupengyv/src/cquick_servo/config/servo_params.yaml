@@ -7,3 +7,5 @@ servo_driver:
     default_duration_ms: 800
     servo_ids: [1, 2, 3, 4, 5, 6]
     startup_reset: true
+    tolerance_pwm: 40
+    settle_ms: 1500
