@@ -1,0 +1,89 @@
+==============================================================================
+[文件] 01_blue_cube_gray.jpg
+[路径] data\images\01_blue_cube_gray.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=250.8 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (01_blue_cube_gray_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (01_blue_cube_gray_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (01_blue_cube_gray_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (01_blue_cube_gray_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[66, 204]  (01_blue_cube_gray_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (01_blue_cube_gray_bgr_vs_rgb.png)
+       像素(640,480)  B=199 G=198 R=194
+       cv2.split 三通道均值：B=188.8 G=182.5 R=175.2
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 01_blue_cube_gray_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=339.4 KB
+[校验] 01_blue_cube_gray_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=203.4 KB
+[校验] 01_blue_cube_gray_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=206.2 KB
+[校验] 01_blue_cube_gray_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=202.7 KB
+[校验] 01_blue_cube_gray_gray.png  重读 shape=(960, 1280)  与内存一致  size=505.7 KB
+[校验] 01_blue_cube_gray_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2886.2 KB
+[结果] 6 个输出文件，全部可重新读取：True
+==============================================================================
+[文件] 02_green_bottle_wood.jpg
+[路径] data\images\02_green_bottle_wood.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=263.3 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (02_green_bottle_wood_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (02_green_bottle_wood_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (02_green_bottle_wood_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (02_green_bottle_wood_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[36, 150]  (02_green_bottle_wood_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (02_green_bottle_wood_bgr_vs_rgb.png)
+       像素(640,480)  B=45 G=68 R=94
+       cv2.split 三通道均值：B=53.0 G=80.9 R=108.7
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 02_green_bottle_wood_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=360.7 KB
+[校验] 02_green_bottle_wood_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=229.4 KB
+[校验] 02_green_bottle_wood_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=206.5 KB
+[校验] 02_green_bottle_wood_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=207.8 KB
+[校验] 02_green_bottle_wood_gray.png  重读 shape=(960, 1280)  与内存一致  size=500.3 KB
+[校验] 02_green_bottle_wood_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2889.0 KB
+[结果] 6 个输出文件，全部可重新读取：True
+==============================================================================
+[文件] 03_orange_ball_white.jpg
+[路径] data\images\03_orange_ball_white.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=277.8 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (03_orange_ball_white_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (03_orange_ball_white_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (03_orange_ball_white_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (03_orange_ball_white_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[70, 248]  (03_orange_ball_white_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (03_orange_ball_white_bgr_vs_rgb.png)
+       像素(640,480)  B=34 G=112 R=218
+       cv2.split 三通道均值：B=208.0 G=213.7 R=221.1
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 03_orange_ball_white_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=373.1 KB
+[校验] 03_orange_ball_white_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=230.6 KB
+[校验] 03_orange_ball_white_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=212.2 KB
+[校验] 03_orange_ball_white_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=214.2 KB
+[校验] 03_orange_ball_white_gray.png  重读 shape=(960, 1280)  与内存一致  size=529.7 KB
+[校验] 03_orange_ball_white_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2992.5 KB
+[结果] 6 个输出文件，全部可重新读取：True
+==============================================================================
+[文件] 04_hard_orange_shadow.jpg
+[路径] data\images\04_hard_orange_shadow.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=242.3 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (04_hard_orange_shadow_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (04_hard_orange_shadow_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (04_hard_orange_shadow_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (04_hard_orange_shadow_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[25, 103]  (04_hard_orange_shadow_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (04_hard_orange_shadow_bgr_vs_rgb.png)
+       像素(640,480)  B=58 G=58 R=70
+       cv2.split 三通道均值：B=62.9 G=64.4 R=79.4
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 04_hard_orange_shadow_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=327.0 KB
+[校验] 04_hard_orange_shadow_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=202.3 KB
+[校验] 04_hard_orange_shadow_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=196.5 KB
+[校验] 04_hard_orange_shadow_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=195.8 KB
+[校验] 04_hard_orange_shadow_gray.png  重读 shape=(960, 1280)  与内存一致  size=482.5 KB
+[校验] 04_hard_orange_shadow_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2771.7 KB
+[结果] 6 个输出文件，全部可重新读取：True
+
+==============================================================================
+[汇总] 原图未被修改：是
+[汇总] 任务一整体结果：通过
+[汇总] 输出目录：outputs\task1

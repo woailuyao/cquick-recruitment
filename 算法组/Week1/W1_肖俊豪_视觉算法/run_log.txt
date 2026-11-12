@@ -1,0 +1,161 @@
+[START] 周六 2026/10/24 21:21:50.96
+[FOLDER] C:\Users\Lenovo\Documents\deepseek-harness\default-workspace\W1_肖俊豪_视觉算法
+[PYTHON] python
+Python 3.14.4
+
+==== check_env ====
+==================================================================
+视觉算法第一周 · 环境自检
+==================================================================
+[Python ] 3.14.4  (C:\Users\Lenovo\AppData\Local\Programs\Python\Python314\python.exe)
+[numpy  ] 2.5.4  OK
+[opencv ] 5.0.0  OK
+[图片  ] data/images 下共 4 张，测试图齐全  OK
+[输出  ] outputs/ 可写  OK
+------------------------------------------------------------------
+环境正常，可以依次运行：
+    python src/task1_basics.py
+    python src/task2_processing.py
+    python src/task3_color_detect.py --sweep
+或直接双击项目根目录的 run_all.bat
+==================================================================
+
+==== task1_basics ====
+==============================================================================
+[文件] 01_blue_cube_gray.jpg
+[路径] data\images\01_blue_cube_gray.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=250.8 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (01_blue_cube_gray_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (01_blue_cube_gray_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (01_blue_cube_gray_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (01_blue_cube_gray_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[66, 204]  (01_blue_cube_gray_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (01_blue_cube_gray_bgr_vs_rgb.png)
+       像素(640,480)  B=199 G=198 R=194
+       cv2.split 三通道均值：B=188.8 G=182.5 R=175.2
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 01_blue_cube_gray_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=339.4 KB
+[校验] 01_blue_cube_gray_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=203.4 KB
+[校验] 01_blue_cube_gray_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=206.2 KB
+[校验] 01_blue_cube_gray_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=202.7 KB
+[校验] 01_blue_cube_gray_gray.png  重读 shape=(960, 1280)  与内存一致  size=505.7 KB
+[校验] 01_blue_cube_gray_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2886.2 KB
+[结果] 6 个输出文件，全部可重新读取：True
+==============================================================================
+[文件] 02_green_bottle_wood.jpg
+[路径] data\images\02_green_bottle_wood.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=263.3 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (02_green_bottle_wood_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (02_green_bottle_wood_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (02_green_bottle_wood_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (02_green_bottle_wood_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[36, 150]  (02_green_bottle_wood_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (02_green_bottle_wood_bgr_vs_rgb.png)
+       像素(640,480)  B=45 G=68 R=94
+       cv2.split 三通道均值：B=53.0 G=80.9 R=108.7
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 02_green_bottle_wood_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=360.7 KB
+[校验] 02_green_bottle_wood_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=229.4 KB
+[校验] 02_green_bottle_wood_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=206.5 KB
+[校验] 02_green_bottle_wood_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=207.8 KB
+[校验] 02_green_bottle_wood_gray.png  重读 shape=(960, 1280)  与内存一致  size=500.3 KB
+[校验] 02_green_bottle_wood_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2889.0 KB
+[结果] 6 个输出文件，全部可重新读取：True
+==============================================================================
+[文件] 03_orange_ball_white.jpg
+[路径] data\images\03_orange_ball_white.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=277.8 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (03_orange_ball_white_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (03_orange_ball_white_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (03_orange_ball_white_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (03_orange_ball_white_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[70, 248]  (03_orange_ball_white_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (03_orange_ball_white_bgr_vs_rgb.png)
+       像素(640,480)  B=34 G=112 R=218
+       cv2.split 三通道均值：B=208.0 G=213.7 R=221.1
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 03_orange_ball_white_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=373.1 KB
+[校验] 03_orange_ball_white_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=230.6 KB
+[校验] 03_orange_ball_white_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=212.2 KB
+[校验] 03_orange_ball_white_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=214.2 KB
+[校验] 03_orange_ball_white_gray.png  重读 shape=(960, 1280)  与内存一致  size=529.7 KB
+[校验] 03_orange_ball_white_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2992.5 KB
+[结果] 6 个输出文件，全部可重新读取：True
+==============================================================================
+[文件] 04_hard_orange_shadow.jpg
+[路径] data\images\04_hard_orange_shadow.jpg
+[读取] 成功  shape=(960, 1280, 3)  dtype=uint8  高=960 宽=1280 通道=3  文件=242.3 KB
+       注意：shape[0]=高=960，shape[1]=宽=1280；矩阵索引是 img[y, x]，不是 img[x, y]
+[缩放] 比例 0.5      -> 640x480  (04_hard_orange_shadow_resize_scale0.5.png)
+[缩放] 固定宽度 512 -> 512x384  缩放比=0.400  (04_hard_orange_shadow_resize_w512.png)
+[裁剪] 中心区域     -> x=400 y=300 w=480 h=360  结果 480x360  (04_hard_orange_shadow_crop_center.png)
+[裁剪] 指定区域     -> x=640 y=200 w=480 h=360  (04_hard_orange_shadow_crop_region.png)
+[灰度] BGR2GRAY     -> shape=(960, 1280) 通道=1  灰度范围=[25, 103]  (04_hard_orange_shadow_gray.png)
+[通道] 左=原始 BGR 读入，右=通道互换后  (04_hard_orange_shadow_bgr_vs_rgb.png)
+       像素(640,480)  B=58 G=58 R=70
+       cv2.split 三通道均值：B=62.9 G=64.4 R=79.4
+       OpenCV 默认按 BGR 存图；若把它当 RGB 直接给 matplotlib/PIL 显示，红蓝会互换（见 *_bgr_vs_rgb.png 右半部分）
+[校验] 04_hard_orange_shadow_resize_scale0.5.png  重读 shape=(480, 640, 3)  与内存一致  size=327.0 KB
+[校验] 04_hard_orange_shadow_resize_w512.png  重读 shape=(384, 512, 3)  与内存一致  size=202.3 KB
+[校验] 04_hard_orange_shadow_crop_center.png  重读 shape=(360, 480, 3)  与内存一致  size=196.5 KB
+[校验] 04_hard_orange_shadow_crop_region.png  重读 shape=(360, 480, 3)  与内存一致  size=195.8 KB
+[校验] 04_hard_orange_shadow_gray.png  重读 shape=(960, 1280)  与内存一致  size=482.5 KB
+[校验] 04_hard_orange_shadow_bgr_vs_rgb.png  重读 shape=(960, 2560, 3)  与内存一致  size=2771.7 KB
+[结果] 6 个输出文件，全部可重新读取：True
+
+==============================================================================
+[汇总] 原图未被修改：是
+[汇总] 任务一整体结果：通过
+[汇总] 输出目录：outputs\task1
+[日志] 已写入 outputs\task1\run_log.txt
+
+==== task2_processing ====
+[输入] data\images\01_blue_cube_gray.jpg  1280x960
+
+噪声实验                参数                           噪声σ      边缘像素     Otsu连通域
+------------------------------------------------------------------------------
+noisy               sp=0.02, gauss=8.0         28.53    457671           1
+noisy+mean5         mean k=5                    5.65     91300           1
+noisy+gauss5        gauss k=5                   7.76    210688           1
+noisy+median5       median k=5                  2.28      2035           1
+canny(noisy)        canny 30/90                    -    457671           -
+canny(gauss+noisy)  canny 30/90                    -    210688           -
+
+步骤              参数                         噪声σ        锐度(拉氏方差)      边缘像素      前景占比     连通域
+--------------------------------------------------------------------------------------------
+gray            -                         2.12            41.2      2007         -       -
+mean_k5         mean_ksize=5              0.96             2.0      2002         -       -
+gauss_k5        gauss_ksize=5             1.13             2.7      2006         -       -
+gauss_k15       gauss_ksize=15            0.77             0.7      1025         -       -
+median_k5       median_ksize=5            0.99             3.7      2009         -       -
+otsu_inv        threshold=150                -               -         -    0.0650       1
+fixed_thresh_invT=80                         -               -         -    0.0023       1
+fixed_thresh_invT=127                        -               -         -    0.0479       1
+fixed_thresh_invT=180                        -               -         -    0.3013      39
+adaptive        block=71,C=5                 -               -         -    0.0205       1
+canny           canny_low=30/90              -               -      2007         -       -
+canny           canny_high=120/240           -               -      1027         -       -
+open            open 5x5                     -               -         -    0.0640       1
+open_close      open+close 5x5               -               -         -    0.0641       1
+
+[输出] 16 张主流程图片 -> outputs\task2
+[输出] 指标表 -> outputs\task2\metrics.csv、outputs\task2\metrics_noise.csv
+[提示] Otsu 自动阈值 = 150；总览图见 outputs\task2\01_blue_cube_gray_comparison_grid.png
+
+==== task3_color_detect ====
+图片                            颜色      命中    中心(x,y)           宽x高                面积      候选/总轮廓
+----------------------------------------------------------------------------------------------------
+01_blue_cube_gray.jpg         blue    是     (430.0, 520.0)    261x261         67299           1/1
+02_green_bottle_wood.jpg      green   是     (904.4, 521.2)    200x371         47233           1/1
+03_orange_ball_white.jpg      orange  是     (799.4, 499.7)    348x348         94837           1/1
+04_hard_orange_shadow.jpg     orange  否     -                 -                   0           -
+----------------------------------------------------------------------------------------------------
+[结果] 3/4 张图片检测到目标
+[输出] 掩膜/标注图 -> outputs\task3
+[输出] 坐标与面积表 -> outputs\task3\detections.csv
+[依据] H 5~22 覆盖橙/橙红；S>=150、V>=120 来自顺光样本，阴影中的暗橙会被漏掉（见 README 失败案例）
+
+==== DONE 21:21:53.78 ====
