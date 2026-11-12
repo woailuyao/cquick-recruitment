@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ball_comm</name>
+  <version>0.0.1</version>
+  <description>第2周任务1：BallPos 自定义消息 + 发布/订阅；任务2：订阅三个球坐标并驱动小乌龟依次到达</description>
+  <maintainer email="wl122913@foxmail.com">liunianxi</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 编译工具：自定义消息必须走 ament_cmake，不能用 ament_python -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 第3步里那几条最容易漏的：消息生成器 / 消息运行时 / 接口包分组 -->
+  <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <!-- Python 节点依赖 -->
+  <depend>rclpy</depend>
+  <depend>rcl_interfaces</depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_srvs</depend>
+  <exec_depend>turtlesim</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
