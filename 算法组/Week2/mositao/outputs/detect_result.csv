@@ -1,0 +1,4 @@
+﻿image,detected,u,v,area,num_candidates
+obj1.jpg,True,292.9,391.2,21767.0,1
+obj2.jpg,True,287.9,303.6,46318.0,1
+obj3.jpg,True,316.2,225.9,26885.0,1
