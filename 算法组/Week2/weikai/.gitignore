@@ -1,0 +1,8 @@
+# Python 字节码缓存
+__pycache__/
+*.pyc
+
+# colcon 构建产物（在 WSL 里编译时产生）
+build/
+install/
+log/
