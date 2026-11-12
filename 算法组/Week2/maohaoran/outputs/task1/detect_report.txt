@@ -1,0 +1,14 @@
+任务 1 检测结果
+HSV 下界: (100, 80, 40)
+HSV 上界: (130, 255, 255)
+最小面积: 2000
+
+04_small.jpg: detected=True u=620.0 v=140.0 area=3116 method=moments candidates=1
+05_similar_bg.jpg: detected=True u=300.0 v=300.0 area=23026 method=moments candidates=2
+06_no_target.jpg: detected=False u=0.0 v=0.0 area=0.0 (未检测到目标)
+07_noisy.jpg: detected=True u=400.0 v=300.1 area=25211 method=moments candidates=1
+sample.jpg: detected=True u=320.0 v=240.0 area=39994 method=moments candidates=1
+sample2.jpg: detected=True u=180.0 v=190.0 area=52794 method=moments candidates=1
+sample3.jpg: detected=True u=479.5 v=359.9 area=70660 method=moments candidates=1
+
+汇总: 7 张图, 检测到 6 张
