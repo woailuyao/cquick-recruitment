@@ -1,0 +1,13 @@
+姓名：胡钰涵 / Hu Yuhan
+运行时间：2026-11-01 17:59:28 +08:00
+Python=3.10.11 OpenCV=5.0.0 NumPy=2.2.6
+HSV=[20, 40, 50] ~ [45, 255, 255], min_area=500
+宽高比=0.7~1.3，圆度>=0.6；按面积从大到小选择第一个合格轮廓。
+clear.jpg: 960x631, detected=True, u=330.5, v=438.5, area=11966.0
+small.jpg: 1200x800, detected=True, u=629.0, v=591.5, area=4229.0
+similar_background.jpg: 1200x795, detected=False, u=0.0, v=0.0, area=0.0
+no_target.jpg: 960x330, detected=False, u=0.0, v=0.0, area=0.0
+shadow.jpg: 1600x2400, detected=False, u=0.0, v=0.0, area=0.0
+已处理5张图，保存5张掩膜、5张标注图及summary.csv。
+注意：detected=True仅表示选中了轮廓，是否选中网球需要人工检查。
+输出目录：F:\Cquick\week2\results\bonus_five_images
