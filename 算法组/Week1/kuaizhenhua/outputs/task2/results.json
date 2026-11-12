@@ -1,0 +1,201 @@
+{
+  "task": "task2_processing",
+  "source": "data/images/01_clean.png",
+  "source_shape": [
+    480,
+    640,
+    3
+  ],
+  "comparison_strategy": "baseline + four one-factor-at-a-time changes",
+  "configurations": [
+    {
+      "name": "baseline",
+      "change": "基准参数",
+      "parameters": {
+        "gaussian_kernel": 5,
+        "threshold": 127,
+        "canny_low": 80,
+        "canny_high": 160,
+        "morph_kernel": 3,
+        "morph_operation": "open"
+      },
+      "metrics": {
+        "gaussian_mean_abs_change": 0.6202669143676758,
+        "threshold_white_fraction": 0.939189453125,
+        "canny_edge_fraction": 0.006337890625,
+        "canny_connected_components": 27,
+        "morphology_white_fraction": 0.939189453125,
+        "morphology_changed_pixels": 0
+      },
+      "changed_pixels_vs_baseline": {
+        "gaussian": 0,
+        "threshold": 0,
+        "canny": 0,
+        "morphology": 0
+      },
+      "files": {
+        "gaussian": "baseline/01_gaussian.png",
+        "threshold": "baseline/02_threshold.png",
+        "canny": "baseline/03_canny.png",
+        "morphology": "baseline/04_morphology.png"
+      }
+    },
+    {
+      "name": "gaussian_changed",
+      "change": "只修改高斯滤波核",
+      "parameters": {
+        "gaussian_kernel": 11,
+        "threshold": 127,
+        "canny_low": 80,
+        "canny_high": 160,
+        "morph_kernel": 3,
+        "morph_operation": "open"
+      },
+      "metrics": {
+        "gaussian_mean_abs_change": 1.055100917816162,
+        "threshold_white_fraction": 0.9394010416666667,
+        "canny_edge_fraction": 0.004326171875,
+        "canny_connected_components": 19,
+        "morphology_white_fraction": 0.9394010416666667,
+        "morphology_changed_pixels": 0
+      },
+      "changed_pixels_vs_baseline": {
+        "gaussian": 15575,
+        "threshold": 65,
+        "canny": 1258,
+        "morphology": 65
+      },
+      "files": {
+        "gaussian": "gaussian_changed/01_gaussian.png",
+        "threshold": "gaussian_changed/02_threshold.png",
+        "canny": "gaussian_changed/03_canny.png",
+        "morphology": "gaussian_changed/04_morphology.png"
+      }
+    },
+    {
+      "name": "threshold_changed",
+      "change": "只修改固定二值阈值",
+      "parameters": {
+        "gaussian_kernel": 5,
+        "threshold": 167,
+        "canny_low": 80,
+        "canny_high": 160,
+        "morph_kernel": 3,
+        "morph_operation": "open"
+      },
+      "metrics": {
+        "gaussian_mean_abs_change": 0.6202669143676758,
+        "threshold_white_fraction": 0.9347721354166667,
+        "canny_edge_fraction": 0.006337890625,
+        "canny_connected_components": 27,
+        "morphology_white_fraction": 0.9346712239583334,
+        "morphology_changed_pixels": 31
+      },
+      "changed_pixels_vs_baseline": {
+        "gaussian": 0,
+        "threshold": 1357,
+        "canny": 0,
+        "morphology": 1388
+      },
+      "files": {
+        "gaussian": "threshold_changed/01_gaussian.png",
+        "threshold": "threshold_changed/02_threshold.png",
+        "canny": "threshold_changed/03_canny.png",
+        "morphology": "threshold_changed/04_morphology.png"
+      }
+    },
+    {
+      "name": "canny_changed",
+      "change": "只修改 Canny 双阈值",
+      "parameters": {
+        "gaussian_kernel": 5,
+        "threshold": 127,
+        "canny_low": 40,
+        "canny_high": 80,
+        "morph_kernel": 3,
+        "morph_operation": "open"
+      },
+      "metrics": {
+        "gaussian_mean_abs_change": 0.6202669143676758,
+        "threshold_white_fraction": 0.939189453125,
+        "canny_edge_fraction": 0.006350911458333333,
+        "canny_connected_components": 31,
+        "morphology_white_fraction": 0.939189453125,
+        "morphology_changed_pixels": 0
+      },
+      "changed_pixels_vs_baseline": {
+        "gaussian": 0,
+        "threshold": 0,
+        "canny": 4,
+        "morphology": 0
+      },
+      "files": {
+        "gaussian": "canny_changed/01_gaussian.png",
+        "threshold": "canny_changed/02_threshold.png",
+        "canny": "canny_changed/03_canny.png",
+        "morphology": "canny_changed/04_morphology.png"
+      }
+    },
+    {
+      "name": "morphology_changed",
+      "change": "只修改形态学核",
+      "parameters": {
+        "gaussian_kernel": 5,
+        "threshold": 127,
+        "canny_low": 80,
+        "canny_high": 160,
+        "morph_kernel": 9,
+        "morph_operation": "open"
+      },
+      "metrics": {
+        "gaussian_mean_abs_change": 0.6202669143676758,
+        "threshold_white_fraction": 0.939189453125,
+        "canny_edge_fraction": 0.006337890625,
+        "canny_connected_components": 27,
+        "morphology_white_fraction": 0.939189453125,
+        "morphology_changed_pixels": 0
+      },
+      "changed_pixels_vs_baseline": {
+        "gaussian": 0,
+        "threshold": 0,
+        "canny": 0,
+        "morphology": 0
+      },
+      "files": {
+        "gaussian": "morphology_changed/01_gaussian.png",
+        "threshold": "morphology_changed/02_threshold.png",
+        "canny": "morphology_changed/03_canny.png",
+        "morphology": "morphology_changed/04_morphology.png"
+      }
+    }
+  ],
+  "supplement_parameters": {
+    "mean_kernel": 5,
+    "median_kernel": 5,
+    "adaptive_method": "GAUSSIAN_C",
+    "adaptive_block_size": 31,
+    "adaptive_C": 5,
+    "morphology_shape": "ELLIPSE",
+    "morphology_kernel": 3,
+    "morphology_iterations": 1
+  },
+  "supplement_files": {
+    "mean_filter": "supplement/01_mean_filter.png",
+    "median_filter": "supplement/02_median_filter.png",
+    "adaptive_threshold": "supplement/03_adaptive_threshold.png",
+    "erode": "supplement/04_erode.png",
+    "dilate": "supplement/05_dilate.png",
+    "opening": "supplement/06_opening.png",
+    "closing": "supplement/07_closing.png",
+    "channel_B": "supplement/08_channel_B.png",
+    "channel_G": "supplement/09_channel_G.png",
+    "channel_R": "supplement/10_channel_R.png"
+  },
+  "interpretation_notes": [
+    "固定阈值为 THRESH_BINARY：像素值大于 T 才变为白色；升高 T 通常减少白色区域。",
+    "较大的高斯核会增强平滑，也可能模糊细小边缘。",
+    "降低 Canny 阈值通常保留更多弱边缘，也可能增加噪声边缘。",
+    "开运算可能去除小白噪声，也可能损伤细小目标；闭运算可能填孔连通，也可能合并邻近区域。",
+    "白色占比、边缘连通分量只是观察指标，不能单独证明识别正确或边缘完整。"
+  ]
+}

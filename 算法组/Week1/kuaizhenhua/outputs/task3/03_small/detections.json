@@ -1,0 +1,54 @@
+{
+  "image": "03_small.png",
+  "sha256": "5146e3a4fe1be8de459bec07fedd1463bbf9c4cca8c56e836d3769d59bd1a149",
+  "shape_hwc": [
+    480,
+    640,
+    3
+  ],
+  "config": {
+    "hsv_lower": [
+      95,
+      80,
+      70
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "open_kernel": 3,
+    "close_kernel": 5,
+    "min_area": 500
+  },
+  "coordinate_system": "image pixels; origin top-left; x right; y down",
+  "area_definition": "external contour geometric area in pixel^2, not count of white pixels; holes are not subtracted",
+  "candidate_count": 1,
+  "raw_white_pixels": 2607,
+  "clean_white_pixels": 2609,
+  "detections": [
+    {
+      "id": 1,
+      "center_xy": [
+        319.984,
+        255.016
+      ],
+      "contour_area_px2": 2525.0,
+      "bbox_xywh": [
+        288,
+        230,
+        65,
+        51
+      ]
+    }
+  ],
+  "files": {
+    "mask_raw": "01_mask_raw.png",
+    "mask_opened": "02_mask_opened.png",
+    "mask": "mask.png",
+    "mask_filtered": "04_mask_filtered.png",
+    "extracted": "05_extracted.png",
+    "result": "result.png",
+    "comparison": "07_comparison.png"
+  }
+}

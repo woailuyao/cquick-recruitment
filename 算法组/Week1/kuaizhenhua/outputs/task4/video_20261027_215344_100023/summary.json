@@ -1,0 +1,66 @@
+{
+  "source_type": "video",
+  "source": "data/videos/demo_color_motion.avi",
+  "started_at": "2026-10-27T21:53:44+08:00",
+  "input_fps": 10.0,
+  "frame_index_base": 1,
+  "coordinate_system": "图像像素；左上角为原点，x 向右、y 向下。",
+  "area_definition": "外轮廓几何面积，单位像素平方；不等于白色像素数量。",
+  "input_frame_count_from_metadata": 120,
+  "frame_size_wh": [
+    640,
+    480
+  ],
+  "processed_frames": 120,
+  "candidate_count_histogram": {
+    "0": 30,
+    "1": 60,
+    "2": 30
+  },
+  "config_path": "src/configs/blue.json",
+  "config": {
+    "hsv_lower": [
+      95,
+      80,
+      70
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "open_kernel": 3,
+    "close_kernel": 5,
+    "min_area": 500
+  },
+  "display_enabled": true,
+  "end_reason": "end_of_video",
+  "error": null,
+  "saved_snapshot_frames": [
+    1,
+    11,
+    21,
+    31,
+    41,
+    51,
+    61,
+    71,
+    81,
+    91,
+    101,
+    111,
+    120
+  ],
+  "output_video_frames_verified": 120,
+  "files": {
+    "annotated_video": "annotated.avi",
+    "frame_records": "frames.jsonl",
+    "snapshots": "snapshots/"
+  },
+  "snapshot_files": {
+    "input": "01_input.png",
+    "mask": "02_mask.png",
+    "result": "03_result.png"
+  },
+  "scope": "程序执行记录；是否本人观察、是否实拍须另行记录，候选数量不等于准确率。"
+}

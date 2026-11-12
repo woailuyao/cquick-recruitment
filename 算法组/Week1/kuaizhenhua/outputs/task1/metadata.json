@@ -1,0 +1,308 @@
+{
+  "task": "task1_basics",
+  "image_count": 5,
+  "read_mode": "BGR",
+  "all_saved_files_read_back_verified": true,
+  "images": [
+    {
+      "source": "data/images/01_clean.png",
+      "source_shape": [
+        480,
+        640,
+        3
+      ],
+      "width": 640,
+      "height": 480,
+      "channels": 3,
+      "scale_requested": 0.5,
+      "resized_size_wh": [
+        320,
+        240
+      ],
+      "crop_fraction_xywh": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "crop_pixels_xyxy_exclusive": [
+        160,
+        120,
+        480,
+        360
+      ],
+      "output_subfolder": "01_01_clean",
+      "results": {
+        "resized": {
+          "file": "01_resized.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "crop": {
+          "file": "02_crop.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "gray": {
+          "file": "03_gray.png",
+          "shape": [
+            480,
+            640
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        }
+      }
+    },
+    {
+      "source": "data/images/02_clutter.png",
+      "source_shape": [
+        480,
+        640,
+        3
+      ],
+      "width": 640,
+      "height": 480,
+      "channels": 3,
+      "scale_requested": 0.5,
+      "resized_size_wh": [
+        320,
+        240
+      ],
+      "crop_fraction_xywh": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "crop_pixels_xyxy_exclusive": [
+        160,
+        120,
+        480,
+        360
+      ],
+      "output_subfolder": "02_02_clutter",
+      "results": {
+        "resized": {
+          "file": "01_resized.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "crop": {
+          "file": "02_crop.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "gray": {
+          "file": "03_gray.png",
+          "shape": [
+            480,
+            640
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        }
+      }
+    },
+    {
+      "source": "data/images/03_small.png",
+      "source_shape": [
+        480,
+        640,
+        3
+      ],
+      "width": 640,
+      "height": 480,
+      "channels": 3,
+      "scale_requested": 0.5,
+      "resized_size_wh": [
+        320,
+        240
+      ],
+      "crop_fraction_xywh": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "crop_pixels_xyxy_exclusive": [
+        160,
+        120,
+        480,
+        360
+      ],
+      "output_subfolder": "03_03_small",
+      "results": {
+        "resized": {
+          "file": "01_resized.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "crop": {
+          "file": "02_crop.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "gray": {
+          "file": "03_gray.png",
+          "shape": [
+            480,
+            640
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        }
+      }
+    },
+    {
+      "source": "data/images/04_dark_fail.png",
+      "source_shape": [
+        480,
+        640,
+        3
+      ],
+      "width": 640,
+      "height": 480,
+      "channels": 3,
+      "scale_requested": 0.5,
+      "resized_size_wh": [
+        320,
+        240
+      ],
+      "crop_fraction_xywh": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "crop_pixels_xyxy_exclusive": [
+        160,
+        120,
+        480,
+        360
+      ],
+      "output_subfolder": "04_04_dark_fail",
+      "results": {
+        "resized": {
+          "file": "01_resized.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "crop": {
+          "file": "02_crop.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "gray": {
+          "file": "03_gray.png",
+          "shape": [
+            480,
+            640
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        }
+      }
+    },
+    {
+      "source": "data/images/05_same_color_fail.png",
+      "source_shape": [
+        480,
+        640,
+        3
+      ],
+      "width": 640,
+      "height": 480,
+      "channels": 3,
+      "scale_requested": 0.5,
+      "resized_size_wh": [
+        320,
+        240
+      ],
+      "crop_fraction_xywh": [
+        0.25,
+        0.25,
+        0.5,
+        0.5
+      ],
+      "crop_pixels_xyxy_exclusive": [
+        160,
+        120,
+        480,
+        360
+      ],
+      "output_subfolder": "05_05_same_color_fail",
+      "results": {
+        "resized": {
+          "file": "01_resized.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "crop": {
+          "file": "02_crop.png",
+          "shape": [
+            240,
+            320,
+            3
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        },
+        "gray": {
+          "file": "03_gray.png",
+          "shape": [
+            480,
+            640
+          ],
+          "read_back_ok": true,
+          "pixels_identical": true
+        }
+      }
+    }
+  ]
+}

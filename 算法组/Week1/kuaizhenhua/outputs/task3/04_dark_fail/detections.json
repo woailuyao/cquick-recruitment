@@ -1,0 +1,39 @@
+{
+  "image": "04_dark_fail.png",
+  "sha256": "385085a283cc2381105c8ef60db22a55f55bb36be9ff3464459daeb7a76135e7",
+  "shape_hwc": [
+    480,
+    640,
+    3
+  ],
+  "config": {
+    "hsv_lower": [
+      95,
+      80,
+      70
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "open_kernel": 3,
+    "close_kernel": 5,
+    "min_area": 500
+  },
+  "coordinate_system": "image pixels; origin top-left; x right; y down",
+  "area_definition": "external contour geometric area in pixel^2, not count of white pixels; holes are not subtracted",
+  "candidate_count": 0,
+  "raw_white_pixels": 0,
+  "clean_white_pixels": 0,
+  "detections": [],
+  "files": {
+    "mask_raw": "01_mask_raw.png",
+    "mask_opened": "02_mask_opened.png",
+    "mask": "mask.png",
+    "mask_filtered": "04_mask_filtered.png",
+    "extracted": "05_extracted.png",
+    "result": "result.png",
+    "comparison": "07_comparison.png"
+  }
+}

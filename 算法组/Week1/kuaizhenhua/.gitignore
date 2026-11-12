@@ -1,0 +1,12 @@
+# 本地运行可生成这些文件，提交时只保留源码、样例图片和必要结果。
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.zip
+# 补截图工具的机器执行日志不是本人截图，保留在本地即可。
+outputs/records/runs/

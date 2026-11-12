@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "seed": 20261020,
+  "source_script": "src/make_demo_data.py",
+  "provenance": "Generated locally with OpenCV geometry and NumPy; no downloaded or real photos.",
+  "image_size_wh": [
+    640,
+    480
+  ],
+  "target_hsv_opencv": [
+    110,
+    200,
+    210
+  ],
+  "coordinate_system": "image pixels; origin top-left; x right; y down",
+  "mask_definition": "uint8 PNG; 255=true target, 0=background or distractor; exactly one true target per image",
+  "default_detector": {
+    "hsv_lower": [
+      95,
+      80,
+      70
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "open_kernel": 3,
+    "close_kernel": 5,
+    "kernel_shape": "ellipse",
+    "min_area": 500
+  },
+  "expected_candidate_counts": [
+    1,
+    1,
+    1,
+    0,
+    2
+  ],
+  "interpretation": "Candidate counts are expected color-detector outputs, not ground-truth object counts. The last two cases intentionally demonstrate failure.",
+  "images": [
+    {
+      "filename": "01_clean.png",
+      "image_path": "data/images/01_clean.png",
+      "mask_path": "data/ground_truth/01_clean.png",
+      "synthetic": true,
+      "scene_en": "A 160 x 120 pixel blue rectangle on a uniform light background.",
+      "scene_zh": "均匀浅色背景上的蓝色矩形，宽 160、高 120 像素。",
+      "expected_candidate_count": 1,
+      "true_target_count": 1,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ],
+      "true_target_pixels": 19200,
+      "deliberate_failure": null
+    },
+    {
+      "filename": "02_clutter.png",
+      "image_path": "data/images/02_clutter.png",
+      "mask_path": "data/ground_truth/02_clutter.png",
+      "synthetic": true,
+      "scene_en": "A blue circle with orange/green rectangles and tiny blue speckles.",
+      "scene_zh": "蓝色圆形目标，旁边有橙色、绿色矩形及微小蓝色噪点。",
+      "expected_candidate_count": 1,
+      "true_target_count": 1,
+      "true_target_center_xy": [
+        400.0,
+        250.0
+      ],
+      "true_target_pixels": 13273,
+      "deliberate_failure": null
+    },
+    {
+      "filename": "03_small.png",
+      "image_path": "data/images/03_small.png",
+      "mask_path": "data/ground_truth/03_small.png",
+      "synthetic": true,
+      "scene_en": "A small blue ellipse (semi-axes 32 and 25 pixels) on a noisy light background.",
+      "scene_zh": "浅色低幅噪声背景上的小蓝色椭圆，长短半轴为 32 和 25 像素。",
+      "expected_candidate_count": 1,
+      "true_target_count": 1,
+      "true_target_center_xy": [
+        319.998,
+        255.021
+      ],
+      "true_target_pixels": 2607,
+      "deliberate_failure": null
+    },
+    {
+      "filename": "04_dark_fail.png",
+      "image_path": "data/images/04_dark_fail.png",
+      "mask_path": "data/ground_truth/04_dark_fail.png",
+      "synthetic": true,
+      "scene_en": "A real target is present, but its HSV value V=50 is below the configured lower bound V=70.",
+      "scene_zh": "目标确实存在，但亮度 V=50 低于默认阈值下限 70，预期漏检。",
+      "expected_candidate_count": 0,
+      "true_target_count": 1,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ],
+      "true_target_pixels": 19200,
+      "deliberate_failure": "false_negative: target V=50 is below default V lower bound 70"
+    },
+    {
+      "filename": "05_same_color_fail.png",
+      "image_path": "data/images/05_same_color_fail.png",
+      "mask_path": "data/ground_truth/05_same_color_fail.png",
+      "synthetic": true,
+      "scene_en": "The rectangle is the true target; a separate larger blue circle is a same-color distractor.",
+      "scene_zh": "左侧矩形是真实目标，右侧更大的同色圆形是干扰物；纯颜色算法会输出两个候选。",
+      "expected_candidate_count": 2,
+      "true_target_count": 1,
+      "true_target_center_xy": [
+        249.5,
+        229.5
+      ],
+      "true_target_pixels": 19200,
+      "deliberate_failure": "false_positive: same-color distractor cannot be rejected by color and area alone"
+    }
+  ]
+}
