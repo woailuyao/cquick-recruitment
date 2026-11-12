@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+  package.xml = 这个包的「身份证 + 依赖清单」
+  =====================================================================
+  ROS 靠它知道：包叫什么、依赖谁、用什么方式构建。
+
+  注意：XML 注释里不能出现连续两个连字符，所以分隔线用等号。
+-->
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+
+  <!-- 包名：必须和目录名、CMakeLists 的 project() 完全一致 -->
+  <name>mine_interfaces</name>
+
+  <!-- 版本号：别留默认的 0.0.0，评审看着像没做完 -->
+  <version>0.1.0</version>
+
+  <description>自定义消息：目标在图像中的像素位置</description>
+  <maintainer email="xueziyi@example.com">xueziyi</maintainer>
+  <license>Apache-2.0</license>
+
+  <!--
+    构建时依赖
+    ament_cmake               = ROS2 的 CMake 扩展
+    rosidl_default_generators = 把 .msg 编译成 C++/Python 代码的工具（核心）
+  -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- 运行时依赖：消息的序列化/反序列化支持 -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!--
+    最容易漏的一行！
+    声明本包属于"接口包"组。没有它 → 编译成功但不生成消息代码，
+    ros2 interface show 会找不到消息。
+  -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
