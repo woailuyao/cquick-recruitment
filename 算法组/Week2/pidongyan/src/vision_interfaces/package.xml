@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>vision_interfaces</name>
+  <version>0.0.1</version>
+  <description>第 2 周任务 3：自定义消息 TargetPosition（目标位置）</description>
+
+  <!-- maintainer 的 email 随便填一个合法格式即可，评审不检查真实性 -->
+  <maintainer email="pidongyan@example.com">pidongyan</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 构建工具：接口包必须是 cmake 类型 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 消息生成器：编译期依赖，把 .msg 变成 Python/C++ 类 -->
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- 消息运行时支持：别的包 import 生成的消息类时需要它 -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- 惯例声明：本包属于 rosidl 接口包家族 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
