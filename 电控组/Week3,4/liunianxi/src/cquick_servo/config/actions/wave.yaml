@@ -1,0 +1,21 @@
+# 动作组：挥手（演示用，节奏比较快）
+name: wave
+repeat: 2
+steps:
+  - name: 抬到挥手位
+    joints:
+      - {id: 1, pwm: 1750, duration_ms: 600}
+      - {id: 2, pwm: 1300, duration_ms: 600}
+
+  - name: 向左摆
+    joints:
+      - {id: 2, pwm: 1150, duration_ms: 350}
+
+  - name: 向右摆
+    joints:
+      - {id: 2, pwm: 1450, duration_ms: 350}
+
+  - name: 回中位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 600}
+      - {id: 2, pwm: 1500, duration_ms: 600}

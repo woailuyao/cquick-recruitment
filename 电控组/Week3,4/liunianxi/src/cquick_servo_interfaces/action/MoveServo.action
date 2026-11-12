@@ -1,0 +1,17 @@
+# 一次"把某个舵机转到某个位置"的动作。
+# 字段切法说明（评审会问"为什么这么切"）：
+#   Goal 直接嵌套整条 ServoCommand —— 命令行 send_goal 拼起来最短，
+#   而且和 /servo/command 的载荷完全一致，bag 回放才能一条消息还原一次动作。
+
+# ===== Goal =====
+cquick_servo_interfaces/ServoCommand command
+bool verify_on_finish true    # 走完是否读 PRAD 校验（默认校验）
+---
+# ===== Result =====
+bool   success
+uint16 prad_actual            # 实际读回的 PWM；读不到时为 0
+string message                # ok / out_of_range / canceled / serial_error / not_reached:45
+---
+# ===== Feedback =====
+uint16  pwm_current           # 当前估算位置（有回读时用回读值，没有就用插值）
+float32 progress              # 0.0 ~ 1.0
