@@ -1,0 +1,1 @@
+from setuptools import setup; setup(name="vision_subscriber", version="0.0.0", packages=["vision_subscriber"], data_files=[("share/ament_index/resource_index/packages", ["resource/vision_subscriber"]), ("share/" + "vision_subscriber", ["package.xml"]), ("lib/python3/dist-packages", ["subscriber.py"])])
