@@ -1,0 +1,23 @@
+[INFO] [1793025180.603827779] [ball_navigator]: 导航节点已启动，等待收齐 3 个球 …
+[INFO] [1793025180.772038628] [ball_navigator]: 已收齐 3 个球: 球1(2.0,3.0), 球2(5.5,8.0), 球3(9.0,4.0)，开始导航
+[INFO] [1793025180.772311943] [ball_navigator]: 目标顺序: 球1 -> 球2 -> 球3
+[INFO] [1793025185.288912323] [ball_navigator]: >>> 到达第 1/3 个球（球 1），实际坐标 (2.106, 3.072)，目标坐标 (2.0, 3.0)，误差 d = 0.128 m
+[INFO] [1793025191.088990679] [ball_navigator]: >>> 到达第 2/3 个球（球 2），实际坐标 (5.423, 7.892)，目标坐标 (5.5, 8.0)，误差 d = 0.132 m
+[INFO] [1793025195.988772125] [ball_navigator]: >>> 到达第 3/3 个球（球 3），实际坐标 (8.910, 4.103)，目标坐标 (9.0, 4.0)，误差 d = 0.137 m
+[INFO] [1793025195.989354353] [ball_navigator]: 全部 3 个点已到达，导航结束。
+Traceback (most recent call last):
+  File "/home/miku/ros2_ws/install/cquick_ball/lib/cquick_ball/ball_navigator", line 193, in <module>
+    main()
+  File "/home/miku/ros2_ws/install/cquick_ball/lib/cquick_ball/ball_navigator", line 183, in main
+    rclpy.spin(node)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 229, in spin
+    executor.spin_once()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 812, in spin_once
+    self._spin_once_impl(timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 801, in _spin_once_impl
+    handler, entity, node = self.wait_for_ready_callbacks(timeout_sec=timeout_sec)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 784, in wait_for_ready_callbacks
+    return next(self._cb_iter)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/executors.py", line 685, in _wait_for_ready_callbacks
+    raise ExternalShutdownException()
+rclpy.executors.ExternalShutdownException
