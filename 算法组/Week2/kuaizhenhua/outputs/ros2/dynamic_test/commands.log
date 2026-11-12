@@ -1,0 +1,61 @@
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:54+08:00
+执行: ros2 interface show color_target_interfaces/msg/TargetPosition
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:54+08:00
+# 是否找到符合颜色、形态学和面积条件的候选目标。
+bool detected
+# 质心横坐标 u，单位像素；未检出时必须为 0。
+float32 u
+# 质心纵坐标 v，单位像素；图像左上角为原点，未检出时为 0。
+float32 v
+# 目标外轮廓面积，单位像素平方；未检出时为 0。
+float32 area
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:54+08:00
+启动: ros2 run color_target_vision target_publisher --ros-args -p image_dir:=data/real_images
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:56+08:00
+执行: ros2 param get /target_publisher lower_v
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:57+08:00
+Integer value is: 70
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:57+08:00
+启动: ros2 run color_target_vision target_subscriber --ros-args -p max_messages:=15 -p output_dir:=outputs/ros2/run_20261031_181154_039763/baseline
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:59+08:00
+执行: ros2 topic info /target_position
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:59+08:00
+Type: color_target_interfaces/msg/TargetPosition
+Publisher count: 1
+Subscription count: 1
+姓名: kuaizhenhua | 时间: 2026-10-31T18:11:59+08:00
+执行: ros2 topic echo /target_position --once
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:00+08:00
+detected: true
+u: 508.07623291015625
+v: 380.0613708496094
+area: 80689.5
+---
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:05+08:00
+baseline: 已实际收到15条，顺序与真实图片检测一致，包含 detected=false。
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:05+08:00
+执行: ros2 param set /target_publisher lower_v 40
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:06+08:00
+Set parameter successful
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:06+08:00
+执行: ros2 param get /target_publisher lower_v
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:07+08:00
+Integer value is: 40
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:07+08:00
+启动: ros2 run color_target_vision target_subscriber --ros-args -p max_messages:=15 -p output_dir:=outputs/ros2/run_20261031_181154_039763/lower_v_40
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:08+08:00
+执行: ros2 topic info /target_position
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:08+08:00
+Type: color_target_interfaces/msg/TargetPosition
+Publisher count: 1
+Subscription count: 1
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:08+08:00
+执行: ros2 topic echo /target_position --once
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:09+08:00
+detected: false
+u: 0.0
+v: 0.0
+area: 0.0
+---
+姓名: kuaizhenhua | 时间: 2026-10-31T18:12:15+08:00
+lower_v_40: 已实际收到15条，顺序与真实图片检测一致，包含 detected=false。

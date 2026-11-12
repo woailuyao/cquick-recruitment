@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "record_type": "automatic_parameter_comparison",
+  "description": "Minimum area: 500 vs 100",
+  "parameters": {
+    "A": {
+      "hsv_lower": [
+        95,
+        80,
+        70
+      ],
+      "hsv_upper": [
+        130,
+        255,
+        255
+      ],
+      "min_area": 500.0,
+      "open_kernel": 3,
+      "close_kernel": 5
+    },
+    "B": {
+      "hsv_lower": [
+        95,
+        80,
+        70
+      ],
+      "hsv_upper": [
+        130,
+        255,
+        255
+      ],
+      "min_area": 100.0,
+      "open_kernel": 3,
+      "close_kernel": 5
+    }
+  },
+  "results": [
+    {
+      "filename": "02_small.png",
+      "comparison_file": "01_02_small.png",
+      "A": {
+        "filename": "02_small.png",
+        "width": 640,
+        "height": 480,
+        "detected": false,
+        "u": 0.0,
+        "v": 0.0,
+        "area": 0.0,
+        "candidate_count": 0,
+        "candidates": [],
+        "source_sha256": "7db7ee9f5bee6835e7cbb08b24e6b959ea9b8f60a47625567777765e28f4ebea"
+      },
+      "B": {
+        "filename": "02_small.png",
+        "width": 640,
+        "height": 480,
+        "detected": true,
+        "u": 330.0,
+        "v": 250.0,
+        "area": 228.0,
+        "candidate_count": 1,
+        "candidates": [
+          {
+            "u": 330.0,
+            "v": 250.0,
+            "area": 228.0,
+            "bbox": {
+              "x": 321,
+              "y": 241,
+              "width": 19,
+              "height": 19
+            },
+            "rank": 1,
+            "selected": true
+          }
+        ],
+        "source_sha256": "7db7ee9f5bee6835e7cbb08b24e6b959ea9b8f60a47625567777765e28f4ebea"
+      },
+      "mask_changed_pixels": 0,
+      "detected_changed": true
+    }
+  ],
+  "note": "2026-10-31原始运行报告的单图节选；只整理文件名与保留范围，参数及结果未变。"
+}

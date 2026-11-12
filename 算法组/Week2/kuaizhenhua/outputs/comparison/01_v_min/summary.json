@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "record_type": "automatic_parameter_comparison",
+  "description": "V lower bound: 70 vs 40",
+  "parameters": {
+    "A": {
+      "hsv_lower": [
+        95,
+        80,
+        70
+      ],
+      "hsv_upper": [
+        130,
+        255,
+        255
+      ],
+      "min_area": 500.0,
+      "open_kernel": 3,
+      "close_kernel": 5
+    },
+    "B": {
+      "hsv_lower": [
+        95,
+        80,
+        40
+      ],
+      "hsv_upper": [
+        130,
+        255,
+        255
+      ],
+      "min_area": 500.0,
+      "open_kernel": 3,
+      "close_kernel": 5
+    }
+  },
+  "results": [
+    {
+      "filename": "02_table_ball.jpg",
+      "comparison_file": "01_02_table_ball.png",
+      "A": {
+        "filename": "02_table_ball.jpg",
+        "width": 960,
+        "height": 623,
+        "detected": true,
+        "u": 233.37945376687767,
+        "v": 358.3740447067019,
+        "area": 8134.5,
+        "candidate_count": 1,
+        "candidates": [
+          {
+            "u": 233.37945376687767,
+            "v": 358.3740447067019,
+            "area": 8134.5,
+            "bbox": {
+              "x": 176,
+              "y": 307,
+              "width": 108,
+              "height": 118
+            },
+            "rank": 1,
+            "selected": true
+          }
+        ],
+        "source_sha256": "35000c76d3a516499131689bc7e4bac74fd2867b69e8f59dfd81a25ed5bfb03c"
+      },
+      "B": {
+        "filename": "02_table_ball.jpg",
+        "width": 960,
+        "height": 623,
+        "detected": true,
+        "u": 219.86774640204757,
+        "v": 367.4603001440579,
+        "area": 11916.5,
+        "candidate_count": 1,
+        "candidates": [
+          {
+            "u": 219.86774640204757,
+            "v": 367.4603001440579,
+            "area": 11916.5,
+            "bbox": {
+              "x": 155,
+              "y": 307,
+              "width": 131,
+              "height": 121
+            },
+            "rank": 1,
+            "selected": true
+          }
+        ],
+        "source_sha256": "35000c76d3a516499131689bc7e4bac74fd2867b69e8f59dfd81a25ed5bfb03c"
+      },
+      "mask_changed_pixels": 3518,
+      "detected_changed": false
+    }
+  ],
+  "note": "2026-10-31原始运行报告的单图节选；只整理文件名与保留范围，参数及结果未变。"
+}

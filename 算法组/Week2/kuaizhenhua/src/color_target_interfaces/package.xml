@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>color_target_interfaces</name>
+  <version>0.1.0</version>
+  <description>第二周颜色目标像素位置消息。</description>
+  <maintainer email="245372864+whao34011-alt@users.noreply.github.com">蒯振华</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
