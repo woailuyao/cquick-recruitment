@@ -1,0 +1,139 @@
+{
+  "results": [
+    {
+      "input": "images\\clear.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          100,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 200000.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 995.5431705210998,
+      "v": 926.0334054356456,
+      "area": 479642.5,
+      "annotated": "outputs\\real_experiment_01\\area_B\\000001_clear_annotated.png",
+      "mask": "outputs\\real_experiment_01\\area_B\\000001_clear_mask.png",
+      "error": null,
+      "width": 2104,
+      "height": 1992
+    },
+    {
+      "input": "images\\small.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          100,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 200000.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": false,
+      "u": 0.0,
+      "v": 0.0,
+      "area": 0.0,
+      "annotated": "outputs\\real_experiment_01\\area_B\\000002_small_annotated.png",
+      "mask": "outputs\\real_experiment_01\\area_B\\000002_small_mask.png",
+      "error": null,
+      "width": 2364,
+      "height": 1773
+    },
+    {
+      "input": "images\\background.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          100,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 200000.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 1130.1170606158553,
+      "v": 960.9259513346123,
+      "area": 4017290.5,
+      "annotated": "outputs\\real_experiment_01\\area_B\\000003_background_annotated.png",
+      "mask": "outputs\\real_experiment_01\\area_B\\000003_background_mask.png",
+      "error": null,
+      "width": 2249,
+      "height": 1864
+    },
+    {
+      "input": "images\\lighting.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          100,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 200000.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": true,
+      "u": 1135.1077605715407,
+      "v": 578.7539395126385,
+      "area": 531009.0,
+      "annotated": "outputs\\real_experiment_01\\area_B\\000004_lighting_annotated.png",
+      "mask": "outputs\\real_experiment_01\\area_B\\000004_lighting_mask.png",
+      "error": null,
+      "width": 2364,
+      "height": 1773
+    },
+    {
+      "input": "images\\absent.jpg",
+      "config": {
+        "hsv_lower": [
+          5,
+          100,
+          80
+        ],
+        "hsv_upper": [
+          25,
+          255,
+          255
+        ],
+        "min_area": 200000.0,
+        "morphology": "none",
+        "kernel_size": 3
+      },
+      "detected": false,
+      "u": 0.0,
+      "v": 0.0,
+      "area": 0.0,
+      "annotated": "outputs\\real_experiment_01\\area_B\\000005_absent_annotated.png",
+      "mask": "outputs\\real_experiment_01\\area_B\\000005_absent_mask.png",
+      "error": null,
+      "width": 2364,
+      "height": 1773
+    }
+  ]
+}

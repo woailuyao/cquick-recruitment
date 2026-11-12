@@ -1,0 +1,294 @@
+{
+  "status": "PASS",
+  "started_local": "2026-11-01T12:29:03.340789+08:00",
+  "username": "liyut",
+  "uid": 1000,
+  "account": "liyut",
+  "account_gecos": "",
+  "real_photos_tested": true,
+  "accuracy_assessed": false,
+  "purpose": "end-to-end consistency with detect(), not accuracy",
+  "topic": "/target_position",
+  "active_deadline_seconds": 60,
+  "commands": [
+    {
+      "argv": [
+        "ros2",
+        "interface",
+        "show",
+        "target_interfaces/msg/TargetPosition"
+      ],
+      "returncode": 0,
+      "log": "interface_show.log"
+    },
+    {
+      "argv": [
+        "ros2",
+        "topic",
+        "info",
+        "/target_position",
+        "--verbose"
+      ],
+      "returncode": 0,
+      "log": "topic_info.log"
+    },
+    {
+      "argv": [
+        "ros2",
+        "topic",
+        "echo",
+        "/target_position",
+        "target_interfaces/msg/TargetPosition",
+        "--once"
+      ],
+      "returncode": 0,
+      "log": "topic_echo_once.log"
+    }
+  ],
+  "children": [
+    {
+      "name": "interface_show",
+      "pid": 59,
+      "process_group": 59,
+      "argv": [
+        "ros2",
+        "interface",
+        "show",
+        "target_interfaces/msg/TargetPosition"
+      ]
+    },
+    {
+      "name": "subscriber",
+      "pid": 60,
+      "process_group": 60,
+      "argv": [
+        "ros2",
+        "run",
+        "color_target_detector",
+        "target_subscriber"
+      ]
+    },
+    {
+      "name": "publisher",
+      "pid": 73,
+      "process_group": 73,
+      "argv": [
+        "ros2",
+        "run",
+        "color_target_detector",
+        "target_publisher",
+        "--ros-args",
+        "-p",
+        "images:=[\"/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/clear.jpg\", \"/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/small.jpg\", \"/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/background.jpg\", \"/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/lighting.jpg\", \"/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/absent.jpg\"]",
+        "-p",
+        "frequency:=5.0",
+        "-p",
+        "max_messages:=0",
+        "-p",
+        "hsv_lower:=[5,200,80]",
+        "-p",
+        "hsv_upper:=[25,255,255]",
+        "-p",
+        "min_area:=100.0",
+        "-p",
+        "morphology:=none",
+        "-p",
+        "kernel_size:=3"
+      ]
+    },
+    {
+      "name": "topic_info",
+      "pid": 103,
+      "process_group": 103,
+      "argv": [
+        "ros2",
+        "topic",
+        "info",
+        "/target_position",
+        "--verbose"
+      ]
+    },
+    {
+      "name": "topic_echo_once",
+      "pid": 127,
+      "process_group": 127,
+      "argv": [
+        "ros2",
+        "topic",
+        "echo",
+        "/target_position",
+        "target_interfaces/msg/TargetPosition",
+        "--once"
+      ]
+    }
+  ],
+  "checks": {
+    "observer_records": 20,
+    "subscriber_records": 30,
+    "observer_cycle_offsets": [
+      0
+    ],
+    "subscriber_cycle_offsets": [
+      0
+    ],
+    "float32_tolerance": "one float32 ULP; console additionally permits 0.51e-6 decimal rounding",
+    "subscriber_invalid_count": 0,
+    "both_true_false": true,
+    "interface_schema": true,
+    "topic_type": true
+  },
+  "versions": {
+    "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.35",
+    "opencv": "4.5.4",
+    "numpy": "1.21.5",
+    "ROS_DISTRO": "humble",
+    "rclpy": "3.3.22",
+    "color-target-detector": "0.1.0"
+  },
+  "installed": {
+    "detector_file": "/home/liyut/ros2_ws/build/color_target_detector/color_target_detector/detector.py",
+    "detector_prefix": "/home/liyut/ros2_ws/install/color_target_detector",
+    "interface_prefix": "/home/liyut/ros2_ws/install/target_interfaces",
+    "ament_prefix_path": "/home/liyut/ros2_ws/install/color_target_detector:/home/liyut/ros2_ws/install/target_interfaces:/opt/ros/humble"
+  },
+  "configuration": {
+    "hsv_lower": [
+      5,
+      200,
+      80
+    ],
+    "hsv_upper": [
+      25,
+      255,
+      255
+    ],
+    "min_area": 100.0,
+    "morphology": "none",
+    "kernel_size": 3
+  },
+  "expected": [
+    {
+      "path": "/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/clear.jpg",
+      "sha256": "7ab94f85a07d3f1057955613f2d421137ea551010a6c1540ac568919b95e4627",
+      "shape": [
+        1992,
+        2104,
+        3
+      ],
+      "detected": true,
+      "u": 997.0394728052672,
+      "v": 925.3962412107588,
+      "area": 459084.0,
+      "float32": {
+        "u": 997.0394897460938,
+        "v": 925.396240234375,
+        "area": 459084.0
+      }
+    },
+    {
+      "path": "/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/small.jpg",
+      "sha256": "5282464297905d9bf7c6941ba3d1c3deb907c464d448bf0db292cb7aac4a7985",
+      "shape": [
+        1773,
+        2364,
+        3
+      ],
+      "detected": true,
+      "u": 1207.7650991798973,
+      "v": 809.0411539696411,
+      "area": 156769.0,
+      "float32": {
+        "u": 1207.76513671875,
+        "v": 809.0411376953125,
+        "area": 156769.0
+      }
+    },
+    {
+      "path": "/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/background.jpg",
+      "sha256": "73d1be230dbbb22a1ac4aeb3cf801e60755c7083eae9f08c38e27fc8fd5cf08a",
+      "shape": [
+        1864,
+        2249,
+        3
+      ],
+      "detected": true,
+      "u": 1181.6416976362177,
+      "v": 938.0941991543815,
+      "area": 1347022.0,
+      "float32": {
+        "u": 1181.6417236328125,
+        "v": 938.0941772460938,
+        "area": 1347022.0
+      }
+    },
+    {
+      "path": "/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/lighting.jpg",
+      "sha256": "ed858ba1a520f115ff6cd85c28eb9df6d415a7003ebb80454d8c5451a97e5c68",
+      "shape": [
+        1773,
+        2364,
+        3
+      ],
+      "detected": true,
+      "u": 1151.8789404941076,
+      "v": 580.8599689985621,
+      "area": 495998.5,
+      "float32": {
+        "u": 1151.87890625,
+        "v": 580.8599853515625,
+        "area": 495998.5
+      }
+    },
+    {
+      "path": "/mnt/c/Users/liyut/Documents/deepseek-harness/default-workspace/week2_color_target/images/absent.jpg",
+      "sha256": "90f0c4479751bf9e36f76f2a9052caf3fd48a9cb6be6a90a1e9515c1a836bbcf",
+      "shape": [
+        1773,
+        2364,
+        3
+      ],
+      "detected": false,
+      "u": 0.0,
+      "v": 0.0,
+      "area": 0.0,
+      "float32": {
+        "u": 0.0,
+        "v": 0.0,
+        "area": 0.0
+      }
+    }
+  ],
+  "cleanup": {
+    "errors": [],
+    "children": [
+      {
+        "name": "interface_show",
+        "pid": 59,
+        "returncode": 0
+      },
+      {
+        "name": "subscriber",
+        "pid": 60,
+        "returncode": 0
+      },
+      {
+        "name": "publisher",
+        "pid": 73,
+        "returncode": 0
+      },
+      {
+        "name": "topic_info",
+        "pid": 103,
+        "returncode": 0
+      },
+      {
+        "name": "topic_echo_once",
+        "pid": 127,
+        "returncode": 0
+      }
+    ]
+  },
+  "finished_local": "2026-11-01T12:29:11.817783+08:00",
+  "elapsed_seconds": 8.477045591
+}
