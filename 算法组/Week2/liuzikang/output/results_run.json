@@ -1,0 +1,92 @@
+{
+  "config": {
+    "hsv_lower": [
+      90,
+      20,
+      25
+    ],
+    "hsv_upper": [
+      130,
+      255,
+      255
+    ],
+    "min_area": 800.0,
+    "morph": true,
+    "kernel": 5,
+    "select": "largest",
+    "images": "C:\\Users\\Lenovo\\Desktop\\大肥鱼工作区\\视觉组\\Week2\\liuzikang\\data\\images\\photos"
+  },
+  "images": [
+    {
+      "file": "my_01_clear.png",
+      "detected": true,
+      "u": 280.48,
+      "v": 374.47,
+      "area": 37072.0,
+      "candidates": 1,
+      "center_method": "moments",
+      "gt_u": null,
+      "gt_v": null,
+      "error_px": null,
+      "ms": 4.67
+    },
+    {
+      "file": "my_02_two_blue.png",
+      "detected": true,
+      "u": 288.14,
+      "v": 368.26,
+      "area": 124384.0,
+      "candidates": 1,
+      "center_method": "moments",
+      "gt_u": null,
+      "gt_v": null,
+      "error_px": null,
+      "ms": 1.21
+    },
+    {
+      "file": "my_03_occluded.png",
+      "detected": true,
+      "u": 299.15,
+      "v": 359.4,
+      "area": 30730.0,
+      "candidates": 2,
+      "center_method": "moments",
+      "gt_u": null,
+      "gt_v": null,
+      "error_px": null,
+      "ms": 1.05
+    },
+    {
+      "file": "my_04_backlit.jpg",
+      "detected": true,
+      "u": 599.61,
+      "v": 1274.74,
+      "area": 608049.0,
+      "candidates": 3,
+      "center_method": "moments",
+      "gt_u": null,
+      "gt_v": null,
+      "error_px": null,
+      "ms": 12.37
+    },
+    {
+      "file": "my_05_no_target.jpg",
+      "detected": false,
+      "u": 0.0,
+      "v": 0.0,
+      "area": 0.0,
+      "candidates": 0,
+      "center_method": "none",
+      "gt_u": null,
+      "gt_v": null,
+      "error_px": null,
+      "ms": 13.38
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "detected": 4,
+    "mean_error_px": null,
+    "max_error_px": null
+  }
+}

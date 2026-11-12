@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_vision</name>
+  <version>0.1.0</version>
+  <description>蓝色杯子检测 + 把目标像素坐标发布到 /target_position（CQuick 视觉组第 2 周）</description>
+
+  <maintainer email="liuzikang@example.com">liuzikang</maintainer>
+  <license>MIT</license>
+
+  <!-- rclpy：Python 版 ROS2 客户端库 -->
+  <depend>rclpy</depend>
+  <!-- 我们自己定义的消息包 -->
+  <depend>cquick_interfaces</depend>
+
+  <!-- 运行时需要的系统库：Ubuntu 里用 apt 装的 OpenCV / NumPy -->
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
