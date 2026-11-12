@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>ball_pos_pkg</name>
+  <version>0.0.0</version>
+  <description>第2周任务1</description>
+  <maintainer email="ubuntu@example.com">ubuntu</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 构建系统 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 消息生成工具（编译期） -->
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- Python 节点要用的客户端库 -->
+  <depend>rclpy</depend>
+
+  <!-- 导航节点运行时用到的消息包 -->
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
+
+  <!-- 消息运行时（运行期） -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- 声明本包属于「接口包」分组，缺了必报错 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
