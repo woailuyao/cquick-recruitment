@@ -1,0 +1,7 @@
+device_node: "/dev/video2"
+resolution_width: 1280
+resolution_height: 720
+actual_fps: 30
+lens_type: "Fixed focal length, fixed focus"
+calibration_file: "../calibration/camera_intrinsics.yaml"
+extrinsics_file: "../calibration/camera_extrinsics.yaml"

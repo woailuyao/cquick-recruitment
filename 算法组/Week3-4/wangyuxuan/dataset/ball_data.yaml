@@ -1,0 +1,7 @@
+path: /home/capybarawyx/vision_ws/k1_soccer_vision/soccer_dataset
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: ball
