@@ -1,0 +1,9 @@
+map_version: "C0_v1.0"
+unit: "meters"
+origin: "Center circle (0, 0)"
+x_axis: "Positive X points towards the goal"
+y_axis: "Positive Y points to the left (when facing the goal)"
+z_axis: "Positive Z points vertically upwards"
+field_length: 9.0  
+field_width: 6.0
+ground_plane: "Z=0"
