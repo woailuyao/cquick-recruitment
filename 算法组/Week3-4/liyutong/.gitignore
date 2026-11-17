@@ -1,0 +1,19 @@
+# 视频不进仓库（细则第五节：GitHub 只提交轻量工程文件）
+videos/
+*.mp4
+
+# 数据集图片与标注不进仓库，只提交 dataset_summary.md
+soccer_dataset/
+marker_dataset/
+
+# 训练产物与缓存
+runs/
+runs_ball/
+runs_marker/
+__pycache__/
+*.pyc
+.venv/
+
+# 临时文件
+_probe/
+*.log

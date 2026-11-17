@@ -1,0 +1,33 @@
+# 场地几何参数（卷尺实测）
+# 坐标系：原点 = 场地中心；+X 指向球门；+Y 面向 +X 时的左侧；+Z 向上
+#         地面 Z = 0，单位米，右手系（X × Y = Z）
+
+coordinate_frame:
+  origin: field_center
+  x_axis: toward_goal
+  y_axis: left_of_plus_x
+  z_axis: up
+  handedness: right
+  unit: m
+
+field:
+  length_m: 8.0
+  width_m: 6.0
+  line_width_m: 0.05
+  center_circle_r_m: 0.75
+  penalty_depth_m: 1.0
+  penalty_width_m: 3.8
+
+# 端线 / 边线坐标（方便代码里直接引用）
+bounds:
+  endline_x: [-4.0, 4.0]
+  sideline_y: [-3.0, 3.0]
+  penalty_front_x: [-3.0, 3.0]
+  penalty_side_y: [-1.9, 1.9]
+
+# 唯一球门在 +X 端（细则：+X 指向唯一球门）
+goal:
+  center_x: 4.0
+  center_y: 0.0
+  width_m: 2.8    # 球门内宽，卷尺实测
+  height_m: 2.0   # 球门高（横梁下沿到地面），卷尺实测
