@@ -1,0 +1,11 @@
+# ===== Goal：我要你做什么 =====
+cquick_servo_interfaces/ServoCommand command
+---
+# ===== Result：做完了，成没成 =====
+bool success        # 成功了吗
+uint16 final_pwm    # 最后读回的实际位置（PRAD）
+string message      # 失败原因：超限 / 取消 / 串口错 / 没到位
+---
+# ===== Feedback：过程中定期汇报 =====
+uint16 current_pwm  # 当前 PWM
+float32 progress    # 进度 0.0 ~ 1.0
