@@ -1,0 +1,11 @@
+# Goal：一条完整指令，直接嵌套 ServoCommand
+ServoCommand command
+---
+# Result：成败 + 实际位置 + 原因
+bool success
+uint16 actual_pwm
+string message
+---
+# Feedback：
+uint16 current_pwm
+float32 progress

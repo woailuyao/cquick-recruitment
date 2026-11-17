@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo</name>
+  <version>0.0.0</version>
+  <description>舵机驱动节点（Action Server）+ 客户端 + launch + config</description>
+  <maintainer email="haozhihua@example.com">haozhihua</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <!-- SetParametersResult 在 rcl_interfaces 里，不在 rclpy 里 -->
+  <exec_depend>rcl_interfaces</exec_depend>
+  <!-- 自定义接口包 -->
+  <exec_depend>cquick_servo_interfaces</exec_depend>
+  <!-- pyserial：import serial 用 -->
+  <exec_depend>python3-serial</exec_depend>
+  <!-- launch / launch_ros / 包路径查询 -->
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

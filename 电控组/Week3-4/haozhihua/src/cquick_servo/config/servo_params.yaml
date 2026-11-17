@@ -1,0 +1,11 @@
+# 节点名必须和 launch 里 Node(name=...) 完全一致，写错不报错、参数一个都不加载
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    allowed_baudrates: [9600, 115200, 1000000]
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    servo_ids: [1, 2, 3, 4]
+    startup_reset: true
