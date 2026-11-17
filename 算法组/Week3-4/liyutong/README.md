@@ -1,6 +1,7 @@
 # 第 3–4 周合并考核 · liyutong
 
->
+> 代码仓库：Pull Request [#235](https://github.com/woailuyao/cquick-recruitment/pull/235)　·　
+> 演示录屏：[BV1h2s668EFQ](https://www.bilibili.com/video/BV1h2s668EFQ)
 
 - 姓名：liyutong（姓名拼音目录名 `liyutong`）
 - 完成日期：2026-11-15（采集与标定）/ 2026-11-17（训练、返场复测、录屏与提交）
@@ -365,10 +366,14 @@ python gpu_bench.py --write    # 同时写回 onnx_compare.md
   但每一帧都是 `valid=FALSE`，所以地图上没有任何位姿可画。
   这一项是任务 2 的主要失分点。
 - 是否展示 marker_count、residual、valid / status：是（底部六个字段 + status 行）
-- 是否已提交到 GitHub 仓库：**否**。本目录已初始化为 git 仓库（含完整提交历史、49 个文件，
-  `.gitignore` 排除视频、数据集、权重与缓存），但开发机为 Windows 且直连 github.com 不通，
-  仓库没能推上去。交付物同时按 `make_submission.py` 生成的目录结构打包
-  （`calibration/` `config/` `src/` + README），评审解压即可复现
+- 是否已提交到 GitHub 仓库：**是**。Pull Request **#235**：
+  <https://github.com/woailuyao/cquick-recruitment/pull/235>
+  - 提交位置：`算法组/Week3-4/liyutong/`，50 个文件，单 commit
+  - 分支：`xixixixqw/cquick-recruitment:add-liyutong-week3-4`
+  - 基线：官方仓库 `main` 的 `6736d92`（`ahead_by=1`、`behind_by=0`，无冲突）
+  - 视频、数据集、模型权重、虚拟环境与缓存都不入库，`.gitignore` 已排除；
+    同样的目录结构也打包进提交 zip（`calibration/` `config/` `dataset/` `src/` + README），
+    两种方式都能复现
 
 ## C0 现场测试
 
