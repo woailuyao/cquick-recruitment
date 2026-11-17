@@ -1,0 +1,13 @@
+# colcon 产物：只允许出现在本地工作空间，绝不进仓库
+build/
+install/
+log/
+
+# Python 缓存
+__pycache__/
+*.pyc
+
+# 编辑器 / 系统垃圾
+.vscode/
+*.swp
+.DS_Store
