@@ -1,24 +1,14 @@
-# 场地标志与坐标对应表（C0 实验室场地）
-#
-# 用途：角点检测模型输出"这是哪个角"之后，用类别名查这个表，拿到场地坐标，
-#      再配合像素坐标做 solvePnP，解出相机位姿。
-#
-# 类别名必须和训练时 corner_dataset/data.yaml 里的 names 完全一致，顺序也要对上。
-# 坐标来自 config/field.yaml，单位米，Z 全为 0（都在地面上）。
-
-# 训练类别（顺序即 data.yaml 的 names 顺序）
 classes:
-  # 部署权重 corner11 为 7 类（0-5 + goal）；下列 penalty_far_* 仅预留坐标，当前模型不输出该类
-  - corner_front_left      # 0  球门端 · 左
-  - corner_front_right     # 1  球门端 · 右
-  - corner_back_left       # 2  后场端 · 左
-  - corner_back_right      # 3  后场端 · 右
-  - goalarea_far_left      # 4  小禁区远边 · 左
-  - goalarea_far_right     # 5  小禁区远边 · 右
-  - penalty_far_left       # 6  大禁区远边 · 左
-  - penalty_far_right      # 7  大禁区远边 · 右
+  # 顺序即标签编号；penalty_far_* 仅预留坐标，部署权重未训练该类
+  - corner_front_left
+  - corner_front_right
+  - corner_back_left
+  - corner_back_right
+  - goalarea_far_left
+  - goalarea_far_right
+  - penalty_far_left
+  - penalty_far_right
 
-# 类别 -> 场地坐标 [x, y]
 corners:
   corner_front_left:  [ 4.200,  2.950]
   corner_front_right: [ 4.200, -2.950]
@@ -29,7 +19,6 @@ corners:
   penalty_far_left:   [ 2.400,  1.950]
   penalty_far_right:  [ 2.400, -1.950]
 
-# 场地尺寸，画俯视图用
 field:
   length_x: 8.40
   width_y: 5.90
@@ -39,8 +28,6 @@ field:
   goalarea_far_x: 3.30
   goalarea_half_y: 1.45
 
-# 相机安装参数（只在检出的点数不足 4 个、需要已知高度/俯角时才用）
-# 2026-11-17：演示用 1.00 m 安装（标定也是在这个高度做的，两者必须一致）
 camera:
-  height_m: 1.00        # 2026-11-18 20:28 calibrate.py 写入
-  pitch_deg: 2.00        # 2026-11-18 20:28 calibrate.py 反解
+  height_m: 1.00
+  pitch_deg: 2.00

@@ -40,8 +40,8 @@
 ## 任务 2：K1 风格单目场地自定位
 
 - field.yaml 文件版本 / SHA256：  
-  `3d1b690258a9e5ea0aeff5d971df59be6675452e39ad4f0be5990e25e2068791`  
-  （配套 `config/markers_c0.yaml`：`6e899cda73e68fe520571ada55f73991d5ef3360aafa935dc8f4f0850db3be18`）
+  `898ae0a752c06f1578c81e47f909e88f2de92136931d2ee36b8d3bbe67b9ed6f`  
+  （配套 `config/markers_c0.yaml`：`f854485a8594d18fda63729aa85e25e5eb30fe56018f3e74d94b696e14447d95`）
 - field_geometry.yaml 版本：与 field.yaml 同版本（几何字段内联在 field.yaml 的 `field:` 段）
 - 地图原点、X/Y 轴方向、单位：  
   原点在**场地中心（中线与中圈圆心交点）**，Z=0 为地面；  

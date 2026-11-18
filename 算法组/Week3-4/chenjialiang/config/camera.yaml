@@ -1,8 +1,4 @@
-# 相机内参（权威版本在 calibration/camera_intrinsics.yaml，本文件是同一组数字的简表）
-#
-# 分辨率说明：早期用 usbip 直连 WSL 时 1280x720 会丢 67.8% 的帧，所以一度降到 960x540。
-# 现在改为「Windows 侧采集 + MJPEG 推流 + WSL 拉流」，1280x720 实测满帧无坏帧，
-# 因此标定、训练、推理统一锁定 1280x720。
+# 棋盘格标定结果，分辨率 1280x720
 image_size: [1280, 720]
 
 camera_matrix:
