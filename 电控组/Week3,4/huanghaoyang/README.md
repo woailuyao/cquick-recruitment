@@ -12,7 +12,7 @@
 
 所有视频在B站建了一个合集，可以直接连播
 
-提交部分会多一部分截图，那些是加分项截图（图号 加_），任务三动作组抢占这个单独发了B站并贴了链接
+提交部分会多一部分截图，在文件夹加分项\中，那些是加分项截图（图号 加_），任务三动作组抢占这个单独发了B站并贴了链接
 
 提交部分相比要求的多了一些文件，经过审查，那些事包运行必须具备的文件，没有那些文件包无法运行
 \src\cquick_servo\cquick_servo\__init__.py    
@@ -312,6 +312,8 @@ source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 bag play bag/run1
 
+舵机按 1200 → 1500 → 1800 的顺序复现了录制时的动作。 原因是 /servo/command 和 /move_servo Action 共用同一个 write_command()， 回放走的是与现场控制完全相同的下发路径。
+
 
 ## 8. 接线
 
@@ -425,9 +427,9 @@ steps:
 
 | 步骤 | 操作 | 为什么 |
 |---|---|---|
-| ① | 舵机卸力|   不卸力等着烧吗 |
+| ① | 舵机卸力|   不卸力舵机可能会烧 |
 | ② |舵机主板断电，下电池 |   防止主板发癫乱发指令 |
-| ③ | 地瓜板关机 | 不先关机等着地瓜板的tf卡爆炸然后重新写入数据吗，地瓜板那个数据写入可比电脑慢多了 ，停launch之后那日志什么的数据都要写半天|
+| ③ | 地瓜板关机 | 先关机等着地瓜板的tf数据写入，地瓜板那个数据写入可比电脑慢多了 ，停launch之后那日志什么的数据都要写半天|
 | ④ | 地瓜板拔电| 最后一步也要解释吗，也只有这个电没下了吧 |
 ---
 
@@ -436,7 +438,7 @@ steps:
 ## 所有视频都已经在一个合集里了，可以从第一个链接开始连播
 
 | 内容 | B 站链接 |
-|四步验证|(https://www.bilibili.com/video/BV1Tus66dE7h/?vd_source=a6e58f1cde76598653842b24204ba968)，https://www.bilibili.com/video/BV1mus66REAw?vd_source=a6e58f1cde76598653842b24204ba968&spm_id_from=333.788.videopod.sections|
+|四步验证|(https://www.bilibili.com/video/BV1Tus66dE7h/?vd_source=a6e58f1cde76598653842b24204ba968)和https://www.bilibili.com/video/BV1mus66REAw?vd_source=a6e58f1cde76598653842b24204ba968&spm_id_from=333.788.videopod.sections|
 | 正反转回中位 |https://www.bilibili.com/video/BV1mus66REgj?vd_source=a6e58f1cde76598653842b24204ba968&spm_id_from=333.788.videopod.sections|
 | 取消打断 |https://www.bilibili.com/video/BV1Tus66dEoc?vd_source=a6e58f1cde76598653842b24204ba968&spm_id_from=333.788.videopod.sections |
 | 改参数后行为变化 |https://www.bilibili.com/video/BV1mus66REMA?vd_source=a6e58f1cde76598653842b24204ba968&spm_id_from=333.788.videopod.sections |
