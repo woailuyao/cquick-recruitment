@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo</name>
+  <version>0.0.0</version>
+  <description>CQuick 舵机驱动</description>
+  <maintainer email="you@example.com">you</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- rclpy 和 std_msgs：建包时已经加过，<depend> 已包含运行期 -->
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+
+  <!-- 任务 1 用的串口库（apt install python3-serial），运行期需要 -->
+  <exec_depend>python3-serial</exec_depend>
+
+  <!-- 自己写的接口包，运行时 import 用 -->
+  <exec_depend>cquick_servo_interfaces</exec_depend>
+
+  <!-- launch 相关：launch 文件里 import 的就是它们 -->
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <!-- 注意这里是 ament_python，不是 ament_cmake -->
+    <build_type>ament_python</build_type>
+  </export>
+</package>
