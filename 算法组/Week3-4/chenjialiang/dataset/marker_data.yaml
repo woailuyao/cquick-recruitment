@@ -1,0 +1,14 @@
+# 图片与标签未入库，见 dataset_summary.md
+path: .
+train: images/train
+val: images/val
+
+nc: 7
+names:
+  - corner_front_left
+  - corner_front_right
+  - corner_back_left
+  - corner_back_right
+  - goalarea_far_left
+  - goalarea_far_right
+  - goal

@@ -1,0 +1,8 @@
+# 图片与标签未入库，见 dataset_summary.md
+path: .
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names: ["ball"]

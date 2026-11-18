@@ -1,0 +1,10 @@
+reference_frame: camera_optical_center
+
+camera_to_carrier:
+  translation_m: [0.0, 0.0, 0.0]
+  rotation_rpy_deg: [0.0, 0.0, 0.0]
+
+mount:
+  height_m: 1.00
+  pitch_deg: 2.0
+  roll_deg: 0.0

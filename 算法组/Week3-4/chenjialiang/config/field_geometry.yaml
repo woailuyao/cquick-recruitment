@@ -1,0 +1,61 @@
+field_id: C0
+version: "2026-11-08 实测"
+units: m
+
+coordinate_frame:
+  origin: "场地中心（中圈圆心）"
+  x_positive: "指向球门"
+  y_positive: "面向 +X 方向时的左侧"
+  z_positive: "垂直地面向上"
+  yaw_positive: "从 +X 轴逆时针为正"
+  ground_plane: "Z = 0"
+
+field_size_m:
+  length_x: 8.40
+  width_y: 5.90
+
+center_circle:
+  radius: 0.75
+
+penalty_area:
+  far_line_x: 2.40
+  depth: 1.80
+  width: 3.90
+  y_half: 1.95
+
+goal_area:
+  far_line_x: 3.30
+  depth: 0.90
+  width: 2.90
+  y_half: 1.45
+
+goal:
+  width: 2.90
+  depth: 1.30
+  line_x: 4.20
+
+camera_mount:
+  height_m: 0.74
+  mode: "刚性固定在机器人上，以相机光心作为载体参考原点"
+  note: "高度一旦确定不得改变，否则内参/外参全部失效"
+
+todo:
+  - "场地长 8.4 由三段间距推出，与初测 7.7 不一致；现场复测时用卷尺量一次全长"
+  - "宽度 5.9 未经二次核对"
+  - "所有坐标由尺寸推算，未逐点实测；若 PnP 残差异常，先怀疑这里"
+
+source:
+  measured_by: "chenjialiang"
+  measured_on: "2026-11-08"
+  method: "手机测距 + 脚步估算，部分间距由几何关系反推"
+  note: "原点与轴向由组长确定"
+
+landmark_classes:
+  - corner_front_left
+  - corner_front_right
+  - corner_back_left
+  - corner_back_right
+  - goalarea_far_left
+  - goalarea_far_right
+  - penalty_far_left
+  - penalty_far_right

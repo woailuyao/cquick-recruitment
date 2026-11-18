@@ -1,0 +1,17 @@
+# 组织方统一版本，坐标未修改（SHA256 见 README）
+corner_front_left:  [ 4.200,  2.950]
+corner_front_right: [ 4.200, -2.950]
+corner_back_left:   [-4.200,  2.950]
+corner_back_right:  [-4.200, -2.950]
+
+center_circle_left:  [ 0.000,  0.750]
+center_circle_right: [ 0.000, -0.750]
+
+penalty_far_left:   [ 2.400,  1.950]
+penalty_far_right:  [ 2.400, -1.950]
+
+goalarea_far_left:  [ 3.300,  1.450]
+goalarea_far_right: [ 3.300, -1.450]
+
+goalpost_left:  [ 4.200,  1.450]
+goalpost_right: [ 4.200, -1.450]
