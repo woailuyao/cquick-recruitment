@@ -1,0 +1,17 @@
+# 场地标志检测数据集（YOLO 格式）
+#
+# 图片与标签未入库（体积原因，见 dataset_summary.md）。
+# 部署权重 corner11 使用下列 7 类；类别顺序必须与标签编号一致。
+path: .
+train: images/train
+val: images/val
+
+nc: 7
+names:
+  - corner_front_left      # 0  球门端场地角 · 左
+  - corner_front_right     # 1  球门端场地角 · 右
+  - corner_back_left       # 2  后场端场地角 · 左
+  - corner_back_right      # 3  后场端场地角 · 右
+  - goalarea_far_left      # 4  小禁区远边 · 左
+  - goalarea_far_right     # 5  小禁区远边 · 右
+  - goal                  # 6  球门，仅用于冷启动判前后场，不参与解算
