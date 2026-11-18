@@ -1,0 +1,13 @@
+# servo_driver 的参数文件
+#
+# 最外层 key 必须等于节点名 servo_driver。写错不报错、不警告，
+# 参数一个都不加载，然后你会以为是代码问题查到半夜。
+servo_driver:
+  ros__parameters:
+    port: "/dev/cq_servo"          # udev 固定名，比 /dev/ttyUSB0 稳
+    baudrate: 115200               # 必须和控制板一致
+    pwm_min: 900                   # 安全下限
+    pwm_max: 2100                  # 安全上限
+    default_duration_ms: 800       # goal 没给 duration 时用
+    servo_ids: [101, 102, 103, 104, 105, 106, 107, 108, 109, 110]       # 本组 10个舵机，按实际扫出来的 ID 填
+    startup_reset: true            # 启动回中位
