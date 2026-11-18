@@ -144,7 +144,7 @@ def main():
             return
         fam, u_l, u_r, Z, n = info
         print(f"图像反解：{fam}  左 u={u_l:.0f} 右 u={u_r:.0f}  间距 {u_r-u_l:.0f}px")
-        print(f"           距离 Z={Z:.2f} m  →  站位 ({ix:+.2f}, {iy:+.2f})（{n} 帧中位）")
+        print(f"           距离 Z={Z:.2f} m，站位 ({ix:+.2f}, {iy:+.2f})（{n} 帧中位）")
         gx, gy = ix, iy
 
     print("\n高度扫描（找让几何自洽的有效高度）：")
@@ -171,9 +171,9 @@ def main():
     if best_med <= 0.10:
         print("结论：可用，直接录演示")
     elif best_med <= 0.15:
-        print("结论：勉强可用。先确认高度和站位是否量准（高度差 1 cm → 5 m 处偏 5 cm）")
+        print("结论：勉强可用。先确认高度和站位是否量准（高度差 1 cm，5 m 处偏 5 cm）")
     else:
-        print("结论：不可用。优先检查 → 高度是否真的量准 / 站位是否准 / 两个角是否都在画面内")
+        print("结论：不可用。优先检查：高度是否量准 / 站位是否准 / 两个角是否都在画面内")
         print("      若都确认无误仍偏高，说明该高度下几何太掠射，应抬高机位")
 
     ok_w = apply_cfg(CFG_WSL, h, best_deg)

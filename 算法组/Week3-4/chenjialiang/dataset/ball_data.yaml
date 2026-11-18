@@ -1,7 +1,4 @@
-# 足球检测数据集（YOLO 格式）
-#
-# 图片与标签未入库（体积原因，见 dataset_summary.md）。
-# 若要复现训练：把 images/ 与 labels/ 放到本文件同级目录，目录名为 train / val / test。
+# 图片与标签未入库，见 dataset_summary.md
 path: .
 train: images/train
 val: images/val
