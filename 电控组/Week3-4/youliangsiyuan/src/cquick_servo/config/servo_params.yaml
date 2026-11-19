@@ -1,0 +1,40 @@
+# 参数文件：config/servo_params.yaml
+#
+# ⚠️⚠️ 最外层那个 key 必须是**节点名**（也就是 launch 里 Node(name='servo_driver') 的那个名字）。
+#       写错了不报错、不警告、参数一个都不加载，然后你会以为是代码问题查到半夜。
+#       （细则 FAQ Q5 说的就是这个）
+#
+# 验一下就知道加载没加载：
+#       ros2 param get /servo_driver pwm_max      应该打印 2100，而不是报 not declared
+
+servo_driver:
+  ros__parameters:
+    # ---- 细则 2.2 明确要求的 7 个参数（一个都不许写死在 .py 里）----
+    port: /dev/cq_servo       # udev 固定设备名（规则见 README）；没有规则时用 launch 参数 port:=/dev/ttyUSB0 覆盖
+    baudrate: 115200          # 波特率，双方必须一致，错了就是一堆乱码
+    pwm_min: 900              # 安全下限（结构实测出来的，不是电气下限 500）
+    pwm_max: 2100             # 安全上限（结构实测出来的，不是电气上限 2500）
+    default_duration_ms: 800  # 客户端没给 duration 时用；800 大约是"平滑但不磨蹭"
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]  # 本机有哪些舵机，用来拒绝不存在的 ID
+    startup_reset: true       # 启动时全部回安全区间中点（1500）
+
+    # ---- 机械零位偏移（装完结构后逐个实测填入，下标 = ID-1）----
+    # 装舵臂时舵盘齿位不可能刚好正中，这里把每台的偏差吃掉；
+    # 动作 yaml 永远按 1500 中位写，实际发出去的 PWM = yaml值 + 偏移。
+    # 测法：python3 calibrate.py --port /dev/ttyUSB0 --ids 1-10
+    # 2026-11-17 实测值（标准姿态读回 − 1500）：
+    #   左腿 1~5：+9, -119, -22, +44, +119
+    #   右腿 6~10：-51, -68, +135, -20, +10
+    joint_offsets: [9, -119, -22, 44, 119, -51, -68, 135, -20, 10]
+
+    # ---- 附加参数（细则 2.1 "想加可以加"）----
+    pwm_hard_min: 500         # 电气下限，只给参数校验用
+    pwm_hard_max: 2500        # 电气上限，ros2 param set pwm_max 100000 就靠这条拒绝
+    feedback_period_ms: 200   # feedback 周期 = 5 Hz（细则要求至少 5 Hz，不能超过 200）
+    prad_tolerance: 30        # PRAD 闭环：误差超过它就判定"没到位"
+    prad_retries: 1           # 没到位时自动重发几次（0 = 关掉重发）
+    watchdog_timeout_s: 1.0   # 动作推进停滞超过这么久 -> 全部卸力
+    serial_read_timeout_s: 0.05
+    reconnect_interval_s: 1.0
+    replay_mode: false        # true = 只认 /servo/command（ros2 bag play 回放时用）
+    torque_enable: true       # 设成 false 立刻全部 PULK 卸力（下电流程可以用它）

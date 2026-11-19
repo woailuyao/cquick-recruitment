@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo</name>
+  <version>0.1.0</version>
+  <description>总线舵机 Action 驱动、客户端与动作组播放器（CQuick 电控组 第 3、4 周考核）</description>
+
+  <maintainer email="yolo1811227775@outlook.com">youliangsiyuan</maintainer>
+  <license>MIT</license>
+
+  <!-- ament_python 包：里面只有 Python 节点和 launch/config，不生成接口 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <exec_depend>rclpy</exec_depend>
+  <!-- 自定义接口包：少了它 import cquick_servo_interfaces 直接 ModuleNotFoundError -->
+  <exec_depend>cquick_servo_interfaces</exec_depend>
+  <!-- SetParametersResult 在这个包里 -->
+  <exec_depend>rcl_interfaces</exec_depend>
+  <!-- launch 文件要用 ament_index_python 查包路径 -->
+  <exec_depend>ament_index_python</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <!-- pyserial：sudo apt install python3-serial -->
+  <exec_depend>python3-serial</exec_depend>
+  <!-- 动作组 yaml 解析 -->
+  <exec_depend>python3-yaml</exec_depend>
+
+  <!-- ① 只留 pytest：ros2 pkg create 默认还会生成 test_copyright / test_flake8 / test_pep257，
+       这三个对新手特别容易红（行太长、首字母大写、版权声明），而细则只要求
+       "对拼 ASCII 指令的函数写 pytest，colcon test 绿"。
+       所以建包之后把那三个测试文件删掉，依赖也只留 pytest。 -->
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
