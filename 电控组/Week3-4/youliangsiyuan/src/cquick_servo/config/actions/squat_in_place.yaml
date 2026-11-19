@@ -1,0 +1,93 @@
+name: squat_in_place
+description: 原地深蹲起：双腿对称，80至300分级下蹲后回标准位；最终三连跑均有完整result日志
+steps:
+  - name: 01_十路回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
+
+  - name: 02_对称浅蹲80
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1560, duration_ms: 1200}
+      - {id: 3, pwm: 1420, duration_ms: 1200}
+      - {id: 4, pwm: 1580, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1440, duration_ms: 1200}
+      - {id: 8, pwm: 1580, duration_ms: 1200}
+      - {id: 9, pwm: 1420, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}
+
+  - name: 03_对称下蹲170
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1600}
+      - {id: 2, pwm: 1590, duration_ms: 1600}
+      - {id: 3, pwm: 1330, duration_ms: 1600}
+      - {id: 4, pwm: 1670, duration_ms: 1600}
+      - {id: 5, pwm: 1500, duration_ms: 1600}
+      - {id: 6, pwm: 1500, duration_ms: 1600}
+      - {id: 7, pwm: 1410, duration_ms: 1600}
+      - {id: 8, pwm: 1670, duration_ms: 1600}
+      - {id: 9, pwm: 1330, duration_ms: 1600}
+      - {id: 10, pwm: 1500, duration_ms: 1600}
+
+  - name: 04_对称下蹲220
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1800}
+      - {id: 2, pwm: 1600, duration_ms: 1800}
+      - {id: 3, pwm: 1280, duration_ms: 1800}
+      - {id: 4, pwm: 1720, duration_ms: 1800}
+      - {id: 5, pwm: 1500, duration_ms: 1800}
+      - {id: 6, pwm: 1500, duration_ms: 1800}
+      - {id: 7, pwm: 1400, duration_ms: 1800}
+      - {id: 8, pwm: 1720, duration_ms: 1800}
+      - {id: 9, pwm: 1280, duration_ms: 1800}
+      - {id: 10, pwm: 1500, duration_ms: 1800}
+
+  - name: 05_对称下蹲260
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1800}
+      - {id: 2, pwm: 1610, duration_ms: 1800}
+      - {id: 3, pwm: 1240, duration_ms: 1800}
+      - {id: 4, pwm: 1760, duration_ms: 1800}
+      - {id: 5, pwm: 1500, duration_ms: 1800}
+      - {id: 6, pwm: 1500, duration_ms: 1800}
+      - {id: 7, pwm: 1390, duration_ms: 1800}
+      - {id: 8, pwm: 1760, duration_ms: 1800}
+      - {id: 9, pwm: 1240, duration_ms: 1800}
+      - {id: 10, pwm: 1500, duration_ms: 1800}
+
+  - name: 06_对称深蹲300
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 2000}
+      - {id: 2, pwm: 1620, duration_ms: 2000}
+      - {id: 3, pwm: 1200, duration_ms: 2000}
+      - {id: 4, pwm: 1800, duration_ms: 2000}
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 6, pwm: 1500, duration_ms: 2000}
+      - {id: 7, pwm: 1380, duration_ms: 2000}
+      - {id: 8, pwm: 1800, duration_ms: 2000}
+      - {id: 9, pwm: 1200, duration_ms: 2000}
+      - {id: 10, pwm: 1500, duration_ms: 2000}
+
+  - name: 07_站起回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1600}
+      - {id: 2, pwm: 1500, duration_ms: 1600}
+      - {id: 3, pwm: 1500, duration_ms: 1600}
+      - {id: 4, pwm: 1500, duration_ms: 1600}
+      - {id: 5, pwm: 1500, duration_ms: 1600}
+      - {id: 6, pwm: 1500, duration_ms: 1600}
+      - {id: 7, pwm: 1500, duration_ms: 1600}
+      - {id: 8, pwm: 1500, duration_ms: 1600}
+      - {id: 9, pwm: 1500, duration_ms: 1600}
+      - {id: 10, pwm: 1500, duration_ms: 1600}

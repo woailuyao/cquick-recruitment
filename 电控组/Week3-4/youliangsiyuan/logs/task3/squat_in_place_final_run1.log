@@ -1,0 +1,158 @@
+[INFO] [1795010335.842825015] [sequence_player]: 读取动作文件：/media/sf_CQuick/transfer_tools/task3/squat_in_place.yaml
+[INFO] [1795010335.860917284] [sequence_player]: 动作组 "squat_in_place"：共 7 步，文件 /media/sf_CQuick/transfer_tools/task3/squat_in_place.yaml
+[INFO] [1795010335.861276760] [sequence_player]: [21:58:55.861] 等待 action server /move_servo ...
+[INFO] [1795010338.920062879] [sequence_player]: [21:58:58.919] === step 1/7 "01_十路回标准位" 下发 10 个 goal ===
+[INFO] [1795010338.920423045] [sequence_player]: [21:58:58.920]   发出 goal: id=1 pwm=1500 duration_ms=1000
+[INFO] [1795010338.920931072] [sequence_player]: [21:58:58.920]   发出 goal: id=2 pwm=1500 duration_ms=1000
+[INFO] [1795010338.921313754] [sequence_player]: [21:58:58.921]   发出 goal: id=3 pwm=1500 duration_ms=1000
+[INFO] [1795010338.921583227] [sequence_player]: [21:58:58.921]   发出 goal: id=4 pwm=1500 duration_ms=1000
+[INFO] [1795010338.921821869] [sequence_player]: [21:58:58.921]   发出 goal: id=5 pwm=1500 duration_ms=1000
+[INFO] [1795010338.922112600] [sequence_player]: [21:58:58.921]   发出 goal: id=6 pwm=1500 duration_ms=1000
+[INFO] [1795010338.922363431] [sequence_player]: [21:58:58.922]   发出 goal: id=7 pwm=1500 duration_ms=1000
+[INFO] [1795010338.922578063] [sequence_player]: [21:58:58.922]   发出 goal: id=8 pwm=1500 duration_ms=1000
+[INFO] [1795010338.923011384] [sequence_player]: [21:58:58.922]   发出 goal: id=9 pwm=1500 duration_ms=1000
+[INFO] [1795010338.923301210] [sequence_player]: [21:58:58.923]   发出 goal: id=10 pwm=1500 duration_ms=1000
+[INFO] [1795010340.798512547] [sequence_player]: [21:59:00.797]   <- result id=1 [OK] final_pwm=1503 retry=0 msg=到位：目标 1509，PRAD 读回 1503，误差 6 <= 30
+[INFO] [1795010340.799225357] [sequence_player]: [21:59:00.798]   <- result id=2 [OK] final_pwm=1387 retry=0 msg=到位：目标 1381，PRAD 读回 1387，误差 6 <= 30
+[INFO] [1795010340.799592467] [sequence_player]: [21:59:00.799]   <- result id=3 [OK] final_pwm=1470 retry=0 msg=到位：目标 1478，PRAD 读回 1470，误差 8 <= 30
+[INFO] [1795010340.799956802] [sequence_player]: [21:59:00.799]   <- result id=4 [OK] final_pwm=1548 retry=0 msg=到位：目标 1544，PRAD 读回 1548，误差 4 <= 30
+[INFO] [1795010340.800287929] [sequence_player]: [21:59:00.800]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010340.800589283] [sequence_player]: [21:59:00.800]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010340.800829341] [sequence_player]: [21:59:00.800]   <- result id=7 [OK] final_pwm=1429 retry=0 msg=到位：目标 1432，PRAD 读回 1429，误差 3 <= 30
+[INFO] [1795010340.801118962] [sequence_player]: [21:59:00.800]   <- result id=8 [OK] final_pwm=1644 retry=0 msg=到位：目标 1635，PRAD 读回 1644，误差 9 <= 30
+[INFO] [1795010340.801348307] [sequence_player]: [21:59:00.801]   <- result id=9 [OK] final_pwm=1473 retry=0 msg=到位：目标 1480，PRAD 读回 1473，误差 7 <= 30
+[INFO] [1795010340.801561971] [sequence_player]: [21:59:00.801]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010340.801753192] [sequence_player]: [21:59:00.801] === step 1/7 "01_十路回标准位" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010340.801969416] [sequence_player]: [21:59:00.801] === step 2/7 "02_对称浅蹲80" 下发 10 个 goal ===
+[INFO] [1795010340.802210816] [sequence_player]: [21:59:00.802]   发出 goal: id=1 pwm=1500 duration_ms=1200
+[INFO] [1795010340.802630008] [sequence_player]: [21:59:00.802]   发出 goal: id=2 pwm=1560 duration_ms=1200
+[INFO] [1795010340.802926835] [sequence_player]: [21:59:00.802]   发出 goal: id=3 pwm=1420 duration_ms=1200
+[INFO] [1795010340.803219665] [sequence_player]: [21:59:00.803]   发出 goal: id=4 pwm=1580 duration_ms=1200
+[INFO] [1795010340.803466108] [sequence_player]: [21:59:00.803]   发出 goal: id=5 pwm=1500 duration_ms=1200
+[INFO] [1795010340.803744359] [sequence_player]: [21:59:00.803]   发出 goal: id=6 pwm=1500 duration_ms=1200
+[INFO] [1795010340.804100032] [sequence_player]: [21:59:00.803]   发出 goal: id=7 pwm=1440 duration_ms=1200
+[INFO] [1795010340.804365576] [sequence_player]: [21:59:00.804]   发出 goal: id=8 pwm=1580 duration_ms=1200
+[INFO] [1795010340.804595654] [sequence_player]: [21:59:00.804]   发出 goal: id=9 pwm=1420 duration_ms=1200
+[INFO] [1795010340.804819758] [sequence_player]: [21:59:00.804]   发出 goal: id=10 pwm=1500 duration_ms=1200
+[INFO] [1795010342.848391207] [sequence_player]: [21:59:02.847]   <- result id=1 [OK] final_pwm=1503 retry=0 msg=到位：目标 1509，PRAD 读回 1503，误差 6 <= 30
+[INFO] [1795010342.848796066] [sequence_player]: [21:59:02.848]   <- result id=2 [OK] final_pwm=1426 retry=0 msg=到位：目标 1441，PRAD 读回 1426，误差 15 <= 30
+[INFO] [1795010342.849097824] [sequence_player]: [21:59:02.848]   <- result id=3 [OK] final_pwm=1409 retry=0 msg=到位：目标 1398，PRAD 读回 1409，误差 11 <= 30
+[INFO] [1795010342.849369700] [sequence_player]: [21:59:02.849]   <- result id=4 [OK] final_pwm=1612 retry=0 msg=到位：目标 1624，PRAD 读回 1612，误差 12 <= 30
+[INFO] [1795010342.849576830] [sequence_player]: [21:59:02.849]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010342.849803389] [sequence_player]: [21:59:02.849]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010342.850069960] [sequence_player]: [21:59:02.849]   <- result id=7 [OK] final_pwm=1384 retry=0 msg=到位：目标 1372，PRAD 读回 1384，误差 12 <= 30
+[INFO] [1795010342.850358036] [sequence_player]: [21:59:02.850]   <- result id=8 [OK] final_pwm=1697 retry=0 msg=到位：目标 1715，PRAD 读回 1697，误差 18 <= 30
+[INFO] [1795010342.850559001] [sequence_player]: [21:59:02.850]   <- result id=9 [OK] final_pwm=1408 retry=0 msg=到位：目标 1400，PRAD 读回 1408，误差 8 <= 30
+[INFO] [1795010342.850740776] [sequence_player]: [21:59:02.850]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010342.850914529] [sequence_player]: [21:59:02.850] === step 2/7 "02_对称浅蹲80" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010342.851379055] [sequence_player]: [21:59:02.850] === step 3/7 "03_对称下蹲170" 下发 10 个 goal ===
+[INFO] [1795010342.851593795] [sequence_player]: [21:59:02.851]   发出 goal: id=1 pwm=1500 duration_ms=1600
+[INFO] [1795010342.851981956] [sequence_player]: [21:59:02.851]   发出 goal: id=2 pwm=1590 duration_ms=1600
+[INFO] [1795010342.852286906] [sequence_player]: [21:59:02.852]   发出 goal: id=3 pwm=1330 duration_ms=1600
+[INFO] [1795010342.852519102] [sequence_player]: [21:59:02.852]   发出 goal: id=4 pwm=1670 duration_ms=1600
+[INFO] [1795010342.852750350] [sequence_player]: [21:59:02.852]   发出 goal: id=5 pwm=1500 duration_ms=1600
+[INFO] [1795010342.852976471] [sequence_player]: [21:59:02.852]   发出 goal: id=6 pwm=1500 duration_ms=1600
+[INFO] [1795010342.853273640] [sequence_player]: [21:59:02.853]   发出 goal: id=7 pwm=1410 duration_ms=1600
+[INFO] [1795010342.853500261] [sequence_player]: [21:59:02.853]   发出 goal: id=8 pwm=1670 duration_ms=1600
+[INFO] [1795010342.853722314] [sequence_player]: [21:59:02.853]   发出 goal: id=9 pwm=1330 duration_ms=1600
+[INFO] [1795010342.854032054] [sequence_player]: [21:59:02.853]   发出 goal: id=10 pwm=1500 duration_ms=1600
+[INFO] [1795010345.381658765] [sequence_player]: [21:59:05.381]   <- result id=1 [OK] final_pwm=1503 retry=0 msg=到位：目标 1509，PRAD 读回 1503，误差 6 <= 30
+[INFO] [1795010345.382039391] [sequence_player]: [21:59:05.381]   <- result id=2 [OK] final_pwm=1459 retry=0 msg=到位：目标 1471，PRAD 读回 1459，误差 12 <= 30
+[INFO] [1795010345.382250578] [sequence_player]: [21:59:05.382]   <- result id=3 [OK] final_pwm=1318 retry=0 msg=到位：目标 1308，PRAD 读回 1318，误差 10 <= 30
+[INFO] [1795010345.382427172] [sequence_player]: [21:59:05.382]   <- result id=4 [OK] final_pwm=1701 retry=0 msg=到位：目标 1714，PRAD 读回 1701，误差 13 <= 30
+[INFO] [1795010345.382598220] [sequence_player]: [21:59:05.382]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010345.382784728] [sequence_player]: [21:59:05.382]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010345.382987189] [sequence_player]: [21:59:05.382]   <- result id=7 [OK] final_pwm=1356 retry=0 msg=到位：目标 1342，PRAD 读回 1356，误差 14 <= 30
+[INFO] [1795010345.383187017] [sequence_player]: [21:59:05.383]   <- result id=8 [OK] final_pwm=1792 retry=0 msg=到位：目标 1805，PRAD 读回 1792，误差 13 <= 30
+[INFO] [1795010345.383356410] [sequence_player]: [21:59:05.383]   <- result id=9 [OK] final_pwm=1313 retry=0 msg=到位：目标 1310，PRAD 读回 1313，误差 3 <= 30
+[INFO] [1795010345.383520537] [sequence_player]: [21:59:05.383]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010345.383688981] [sequence_player]: [21:59:05.383] === step 3/7 "03_对称下蹲170" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010345.383875748] [sequence_player]: [21:59:05.383] === step 4/7 "04_对称下蹲220" 下发 10 个 goal ===
+[INFO] [1795010345.384084610] [sequence_player]: [21:59:05.383]   发出 goal: id=1 pwm=1500 duration_ms=1800
+[INFO] [1795010345.384402961] [sequence_player]: [21:59:05.384]   发出 goal: id=2 pwm=1600 duration_ms=1800
+[INFO] [1795010345.384704932] [sequence_player]: [21:59:05.384]   发出 goal: id=3 pwm=1280 duration_ms=1800
+[INFO] [1795010345.385818447] [sequence_player]: [21:59:05.385]   发出 goal: id=4 pwm=1720 duration_ms=1800
+[INFO] [1795010345.386114301] [sequence_player]: [21:59:05.385]   发出 goal: id=5 pwm=1500 duration_ms=1800
+[INFO] [1795010345.386364227] [sequence_player]: [21:59:05.386]   发出 goal: id=6 pwm=1500 duration_ms=1800
+[INFO] [1795010345.386635168] [sequence_player]: [21:59:05.386]   发出 goal: id=7 pwm=1400 duration_ms=1800
+[INFO] [1795010345.387682319] [sequence_player]: [21:59:05.386]   发出 goal: id=8 pwm=1720 duration_ms=1800
+[INFO] [1795010345.388397041] [sequence_player]: [21:59:05.387]   发出 goal: id=9 pwm=1280 duration_ms=1800
+[INFO] [1795010345.389107669] [sequence_player]: [21:59:05.388]   发出 goal: id=10 pwm=1500 duration_ms=1800
+[INFO] [1795010348.056526780] [sequence_player]: [21:59:08.056]   <- result id=1 [OK] final_pwm=1503 retry=0 msg=到位：目标 1509，PRAD 读回 1503，误差 6 <= 30
+[INFO] [1795010348.057036728] [sequence_player]: [21:59:08.056]   <- result id=2 [OK] final_pwm=1467 retry=0 msg=到位：目标 1481，PRAD 读回 1467，误差 14 <= 30
+[INFO] [1795010348.057232046] [sequence_player]: [21:59:08.057]   <- result id=3 [OK] final_pwm=1270 retry=0 msg=到位：目标 1258，PRAD 读回 1270，误差 12 <= 30
+[INFO] [1795010348.057402612] [sequence_player]: [21:59:08.057]   <- result id=4 [OK] final_pwm=1753 retry=0 msg=到位：目标 1764，PRAD 读回 1753，误差 11 <= 30
+[INFO] [1795010348.057567116] [sequence_player]: [21:59:08.057]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010348.057842399] [sequence_player]: [21:59:08.057]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010348.058136111] [sequence_player]: [21:59:08.057]   <- result id=7 [OK] final_pwm=1345 retry=0 msg=到位：目标 1332，PRAD 读回 1345，误差 13 <= 30
+[INFO] [1795010348.058359258] [sequence_player]: [21:59:08.058]   <- result id=8 [OK] final_pwm=1838 retry=0 msg=到位：目标 1855，PRAD 读回 1838，误差 17 <= 30
+[INFO] [1795010348.058534947] [sequence_player]: [21:59:08.058]   <- result id=9 [OK] final_pwm=1266 retry=0 msg=到位：目标 1260，PRAD 读回 1266，误差 6 <= 30
+[INFO] [1795010348.058699298] [sequence_player]: [21:59:08.058]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010348.058867929] [sequence_player]: [21:59:08.058] === step 4/7 "04_对称下蹲220" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010348.059108307] [sequence_player]: [21:59:08.058] === step 5/7 "05_对称下蹲260" 下发 10 个 goal ===
+[INFO] [1795010348.059294330] [sequence_player]: [21:59:08.059]   发出 goal: id=1 pwm=1500 duration_ms=1800
+[INFO] [1795010348.059688207] [sequence_player]: [21:59:08.059]   发出 goal: id=2 pwm=1610 duration_ms=1800
+[INFO] [1795010348.060028364] [sequence_player]: [21:59:08.059]   发出 goal: id=3 pwm=1240 duration_ms=1800
+[INFO] [1795010348.060297198] [sequence_player]: [21:59:08.060]   发出 goal: id=4 pwm=1760 duration_ms=1800
+[INFO] [1795010348.060534436] [sequence_player]: [21:59:08.060]   发出 goal: id=5 pwm=1500 duration_ms=1800
+[INFO] [1795010348.060770716] [sequence_player]: [21:59:08.060]   发出 goal: id=6 pwm=1500 duration_ms=1800
+[INFO] [1795010348.061060292] [sequence_player]: [21:59:08.060]   发出 goal: id=7 pwm=1390 duration_ms=1800
+[INFO] [1795010348.061318315] [sequence_player]: [21:59:08.061]   发出 goal: id=8 pwm=1760 duration_ms=1800
+[INFO] [1795010348.061556615] [sequence_player]: [21:59:08.061]   发出 goal: id=9 pwm=1240 duration_ms=1800
+[INFO] [1795010348.061817594] [sequence_player]: [21:59:08.061]   发出 goal: id=10 pwm=1500 duration_ms=1800
+[INFO] [1795010350.764594304] [sequence_player]: [21:59:10.764]   <- result id=1 [OK] final_pwm=1503 retry=0 msg=到位：目标 1509，PRAD 读回 1503，误差 6 <= 30
+[INFO] [1795010350.764907357] [sequence_player]: [21:59:10.764]   <- result id=2 [OK] final_pwm=1477 retry=0 msg=到位：目标 1491，PRAD 读回 1477，误差 14 <= 30
+[INFO] [1795010350.765145187] [sequence_player]: [21:59:10.764]   <- result id=3 [OK] final_pwm=1230 retry=0 msg=到位：目标 1218，PRAD 读回 1230，误差 12 <= 30
+[INFO] [1795010350.765350580] [sequence_player]: [21:59:10.765]   <- result id=4 [OK] final_pwm=1790 retry=0 msg=到位：目标 1804，PRAD 读回 1790，误差 14 <= 30
+[INFO] [1795010350.765538546] [sequence_player]: [21:59:10.765]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010350.765713183] [sequence_player]: [21:59:10.765]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010350.766029165] [sequence_player]: [21:59:10.765]   <- result id=7 [OK] final_pwm=1337 retry=0 msg=到位：目标 1322，PRAD 读回 1337，误差 15 <= 30
+[INFO] [1795010350.766225122] [sequence_player]: [21:59:10.766]   <- result id=8 [OK] final_pwm=1877 retry=0 msg=到位：目标 1895，PRAD 读回 1877，误差 18 <= 30
+[INFO] [1795010350.766392229] [sequence_player]: [21:59:10.766]   <- result id=9 [OK] final_pwm=1224 retry=0 msg=到位：目标 1220，PRAD 读回 1224，误差 4 <= 30
+[INFO] [1795010350.766555620] [sequence_player]: [21:59:10.766]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010350.766723177] [sequence_player]: [21:59:10.766] === step 5/7 "05_对称下蹲260" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010350.766918216] [sequence_player]: [21:59:10.766] === step 6/7 "06_对称深蹲300" 下发 10 个 goal ===
+[INFO] [1795010350.767129678] [sequence_player]: [21:59:10.766]   发出 goal: id=1 pwm=1500 duration_ms=2000
+[INFO] [1795010350.767496850] [sequence_player]: [21:59:10.767]   发出 goal: id=2 pwm=1620 duration_ms=2000
+[INFO] [1795010350.767829803] [sequence_player]: [21:59:10.767]   发出 goal: id=3 pwm=1200 duration_ms=2000
+[INFO] [1795010350.768133042] [sequence_player]: [21:59:10.767]   发出 goal: id=4 pwm=1800 duration_ms=2000
+[INFO] [1795010350.768389504] [sequence_player]: [21:59:10.768]   发出 goal: id=5 pwm=1500 duration_ms=2000
+[INFO] [1795010350.768629272] [sequence_player]: [21:59:10.768]   发出 goal: id=6 pwm=1500 duration_ms=2000
+[INFO] [1795010350.768861363] [sequence_player]: [21:59:10.768]   发出 goal: id=7 pwm=1380 duration_ms=2000
+[INFO] [1795010350.769271895] [sequence_player]: [21:59:10.768]   发出 goal: id=8 pwm=1800 duration_ms=2000
+[INFO] [1795010350.769627697] [sequence_player]: [21:59:10.769]   发出 goal: id=9 pwm=1200 duration_ms=2000
+[INFO] [1795010350.769929167] [sequence_player]: [21:59:10.769]   发出 goal: id=10 pwm=1500 duration_ms=2000
+[INFO] [1795010353.636784792] [sequence_player]: [21:59:13.636]   <- result id=1 [OK] final_pwm=1502 retry=0 msg=到位：目标 1509，PRAD 读回 1502，误差 7 <= 30
+[INFO] [1795010353.637104112] [sequence_player]: [21:59:13.636]   <- result id=2 [OK] final_pwm=1489 retry=0 msg=到位：目标 1501，PRAD 读回 1489，误差 12 <= 30
+[INFO] [1795010353.637285141] [sequence_player]: [21:59:13.637]   <- result id=3 [OK] final_pwm=1190 retry=0 msg=到位：目标 1178，PRAD 读回 1190，误差 12 <= 30
+[INFO] [1795010353.637450059] [sequence_player]: [21:59:13.637]   <- result id=4 [OK] final_pwm=1833 retry=0 msg=到位：目标 1844，PRAD 读回 1833，误差 11 <= 30
+[INFO] [1795010353.637615387] [sequence_player]: [21:59:13.637]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010353.637780331] [sequence_player]: [21:59:13.637]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010353.638029718] [sequence_player]: [21:59:13.637]   <- result id=7 [OK] final_pwm=1326 retry=0 msg=到位：目标 1312，PRAD 读回 1326，误差 14 <= 30
+[INFO] [1795010353.638287866] [sequence_player]: [21:59:13.638]   <- result id=8 [OK] final_pwm=1919 retry=0 msg=到位：目标 1935，PRAD 读回 1919，误差 16 <= 30
+[INFO] [1795010353.638556645] [sequence_player]: [21:59:13.638]   <- result id=9 [OK] final_pwm=1181 retry=0 msg=到位：目标 1180，PRAD 读回 1181，误差 1 <= 30
+[INFO] [1795010353.638727031] [sequence_player]: [21:59:13.638]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010353.638921806] [sequence_player]: [21:59:13.638] === step 6/7 "06_对称深蹲300" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010353.639172546] [sequence_player]: [21:59:13.638] === step 7/7 "07_站起回标准位" 下发 10 个 goal ===
+[INFO] [1795010353.639576738] [sequence_player]: [21:59:13.639]   发出 goal: id=1 pwm=1500 duration_ms=1600
+[INFO] [1795010353.640025330] [sequence_player]: [21:59:13.639]   发出 goal: id=2 pwm=1500 duration_ms=1600
+[INFO] [1795010353.640317777] [sequence_player]: [21:59:13.640]   发出 goal: id=3 pwm=1500 duration_ms=1600
+[INFO] [1795010353.640570968] [sequence_player]: [21:59:13.640]   发出 goal: id=4 pwm=1500 duration_ms=1600
+[INFO] [1795010353.640844126] [sequence_player]: [21:59:13.640]   发出 goal: id=5 pwm=1500 duration_ms=1600
+[INFO] [1795010353.641135624] [sequence_player]: [21:59:13.640]   发出 goal: id=6 pwm=1500 duration_ms=1600
+[INFO] [1795010353.641389319] [sequence_player]: [21:59:13.641]   发出 goal: id=7 pwm=1500 duration_ms=1600
+[INFO] [1795010353.641622836] [sequence_player]: [21:59:13.641]   发出 goal: id=8 pwm=1500 duration_ms=1600
+[INFO] [1795010353.641848785] [sequence_player]: [21:59:13.641]   发出 goal: id=9 pwm=1500 duration_ms=1600
+[INFO] [1795010353.642081560] [sequence_player]: [21:59:13.641]   发出 goal: id=10 pwm=1500 duration_ms=1600
+[INFO] [1795010356.225568538] [sequence_player]: [21:59:16.225]   <- result id=1 [OK] final_pwm=1503 retry=0 msg=到位：目标 1509，PRAD 读回 1503，误差 6 <= 30
+[INFO] [1795010356.225862130] [sequence_player]: [21:59:16.225]   <- result id=2 [OK] final_pwm=1397 retry=0 msg=到位：目标 1381，PRAD 读回 1397，误差 16 <= 30
+[INFO] [1795010356.226073319] [sequence_player]: [21:59:16.225]   <- result id=3 [OK] final_pwm=1462 retry=0 msg=到位：目标 1478，PRAD 读回 1462，误差 16 <= 30
+[INFO] [1795010356.226247166] [sequence_player]: [21:59:16.226]   <- result id=4 [OK] final_pwm=1553 retry=0 msg=到位：目标 1544，PRAD 读回 1553，误差 9 <= 30
+[INFO] [1795010356.226412061] [sequence_player]: [21:59:16.226]   <- result id=5 [OK] final_pwm=1609 retry=0 msg=到位：目标 1619，PRAD 读回 1609，误差 10 <= 30
+[INFO] [1795010356.226573071] [sequence_player]: [21:59:16.226]   <- result id=6 [OK] final_pwm=1444 retry=0 msg=到位：目标 1449，PRAD 读回 1444，误差 5 <= 30
+[INFO] [1795010356.226733895] [sequence_player]: [21:59:16.226]   <- result id=7 [OK] final_pwm=1422 retry=0 msg=到位：目标 1432，PRAD 读回 1422，误差 10 <= 30
+[INFO] [1795010356.226892152] [sequence_player]: [21:59:16.226]   <- result id=8 [OK] final_pwm=1643 retry=0 msg=到位：目标 1635，PRAD 读回 1643，误差 8 <= 30
+[INFO] [1795010356.227090535] [sequence_player]: [21:59:16.226]   <- result id=9 [OK] final_pwm=1459 retry=0 msg=到位：目标 1480，PRAD 读回 1459，误差 21 <= 30
+[INFO] [1795010356.227265136] [sequence_player]: [21:59:16.227]   <- result id=10 [OK] final_pwm=1507 retry=0 msg=到位：目标 1510，PRAD 读回 1507，误差 3 <= 30
+[INFO] [1795010356.227426861] [sequence_player]: [21:59:16.227] === step 7/7 "07_站起回标准位" 完成：10/10 到位，可以进下一步 ===
+[INFO] [1795010356.227628288] [sequence_player]: [21:59:16.227] 整套动作跑完，耗时 17.31s

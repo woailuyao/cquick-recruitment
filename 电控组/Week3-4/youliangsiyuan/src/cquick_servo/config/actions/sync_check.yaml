@@ -1,0 +1,44 @@
+# 10 路并发与 result 时序的真机小幅回归动作（诊断用，不是最终两套动作）。
+# 左腿 1~5、右腿 6~10；joint_offsets 由驱动自动叠加，这里始终写统一基准值。
+name: sync_check
+description: 全部回中 -> 左腿+50/右腿-50镜像微动 -> 全部回中
+
+steps:
+  - name: 01_十路同时回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
+
+  - name: 02_十路同时镜像微动
+    joints:
+      - {id: 1, pwm: 1550, duration_ms: 1000}
+      - {id: 2, pwm: 1550, duration_ms: 1000}
+      - {id: 3, pwm: 1550, duration_ms: 1000}
+      - {id: 4, pwm: 1550, duration_ms: 1000}
+      - {id: 5, pwm: 1550, duration_ms: 1000}
+      - {id: 6, pwm: 1450, duration_ms: 1000}
+      - {id: 7, pwm: 1450, duration_ms: 1000}
+      - {id: 8, pwm: 1450, duration_ms: 1000}
+      - {id: 9, pwm: 1450, duration_ms: 1000}
+      - {id: 10, pwm: 1450, duration_ms: 1000}
+
+  - name: 03_十路同时回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}

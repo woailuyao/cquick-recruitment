@@ -1,0 +1,44 @@
+﻿CQuick 第3-4周 加分项 · pytest 单测真实输出
+作者：游梁思远 youliangsiyuan
+运行时间：2026-11-19 00:42:26
+运行命令：cd src/cquick_servo && python -m pytest test/test_servo_protocol.py -v -p no:cacheprovider
+说明：被测的 servo_protocol.py 是纯函数模块，不含 rclpy、不碰串口，因此无需硬件即可运行。
+------------------------------------------------------------------------------
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\25620\AppData\Local\Programs\Python\Python313\python.exe
+rootdir: C:\Users\25620\Desktop\CQuick\������_��3-4��\05_�ύ����\��������\youliangsiyuan\src\cquick_servo
+plugins: cov-7.1.0, mock-3.15.1
+collecting ... collected 27 items
+
+test/test_servo_protocol.py::test_move_command_pads_id_to_three_digits PASSED [  3%]
+test/test_servo_protocol.py::test_move_command_keeps_three_digit_id PASSED [  7%]
+test/test_servo_protocol.py::test_pwm_and_duration_are_zero_padded_to_four_digits PASSED [ 11%]
+test/test_servo_protocol.py::test_duration_over_four_digits_raises PASSED [ 14%]
+test/test_servo_protocol.py::test_pwm_over_four_digits_raises PASSED     [ 18%]
+test/test_servo_protocol.py::test_move_command_ends_with_bang PASSED     [ 22%]
+test/test_servo_protocol.py::test_shorthand_with_hash_and_commas PASSED  [ 25%]
+test/test_servo_protocol.py::test_shorthand_with_spaces PASSED           [ 29%]
+test/test_servo_protocol.py::test_shorthand_then_build_matches_direct_build PASSED [ 33%]
+test/test_servo_protocol.py::test_query_commands PASSED                  [ 37%]
+test/test_servo_protocol.py::test_torque_commands PASSED                 [ 40%]
+test/test_servo_protocol.py::test_parse_prad_reply[#001P1500!-1500] PASSED [ 44%]
+test/test_servo_protocol.py::test_parse_prad_reply[#001PRAD1500!-1500] PASSED [ 48%]
+test/test_servo_protocol.py::test_parse_prad_reply[#001PRAD01500!-1500] PASSED [ 51%]
+test/test_servo_protocol.py::test_parse_prad_reply[1500-1500] PASSED     [ 55%]
+test/test_servo_protocol.py::test_parse_prad_reply[#001P900!-900] PASSED [ 59%]
+test/test_servo_protocol.py::test_parse_prad_reply[-None] PASSED         [ 62%]
+test/test_servo_protocol.py::test_parse_prad_reply[\xff\xfe\x00-None] PASSED [ 66%]
+test/test_servo_protocol.py::test_id_zero_raises PASSED                  [ 70%]
+test/test_servo_protocol.py::test_id_too_big_raises PASSED               [ 74%]
+test/test_servo_protocol.py::test_zero_duration_raises PASSED            [ 77%]
+test/test_servo_protocol.py::test_pwm_over_uint16_raises PASSED          [ 81%]
+test/test_servo_protocol.py::test_pwm_just_over_uint16_boundary_raises PASSED [ 85%]
+test/test_servo_protocol.py::test_bad_shorthand_raises[#1,1700] PASSED   [ 88%]
+test/test_servo_protocol.py::test_bad_shorthand_raises[abc] PASSED       [ 92%]
+test/test_servo_protocol.py::test_bad_shorthand_raises[#1,1700,x] PASSED [ 96%]
+test/test_servo_protocol.py::test_bad_shorthand_raises[] PASSED          [100%]
+
+============================= 27 passed in 0.15s ==============================
+
+------------------------------------------------------------------------------
+结论：以上用例全部通过；失败数 0。

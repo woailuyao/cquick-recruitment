@@ -1,0 +1,93 @@
+name: forward_back_bend
+description: 修正版前后下腰：2和7号方向按真机反馈反转，3和8号仍为主动作舵机，4和9号配合
+steps:
+  - name: 01_十路回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
+
+  - name: 02_三号八号预屈膝
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1400}
+      - {id: 2, pwm: 1460, duration_ms: 1400}
+      - {id: 3, pwm: 1400, duration_ms: 1400}
+      - {id: 4, pwm: 1580, duration_ms: 1400}
+      - {id: 5, pwm: 1500, duration_ms: 1400}
+      - {id: 6, pwm: 1500, duration_ms: 1400}
+      - {id: 7, pwm: 1540, duration_ms: 1400}
+      - {id: 8, pwm: 1600, duration_ms: 1400}
+      - {id: 9, pwm: 1420, duration_ms: 1400}
+      - {id: 10, pwm: 1500, duration_ms: 1400}
+
+  - name: 03_三号八号主发力_加大幅度前倾
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 2600}
+      - {id: 2, pwm: 1390, duration_ms: 2600}
+      - {id: 3, pwm: 1240, duration_ms: 2600}
+      - {id: 4, pwm: 1760, duration_ms: 2600}
+      - {id: 5, pwm: 1500, duration_ms: 2600}
+      - {id: 6, pwm: 1500, duration_ms: 2600}
+      - {id: 7, pwm: 1610, duration_ms: 2600}
+      - {id: 8, pwm: 1760, duration_ms: 2600}
+      - {id: 9, pwm: 1240, duration_ms: 2600}
+      - {id: 10, pwm: 1500, duration_ms: 2600}
+
+  - name: 04_保持加大幅度前倾
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 800}
+      - {id: 2, pwm: 1390, duration_ms: 800}
+      - {id: 3, pwm: 1240, duration_ms: 800}
+      - {id: 4, pwm: 1760, duration_ms: 800}
+      - {id: 5, pwm: 1500, duration_ms: 800}
+      - {id: 6, pwm: 1500, duration_ms: 800}
+      - {id: 7, pwm: 1610, duration_ms: 800}
+      - {id: 8, pwm: 1760, duration_ms: 800}
+      - {id: 9, pwm: 1240, duration_ms: 800}
+      - {id: 10, pwm: 1500, duration_ms: 800}
+
+  - name: 05_前倾后回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 2000}
+      - {id: 2, pwm: 1500, duration_ms: 2000}
+      - {id: 3, pwm: 1500, duration_ms: 2000}
+      - {id: 4, pwm: 1500, duration_ms: 2000}
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 6, pwm: 1500, duration_ms: 2000}
+      - {id: 7, pwm: 1500, duration_ms: 2000}
+      - {id: 8, pwm: 1500, duration_ms: 2000}
+      - {id: 9, pwm: 1500, duration_ms: 2000}
+      - {id: 10, pwm: 1500, duration_ms: 2000}
+
+  - name: 06_三号八号屈膝下沉_加大幅度后仰
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 2600}
+      - {id: 2, pwm: 1600, duration_ms: 2600}
+      - {id: 3, pwm: 1320, duration_ms: 2600}
+      - {id: 4, pwm: 1420, duration_ms: 2600}
+      - {id: 5, pwm: 1500, duration_ms: 2600}
+      - {id: 6, pwm: 1500, duration_ms: 2600}
+      - {id: 7, pwm: 1400, duration_ms: 2600}
+      - {id: 8, pwm: 1680, duration_ms: 2600}
+      - {id: 9, pwm: 1580, duration_ms: 2600}
+      - {id: 10, pwm: 1500, duration_ms: 2600}
+
+  - name: 07_后仰后缓慢回标准位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1800}
+      - {id: 2, pwm: 1500, duration_ms: 1800}
+      - {id: 3, pwm: 1500, duration_ms: 1800}
+      - {id: 4, pwm: 1500, duration_ms: 1800}
+      - {id: 5, pwm: 1500, duration_ms: 1800}
+      - {id: 6, pwm: 1500, duration_ms: 1800}
+      - {id: 7, pwm: 1500, duration_ms: 1800}
+      - {id: 8, pwm: 1500, duration_ms: 1800}
+      - {id: 9, pwm: 1500, duration_ms: 1800}
+      - {id: 10, pwm: 1500, duration_ms: 1800}

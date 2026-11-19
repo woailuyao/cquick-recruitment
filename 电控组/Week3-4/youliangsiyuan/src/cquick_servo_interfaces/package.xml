@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo_interfaces</name>
+  <version>0.1.0</version>
+  <description>总线舵机控制的自定义消息与动作接口（CQuick 电控组 第 3、4 周考核）</description>
+
+  <maintainer email="yolo1811227775@outlook.com">youliangsiyuan</maintainer>
+  <license>MIT</license>
+
+  <!-- ① 构建工具：接口包必须是 ament_cmake，不能用 ament_python -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- ServoState.msg 里用了 builtin_interfaces/Time，所以必须显式依赖它 -->
+  <depend>builtin_interfaces</depend>
+
+  <!-- ② 生成期 + ③ 运行期，两个 rosidl 依赖都要有：
+       - rosidl_default_generators：编译时把 .msg/.action 生成代码（缺了 rosidl_generate_interfaces 未定义）
+       - rosidl_default_runtime   ：运行时别的包 import 得到这些类型 -->
+  <build_depend>rosidl_default_generators</build_depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- ④ 分组声明：不写这一项，别的包引用不到你的接口，
+       而且报的错跟这个八竿子打不着（细则 FAQ Q1 的第 ① 条）。 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

@@ -1,0 +1,27 @@
+# MoveServo.action —— 让一个舵机转到指定 PWM
+#
+# 字段是「摊平」的，没有嵌套 ServoCommand。
+# 原因：验收时评审要用命令行手动打 goal，
+#   摊平：  ros2 action send_goal /move_servo ... "{id: 1, pwm: 1700, duration_ms: 800}"
+#   嵌套：  ros2 action send_goal /move_servo ... "{cmd: {id: 1, pwm: 1700, duration_ms: 800}}"
+# 摊平少一层括号，现场不容易拼错 —— 细则 2.4 原话「要拼一大串还总拼错，说明字段切得不顺手」。
+# 内部总线那条规定仍然满足：ServoCommand 单独作为 /servo/command 的消息类型存在。
+
+# ---------- Goal：我要它做什么 ----------
+uint8  id           # 舵机 ID
+uint16 pwm          # 目标 PWM
+uint16 duration_ms  # 用多久走到（0 表示用驱动的 default_duration_ms）
+
+---
+# ---------- Result：到底成没成（动作结束后发一次） ----------
+bool   success      # true = 真到位了；false = 超限/取消/串口错/没到位
+uint16 final_pwm    # 结束时 PRAD 读回的实际位置（读不到就填 0）
+uint8  retry_count  # 没到位时自动重发了几次（PRAD 闭环校验用，正常 0）
+string message      # 一句话说清原因，例如 "canceled" / "目标 1700，实测 1660，差 40 > 30"
+
+---
+# ---------- Feedback：进度（执行中每 200 ms 一次） ----------
+uint16  current_pwm  # 当前 PWM。按时序在"起点 → 目标"之间插值估算，
+                     # 不是串口实测值 —— 运动过程中读 PRAD 会和写指令抢同一条串口。
+                     # 真正的位置以 Result.final_pwm 的 PRAD 读回为准。
+float32 progress     # 进度 0.0 ~ 1.0
