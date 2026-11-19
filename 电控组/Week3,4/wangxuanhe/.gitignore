@@ -1,0 +1,20 @@
+# ROS2 / colcon 产物，绝对不能提交
+build/
+install/
+log/
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+
+# 录屏与临时文件（视频一律发 B 站，不进仓库）
+*.mp4
+*.avi
+*.mov
