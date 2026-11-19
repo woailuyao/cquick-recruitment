@@ -1,0 +1,22 @@
+# 由 extrinsics_calib.py 自动生成于 6 张地面棋盘样本
+reference_frame: rig_frame   # 相机装在测试架上请改成 rig_frame
+
+camera_height_m: 0.4370          # 卷尺实测（--height 覆盖）
+pitch_deg: 2.75      # 光轴向下俯角，正=朝下看
+roll_deg: 3.84      # 相机 x 轴相对地平面的倾角
+yaw_deg: 0.0                       # 地面系 X 轴按相机 x 轴的投影定义，故为 0
+offset_x_m: 0.0
+offset_y_m: 0.0
+plane_height_mm_used: 0   # 棋盘所在平面离地高度（已加进 camera_height_m）
+
+# 一致性统计（写进 README 更有说服力）
+num_samples: 6
+height_std_mm: 28.3
+pitch_std_deg: 1.65
+roll_std_deg: 1.84
+
+# 地面系 -> 相机系 旋转矩阵（行优先）。地面系 Z 向上，原点取相机光心的地面投影点
+rotation_ground_to_camera:
+  rows: 3
+  cols: 3
+  data: [0.999601, 0.000000, 0.028248, 0.028229, -0.035796, -0.998960, 0.001011, 0.999359, -0.035782]

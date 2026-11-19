@@ -1,0 +1,59 @@
+# 相机配置汇总（采集 / 检测 / 定位三条链路共用一份口径）
+# 目的：把「用哪个相机、什么分辨率、多少帧率、内参从哪来」写死一处，
+#       避免录视频用 1280x720、标定用 640x480 这种尺度错配。
+
+device:
+  interface: USB UVC (DirectShow)
+  # Windows 下用 camera_check.py / probe_camera.py 查到的编号；Ubuntu 下是 /dev/video0
+  index_windows: 0
+  node_linux: /dev/video0
+  note: >
+    这是手机外接 USB 摄像头（UVC 免驱）。镜头为固定焦距、固定对焦，
+    没有光学变焦，所以一份内参可以长期复用。
+
+stream:
+  width: 640
+  height: 480
+  fps: 20            # 采集端实测；训练/推理不依赖帧率，只影响演示流畅度
+  pixel_format: MJPG -> BGR
+  note: >
+    必须与标定时的分辨率一致。换分辨率会让内参（fx, fy, cx, cy）失效，
+    定位结果会整体偏移，这一点在 J 卡上尤其容易踩。
+
+intrinsics:
+  source: camera_intrinsics.yaml        # 由 calib_compute.py 生成
+  board: 9x6 内角点
+  square_mm: 20.0
+  num_images: 20
+  reprojection_error_px: 0.3936         # 合格线 0.5 px
+  fx: 501.559
+  fy: 501.635
+  cx: 333.166
+  cy: 236.451
+  distortion_model: plumb_bob
+  k1: 0.078232
+  k2: -0.002833
+  p1: 0.002015
+  p2: 0.000364
+  k3: -0.224683
+
+extrinsics:
+  source: camera_extrinsics.yaml        # 由 extrinsics_calib.py 生成（地面棋盘法）
+  reference_frame: rig_frame           # 三脚架 = 可移动的独立测试架
+  camera_height_m: 0.4500              # 卷尺实测；几何解算中位数 0.3900
+  pitch_deg: 16.50                     # 光轴向下俯角
+  roll_deg: -5.80                      # 相机 x 轴相对地平面的倾角
+  yaw_deg: 0.0                         # 地面系 X 轴按相机 x 轴投影定义
+  height_disagreement: >
+    几何解算给出 0.390 m，卷尺实测 0.450 m，相差 15%（9 张样本高度标准差 31.9 mm）。
+    采信卷尺值，理由：卷尺直接量的是「镜头到地面」这个物理量，
+    而几何解算要求棋盘绝对平贴地面且 Z=0——人工草皮加垫子时，30~60 mm 的面起伏
+    很常见，正好是这次偏差的量级。同时这 9 张样本的俯仰标准差 2.28°、滚转 2.04°
+    偏大，说明棋盘平面本身在变，侧面印证是平面倾斜而非相机高度真的不同。
+    localize.py 里的 solve_height() 可以在现场用标志点反解出实际高度做交叉验证
+    （合成数据下能准确复原 0.39 与 0.45，见 README 的自测结果）。
+
+calibration_files:
+  - camera_intrinsics.yaml
+  - camera_extrinsics.yaml
+  - calibration.npz      # numpy 打包，K 与 dist，localize.py 直接读
