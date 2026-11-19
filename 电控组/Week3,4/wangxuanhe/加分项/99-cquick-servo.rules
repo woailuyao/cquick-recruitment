@@ -1,0 +1,22 @@
+# 把 USB 转 TTL 绑成固定设备名：/dev/cq_servo
+#
+# 装法：
+#   sudo cp 加分项/99-cquick-servo.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+#   ls -l /dev/cq_servo              # 应指向 ttyUSB0/ttyACM0，组为 dialout
+#   # 拔掉再插回，名字应保持不变
+#
+# 芯片 ID 查法：插上模块后执行 lsusb
+#   CH340  -> 1a86:7523   （本套件常用）
+#   CP2102 -> 10c4:ea60
+#   FT232  -> 0403:6001
+# 如果 lsusb 里的 ID 与下面不符，按实际芯片改对应一行。
+
+# CH340 / CH341
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
+
+# CP2102 / CP2104
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
+
+# FT232
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
