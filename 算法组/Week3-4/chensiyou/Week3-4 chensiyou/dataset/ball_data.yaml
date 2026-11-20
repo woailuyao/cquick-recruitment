@@ -1,0 +1,7 @@
+
+path: /mnt/d/Soccer_Dataset
+train: images/train
+val: images/val
+
+nc: 1
+names: ['ball']
