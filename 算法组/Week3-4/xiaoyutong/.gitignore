@@ -1,0 +1,33 @@
+# 虚拟环境与缓存
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# 模型权重与训练产物
+*.pt
+*.onnx
+*.engine
+runs/
+weights/
+
+# 数据：图片、视频、标注文件
+*.jpg
+*.jpeg
+*.png
+*.mp4
+*.avi
+*.mov
+dataset/images/
+dataset/labels/
+
+# 例外：文档配图保留
+!config/field_map.png
+!docs/*.jpg
+!docs/*.png
+
+# 系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
