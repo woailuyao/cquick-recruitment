@@ -226,40 +226,42 @@ steps:
 
 ## 10. 踩坑记录（现象 → 怀疑 → 验证 → 结论）
 
-**① colcon 报 `MissingSectionHeaderError: '\ufeff[develop]'`**
-- 现象：`colcon build` 直接失败，报 setup.cfg 第一行有非法字符。
-- 怀疑：PowerShell 写文件时带了 BOM。
-- 验证：`xxd setup.cfg | head -1` 看到 `efbb bf`。
-- 结论：所有含中文/由脚本生成的文本文件都用 `UTF8Encoding($false)` 写；仓库里已确认无 BOM。
+**① 建包就报 `MissingSectionHeaderError: '\ufeff[develop]'`**
+- 现象：`colcon build` 直接失败，说 setup.cfg 第一行有非法字符。
+- 怀疑：我用 PowerShell 写文件时带了 BOM。
+- 验证：`xxd setup.cfg | head -1` 看到 `efbb bf`（BOM 的三个字节）。
+- 结论：确认是 BOM；改用 `[IO.File]::WriteAllText(..., UTF8Encoding($false))` 重写后编译通过，之后提交前都复查仓库里没有 BOM。
 
-**② 指令拼成 `#001PPRAD!`（多了一个 P），舵机不理我**
-- 现象：发 `PID` 查询，假舵机/脚本都不回。
-- 怀疑：`build_verb` 拼字符串时把 `P` 写重了。
-- 验证：pytest 里断言 `build_verb(1, "PID") == "#001PID!"`，直接红。
-- 结论：改成 `f"#{id:03d}{verb}!"`，并保留这条断言防回归。
+**② 指令拼成 `#001PPRAD!`（多写了一个 P），假舵机不理我**
+- 现象：发 PID 查询，假舵机不回。
+- 怀疑：拼字符串时把 `P` 写重了，实际发出去的是 `#001PPID!`。
+- 验证：pytest 里断言 `build_verb(1, "PID") == "#001PID!"`，跑出来是红的。
+- 结论：断言红说明确实多写了一个 P；改成 `f"#{id:03d}{verb}!"` 之后测试全过，并把这条断言留在测试里防回归。
 
 **③ 取消不生效（发 cancel 之后舵机还是走完）**
-- 现象：`/move_servo/_action/cancel_goal` 调了，goal 依然跑到 SUCCEEDED。
-- 怀疑：执行体里 `time.sleep` 阻塞了 executor，cancel 回调排不上队。
-- 验证：换成 `MultiThreadedExecutor(num_threads=4)` + `ReentrantCallbackGroup`，执行循环改成 50 ms 一轮查 `is_cancel_requested`。
-- 结论：现在 cancel 后 0.1 s 内收到 ACCEPT，立刻 `#IDP1500T800!` 回中位，result 是 `canceled`（`02_取消生效.png`）。
+- 现象：调了 `cancel_goal`，goal 依然跑到 SUCCEEDED。
+- 怀疑：执行体里的 `time.sleep` 把 executor 堵死了，cancel 回调排不上队。
+- 验证：换成 `MultiThreadedExecutor(4)` + `ReentrantCallbackGroup`，执行循环改成 50 ms 一轮查 `is_cancel_requested`。
+- 结论：cancel 在 0.1 s 内被 ACCEPT，驱动立刻发回中位指令，result 变成 `canceled`（`02_取消生效.png`）。
 
 **④ 到了位却报 `not_reached`**
 - 现象：明明走到了 1800，result 却是 `not_reached:74`。
-- 怀疑：运动**末尾**抢读 PRAD，读回来的是运动中的中间值；半双工总线偶尔回半条指令。
-- 验证：先把「读之前 settle 0.15 s」加上，再给 `_read_pwm` 加一次重问；连跑 10 次不再出现。
-- 结论：真机也一样——**到位判断必须等舵机停稳再读**，且读失败要重试，不能一次读不到就判死。
+- 怀疑：运动末尾抢读 PRAD，读回来的是中间值；半双工偶尔回半条指令。
+- 验证：读之前先加 settle 0.15 s，再给 `_read_pwm` 一次重问；连跑 10 次不再出现。
+- 结论：到位判断必须等舵机停稳再读，读失败要重试一次，不能一次读不到就判死。
 
-**⑤ 真机「有回显、有力，但就是不转」——两条指令粘成一条（本次最大的坑）**
+**⑤ 真机「有回显、有力，但就是不转」：两条指令粘成一条（本次最大的坑）**
 - 现象：`ros2 action send_goal` 返回 `prad_actual=1507 / not_reached:193`；舵机要么不动，要么只「抖一下」；但手动单发 `#003P1700T1000!` 是好的。
-- 怀疑：先怀疑波特率/协议/接线，全排除；最后去看桥接日志。
-- 验证：`bridge.log` 里抓到了 `TCP->SER #003PULR!#003P1700T1000!` —— **两条帧被连着写出去、中间没有间隔**。启动复位那 6 条也是整串一次发出。
-- 结论：ZL-IS2 固件只吃第一条，后面的全丢。修法 = `servo_link.py` 加 `MIN_FRAME_GAP = 0.03`，`send()`/`query()` 写前都 `_respect_gap()`；改完 4 次闭环全部 `ok(diff≤11)`。
-  这个坑在假舵机上永远测不出来（假的按字节流解析，不挑帧边界），**只有真机才会暴露**。
+- 怀疑：先怀疑波特率 / 协议 / 接线，全排除了，最后去翻桥接日志。
+- 验证：`bridge.log` 里抓到了 `TCP->SER #003PULR!#003P1700T1000!`，发现**两条帧被连着写出去、中间没有间隔**；开机复位那 6 条也是整串一次发出。
+- 结论：ZL-IS2 固件按 `!` 切帧，只吃第一条，后面的全丢。修法 = `servo_link.py` 加 `MIN_FRAME_GAP = 0.03`，`send()` / `query()` 写前都等够 30 ms；改完 4 次闭环全部 `ok(diff≤11)`。
+  这个坑在假舵机上测不出来（假的按字节流解析、不挑帧边界），**只有真机才会暴露**。
 
 **⑥ PRAD 解析要接受 `#003P!` 这种「只回 ID」的形式**
-- 现象：`#003PID!` 回的是 `#003P!`（不是 `#003PID!`），正则匹配不到。
-- 结论：`_PID_RE` 从 `#?(\d{1,3})` 放宽成 `#?\s*(\d{1,3})`，PID/PRAD 共用同一解析。
+- 现象：`#003PID!` 回的是 `#003P!`，正则匹配不到，PID 读不出来。
+- 怀疑：正则要求完整的 `#003PID`，短格式匹配不上。
+- 验证：把回包贴进 REPL 试匹配；放宽成 `#?\s*(\d{1,3})` 之后，`#003PID!` 与 `#003PRAD!` 都能解析。
+- 结论：PID 与 PRAD 共用同一个解析函数，6 个 pytest 仍然全绿。
 
 ## 11. 复现步骤（评委照着敲）
 

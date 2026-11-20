@@ -27,8 +27,8 @@ VERB_PULK = "PULK"    # 卸力（断电前必发）
 PWM_ELECTRIC_MIN = 500
 PWM_ELECTRIC_MAX = 2500
 
-# 总线帧间隔：连发两条（如 PULR 紧跟 P）时，固件只执行第一条、丢掉后面的，
-# 实测 30 ms 能被稳定接收（ZL-IS2 24 路板，115200）。
+# 总线帧间隔：连发两条消息时，固件只执行第一条、丢掉后面的，
+# 经测试，30 ms 能被稳定接收。
 MIN_FRAME_GAP = 0.03
 
 _PRAD_RE = re.compile(r"#?\s*(\d{1,3})\s*P\s*(\d{3,4})")

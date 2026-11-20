@@ -41,13 +41,13 @@ class ServoDriver(Node):
         self.declare_parameter("pwm_min", 900)
         self.declare_parameter("pwm_max", 2100)
         self.declare_parameter("default_duration_ms", 800)
-        # 真机实测（ZL-IS2 + 总线舵机）：T<1000 的移动指令会被固件直接忽略，
-        # 舵机一动不动、PRAD 停在原值。这里统一抬到下限，别让上层悄悄失效。
+        # 经过对 ZL-IS2 + 总线舵机的测试，T<1000 的移动指令会被直接忽略，
+        # 发现舵机一动不动、PRAD 停在原值。所以都抬到下限。
         self.declare_parameter("min_duration_ms", 1000)
         self.declare_parameter("servo_ids", [1, 2, 3, 4, 5, 6])
         self.declare_parameter("startup_reset", True)
-        # 有些板子的“用户/调试”口只执行不回包（实测 ZL-IS2 + STM32 VCP 即如此），
-        # 此时把 readback_enabled 置 false：动作照发，result 用 ok(no_readback)，不做 PRAD 校验
+        # 开始时板子只执行不回包，为了应对这种情况改了此代码，
+        # 后来解决问题，这个开关用于兜底换板或者换线后回读恢复的可能情况。
         self.declare_parameter("readback_enabled", True)
 
         # ---------- ② 参数校验：不注册这个回调，100000 也能进得去 ----------
@@ -149,8 +149,8 @@ class ServoDriver(Node):
         return SetParametersResult(successful=True)
 
     # ------------------------------------------------------------ 实时读参数
-    # 注意：这里每次都 get_parameter(...).value，绝不读 __init__ 里的副本，
-    # 否则 `ros2 param set` 改了不生效（这是 2.6 第 ④ 步失败的最常见原因）。
+    # 问了 ai 建议，这里不能读 __init__ 里的副本，
+    # 否则 `ros2 param set` 改了会不生效。
     def _pwm_limits(self) -> tuple[int, int]:
         return (
             int(self.get_parameter("pwm_min").value),
@@ -363,7 +363,7 @@ class ServoDriver(Node):
 def main(argv=None) -> None:
     rclpy.init(args=argv)
     node = ServoDriver()
-    # 必须多线程：单线程 + time.sleep 会把 cancel 回调饿死（细则 Q11）
+    # 这里必须多线程，如果单线程 + time.sleep 会把 cancel 回调搞没。
     executor = MultiThreadedExecutor(num_threads=4)
     executor.add_node(node)
     try:
