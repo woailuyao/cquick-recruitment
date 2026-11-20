@@ -1,0 +1,25 @@
+action_name: "wave"
+steps:
+  - step_name: "ready"
+    commands:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 2295, duration_ms: 1000}
+
+  - step_name: "lift_left_leg" # 抬左腿
+    commands:
+      - {id: 3, pwm: 1700, duration_ms: 1000}
+      - {id: 5, pwm: 1200, duration_ms: 1000}
+      - {id: 7, pwm: 1700, duration_ms: 1000}
+
+  - step_name: "twist_feet" # 扭脚
+    commands:
+      - {id: 9, pwm: 1700, duration_ms: 1000}   # 9号往大扭
+      - {id: 10, pwm: 2195, duration_ms: 1000}  # 10号往小扭 (基于2295减100)

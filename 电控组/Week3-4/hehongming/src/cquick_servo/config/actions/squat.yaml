@@ -1,0 +1,38 @@
+action_name: "squat"
+steps:
+  # 第一步：站立准备
+  - step_name: "ready"
+    commands:
+      - {id: 1, pwm: 1500, duration_ms: 1000}  # 胯部
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}  # 大腿
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}  # 膝盖
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}  # 小腿
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}  # 左脚扭动
+      - {id: 10, pwm: 2295, duration_ms: 1000} # ⚠️ 右脚基准（你的真实拼装值）
+
+  # 第二步：下蹲并扭动脚掌
+  - step_name: "squat_down"
+    commands:
+      - {id: 3, pwm: 1700, duration_ms: 1500}  # 大腿抬
+      - {id: 4, pwm: 1700, duration_ms: 1500}
+      - {id: 5, pwm: 1200, duration_ms: 1500}  # 膝盖弯
+      - {id: 6, pwm: 1200, duration_ms: 1500}
+      - {id: 7, pwm: 1700, duration_ms: 1500}
+      - {id: 8, pwm: 1700, duration_ms: 1500}
+      # 10号脚向右扭一点
+      - {id: 10, pwm: 2395, duration_ms: 1500} # ⚠️ 2295 + 100 = 2395
+
+  # 第三步：站起复位
+  - step_name: "stand_up"
+    commands:
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+      - {id: 10, pwm: 2295, duration_ms: 1500} # 扭回正中间
