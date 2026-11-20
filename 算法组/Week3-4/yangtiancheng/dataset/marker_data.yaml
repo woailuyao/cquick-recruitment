@@ -1,0 +1,9 @@
+path: C:\Users\Lenovo\Documents\Codex\2026-10-21\u-b\work\vm-share\task2\marker_dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: LCross
+  1: TCross
+  2: XCross
+  3: PenaltyPoint
