@@ -22,9 +22,9 @@ rosbag2_bagfile_information:
   compression_format: ""
   compression_mode: ""
   relative_file_paths:
-    - run1new_0.db3
+    - run1_0.db3
   files:
-    - path: run1new_0.db3
+    - path: run1_0.db3
       starting_time:
         nanoseconds_since_epoch: 1795173797620627418
       duration:
