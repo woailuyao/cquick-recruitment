@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+tools/venv/
+
+# 训练输出 / 权重
+runs/
+dataset/runs/
+dataset/runs_smoke/
+*.pt
+
+# 本地临时工具环境
+tools/pylibs/
+tools/pylibs_contrib/
+tools/wheels/
+tools/pip-cache/
+tools/tmp/
+tools/tmp_pip/
+tools/yolo_config/
+tools/*.log

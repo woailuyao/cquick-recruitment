@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>target_detector</name>
+  <version>0.0.0</version>
+  <description>HSV 白色足球检测，结果发布到 /target_position 并由订阅节点打印</description>
+  <maintainer email="sumaolin@example.com">sumaolin</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 运行依赖：rclpy 提供节点/话题，target_interfaces 提供消息类型 -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>target_interfaces</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>ament_index_python</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
