@@ -1,0 +1,1 @@
+from setuptools import setup; setup(name="vision_publisher", version="0.0.0", packages=["vision_publisher"], data_files=[("share/ament_index/resource_index/packages", ["resource/vision_publisher"]), ("share/" + "vision_publisher", ["package.xml"]), ("lib/python3/dist-packages", ["publisher.py"])])
