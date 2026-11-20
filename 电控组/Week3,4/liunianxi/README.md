@@ -55,10 +55,10 @@ flowchart LR
 | --- | --- | --- |
 | `port` | `/dev/ttyUSB0` | Ubuntu 下 USB-TTL 最常见的就是这个；有 udev 规则后改成 `/dev/cq_servo`（见第 8 节） |
 | `baudrate` | `115200` | 手册默认；总线舵机常用 115200/1000000，本作业按 115200 走，串口参数 8-N-1 |
-| `pwm_min` | `900` | 安全下限，比电气下限 500 高 400，留给「撞到结构」的余量；现场用 `param set` 一点点试出来 |
-| `pwm_max` | `2100` | 安全上限，比电气上限 2500 低 400；理由同上 |
-| `default_duration_ms` | `800` | 一轮动作 0.8 s：太快会抽、太慢评委等得烦；单步可在 yaml 里覆盖 |
-| `servo_ids` | `[1,2,3,4,5,6]` | 六自由度机械臂的常见编号；不在这个列表里的 id 直接拒绝 |
+| `pwm_min` | `1000` | **实测出来的**：950 / 900 / 850 全部卡在 1005~1006 不动（顶到机械限位），下限取 1000；比电气下限 500 高 500，留给「撞到结构」的余量 |
+| `pwm_max` | `2100` | 安全上限，比电气上限 2500 低 400；实测 2100 目标读到 2090，还留得住 |
+| `default_duration_ms` | `1000` | 本板固件**忽略 T<1000** 的移动指令，所以默认给 1000；再快会抽、太慢评委等得烦，单步可在 yaml 里覆盖 |
+| `servo_ids` | `[3]` | 当前真机只装了一个舵机，扫 0~23 只有 ID=003 应答；整机装配后改成 6 个实测 ID |
 | `startup_reset` | `true` | 上电先全部回 1500 中立位，避免带着上次姿态猛动一下 |
 
 判断处**一律 `self.get_parameter('pwm_max').value`**（不缓存副本），所以 `ros2 param set` 当帧生效（第 6 节有实测）。参数回调里做校验：`pwm_min/pwm_max` 必须落在电气范围 500~2500 且 `pwm_min < pwm_max`、`baudrate` 必须在白名单、`port` 非空、`servo_ids` 非空。
@@ -98,23 +98,22 @@ launch arg：`params_file`（默认 `config/servo_params.yaml`）、`port`（非
 真实输出（2026-11-07 18:56，软件仿真环境）:
 
 ```
-$ ros2 launch cquick_servo servo.launch.py port:=/tmp/ttySERVO
-[INFO] [launch]: All log files can be found below /home/ubuntu/.ros/log/2026-11-07-18-56-30-350752-ubuntu2204-12453
+$ ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB0
+[INFO] [launch]: All log files can be found below /home/ubuntu/.ros/log/2026-11-20-19-10-59-...
 [INFO] [launch]: Default logging verbosity is set to INFO
 [INFO] [launch.user]: 启动 servo_driver，参数文件由 launch arg 决定
-[INFO] [servo_driver-1]: process started with pid [12455]
-[servo_driver-1] [INFO] [1794048991.400464903] [servo_driver]: 串口已打开：/tmp/ttySERVO @ 115200 8-N-1
-[servo_driver-1] [INFO] [1794048991.423789380] [servo_driver]: startup_reset：6 个舵机回中位 1500
-[servo_driver-1] [INFO] [1794048991.424511310] [servo_driver]: servo_driver 就绪：port=/tmp/ttySERVO baudrate=115200 安全区间=[900,2100] ids=[1, 2, 3, 4, 5, 6]
+[INFO] [servo_driver-1]: process started with pid [16996]
+[servo_driver-1] [INFO] [1795173042.646388993] [servo_driver]: 串口已打开：/dev/ttyUSB0 @ 115200 8-N-1
+[servo_driver-1] [INFO] [1795173042.721209785] [servo_driver]: startup_reset：1 个舵机回中位 1500
+[servo_driver-1] [INFO] [1795173042.723434666] [servo_driver]: servo_driver 就绪：port=/dev/ttyUSB0 baudrate=115200 安全区间=[1000,2100] ids=[3]
 
 $ ros2 node list
-/fake_servo
 /servo_driver
 ```
 
-（`/fake_servo` 只在无硬件演示时存在；真机不启它。）
+（上面是 2026-11-20 真机原文。仿真阶段还会多一个 `/fake_servo`——那是假舵机进程，真机不启它。）
 
-## 5. 安全区间 900~2100 怎么来的
+## 5. 安全区间 1000~2100 怎么来的
 
 1. 手册写的电气范围是 **500~2500**，但这个范围是「不烧电机」，不是「不撞结构」；
 2. 真机从 1500 起，每次往下 50/100 试，同时读 PRAD 确认「命令值与实际值是否还跟得上」；
@@ -201,27 +200,28 @@ repeat: 1
 steps:
   - name: 先把六个关节回中位
     joints:
-      - {id: 1, pwm: 1500, duration_ms: 800, verify: true}
-      - {id: 2, pwm: 1500, duration_ms: 800, verify: true}
-      - {id: 3, pwm: 1500, duration_ms: 800, verify: true}
-      - {id: 4, pwm: 1500, duration_ms: 800, verify: true}
-      - {id: 5, pwm: 1500, duration_ms: 800, verify: true}
-      - {id: 6, pwm: 1500, duration_ms: 800, verify: true}
+      - {id: 1, pwm: 1500, duration_ms: 1000, verify: true}
+      - {id: 2, pwm: 1500, duration_ms: 1000, verify: true}
+      - {id: 3, pwm: 1500, duration_ms: 1000, verify: true}
+      - {id: 4, pwm: 1500, duration_ms: 1000, verify: true}
+      - {id: 5, pwm: 1500, duration_ms: 1000, verify: true}
+      - {id: 6, pwm: 1500, duration_ms: 1000, verify: true}
   - name: 同时抬起大臂与小臂
     joints:
-      - {id: 1, pwm: 1650, duration_ms: 900, verify: true}
-      - {id: 2, pwm: 1350, duration_ms: 900, verify: true}
+      - {id: 1, pwm: 1650, duration_ms: 1200, verify: true}
+      - {id: 2, pwm: 1350, duration_ms: 1200, verify: true}
   - name: 张开夹爪
     joints:
-      - {id: 6, pwm: 1900, duration_ms: 500, verify: true}
+      - {id: 6, pwm: 1900, duration_ms: 1000, verify: true}
   - name: 放下
     joints:
-      - {id: 1, pwm: 1500, duration_ms: 700, verify: true}
+      - {id: 1, pwm: 1500, duration_ms: 1000, verify: true}
 ```
 
 - **step 怎么切**：一个 step = 一组「要同时动」的关节，物理上互不干涉；
 - **谁先动**：step 内并行（多条 goal 同时发），step 之间严格串行；
-- **`duration_ms` 怎么定**：越大越慢越稳；抓取/放下类动作给 700~900，张合夹爪给 500；
+- **`duration_ms` 怎么定**：**本板固件忽略 T<1000 的移动指令**，所以一律 ≥1000（驱动也会把小于 `min_duration_ms` 的自动抬到 1000 并打 WARN）；越大越慢越稳，抬起/放下给 1000~1200；
+- **`servo_ids` 与 yaml 的关系**：yaml 里写的是整机的 6 个关节，当前只装了 ID=003 一个舵机时，其它 id 会被驱动按 `servo_ids` 挡掉并打 WARN——**这是预期行为**，装上整机后把 `servo_ids` 改成实测的 6 个 ID 即可；
 - **用 result 同步，不用 sleep**：`sequence_player.py` 里 `await send_goal_async` → 逐个 `get_result_async()`，**全部 result 回来才进下一个 step**（第 10 节第 3 条踩坑就是这个）。
 
 ## 10. 踩坑记录（现象 → 怀疑 → 验证 → 结论）
@@ -299,11 +299,11 @@ colcon test --packages-select cquick_servo && colcon test-result --verbose
 
 | 内容 | 链接 |
 | --- | --- |
-| 任务 2：正反转 / 取消打断 / param set 生效 / bag 回放 | 待补（无硬件，现场录） |
-| 任务 3：整机与动作组（连跑三遍 + 换 yaml 再跑） | 待补 |
-| 任务 4：下电流程 | 待补 |
+| 任务 2：正反转 / 取消打断 / param set 生效 / bag 回放 | 待录（内容已跑通，装配后一并录屏） |
+| 任务 3：整机与动作组（连跑三遍 + 换 yaml 再跑） | 待录 |
+| 任务 4：下电流程 | 待录 |
 
-> 仓库只放截图和 bag，不放视频。
+> 仓库只放截图和 bag，不放视频；录完统一传 B 站，把链接填进上表。
 
 ## 14. 目录
 
@@ -322,16 +322,16 @@ colcon test --packages-select cquick_servo && colcon test-result --verbose
 
 ## 15. 还差什么（下一步照这个做）
 
-已完成：任务 1 全部、任务 2 全部（真机 8 张图 + bag）。
+已完成：任务 1 全部、任务 2 全部（真机 8 张图 + bag）、任务 3 的 ID 扫描与多舵机动作关键帧、检查清单与录屏脚本。
 
-还差三件，都卡在「手上只有一个舵机」：
+还差三件，都要动手，**软件侧不用再改**：
 
-1. **装上结构**（任务 3）：把舵机装进机械臂/舵盘 → 拍 `03_整机照片.png`（正 + 侧）与 `03_接线特写.png`；
+1. **装上结构**（任务 3）：舵机数量已够，按装配顺序装好后拍 `03_整机照片.png`（正 + 侧）与 `03_接线特写.png`；
    装配顺序**必须**是：全部 `#IDP1500T1000!` 回中位 → 装舵盘 → 装结构 → 固定板与电池 → 走线。
 2. **跑动作组**：`ros2 run cquick_servo sequence_player --ros-args -p actions_file:=$HOME/ros2_ws/src/cquick_servo/config/actions/stand_up.yaml` 连跑三遍，再换 `wave.yaml` 跑一遍（不改代码），录屏。
 3. **下电录屏**（任务 4）：`#00xPULK!` 全部卸力 → 断电池 → `shutdown -h now`，三步录屏（画面里要有终端）。
 
-> 现在只有一个舵机（`ID=003`）时，`stand_up.yaml` 里其它 id 会被驱动按 `servo_ids` 挡掉并打 WARN，**这是预期行为**，不是失败；装上整机后把 `servo_ids` 改成实测的 6 个 ID 即可。
+> 装配后第一件事是把 `servo_ids` 改成实测的 6 个 ID，并把 `03_多舵机动作_关键帧.png` 用真正的多舵机动作重拍。
 
 ## 16. 加分项：固定设备名（udev）
 
