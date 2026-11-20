@@ -1,0 +1,30 @@
+# 最外层 key 必须等于节点名（Node(name='servo_driver')），写错不报错、只是静默不加载
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+
+    # 对「实际发送 PWM = 逻辑目标 + offset」进行全局电气限位。
+    # 1050/2050 来自任务1桌面旧舵机，不是新整机的逐关节机械行程；
+    # 正式动作前仍须完成装配态逐关节实测，动作值须再向内留 50~100 余量。
+    pwm_min: 1050
+    pwm_max: 2050
+    default_duration_ms: 800
+
+    # 左腿 1~5：侧摆/髋前后/膝/踝前后/脚掌转向；右腿 6~10 同顺序。
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+    # 同一台机械在另一台电脑上实测；换舵机、拆舵臂/连杆或改齿位后必须重测。
+    # 实际发送 = YAML/Action 逻辑目标 + 对应 offset，驱动中只叠加一次。
+    joint_offsets: [9, -119, -22, 44, 119, -51, -68, 135, -20, 10]
+
+    # 正式整机配置：启动后各关节回到逻辑1500叠加offset后的校准标准位。
+    startup_reset: true
+    home_pwm: 1500
+
+    # 正式运行允许额外重读1次；分级逼近测试时改回0。
+    prad_retries: 1
+    # false 时立即全部 PULK 并拒绝新动作；恢复必须人工确认后显式设 true。
+    torque_enable: true
+    # goal 执行停滞超过该时间就全部卸力；0 可关闭，但整机测试保持开启。
+    watchdog_timeout_s: 3.0

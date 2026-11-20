@@ -1,0 +1,18 @@
+# 整机诊断动作：10 舵机同时回「校准标准位」
+# YAML 全部是逻辑 1500；驱动叠加 joint_offsets 后才得到实际发送值。
+# 用途：验证 sequence_player 的多 goal 并发和 result 同步。
+# 如果出现明显异常动作/异响，立刻卸力并检查装配与标定是否已变化。
+name: neutral
+steps:
+  - name: 双腿十个关节同时回中位
+    servos:
+      - {id: 1, pwm: 1500, duration_ms: 1500}   # 左髋
+      - {id: 2, pwm: 1500, duration_ms: 1500}   # 左大腿
+      - {id: 3, pwm: 1500, duration_ms: 1500}   # 左膝
+      - {id: 4, pwm: 1500, duration_ms: 1500}   # 左小腿
+      - {id: 5, pwm: 1500, duration_ms: 1500}   # 左脚踝
+      - {id: 6, pwm: 1500, duration_ms: 1500}   # 右髋
+      - {id: 7, pwm: 1500, duration_ms: 1500}   # 右大腿
+      - {id: 8, pwm: 1500, duration_ms: 1500}   # 右膝
+      - {id: 9, pwm: 1500, duration_ms: 1500}   # 右小腿
+      - {id: 10, pwm: 1500, duration_ms: 1500}  # 右脚踝

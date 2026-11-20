@@ -1,0 +1,173 @@
+# 原地踏步最终整合版
+# 仅支撑侧重心50→100，不做摆动侧骨盆动作；提跟75、左髋320、右髋500、双膝400。
+# 左髋1180对应实际1061，不得再向下增加；其他目标也均在实测成功范围内。
+# 1500ms慢速分级，单步最多100，落地前脚踝回中，结束全部回校准位。
+# 任一失败/超时或Ctrl+C立即整机卸力；首次仍需有人扶持。
+name: march_in_place_final
+steps:
+  - name: 全部关节到校准位
+    servos:
+      - {id: 1, pwm: 1500, duration_ms: 1500}
+      - {id: 2, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}
+
+  - name: 重心先向右侧支撑50
+    servos:
+      - {id: 6, pwm: 1550, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}
+
+  - name: 右侧支撑到100后抬左腿（不做骨盆动作）
+    servos:
+      - {id: 6, pwm: 1600, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}
+
+  - name: 左腿抬起第一级（髋膝100、提跟50）
+    servos:
+      - {id: 2, pwm: 1400, duration_ms: 1500}
+      - {id: 3, pwm: 1400, duration_ms: 1500}
+      - {id: 4, pwm: 1450, duration_ms: 1500}
+
+  - name: 左腿抬起第二级（髋膝200、提跟75）
+    servos:
+      - {id: 2, pwm: 1300, duration_ms: 1500}
+      - {id: 3, pwm: 1300, duration_ms: 1500}
+      - {id: 4, pwm: 1425, duration_ms: 1500}
+
+  - name: 左腿抬起第三级（髋膝300、脚踝保持）
+    servos:
+      - {id: 2, pwm: 1200, duration_ms: 1500}
+      - {id: 3, pwm: 1200, duration_ms: 1500}
+
+  - name: 左髋至边界320、左膝加深至400
+    servos:
+      - {id: 2, pwm: 1180, duration_ms: 1500}
+      - {id: 3, pwm: 1100, duration_ms: 1500}
+
+  - name: 左腿回收准备（髋回20、膝回100、脚踝先回水平）
+    servos:
+      - {id: 2, pwm: 1200, duration_ms: 1500}
+      - {id: 3, pwm: 1200, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+
+  - name: 左腿分级回收第二级
+    servos:
+      - {id: 2, pwm: 1300, duration_ms: 1500}
+      - {id: 3, pwm: 1300, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+
+  - name: 左脚回正后再落地
+    servos:
+      - {id: 2, pwm: 1400, duration_ms: 1500}
+      - {id: 3, pwm: 1400, duration_ms: 1500}
+
+  - name: 左髋左膝完全回校准位
+    servos:
+      - {id: 2, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+
+  - name: 左脚落地后右侧支撑回到50
+    servos:
+      - {id: 6, pwm: 1550, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}
+
+  - name: 右侧支撑缓慢回校准位
+    servos:
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}
+
+  - name: 重心先向左侧支撑50
+    servos:
+      - {id: 1, pwm: 1450, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+
+  - name: 左侧支撑到100后抬右腿（不做骨盆动作）
+    servos:
+      - {id: 1, pwm: 1400, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+
+  - name: 右腿抬起第一级（髋膝100、提跟50）
+    servos:
+      - {id: 7, pwm: 1600, duration_ms: 1500}
+      - {id: 8, pwm: 1600, duration_ms: 1500}
+      - {id: 9, pwm: 1550, duration_ms: 1500}
+
+  - name: 右腿第二级前半（髋膝各再动50、提跟到75）
+    servos:
+      - {id: 7, pwm: 1650, duration_ms: 1500}
+      - {id: 8, pwm: 1650, duration_ms: 1500}
+      - {id: 9, pwm: 1525, duration_ms: 1500}
+
+  - name: 右腿第二级后半（髋膝200、提跟保持75）
+    servos:
+      - {id: 7, pwm: 1700, duration_ms: 1500}
+      - {id: 8, pwm: 1700, duration_ms: 1500}
+
+  - name: 右腿抬起第三级（髋膝300、脚踝保持）
+    servos:
+      - {id: 7, pwm: 1800, duration_ms: 1500}
+      - {id: 8, pwm: 1800, duration_ms: 1500}
+
+  - name: 右髋增加至400、右膝加深至400
+    servos:
+      - {id: 7, pwm: 1900, duration_ms: 1500}
+      - {id: 8, pwm: 1900, duration_ms: 1500}
+
+  - name: 右髋最后增加至500
+    servos:
+      - {id: 7, pwm: 2000, duration_ms: 1500}
+
+  - name: 右腿回收第一级（髋膝各回100、脚踝先回水平）
+    servos:
+      - {id: 7, pwm: 1900, duration_ms: 1500}
+      - {id: 8, pwm: 1800, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+
+  - name: 右腿回收第二级
+    servos:
+      - {id: 7, pwm: 1800, duration_ms: 1500}
+      - {id: 8, pwm: 1700, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+
+  - name: 右腿回收第三级
+    servos:
+      - {id: 7, pwm: 1700, duration_ms: 1500}
+      - {id: 8, pwm: 1600, duration_ms: 1500}
+
+  - name: 右脚回正后准备落地
+    servos:
+      - {id: 7, pwm: 1600, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+
+  - name: 右髋完全回校准位
+    servos:
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+
+  - name: 右脚落地后左侧支撑回到50
+    servos:
+      - {id: 1, pwm: 1450, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+
+  - name: 左侧支撑缓慢回校准位
+    servos:
+      - {id: 1, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+
+  - name: 全部关节确认回校准位
+    servos:
+      - {id: 1, pwm: 1500, duration_ms: 1500}
+      - {id: 2, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}

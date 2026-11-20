@@ -1,0 +1,14 @@
+# 编译产物，绝不提交
+build/
+install/
+log/
+__pycache__/
+*.pyc
+
+# 训练/运行临时文件
+runs/
+.venv/
+
+# 考核要求提交的动作日志与rosbag数据（覆盖仓库根目录的通用忽略）
+!*.log
+!*.db3
