@@ -331,3 +331,20 @@ colcon test --packages-select cquick_servo && colcon test-result --verbose
 3. **下电录屏**（任务 4）：`#00xPULK!` 全部卸力 → 断电池 → `shutdown -h now`，三步录屏（画面里要有终端）。
 
 > 现在只有一个舵机（`ID=003`）时，`stand_up.yaml` 里其它 id 会被驱动按 `servo_ids` 挡掉并打 WARN，**这是预期行为**，不是失败；装上整机后把 `servo_ids` 改成实测的 6 个 ID 即可。
+
+## 16. 加分项：固定设备名（udev）
+
+**为什么做**：`/dev/ttyUSB0` 是按插入顺序编号的，拔插一次就可能变成 `ttyUSB1`，`port` 参数随即失效、launch 报「串口打不开」。用 udev 按芯片 `VID:PID` 生成固定软链 `/dev/cq_servo` 后，插哪个口都是同一个名字。
+
+规则文件已在仓库里：`src/cquick_servo/config/99-cq-servo.rules`（含 CH340 `1a86:7523`、板载 STM32 `0483:572a`、CP2102 `10c4:ea60` 三条）。
+
+安装一次即可：
+
+```bash
+sudo cp src/cquick_servo/config/99-cq-servo.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules && sudo udevadm trigger
+ls -l /dev/cq_servo          # 应看到指向 ttyUSB* 的软链
+ros2 launch cquick_servo servo.launch.py port:=/dev/cq_servo
+```
+
+> 默认 `servo_params.yaml` 仍写 `port: /dev/ttyUSB0`（评测评测机不一定装了这条规则，写死 `/dev/cq_servo` 反而会打不开）；装好规则的机器用 `port:=/dev/cq_servo` 覆盖即可，两种都能跑。
