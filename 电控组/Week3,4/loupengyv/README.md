@@ -535,18 +535,15 @@ id=10 目标=1450 实际=1508 差 58
 
 ## 12. 录屏链接
 
-| 内容 | 链接 |
-|---|---|
-| **任务 2 + 任务 3（桌面两舵机）**：正反转回中 / 取消打断 / 改参数生效 / bag 回放 / 两套 yaml 动作组 | <https://www.bilibili.com/video/BV1qRW26sEgd/> |
-| **任务 4 · 安全下电三步**（卸力 → 断动力电 → 关板卡） | <https://www.bilibili.com/video/BV1sNytzUEy7/> |
-| **任务 3 · 十关节整机动作组**（连跑三遍 + 换 yaml） | <https://www.bilibili.com/video/BV1xPytzJEuh/> |
+| 任务 | 内容 | 链接 |
+|---|---|---|
+| 任务 2 | 正反转回中 / 取消打断 / 改参数生效 / `bag play` 回放 | <https://www.bilibili.com/video/BV1qRW26sEgd/> |
+| 任务 3 ① | **整机逐个动作**（ID 1~10 一个一个动） | <https://www.bilibili.com/video/BV1yxy4zLE4w/> |
+| 任务 3 ② | **动作组连跑三遍 + 换一套 yaml 再跑** | <https://www.bilibili.com/video/BV1xPytzJEuh/> |
+| 任务 4 | 下电流程（卸力 → 断动力电 → 关板卡） | <https://www.bilibili.com/video/BV1sNytzUEy7/> |
 
-> **第三条**是借用实验室双足样机（10 个舵机，ID 1~10）跑的 `all_ten.yaml`：
-> 每步 10 个关节同时下发 → 10 条 `[result]` 全部回来才进下一步 →
-> 连跑三遍动作一致 → 换成 `stand.yaml` 后关节数从 10 变 2，**代码未改**。
-
-> **第一条**能看到：驱动启动 → `stand.yaml` 两个舵机同时动作 → 连跑三遍 →
-> 换成 `wave.yaml` 后步数从 2 步变 3 步、代码未改 → 日志里每一步都有 `[result]` 和完成时刻；
-> 以及任务 2 的正反转、取消打断、改参数当场生效、`ros2 bag play` 回放。
+> 全部录屏里都有**终端画面**——细则 682 行：纯拍舵机转动证明不了是 ROS2 命令驱动的。
 >
-> **第二条**是整机下电：Zide「全部释力」→ 手拧关节从"拧不动"变"能转动" → 拔电池 → 关上位机/拔 USB。
+> - 任务 3 ② 的日志证据另见 `03_十关节日志.png`：10 个关节同时下发，
+>   10 条 `[result]` 全部回来才进下一步，总用时 23.55s，**全部到位**。
+> - 任务 4 的截图见 `04_卸力.jpg` / `04_断电.jpg` / `04_关机.jpg`。
