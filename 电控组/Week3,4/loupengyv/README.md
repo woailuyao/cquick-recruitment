@@ -233,13 +233,15 @@ Goal finished with status: SUCCEEDED
 
 ## 7. bag 里录了什么、怎么回放
 
+**录好的文件就在仓库里**：`bag/run1/`（`run1_0.db3` + `metadata.yaml`，共 57 KB）。
+
 ```bash
 ros2 bag record -o run1 /servo/command /servo/state    # 只录这两个话题，不用 -a
 ros2 bag info run1
 ros2 bag play run1
 ```
 
-`ros2 bag info` 结果（见 `02_bag_info.png`）：
+`ros2 bag info` 结果（见 `02_bag_info.png`，与仓库里的 `bag/run1/metadata.yaml` 一致）：
 
 ```
 Files:        run1_0.db3
@@ -249,6 +251,8 @@ Messages:     571
 Topic: /servo/state    Count: 568
 Topic: /servo/command  Count: 3
 ```
+
+> 为什么 `/servo/command` 只有 3 条：它**只在真正发指令时发一条**；`/servo/state` 是 5 Hz 心跳，所以 113 秒对应 568 条。
 
 **回放结果**：驱动侧重新发出
 
