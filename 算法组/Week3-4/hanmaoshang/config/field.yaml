@@ -1,0 +1,8 @@
+field_markers:
+  XCross: [0.0, 0.75]
+  TCross_1: [0.0, 3.0]
+  LCross_1: [4.0, 3.0]
+  TCross_2: [4.0, 2.0]
+  TCross_3: [4.0, 1.5]
+  LCross_2: [2.05, 2.0]
+  LCross_3: [3.05, 1.5]
