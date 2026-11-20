@@ -10,7 +10,7 @@
 
 ---
 
-## 0. 完成状态
+ 完成状态
 
 | 关卡 | 分值 | 状态 | 材料位置 |
 | --- | --- | --- | --- |
@@ -20,7 +20,7 @@
 | 任务 4 · 安全下电 | 10 | ✅ 流程已实现 | 第 11 节 |
 | 加分项 | +10 | ✅ 6 项全部实现 | 见第 13 节 |
 
-> 说明：本 README 里的截图和终端输出都来自真实运行，没有加工过。
+
 > 代码部分已写完并在本地做过静态验证（`colcon test` 汇总 28 项、0 failures，其中 `pytest` 用例 23 个，其余为两个包的包格式/代码风格检查；4 个 yaml 全部可解析）。
 
 ---
@@ -224,7 +224,7 @@ ros2 action send_goal /move_servo cquick_servo_interfaces/action/MoveServo \
 **关键设计**：所有判断都走 `self._param(name)` 实时 `get_parameter()`，`__init__` 里**不缓存副本**。
 这一条是整节的根：缓存到 `self.pwm_max` 是本周最高频的坑，改完参数行为不变，还极难查。
 
-### 6.1 先分清两层限位，答辩一定会问
+### 6.1 
 
 | 层 | 范围 | 来源 | 能不能在线改 |
 | --- | --- | --- | --- |
@@ -234,7 +234,7 @@ ros2 action send_goal /move_servo cquick_servo_interfaces/action/MoveServo \
 外层防**烧舵机**（超出舵机能接受的 PWM 就物理损伤），内层防**顶结构**（是本机实测行程，换机器要重扫）。
 下面 ④ 打的是外层，②③ 打的是内层。
 
-### 6.2 实测：参数校验层（不需要舵机）
+### 6.2 实测：参数校验层
 
 ```bash
 ros2 param set /servo_driver pwm_max 1600      # ② 改小上限
@@ -316,7 +316,7 @@ bag 文件完整可回放（`bag/run1/run1_0.db3`，sqlite3 存储），`/servo/
 ## 8. 接线说明
 
 ```
-电池（先量电压！5~8.4V）
+电池先量电压！
    ├── 正极 ──> 24 路控制板 V+ ──> 舵机红线
    └── 负极 ──> 控制板 GND ──┬──> 舵机棕/黑线
                              └──> USB 转 TTL GND   ← 必须共地，缺这根数据一定收不到
@@ -332,13 +332,13 @@ bag 文件完整可回放（`bag/run1/run1_0.db3`，sqlite3 存储），`/servo/
 
 串口四个参数：**115200 / 8 / 1 / 无校验**，写作 `115200 8-N-1`。
 
-> 实测记录（2026-11-20）：
+> 实测记录
 > - 电池：**7.98 V**，UNI-T UT33D+ 直流 20 V 档，2S 1500 mAh 45C，折合约 3.99 V/cell，属正常区间（截图 `01_电池电压.png`）。低于 7.0 V 不建议再带载跑动作组。
 > - USB 转 TTL：**CH340**（`1a86:7523`），与 `udev` 规则里写的 VID:PID 一致；`dmesg` 中驱动名为 `ch341-uart`。
 
 ---
 
-## 9. 动作 yaml 长什么样
+## 9. 动作 yaml 
 
 放在 `config/actions/`，和 `servo_params.yaml` 同一层。**换一套动作 = 加一个 yaml，一行 python 不改。**
 
@@ -430,7 +430,7 @@ steps:
 ① 卸力（PULK）  →  ② 断动力电（拔电池）  →  ③ 关板卡（sudo shutdown now）
 ```
 
-| 步骤 | 为什么是这个顺序 |
+| 步骤 | 
 | --- | --- |
 | ① 先卸力 | 舵机在断电前还顶着力矩。直接断动力电 = 让它在顶力矩的状态下瞬间失电，堵转发热、齿轮受冲击 |
 | ② 再断动力 | 控制板如果还在上电状态被拔电池，会在异常电压下继续发无效指令，容易把某个通道打飞 |
@@ -441,9 +441,6 @@ steps:
 ```bash
 ros2 run cquick_servo servo_cli --port /dev/cq_servo --ids 1 2 3 4 torque-off
 ```
-
-四条红线：**禁止带电插拔舵机线 / 禁止反接电源 / 电池鼓包立即停用 / 禁止让舵机硬顶结构**。
-（出现带电插拔或反接 = 整周不通过，这条没有余地。）
 
 ---
 
@@ -477,7 +474,7 @@ B 站合集：**CQuick电控 第3-4周考核 · tangjiayi**
 | 串口掉线自动重连 | +3 | `SerialLink` + `_on_reconnect_timer()` | 跑动作时拔 USB：节点不崩、日志 WARN；插回去 ≤1 秒打「串口已连接」，能继续发 goal |
 | pytest 单测 | +2 | `test/test_protocol.py`、`test/test_actions.py` | `colcon test`，汇总 `28 tests, 0 errors, 0 failures`（其中 pytest 用例 23 个） |
 
-### 13.1 udev 规则（贴出来，评审要看的）
+### 13.1 
 
 ```
 SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
@@ -492,7 +489,7 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 ls -l /dev/cq_servo
 ```
 
-### 13.2 看门狗的边界设计（容易被追问）
+### 13.2 看门狗的边界设计
 
 - **只在收到过心跳之后才武装**：否则「刚 launch、还没起客户端」会被误判成卡死，第一次 goal 直接全卸力；
 - 跳闸后**锁死**：`goal_callback` 一律 REJECT，`/servo/command` 也忽略，不允许自己恢复；
@@ -501,90 +498,3 @@ ls -l /dev/cq_servo
 
 ---
 
-## 14. 目录结构与提交
-
-```
-电控组/Week3-4/tangjiayi/
-├── README.md                     ← 本文件
-├── 调试记录.md
-├── 交付说明.txt                  ← 18 张图 + 代码数据的索引，评审先看这个
-├── 01~03_*.png                   ← 18 张：12 终端截图 + 6 实拍（均在根目录）
-├── bag/run1/                     ← metadata.yaml + .db3（61.4 KiB / 51.2 s / 260 条）
-├── tools/                        ← 串口找口 / 探测 / 改 ID / 手动指令
-└── src/
-    ├── cquick_servo_interfaces/
-    │   ├── msg/ServoCommand.msg
-    │   ├── action/MoveServo.action
-    │   ├── CMakeLists.txt
-    │   └── package.xml
-    └── cquick_servo/
-        ├── cquick_servo/
-        │   ├── servo_driver.py       ← Action Server（核心）
-        │   ├── move_client.py        ← Action Client
-        │   ├── sequence_player.py    ← 动作组播放器（读 yaml）
-        │   ├── servo_cli.py          ← 任务 1 的桌面调试工具
-        │   ├── servo_protocol.py     ← 协议纯函数（可单测）
-        │   └── serial_link.py        ← 串口 + 自动重连
-        ├── launch/servo.launch.py
-        ├── config/servo_params.yaml
-        ├── config/actions/{stand_up.yaml, wave.yaml}
-        ├── test/{test_protocol.py, test_actions.py}
-        ├── udev/99-cquick-servo.rules
-        ├── resource/cquick_servo
-        ├── package.xml
-        └── setup.py
-```
-
-`build/`、`install/`、`log/` 一律不进仓库（仓库根 `.gitignore` 里加）：
-
-```gitignore
-build/
-install/
-log/
-__pycache__/
-*.pyc
-```
-
-编译：
-
-```bash
-cd ~/ros2_ws
-colcon build --packages-select cquick_servo_interfaces cquick_servo
-source install/setup.bash
-ros2 interface show cquick_servo_interfaces/action/MoveServo
-```
-
----
-
-## 15. 口头答辩预演（评审一定会问）
-
-| 问题 | 一句话答案 |
-| --- | --- |
-| **`execute_callback` 为什么不能阻塞？** | 阻塞会把 executor 线程占死，Cancel 请求和 feedback 都进不来；所以用 `MultiThreadedExecutor` + `ReentrantCallbackGroup`，且每条 goal 跑在自己的线程里，`sleep` 才不伤人 |
-| 两个节点靠什么对上号？ | 话题/服务/Action 名 + 消息类型同时一致 |
-| 为什么用 Action 不用话题？ | 话题只有「发」，没有 result 和 cancel；舵机动作有明确终点，需要 feedback 看进度、result 看到没到位、cancel 中途打断 |
-| 为什么先 `PULR`？ | 舵机上电默认是卸力状态，不发恢复扭力它接收指令但不发力，表现为「指令发出去了，舵机一动不动」 |
-| 为什么指令要 `!` 结尾？ | 串口是字节流，没有帧边界；`#` 和 `!` 是软件层的帧头帧尾，控制板靠它切帧 |
-| 波特率错了看到什么？ | 一堆乱码 / 完全没回显。串口助手默认 9600，舵机是 115200 |
-| 为什么必须装结构前标定 1500？ | 舵机绝对零点是出厂随机的，装好再标等于把偏差固化进结构，后面所有动作都偏且软件补不回来 |
-| `pwm` 能直接用 500~2500 吗？ | 不能。那是电气范围，安全范围要按结构实测（本机 1050~2100，下限 1007 是扫出来的） |
-| 动作组为什么不能用 `sleep` 同步？ | 舵机走完的时间不等于 `duration_ms`（有加减速和回差），`sleep` 的误差会累积，第三遍和第一遍就对不上 |
-| 串口为什么不能两套发送逻辑？ | 回放和 Action 一旦分叉，bag 回放出来的动作就和当时现场不一致，而 bag 的价值就是「原样重放」 |
-
----
-
-## 16. 验收方式（评审可以照着走一遍）
-
-- 两个包 `colcon build` 全通过 → `2 packages finished`；`ros2 interface show` 能看到 msg 和 action（见 `02_接口编译.png`）
-- 一条 `ros2 launch cquick_servo servo.launch.py` 全起来，不用开第二个终端
-- `port:=/dev/ttyUSB1` 能换端口
-- `send_goal --feedback` 有 feedback 滚动 + result（见 `02_action_反馈.png`）
-- 超限 pwm / 非法 id → goal rejected，日志给出原因（见 `02_限位保护.png`）
-- 执行中 Ctrl+C → 立即停、回中位、`message=canceled`（见 `02_取消生效.png`）
-- `ros2 param set` 当帧生效 → 第 6 节 6.2 那 5 步（见 `02_param_set现场.png`）
-- `pwm_max=100000`、`pwm_min>pwm_max` 被拒并返回 reason（同上）
-- 硬编码自检：`grep -rnE 'ttyUSB|115200|900|2100' src/cquick_servo/cquick_servo/servo_driver.py` 只命中 `PARAM_DEFAULTS` 和波特率白名单
-- `ros2 bag info bag/run1` 能看到 260 条（见 `02_bag_info.png`、录屏 P4）
-- 动作组换一份 yaml 不改代码就能跑（见 `03_动作组dry_run_补充.png`）
-- 5 段录屏均为实机一次录制、无剪辑无加速，画面内同时含终端命令与舵机动作（第 12 节）
-- `build/ install/ log/` 没有进仓库
