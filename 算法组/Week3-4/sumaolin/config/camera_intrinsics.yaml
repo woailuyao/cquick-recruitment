@@ -1,0 +1,13 @@
+# 相机内参标定结果（2026-11-15，1280x720，棋盘格 7x5 内角点，68 个有效视图）
+# 与 field.yaml / verison.yaml 放在同一配置目录；task2.py、task3.py 默认自动加载。
+image_width: 1280
+image_height: 720
+calib_width: 1280
+calib_height: 720
+fx: 1563.6194
+fy: 1632.7168
+cx: 640.0
+cy: 360.0
+dist: [0.252780, -1.094336, -0.032371, 0.004958, 0.0]
+rms: 0.854
+views: 68
