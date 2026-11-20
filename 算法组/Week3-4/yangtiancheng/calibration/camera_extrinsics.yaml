@@ -1,0 +1,32 @@
+frame_convention: camera(x right,y down,z forward) -> robot(x forward,y left,z up)
+source_images:
+- C:\Users\Lenovo\Pictures\IMG_0024.jpg
+square_size_m: 0.029
+selected_grid_symmetry: flip_cols
+reprojection_rms_px: 0.829163446597286
+measured_camera_height_m: 0.725
+pnp_camera_height_m: 0.6614644846921296
+height_difference_m: -0.06353551530787038
+repeatability_spread_m: 0.0
+calibration_status: provisional_height_mismatch
+camera_position_in_robot_m:
+  x: 0.06832190752086559
+  y: -0.07555932241197275
+  z: 0.6614644846921296
+extrin:
+- - 0.03031063100462983
+  - -0.4496752875760052
+  - 0.8926776581675704
+  - 0.06832190752086559
+- - -0.9829225546095683
+  - 0.1487660698717571
+  - 0.1083139330590071
+  - -0.07555932241197275
+- - -0.1815062458647107
+  - -0.8807160678665673
+  - -0.4374867889591078
+  - 0.6614644846921296
+- - 0.0
+  - 0.0
+  - 0.0
+  - 1.0
