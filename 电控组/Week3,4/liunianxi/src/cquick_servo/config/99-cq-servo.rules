@@ -1,0 +1,23 @@
+# 总线舵机控制板固定设备名（udev 规则）
+#
+# 解决的问题：ttyUSB0 / ttyUSB1 是按插入顺序编号的，插拔一次就可能变号，
+#             导致 port 参数失效、launch 报「串口打不开」。
+# 解决方式：按 USB 芯片的 VID:PID 生成固定软链 /dev/cq_servo，
+#            参数里写 port:=/dev/cq_servo，插哪个口都不会变。
+#
+# 安装（插上板子后执行一次即可）：
+#   sudo cp 99-cq-servo.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+#   ls -l /dev/cq_servo          # 应看到指向 ttyUSB* 的软链
+#
+# 验证：
+#   ros2 launch cquick_servo servo.launch.py port:=/dev/cq_servo
+
+# CH340（本次实测用的 USB-TTL，VID:PID = 1a86:7523）
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
+
+# 板载 STM32 虚拟串口（某些 24 路板直接插 USB 时出现，VID:PID = 0483:572a）
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="572a", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
+
+# CP2102（备用的 USB-TTL，VID:PID = 10c4:ea60）
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"

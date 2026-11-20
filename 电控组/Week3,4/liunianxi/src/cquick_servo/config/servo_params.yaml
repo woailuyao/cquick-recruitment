@@ -1,0 +1,16 @@
+# 舵机参数（顶层 key 必须等于节点名 servo_driver）
+# 换板子/换舵机只改这个文件，代码一行不动。
+# 下面这些值都是 2026-11-20 在本机 ZL-IS2 24 路板 + 总线舵机（实测 ID=003）上量出来的。
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0     # udev 规则做好后建议写 /dev/servo
+    baudrate: 115200       # 8-N-1，实测可用
+    pwm_min: 1000          # 实测下限：比 1000 再低 PRAD 就卡在 1005（顶到机械限位了）
+    pwm_max: 2100          # 实测上限：2100 还跟得住（读回 2090），留 50 余量
+    default_duration_ms: 1000   # 本板 T<1000 的指令会被固件忽略
+    min_duration_ms: 1000       # 同上，低于它的请求由驱动自动抬到 1000
+    servo_ids: [3]         # 2026-11-20 扫 0~23 只有 ID=003 应答（目前只装了一个舵机）
+    startup_reset: true    # 启动时全部回中位 1500
+    # 实测：CH340 走「用户」口回读正常（#003PID! -> #003P!，#003PRAD! -> #003P1509!），
+    # 所以这里保持 true，走 PRAD 闭环校验。
+    readback_enabled: true

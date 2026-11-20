@@ -1,0 +1,29 @@
+# 动作组：站起/抬臂（数据化，改动作只改这个文件）
+# 同步逻辑全在 sequence_player 里——同一步并行下发，等 result 回来再下一步，没有 sleep。
+# 注意：本板固件忽略 T<1000 的移动指令，所以每一步的 duration_ms 都写 >=1000。
+name: stand_up
+repeat: 1
+steps:
+  - name: 先把六个关节回中位（pwm 1500）
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+
+  - name: 同时抬起大臂与小臂
+    joints:
+      - {id: 1, pwm: 1650, duration_ms: 1200}
+      - {id: 2, pwm: 1350, duration_ms: 1200}
+
+  - name: 张开夹爪
+    joints:
+      - {id: 6, pwm: 1900, duration_ms: 1000}
+
+  - name: 放下
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
