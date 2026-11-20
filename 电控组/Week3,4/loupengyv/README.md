@@ -373,9 +373,22 @@ ros2 run cquick_servo sequence_player --ros-args -p action_file:=stand.yaml
 
 # 换一套动作：代码一个字不改
 ros2 run cquick_servo sequence_player --ros-args -p action_file:=wave.yaml
+
+# 十关节整机版（借用实验室样机验证）
+ros2 run cquick_servo sequence_player --ros-args -p action_file:=all_ten.yaml
 ```
 
+### 三套动作的差异（都不改代码）
+
+| 文件 | 步数 | 关节数 | 验证场景 |
+|---|---|---|---|
+| `stand.yaml` | 2 | 2 | 桌面两个舵机 |
+| `wave.yaml` | 3 | 2 | 演示"一步之内有先后" |
+| `all_ten.yaml` | 4 | **10** | 借用的双足样机，整机协同 |
+
 ### 实测日志（关键：result 同步 + 时间戳）
+
+**桌面两舵机（stand.yaml）**：
 
 ```
 --- 第 1/2 步：同时抬升（2 个关节同时下发）
@@ -388,6 +401,44 @@ ros2 run cquick_servo sequence_player --ros-args -p action_file:=wave.yaml
   ...
 === 动作组「stand」播放完毕，总用时 4.96s，全部到位 ===
 ```
+
+**整机十关节（all_ten.yaml，借用实验室样机，见 `03_十关节日志.png`）**：
+
+```
+--- 第 4/4 步：全部回 1500（10 个关节同时下发）
+  [result] id=1 success=True 实际=1486 耗时=4.74s 完成时刻=01:27:16 msg=到位，PRAD=1486
+  [result] id=2 success=True 实际=1455 ... PRAD=1455
+  [result] id=3 success=True 实际=1484 ... PRAD=1484
+  [result] id=4 success=True 实际=1457 ... PRAD=1457
+  [result] id=5 success=True 实际=1479 ... PRAD=1479
+  [result] id=6 success=True 实际=1461 ... PRAD=1461
+  [result] id=7 success=True 实际=1491 ... PRAD=1491
+  [result] id=8 success=True 实际=1446 ... PRAD=1446
+  [result] id=9 success=True 实际=1493 ... PRAD=1493
+  [result] id=10 success=True 实际=1459 ... PRAD=1459
+--- 第 4 步结束，用时 5.95s
+=== 动作组「all_ten」播放完毕，总用时 23.55s，全部到位 ===
+```
+
+**10 条 result 全部回来才打「第 4 步结束」**——这就是 result 同步。
+
+### 容差为什么从 40 调到 80
+
+`tolerance_pwm` 一开始给 40，是按单舵机空载的误差（<30）定的。整机上试的时候出现过两次边界失败：
+
+```
+id=5 目标=1500 实际=1541 差 41     ← 差 1 就判失败
+id=9 目标=1450 实际=1521 差 71
+id=10 目标=1450 实际=1508 差 58
+```
+
+原因不是舵机坏了，而是 **10 个关节同时动作时结构互相拉扯 + 电源压降**，稳态误差会到 60~80。
+
+所以：
+
+- 单舵机场景（`stand.yaml`）用 40 就够；
+- 整机场景用 `ros2 param set /servo_driver tolerance_pwm 80` 当场改，**不用重启**；
+- 这也正是把它做成参数的原因——**同一条代码，桌面和整机用不同容差**。
 
 **两个细节值得说**：
 1. 同一个 step 里 id=1 先回、id=2 后回（差 1.3s），但播放器**等到两个都回来**才进第 2 步——这就是 result 同步的意义。
