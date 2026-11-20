@@ -1,0 +1,13 @@
+# Goal：一条完整的动作指令
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# Result：成没成、PRAD 读回多少、失败原因
+bool success
+uint16 final_pwm
+string message
+---
+# Feedback：当前 PWM 与进度
+uint16 current_pwm
+float32 progress

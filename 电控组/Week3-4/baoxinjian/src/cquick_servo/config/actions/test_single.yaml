@@ -1,0 +1,17 @@
+# 动作组：单关节测试（任务2 dryrun 验证用）
+# 单舵机正转 → 反转 → 回中位，验证驱动全链路（下发 / feedback / 到位校验）
+name: test_single
+description: 6 号关节 ±100 正反转后回中位
+
+steps:
+  - - id: 6
+      pwm: 1600
+      duration_ms: 1000
+
+  - - id: 6
+      pwm: 1400
+      duration_ms: 1000
+
+  - - id: 6
+      pwm: 1500
+      duration_ms: 800
