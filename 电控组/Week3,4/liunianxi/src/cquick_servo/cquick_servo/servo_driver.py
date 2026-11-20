@@ -41,8 +41,14 @@ class ServoDriver(Node):
         self.declare_parameter("pwm_min", 900)
         self.declare_parameter("pwm_max", 2100)
         self.declare_parameter("default_duration_ms", 800)
+        # 真机实测（ZL-IS2 + 总线舵机）：T<1000 的移动指令会被固件直接忽略，
+        # 舵机一动不动、PRAD 停在原值。这里统一抬到下限，别让上层悄悄失效。
+        self.declare_parameter("min_duration_ms", 1000)
         self.declare_parameter("servo_ids", [1, 2, 3, 4, 5, 6])
         self.declare_parameter("startup_reset", True)
+        # 有些板子的“用户/调试”口只执行不回包（实测 ZL-IS2 + STM32 VCP 即如此），
+        # 此时把 readback_enabled 置 false：动作照发，result 用 ok(no_readback)，不做 PRAD 校验
+        self.declare_parameter("readback_enabled", True)
 
         # ---------- ② 参数校验：不注册这个回调，100000 也能进得去 ----------
         self.add_on_set_parameters_callback(self._on_param_set)
@@ -162,6 +168,16 @@ class ServoDriver(Node):
             return f"duration_ms={cmd.duration_ms} 必须为正"
         return None
 
+    def _effective_duration(self, wanted_ms: int, log: bool = True) -> int:
+        """把 duration 抬到固件真正接受的下限（ZL-IS2: 1000 ms）。"""
+        floor_ms = int(self.get_parameter("min_duration_ms").value)
+        value = max(int(wanted_ms), floor_ms)
+        if value != int(wanted_ms) and log:
+            self.get_logger().warn(
+                f"duration_ms={wanted_ms} 低于固件下限 {floor_ms}，已抬到 {value}"
+            )
+        return value
+
     # ------------------------------------------------------------- 底层发送
     def _send_to_hardware(self, cmd: ServoCommand) -> bool:
         """Action 和 /servo/command 都走这一个函数——bag 回放才对得上。"""
@@ -172,9 +188,10 @@ class ServoDriver(Node):
             if int(cmd.id) not in self._torque_on_done:
                 self._link.torque_on(int(cmd.id))   # 第一次动作之前必须 PULR
                 self._torque_on_done.add(int(cmd.id))
-            self._link.move(int(cmd.id), int(cmd.pwm), int(cmd.duration_ms))
+            duration = self._effective_duration(int(cmd.duration_ms))
+            self._link.move(int(cmd.id), int(cmd.pwm), duration)
             self.get_logger().info(
-                f"发送 #{int(cmd.id):03d}P{int(cmd.pwm)}T{int(cmd.duration_ms)}!"
+                f"发送 #{int(cmd.id):03d}P{int(cmd.pwm)}T{duration}!"
             )
             # 发出去就记一条 state：bag 里 /servo/state 才有东西可对账
             self._publish_state(cmd, 0, True, "sent")
@@ -258,7 +275,7 @@ class ServoDriver(Node):
             return result
 
         # ---------- 循环发 feedback，同时每轮检查取消 ----------
-        duration_s = max(int(cmd.duration_ms), 1) / 1000.0
+        duration_s = self._effective_duration(int(cmd.duration_ms), log=False) / 1000.0
         t0 = time.monotonic()
         # 起始点：能读到就用回读，读不到/读到离谱值就当中立位
         start_pwm = self._read_pwm(int(cmd.id))
@@ -305,7 +322,8 @@ class ServoDriver(Node):
 
         # ---------- 收尾：读 PRAD 校验 ----------
         actual = 0
-        if goal_handle.request.verify_on_finish:
+        readback_enabled = bool(self.get_parameter("readback_enabled").value)
+        if goal_handle.request.verify_on_finish and readback_enabled:
             time.sleep(0.15)   # 舵机走到位再读，别在运动末尾抢读（真机也一样）
             actual = self._read_pwm(int(cmd.id))
         result.prad_actual = int(actual)

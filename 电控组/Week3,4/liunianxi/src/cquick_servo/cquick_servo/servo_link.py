@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import re
 import threading
+import time
 from typing import Optional
 
 import serial
@@ -26,8 +27,12 @@ VERB_PULK = "PULK"    # 卸力（断电前必发）
 PWM_ELECTRIC_MIN = 500
 PWM_ELECTRIC_MAX = 2500
 
+# 总线帧间隔：连发两条（如 PULR 紧跟 P）时，固件只执行第一条、丢掉后面的，
+# 实测 30 ms 能被稳定接收（ZL-IS2 24 路板，115200）。
+MIN_FRAME_GAP = 0.03
+
 _PRAD_RE = re.compile(r"#?\s*(\d{1,3})\s*P\s*(\d{3,4})")
-_PID_RE = re.compile(r"#?\s*(\d{1,3})\s*!")
+_PID_RE = re.compile(r"#?\s*(\d{1,3})")
 
 
 def build_move(frame_id: int, pwm: int, duration_ms: int) -> str:
@@ -79,6 +84,7 @@ class SerialLink:
         self.baudrate = baudrate
         self.timeout = timeout
         self._lock = threading.Lock()
+        self._last_write = 0.0
         self._ser = serial.Serial(
             port=port,
             baudrate=baudrate,
@@ -112,8 +118,16 @@ class SerialLink:
         )
 
     # ---------- 写 ----------
+    def _respect_gap(self) -> None:
+        """保证两条指令之间至少 MIN_FRAME_GAP 秒，否则板子只执行第一条。"""
+        wait = MIN_FRAME_GAP - (time.monotonic() - self._last_write)
+        if wait > 0:
+            time.sleep(wait)
+        self._last_write = time.monotonic()
+
     def send(self, text: str) -> None:
         with self._lock:
+            self._respect_gap()
             self._ser.write(text.encode("ascii"))
             self._ser.flush()
 
@@ -123,6 +137,7 @@ class SerialLink:
         with self._lock:
             try:
                 self._ser.reset_input_buffer()
+                self._respect_gap()
                 self._ser.write(text.encode("ascii"))
                 self._ser.flush()
                 chunks = []
