@@ -27,7 +27,9 @@ setup(
             'servo_driver = cquick_servo.servo_driver:main',
             'move_client = cquick_servo.move_client:main',
             'sequence_player = cquick_servo.sequence_player:main',
-            'scan_ids = cquick_servo.scan_ids:main'
+            'scan_ids = cquick_servo.scan_ids:main',
+            'joint_probe = cquick_servo.joint_probe:main',
+            'pose_tool = cquick_servo.pose_tool:main'
         ],
     },
 )

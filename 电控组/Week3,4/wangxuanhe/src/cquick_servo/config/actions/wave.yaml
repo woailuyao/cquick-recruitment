@@ -1,46 +1,29 @@
-# 动作组：挥手
-# 演示三件事：
-#   1) 同一 step 内两个关节并行（抬肩 + 翻腕同时走）
-#   2) 一步之内要有先后 → 拆成两个 step，而不是靠调 duration_ms 硬凑
-#   3) 摆三次 = 三个 step 交替，靠 result 串起来，连跑三遍动作一致
-#
-# ⚠️ id 与关节对应关系、pwm 数值按你整机实测调整。
-
+# 动作组：左右重心交替（第二套动作，用来证明“换动作只改 yaml、代码一行不动”）
+# 只用踝外摆 5/10 做摆心，两腿始终同时支撑，不容易倒；基准 1500。
+# 幅度 150 PWM ≈ 13.5°：高于 ±30 容差，横梁左右摆一眼能看出（70 PWM 那种幅度镜头里几乎看不出）
+# 摆幅太大整机会侧倒，150 是「明显但不翻」的临界，拍的时候手扶一下躯干。
 name: wave
-description: 抬右臂、手腕左右摆动三次、放下
+description: 重心左移 → 回正 → 重心右移 → 回正
 
-default_duration_ms: 600
+default_duration_ms: 2000
 
 steps:
-  - name: 抬肩并同时翻腕（并行）
+  - name: 重心左移
     joints:
-      - {id: 1, pwm: 1720, duration_ms: 800}
-      - {id: 2, pwm: 1650, duration_ms: 800}
+      - {id: 5, pwm: 1650, duration_ms: 2000}
+      - {id: 10, pwm: 1350, duration_ms: 2000}
 
-  - name: 摆外 1
+  - name: 回正
     joints:
-      - {id: 2, pwm: 1780, duration_ms: 400}
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 10, pwm: 1500, duration_ms: 2000}
 
-  - name: 摆内 1
+  - name: 重心右移
     joints:
-      - {id: 2, pwm: 1380, duration_ms: 400}
+      - {id: 5, pwm: 1350, duration_ms: 2000}
+      - {id: 10, pwm: 1650, duration_ms: 2000}
 
-  - name: 摆外 2
+  - name: 回正
     joints:
-      - {id: 2, pwm: 1780, duration_ms: 400}
-
-  - name: 摆内 2
-    joints:
-      - {id: 2, pwm: 1380, duration_ms: 400}
-
-  - name: 摆外 3
-    joints:
-      - {id: 2, pwm: 1780, duration_ms: 400}
-
-  - name: 回腕
-    joints:
-      - {id: 2, pwm: 1500, duration_ms: 400}
-
-  - name: 放下右臂
-    joints:
-      - {id: 1, pwm: 1500, duration_ms: 800}
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 10, pwm: 1500, duration_ms: 2000}

@@ -28,6 +28,26 @@ banner() {
     echo "====================================================="
 }
 
+# 截图闸口：跑到这里脚本会停住，屏幕上正是「该拍的画面」。
+# 有 gnome-screenshot 就 2 秒后自动截一张到 ~/桌面，没有就提示按快捷键。
+shot() {
+    echo ""
+    echo "#####################################################"
+    echo "#                                                   #"
+    echo "#   >>> 现 在 截 图 <<<   存成: $1"
+    echo "#   姓名: wangxuanhe   时间: $(date '+%Y-%m-%d %H:%M:%S')"
+    echo "#                                                   #"
+    echo "#####################################################"
+    if command -v gnome-screenshot >/dev/null 2>&1; then
+        echo "（2 秒后自动截一张到 ~/桌面/$1，不用按快捷键）"
+        sleep 2
+        gnome-screenshot -f "$HOME/桌面/$1" && echo "已保存: $HOME/桌面/$1"
+    else
+        echo "（没装 gnome-screenshot：按 Ctrl+Shift+PrtSc，或用手机拍）"
+    fi
+    read -r -p "截好、确认字能看清后按回车继续 > " _
+}
+
 # ---------------- 1 udev ----------------
 item1() {
     banner "1/6 (+2)" "udev 固定设备名 /dev/cq_servo"
@@ -50,6 +70,7 @@ item1() {
     echo "（对照：内核原始设备名）"
     ls /dev/ttyUSB* 2>/dev/null || echo "  连 ttyUSB* 都没有：USB 没枚举，线或口的问题"
     echo "③ 因为名字固定，servo_params.yaml 里 port 默认值才敢写 /dev/cq_servo"
+    shot "04_udev固定设备名.png"
 }
 
 # ---------------- 2 pytest ----------------
@@ -81,6 +102,7 @@ item3() {
     echo "  id=1 目标 1400，起点 1500，计划 xxxms"
     echo "  id=1 未到位 target=1400 actual=148x，重发一次"
     echo "  id=1 重发后到位 actual=1400"
+    shot "04_PRAD重发.png"
 }
 
 # ---------------- 4 看门狗 ----------------
@@ -97,6 +119,7 @@ item4() {
     echo ""
     echo "④ 解锁后同一条 goal 应当通过："
     ros2 action send_goal "$TOPIC" "$TYPE" "{id: 1, pwm: 1600, duration_ms: 800}"
+    shot "04_看门狗卸力.png"
 }
 
 # ---------------- 5 抢占 ----------------
@@ -113,6 +136,7 @@ item5() {
     echo ""
     echo "预期：旧 goal result message=preempted（不 PULK、不回中位）；"
     echo "     新 goal 日志「起点 xxx，计划 xxxms」，按 speed_pwm_per_s 从当前位置接上"
+    shot "04_动作组抢占.png"
 }
 
 # ---------------- 6 串口重连 ----------------
@@ -127,6 +151,7 @@ item6() {
     sleep 2
     ros2 action send_goal "$TOPIC" "$TYPE" "{id: 1, pwm: 1500, duration_ms: 800}"
     echo "预期：日志出现 串口恢复可用：/dev/cq_servo @115200，这条 goal 正常 success"
+    shot "04_串口重连.png"
 }
 
 case "$ITEM" in

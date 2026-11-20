@@ -75,12 +75,13 @@ ls -l /dev/cq_servo        # 应指向 ttyUSB0/ttyACM0，组为 dialout
 |---|---|
 | `04_pytest.png` | ✅ 已收：`colcon test` 绿 + 姓名 / 日期同屏 |
 | `04_udev固定设备名.png` | ✅ 已收 |
-| `04_PRAD重发.png` | ⬜ 待截 |
-| `04_看门狗卸力.png` | ⬜ 待截 |
-| `04_动作组抢占.png` | ⬜ 待截 |
-| `04_串口重连.png` | ⬜ 待截 |
+| `04_看门狗卸力.png` | ✅ 已收：`watchdog_trip` → 10 条 `PULK` + 锁死 → goal 被拒 → `watchdog_reset` 后恢复 |
+| `04_PRAD重发.png` | ✅ 已收：`未到位 target=1400 actual=…，重发一次` → `重发后到位` |
+| `04_动作组抢占.png` | ⬜ 待截（`verify_bonus.sh 5`） |
+| `04_串口重连.png` | ⬜ 待截（`verify_bonus.sh 6`） |
 
 ## 待补
 
-- 剩余 5 张 `04_*.png` 需在硬件上电后按 `verify_bonus.sh` 的顺序逐一截取（要带姓名 + 时间戳）。
+- 剩余 **2 张** `04_*.png`（动作组抢占 / 串口重连），跑 `bash 加分项/verify_bonus.sh 5`、`6`，脚本会在该拍的瞬间停住并打印方框「>>> 现在截图 <<<」。截完按回车继续。
 - 看门狗"自然触发"（心跳真断）现场难复现，用 `watchdog_trip` 手动触发演示保护链路，并在讲解时说明"这是手动注入故障验证保护逻辑"。
+- 串口重连那张图里，`send_raw` 捕获异常时会先打一条 ERROR（`串口掉线：…`），随后 `mark_offline` 打 WARN（`串口掉线，节点继续运行，等待自动重连`）。**截图要让 WARN 那行也进画面**，细则写的是"日志 WARN 提示"。

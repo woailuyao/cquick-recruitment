@@ -10,13 +10,14 @@
 | 任务 2 截图 8 张 | `02_*.png` | 已交 |
 | bag 数据 | `bag/run1/`（`metadata.yaml` + `run1_0.db3`，25.4 KiB） | 已交 |
 | 两个 ROS2 包 | `src/cquick_servo_interfaces/`、`src/cquick_servo/` | 已交 |
-| 动作用 yaml | `src/cquick_servo/config/actions/`（`stand_up.yaml` / `wave.yaml` / `desk_test.yaml`） | 已交 |
-| 加分项材料 | `加分项/`（udev 规则 + 验证脚本 + `04_pytest.png`） | 部分交 |
+| 动作用 yaml | `src/cquick_servo/config/actions/`（`home.yaml` / `stand_up.yaml` / `wave.yaml` / `desk_test.yaml`） | 已交 |
+| 演示/取证脚本 | `src/cquick_servo/`：`demo_joints.sh`（逐关节 ±300 演示）、`demo_poweroff.sh`（下电三步，输出带时间戳）、`demo_cancel.py`（取消取证客户端） | 已交 |
+| 加分项材料 | `加分项/`（udev 规则 + 验证脚本 + `04_pytest.png` / `04_udev固定设备名.png`） | 部分交 |
 | 调试记录 | `调试记录.md` | 已交 |
-| 录屏 | 见第 16 节 | 任务 1、2 已传 |
-| 任务 3 截图 4 张 | `03_*` | 待补（TF 卡损坏，见第 17 节） |
+| 录屏（B 站，仓库不放视频） | 见第 16 节 | 任务 1–4 全部已传 |
+| 任务 3 截图 | `03_整机照片.png` / `03_整机照片_侧面.png` / `03_接线特写.png` / `03_ID扫描.png` / `03_多舵机动作_关键帧.png` | 已交 |
 
-`build/`、`install/`、`log/` 已进 `.gitignore`，仓库里只有源码和截图。
+`build/`、`install/`、`log/` 已进 `.gitignore`，仓库里只有源码和截图。所有文本文件行尾统一 LF（`.gitattributes` 里 `* text=auto eol=lf`），否则在 Windows 上编辑过的 `.sh` 拿到 Linux 会满屏 `$'\r': 未找到命令`（踩过，见调试记录 11-21）。
 
 ## 1. 架构
 
@@ -38,11 +39,11 @@ graph LR
 | 项 | 值 |
 |---|---|
 | 接口包（ament_cmake） | `cquick_servo_interfaces`：`msg/ServoCommand`、`msg/ServoState`、`action/MoveServo` |
-| 节点包（ament_python） | `cquick_servo`：`servo_driver` / `move_client` / `sequence_player` / `scan_ids` |
+| 节点包（ament_python） | `cquick_servo`：`servo_driver` / `move_client` / `sequence_player` / `scan_ids` / `joint_probe` / `pose_tool` |
 | Action | `/move_servo` |
 | 调试话题 | `/servo/command`（bag 回放用，与 Action 共用同一个 `send_raw`） |
 | 心跳话题 | `/servo/state`（0.2 s 一条，看门狗依据） |
-| 服务 | `/servo_driver/torque_off`、`/servo_driver/watchdog_reset`、`/servo_driver/watchdog_trip`（均 `std_srvs/Trigger`） |
+| 服务 | `/servo_driver/torque_off`、`/servo_driver/watchdog_reset`、`/servo_driver/watchdog_trip`、`/servo_driver/read_all`（均 `std_srvs/Trigger`；`read_all` 回 `"1:1502 2:1491 …"`，读不到记 -1） |
 
 一次 goal 的时序：
 
@@ -78,8 +79,8 @@ sequenceDiagram
 | `pwm_min` | `900` | 结构实测下限，实测 500 直接被越界拒收 |
 | `pwm_max` | `2100` | 结构实测上限，实测 2200 会被拒收，2100 时舵臂到位不憋劲 |
 | `default_duration_ms` | `800` | 客户端没给 duration 时的兜底，0.8 s 走完全程不猛跳 |
-| `servo_ids` | `[1,2,3,4,5,6]` | 实际舵机清单，用于拒绝不存在的 ID |
-| `startup_reset` | `true` | 上电全体回 1500，避免带上次姿态启动 |
+| `servo_ids` | `[1,2,3,4,5,6,7,8,9,10]` | 实测清单：`scan_ids` 扫 1–24，只有 1–10 有回显，故以此拒绝不存在的 ID |
+| `startup_reset` | `true` | 上电把全体压到 1500 中立位并**一直保持**，这就是初始站姿（一次性 4000 ms，不做二次修正） |
 | `speed_pwm_per_s` | `600` | 抢占接续时按此限速，新 goal 不猛冲 |
 | `watchdog_timeout_s` | `1.0` | 心跳或执行停摆超过 1 s 就卸力锁死 |
 | `prad_retry` | `1` | 未到位自动重发一次，够用且不会反复撞结构 |
@@ -106,19 +107,21 @@ message 取值：`success`（到位）/ `already in place`（已在目标位）/
 ros2 launch cquick_servo servo.launch.py
 ```
 
-真实输出（时间与 PID 随机器变化）：
+真实输出（2026-11-21 05:01，整机 10 颗上机实测，时间与 PID 随机器变化）：
 
 ```text
-[INFO] [launch]: All log files can be found below /home/evan/.ros/log/2026-11-19-11-04-22-381507-evan-VirtualBox-16211
-[INFO] [launch]: Default logging verbosity is set to INFO
-[INFO] [servo_driver-1]: process started with pid [16212]
-[servo_driver-1] [INFO] [1794836597.674465583] [servo_driver]: Serial open /dev/cq_servo @115200
-[servo_driver-1] [INFO] [1794836597.714413268] [servo_driver]: Startup reset: all servos go to 1500
-[servo_driver-1] [INFO] [1794836597.721046304] [servo_driver]: TX: #001PULR!
-[servo_driver-1] [INFO] [1794836597.830999439] [servo_driver]: TX: #001P1500T800!
+[INFO] [servo_driver-1]: Serial open /dev/cq_servo @115200
+[INFO] [servo_driver-1]: TX: #001PULR!      ← 先上扭力，只恢复输出、不产生位移
+…（001~010 各一条 PULR，共 10 条）
+[INFO] [servo_driver-1]: Startup reset: all servos go to 1500 in 4000 ms
+[INFO] [servo_driver-1]: TX: #001P1500T4000!
+…（001~010 各一条，整机 4 s 走到中立位后静止）
+[INFO] [servo_driver-1]: servo_driver 就绪，等待 /move_servo goal
 ```
 
-launch 参数：`port:=/dev/ttyUSB1` 覆盖端口（用 `ParameterValue(..., value_type=str)`，避免 `/dev/ttyUSB1` 被当数字解析）；`demo:=true` 顺带起 `move_client`，靠 `IfCondition` 条件启动。
+两条设计要点：**PULR 与回中位分开**（关掉 `startup_reset` 时仍有扭力，不会整机瘫软）；**回中位给足 4000 ms**（带载实测 T=4000 时约 31 PWM/s，给 800 ms 只走 30 PWM 就判「未到位」再重发，肉眼就是上电先顿一下、过一秒又补一下）。
+
+launch 参数：`port:=/dev/ttyUSB1` 覆盖端口（用 `ParameterValue(..., value_type=str)`，避免 `/dev/ttyUSB1` 被当数字解析）；`demo:=true` 顺带起 `move_client`；`play:=true actions:=xxx.yaml repeat:=N` 起动作组播放器（此时自动跳过 home，并等 4.5 s 让上电回中位先走完，避免两个节点抢同一批关节）。
 
 驱动节点必须跑在 `MultiThreadedExecutor` 里，`ActionServer` 挂 `ReentrantCallbackGroup`；否则 `execute_cb` 里的 sleep 会把 `cancel_callback` 挡住（见第 11 节踩坑 2）。
 
@@ -210,34 +213,57 @@ ros2 bag play run1
 
 ## 9. 动作 yaml 与动作组
 
-`wave.yaml`（节选）：
+关节实测映射（整机 10 颗，左腿 1–5、右腿 6–10，自上而下）：
+
+| ID | 关节 | ID | 关节 |
+|---|---|---|---|
+| 1 | 左 · 胯外摆（左右开合） | 6 | 右 · 胯外摆（左右开合） |
+| 2 | 左 · 髋俯仰（前后） | 7 | 右 · 髋俯仰（前后） |
+| 3 | 左 · 膝 | 8 | 右 · 膝 |
+| 4 | 左 · 踝俯仰 | 9 | 右 · 踝俯仰 |
+| 5 | 左 · 踝外摆 | 10 | 右 · 踝外摆 |
+
+`stand_up.yaml`（全文，基准即 1500 中立位站姿）：
 
 ```yaml
-name: wave
-default_duration_ms: 600
+name: stand_up
+description: 屈膝下蹲 → 起立回中立位 → 重心前压 → 全机归位站稳
+default_duration_ms: 3000
 steps:
-  - name: 抬肩并同时翻腕（并行）
+  - name: 屈膝下蹲
     joints:
-      - {id: 1, pwm: 1720, duration_ms: 800}
-      - {id: 2, pwm: 1650, duration_ms: 800}
-  - name: 摆外 1
+      - {id: 3, pwm: 1330, duration_ms: 3000}
+      - {id: 8, pwm: 1330, duration_ms: 3000}
+      - {id: 4, pwm: 1430, duration_ms: 2500}
+      - {id: 9, pwm: 1430, duration_ms: 2500}
+  - name: 起立回中立位
     joints:
-      - {id: 2, pwm: 1780, duration_ms: 400}
-  - name: 摆内 1
+      - {id: 3, pwm: 1500, duration_ms: 3000}
+      - {id: 8, pwm: 1500, duration_ms: 3000}
+      - {id: 4, pwm: 1500, duration_ms: 2500}
+      - {id: 9, pwm: 1500, duration_ms: 2500}
+  - name: 重心前压（髋前倾）
     joints:
-      - {id: 2, pwm: 1380, duration_ms: 400}
+      - {id: 2, pwm: 1400, duration_ms: 2500}
+      - {id: 7, pwm: 1400, duration_ms: 2500}
+  - name: 全机归位站稳
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 2000}
+      …（2~10 各一条，全部回 1500）
 ```
 
 - 同一 step 内多个关节 = 同时下发（并行）；
 - step 与 step 之间 = 等上一步所有 result 回齐才发下一步，`sequence_player` 只用 result 当同步信号，不用 `sleep` 猜时间；
-- 要「有先后」就拆成两个 step，不靠调 `duration_ms` 硬凑；
-- `duration_ms` 缺省取 yaml 的 `default_duration_ms`，单关节可单独覆盖。
+- **幅度**：这款 20KG 舵机约 1 PWM ≈ 0.09°，±120 只有 ±11°，镜头里几乎看不出；演练用 ±300（≈±27°），动作组用 170 PWM（≈15°）。低于 30 PWM 会被驱动的到位容差判成「already in place」，根本不动作；
+- **时长**：舵机是按命令里的 T 匀速走的，实测 T=4000 时约 31 PWM/s（126 PWM 正好 4 s 到位）。所以 `duration_ms` ≈ 幅度 ÷ 31 起步，给短了就是「Not in place → 重发」，三遍耗时立刻不一致。
 
 ```bash
-ros2 run cquick_servo sequence_player --ros-args -p actions:=stand_up.yaml -p repeat:=3
+ros2 launch cquick_servo servo.launch.py play:=true actions:=stand_up.yaml repeat:=3
 # 现场换一套没见过的动作：不重编译，直接指到别的目录
 ros2 run cquick_servo sequence_player --ros-args -p actions:=demo.yaml -p actions_dir:=/tmp
 ```
+
+`home.yaml` 与动作组共用同一套 schema 和同一个播放器：上电初始站姿（1500 中立位）也是数据，改站姿只改 yaml。
 
 ## 10. 取消打断（考核 2.3）
 
@@ -245,7 +271,7 @@ ros2 run cquick_servo sequence_player --ros-args -p actions:=demo.yaml -p action
 
 ```bash
 ros2 launch cquick_servo servo.launch.py            # 终端 A
-python3 demo_cancel.py                              # 终端 B，自带取消
+python3 src/cquick_servo/demo_cancel.py             # 终端 B，自带取消
 ```
 
 服务端在 `_run_motion` 每轮循环第一句查 `goal_handle.is_cancel_requested`，命中后：
@@ -280,26 +306,40 @@ result.final_pwm = 1502
 
 ## 12. 安全下电三步
 
+顺序固定：**先卸力 → 再断动力电 → 最后关板卡**。
+
 | 步骤 | 命令 / 动作 | 为什么是这个顺序 |
 |---|---|---|
-| ① 卸力 | `ros2 service call /servo_driver/torque_off std_srvs/srv/Trigger` | 断电前还顶着力矩，直接断电极易堵转发热、烧驱动 |
+| ① 卸力 | `ros2 service call /servo_driver/torque_off std_srvs/srv/Trigger "{}"`（等价于对所有 ID 发 `#xxxPULK!`） | 断电前舵机还在顶着力矩，直接断电极易堵转发热、烧驱动 |
 | ② 断动力电 | 拔电池插头 | 先断动力，避免控制板在电压跌落时乱发指令 |
 | ③ 关板卡 | `sudo shutdown now` | 直接拔板卡电源会损坏文件系统，下次开不了机 |
 
-四条红线：禁止带电插拔舵机线（浪涌烧驱动或通道）；禁止反接电源（上电前量电压、看极性）；电池鼓包立即停用并交给队长，充电必须有人看管；禁止让舵机硬顶结构，持续「嗡嗡」就是堵转，立刻回中位。
+**演示脚本（录屏按这个顺序，每步停 1–2 秒让人看清）**
 
-## 13. 加分项实现
+```text
+① ros2 service call /servo_driver/torque_off std_srvs/srv/Trigger "{}"
+   → success=True, message='all servos torque off'，日志 10 条 TX: #xxxPULK!
+   → 用手转关节确认已经变软（这是「力矩真的卸掉了」的直观证据）
+② 拔电池插头（画面里拍到插头脱离）
+③ sudo shutdown now
+```
 
-| 项 | 实现位置 |
-|---|---|
-| udev 固定设备名 | `加分项/99-cquick-servo.rules`，`port` 默认 `/dev/cq_servo` |
-| PRAD 闭环重发 | `execute_cb` 末段读 PRAD，差 >30 且 `prad_retry>0` 重发一次并打 WARN |
-| 安全看门狗 | `watchdog_cb`：心跳或执行停摆 >1 s → 全体 `PULK` + ERROR + `servo_lock`，只能 `watchdog_reset` 人工解除 |
-| 动作组抢占 | `goal_cb` 取消同 id 旧 goal 并打 `preempted`，旧 goal 不 PULK；新 goal 用 `smooth_duration_ms` 从当前位置接上 |
-| 串口掉线重连 | `link_check_cb` 2 s 巡检 + `send_raw` 捕获异常，掉线只 WARN，重连后不自动重发旧动作 |
-| pytest 单测 | `src/cquick_servo/test/test_servo_protocol.py`（纯函数，不接硬件可跑），`colcon test` 绿 |
+四条红线：禁止带电插拔舵机线（浪涌烧驱动或通道）；禁止反接电源（上电前量电压、看极性）；电池鼓包立即停用并交给队长，充电必须有人看管；禁止让舵机硬顶结构，持续「嗡嗡」就是堵转，立刻回中位再查。
 
-验证脚本 `bash 加分项/verify_bonus.sh`，说明见 `加分项/README.md`。
+加分做法（考核原文提示、本周不要求）：`torque_off` 已经做成服务，一条命令就是「卸力」这一步，不用逐颗手打 `PULK`。
+
+## 13. 加分项实现（按考核细则逐条对）
+
+| 细则条目 | 分值 | 实现位置 | 现场怎么验 | 证据截图 |
+|---|---|---|---|---|
+| udev 固定设备名 | +2 | `加分项/99-cquick-servo.rules`（CH340/CP2102/FT232 三种芯片都写），`port` 默认 `/dev/cq_servo` | `lsusb` 看芯片 → `ls -l /dev/cq_servo` → 拔插后名字不变 | `04_udev固定设备名.png` ✅ |
+| PRAD 闭环校验 | +3 | `_run_motion` 末段读 PRAD，`|actual-target|>30` 且 `prad_retry>0` 时按 `RETRY_EXTRA_MS` 重发一次 | 日志三行连读：`未到位 target=… actual=…，重发一次` → `TX: #xxxP…!` → `重发后到位 actual=…` | `04_PRAD重发.png` ⬜ |
+| 安全看门狗 | +3 | `watchdog_cb` 每 0.2 s 检查心跳与执行循环，超 `watchdog_timeout_s`(1 s) → `trip_watchdog`：全体 `PULK` + ERROR + `servo_lock`；只有 `watchdog_reset` 能解 | `watchdog_trip` 注入 → 日志 `看门狗触发…` + 10 条 `PULK` → 再发 goal 被拒 → `watchdog_reset` 后恢复 | `04_看门狗卸力.png` ✅ |
+| 动作组抢占 | +4 | `goal_cb` 同 id 新 goal 先 `cancel` 旧 goal 并打 `_preempt_flags`，旧 goal **不 PULK**；新 goal 用 `smooth_duration_ms` 从 PRAD 当前位置接上 | 跑 `play:=true` 时另开终端发一个同 id goal：旧 goal 打 `被新 goal 抢占，保持扭力，从当前位置交棒`，新 goal `success`，无回中位、无跳变 | `04_动作组抢占.png` ⬜ |
+| 串口掉线自动重连 | +3 | `link_check_cb` 2 s 巡检 + `send_raw` 异常捕获 → `mark_offline` 只 WARN，节点不退；`connect_serial` 重连成功后打 `串口恢复可用` | 动作执行中拔 USB → 日志 `串口掉线，节点继续运行，等待自动重连`（WARN）→ 插回 → `串口恢复可用`（WARN），节点 PID 不变 | `04_串口重连.png` ⬜ |
+| pytest 单测 | +2 | `src/cquick_servo/test/test_servo_protocol.py`（23 条，含 `(1,1700,1000) → #001P1700T1000!`） | `colcon test --packages-select cquick_servo` → `100% tests passed` | `04_pytest.png` ✅ |
+
+合计 +17，按细则上限 **+10** 计。已收 4 张（udev / PRAD / 看门狗 / pytest），剩抢占、串口重连两张；`加分项/README.md` 里给了逐条取证顺序（`bash 加分项/verify_bonus.sh 5`、`6`，脚本会在该拍的瞬间停住并提示截图）。
 
 ## 14. 竞态与限位补充
 
@@ -323,18 +363,31 @@ result.final_pwm = 1502
 | `02_param_set现场.png` | 六步参数演示 |
 | `02_bag_info.png` | 录包 + pub + `bag info` 三窗口 |
 | `02_参数自检.png` | 非法参数被拒 |
+| `03_整机照片.png` | 整机正面，10 颗舵机 + 白色膝支架 + 电池 |
+| `03_整机照片_侧面.png` | 侧面补充，检查腿段对齐与重心 |
+| `03_接线特写.png` | 控制板通道接线特写，舵机线颜色对照 |
+| `03_ID扫描.png` | `scan_ids` 扫 1–24，1–10 在线、11 起 no response |
+| `03_多舵机动作_关键帧.png` | 动作组三遍的 `全部 result 已回` + 三遍总耗时 |
+
+演示脚本与截图是配套的：`demo_joints.sh` 拍逐关节 ±300 演示，`demo_poweroff.sh` 拍下电三步（每行带 `[时:分:秒]`），`demo_cancel.py` 拍取消取证。
 
 ## 16. 录屏（B 站）
+
+视频只放 B 站，仓库里**不放** mp4/录屏文件（体积大、评审下载慢），README 只留链接。
 
 | 内容 | 链接 |
 |---|---|
 | 任务 1 · 点亮一个舵机（PID / PULR / PRAD / 标定 1500） | https://b23.tv/EkFvWXR |
 | 任务 2 · 正反转、取消打断、改参数生效、bag 回放 | https://b23.tv/hW2J0CK |
-| 任务 3 · 整机逐个动作 + 动作组连跑三遍 | 待补 |
-| 任务 4 · 安全下电流程（PULK → 拔电池 → 关机） | 待补 |
+| 任务 3 · 整机逐个动作 + 动作组连跑三遍 | https://b23.tv/kopmGZY |
+| 任务 4 · 安全下电流程（PULK → 拔电池 → 关机） | https://b23.tv/vXUVYxO |
 
-## 17. 缺口与原因（如实记录）
+任务 4 那段是怎么录的：跑 `bash src/cquick_servo/demo_poweroff.sh`，脚本把三步串起来，每行输出都带 `[时:分:秒]` 时间戳，开头第一行打姓名+日期，中间两次 `read` 停住等实物操作（转关节验证卸力、拔电池插头），最后一步真的执行 `sudo shutdown now`。`DRY=1 bash demo_poweroff.sh` 用于预演，不会关机。
 
-- 任务 3 整机装配中断：地瓜派 TF 卡损坏（换 5 V/3 A 供电仍不亮，读卡器读卡报错），`03_*` 四张实物图与任务 3 录屏因此未完成；代码侧（抢占、yaml 动作组、`sequence_player` 用 result 同步）已全部实现，换卡后可直接上机验证。
-- 该控制板不支持 `#001PID!` 回读 ID 数值，只能以 `#001PRAD!` 位置回显间接证明，已在 `01_PID回显.png` 标注。
-- 加分项证据截图已收 `04_pytest.png`，其余五项（udev / PRAD 重发 / 看门狗 / 抢占 / 重连）需上机后按 `verify_bonus.sh` 顺序补拍。
+
+## 17. 缺口与如实说明
+
+- **三遍耗时不是完全一致**：`03_多舵机动作_关键帧.png` 里三遍为 6.45 s / 9.08 s / 6.53 s，第 2 遍多出约 2.5 s。原因是那一遍中途出现过一次 PRAD 未到位重发（动作路径一致，只是多等了一次闭环确认），不是 `sleep` 硬等导致。要压成几乎相同，把 `duration_ms` 再放大一档（例如屈膝 3500、髋前压 3000）即可，代价是整段变慢。
+- 该控制板不支持 `#001PID!` 回读 ID 数值，只能以 `#001PRAD!` 位置回显间接证明，已在 `01_PID回显.png` 与 `03_ID扫描.png`（扫 1–24、仅 1–10 有回显）标注。
+- 加分项证据已收 4 张（`04_udev固定设备名.png`、`04_PRAD重发.png`、`04_看门狗卸力.png`、`04_pytest.png`），仍缺动作组抢占与串口重连两张；这两项的行为在代码和运行日志里都能看到，`加分项/verify_bonus.sh 5` / `6` 是该拍哪一刻的脚本化入口。
+- 任务 1–4 的截图时间戳都在虚拟机内用 `sign` 别名当场打印（姓名 + 本地时间），未做后期处理。
