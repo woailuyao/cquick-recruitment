@@ -1,0 +1,16 @@
+# ==================== Goal ====================
+# 一条完整指令：哪个舵机、去哪个 PWM、用多久
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# =================== Result ===================
+# 到底成没成、最终 PRAD 读回多少、失败原因一句话说清
+bool success
+string message          # ok / out_of_range / unknown_id / canceled / serial_error / not_reached
+uint16 final_pwm
+---
+# ================== Feedback ==================
+# 执行过程中滚动上报：当前 PWM 与进度
+uint16 current_pwm
+float32 progress        # 0.0 ~ 1.0

@@ -1,0 +1,82 @@
+[INFO] [1795087467.935360995] [joint_selfcheck]: 开始逐关节自检 ids=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]，每颗：1500 → 1550 → 1500
+[INFO] [1795087467.935652473] [joint_selfcheck]: ========== 测试 ID 1 ==========
+[INFO] [1795087467.935900591] [joint_selfcheck]: id=1 logical=1500 applied=1509 duration=1200ms
+[INFO] [1795087469.672499127] [joint_selfcheck]: id=1 result success=True message=ok final_pwm=1504
+[INFO] [1795087470.173494025] [joint_selfcheck]: id=1 logical=1550 applied=1559 duration=1200ms
+[INFO] [1795087471.911122365] [joint_selfcheck]: id=1 result success=True message=ok final_pwm=1545
+[INFO] [1795087472.412220273] [joint_selfcheck]: id=1 logical=1500 applied=1509 duration=1200ms
+[INFO] [1795087474.146513052] [joint_selfcheck]: id=1 result success=True message=ok final_pwm=1521
+[INFO] [1795087474.647549700] [joint_selfcheck]: ID 1 完成，读回=[1504, 1545, 1521]，请核对 +delta 时的机械方向
+[INFO] [1795087474.647826241] [joint_selfcheck]: ========== 测试 ID 2 ==========
+[INFO] [1795087474.648039954] [joint_selfcheck]: id=2 logical=1500 applied=1381 duration=1200ms
+[INFO] [1795087476.384183253] [joint_selfcheck]: id=2 result success=True message=ok final_pwm=1392
+[INFO] [1795087476.885239881] [joint_selfcheck]: id=2 logical=1550 applied=1431 duration=1200ms
+[INFO] [1795087478.619975418] [joint_selfcheck]: id=2 result success=True message=ok final_pwm=1420
+[INFO] [1795087479.120632746] [joint_selfcheck]: id=2 logical=1500 applied=1381 duration=1200ms
+[INFO] [1795087480.856101995] [joint_selfcheck]: id=2 result success=True message=ok final_pwm=1394
+[INFO] [1795087481.357264813] [joint_selfcheck]: ID 2 完成，读回=[1392, 1420, 1394]，请核对 +delta 时的机械方向
+[INFO] [1795087481.357577121] [joint_selfcheck]: ========== 测试 ID 3 ==========
+[INFO] [1795087481.357833296] [joint_selfcheck]: id=3 logical=1500 applied=1478 duration=1200ms
+[INFO] [1795087483.095773863] [joint_selfcheck]: id=3 result success=True message=ok final_pwm=1488
+[INFO] [1795087483.596786098] [joint_selfcheck]: id=3 logical=1550 applied=1528 duration=1200ms
+[INFO] [1795087485.334408055] [joint_selfcheck]: id=3 result success=True message=ok final_pwm=1514
+[INFO] [1795087485.835470443] [joint_selfcheck]: id=3 logical=1500 applied=1478 duration=1200ms
+[INFO] [1795087487.570829690] [joint_selfcheck]: id=3 result success=True message=ok final_pwm=1488
+[INFO] [1795087488.072049609] [joint_selfcheck]: ID 3 完成，读回=[1488, 1514, 1488]，请核对 +delta 时的机械方向
+[INFO] [1795087488.072394892] [joint_selfcheck]: ========== 测试 ID 4 ==========
+[INFO] [1795087488.072650849] [joint_selfcheck]: id=4 logical=1500 applied=1544 duration=1200ms
+[INFO] [1795087489.807448799] [joint_selfcheck]: id=4 result success=True message=ok final_pwm=1532
+[INFO] [1795087490.308484362] [joint_selfcheck]: id=4 logical=1550 applied=1594 duration=1200ms
+[INFO] [1795087492.045571044] [joint_selfcheck]: id=4 result success=True message=ok final_pwm=1580
+[INFO] [1795087492.546560310] [joint_selfcheck]: id=4 logical=1500 applied=1544 duration=1200ms
+[INFO] [1795087494.281380076] [joint_selfcheck]: id=4 result success=True message=ok final_pwm=1555
+[INFO] [1795087494.782358730] [joint_selfcheck]: ID 4 完成，读回=[1532, 1580, 1555]，请核对 +delta 时的机械方向
+[INFO] [1795087494.782642970] [joint_selfcheck]: ========== 测试 ID 5 ==========
+[INFO] [1795087494.782855955] [joint_selfcheck]: id=5 logical=1500 applied=1619 duration=1200ms
+[INFO] [1795087496.517735411] [joint_selfcheck]: id=5 result success=True message=ok final_pwm=1609
+[INFO] [1795087497.019319326] [joint_selfcheck]: id=5 logical=1550 applied=1669 duration=1200ms
+[INFO] [1795087498.753460291] [joint_selfcheck]: id=5 result success=True message=ok final_pwm=1658
+[INFO] [1795087499.254530700] [joint_selfcheck]: id=5 logical=1500 applied=1619 duration=1200ms
+[INFO] [1795087500.988350309] [joint_selfcheck]: id=5 result success=True message=ok final_pwm=1630
+[INFO] [1795087501.489303312] [joint_selfcheck]: ID 5 完成，读回=[1609, 1658, 1630]，请核对 +delta 时的机械方向
+[INFO] [1795087501.489626472] [joint_selfcheck]: ========== 测试 ID 6 ==========
+[INFO] [1795087501.489928402] [joint_selfcheck]: id=6 logical=1500 applied=1449 duration=1200ms
+[INFO] [1795087503.222990022] [joint_selfcheck]: id=6 result success=True message=ok final_pwm=1459
+[INFO] [1795087503.724011328] [joint_selfcheck]: id=6 logical=1550 applied=1499 duration=1200ms
+[INFO] [1795087505.460657635] [joint_selfcheck]: id=6 result success=True message=ok final_pwm=1484
+[INFO] [1795087505.961808358] [joint_selfcheck]: id=6 logical=1500 applied=1449 duration=1200ms
+[INFO] [1795087507.697478710] [joint_selfcheck]: id=6 result success=True message=ok final_pwm=1460
+[INFO] [1795087508.198499681] [joint_selfcheck]: ID 6 完成，读回=[1459, 1484, 1460]，请核对 +delta 时的机械方向
+[INFO] [1795087508.198752656] [joint_selfcheck]: ========== 测试 ID 7 ==========
+[INFO] [1795087508.198984719] [joint_selfcheck]: id=7 logical=1500 applied=1432 duration=1200ms
+[INFO] [1795087509.932356234] [joint_selfcheck]: id=7 result success=True message=ok final_pwm=1441
+[INFO] [1795087510.433348017] [joint_selfcheck]: id=7 logical=1550 applied=1482 duration=1200ms
+[INFO] [1795087512.168210405] [joint_selfcheck]: id=7 result success=True message=ok final_pwm=1463
+[INFO] [1795087512.669102603] [joint_selfcheck]: id=7 logical=1500 applied=1432 duration=1200ms
+[INFO] [1795087514.402569625] [joint_selfcheck]: id=7 result success=True message=ok final_pwm=1441
+[INFO] [1795087514.903573052] [joint_selfcheck]: ID 7 完成，读回=[1441, 1463, 1441]，请核对 +delta 时的机械方向
+[INFO] [1795087514.903874477] [joint_selfcheck]: ========== 测试 ID 8 ==========
+[INFO] [1795087514.904111254] [joint_selfcheck]: id=8 logical=1500 applied=1635 duration=1200ms
+[INFO] [1795087516.637508428] [joint_selfcheck]: id=8 result success=True message=ok final_pwm=1621
+[INFO] [1795087517.138474695] [joint_selfcheck]: id=8 logical=1550 applied=1685 duration=1200ms
+[INFO] [1795087518.872249732] [joint_selfcheck]: id=8 result success=True message=ok final_pwm=1672
+[INFO] [1795087519.373373072] [joint_selfcheck]: id=8 logical=1500 applied=1635 duration=1200ms
+[INFO] [1795087521.106677210] [joint_selfcheck]: id=8 result success=True message=ok final_pwm=1649
+[INFO] [1795087521.607673017] [joint_selfcheck]: ID 8 完成，读回=[1621, 1672, 1649]，请核对 +delta 时的机械方向
+[INFO] [1795087521.607988334] [joint_selfcheck]: ========== 测试 ID 9 ==========
+[INFO] [1795087521.608413864] [joint_selfcheck]: id=9 logical=1500 applied=1480 duration=1200ms
+[INFO] [1795087523.341002501] [joint_selfcheck]: id=9 result success=True message=ok final_pwm=1495
+[INFO] [1795087523.842024188] [joint_selfcheck]: id=9 logical=1550 applied=1530 duration=1200ms
+[INFO] [1795087525.575520239] [joint_selfcheck]: id=9 result success=True message=ok final_pwm=1517
+[INFO] [1795087526.076463058] [joint_selfcheck]: id=9 logical=1500 applied=1480 duration=1200ms
+[INFO] [1795087527.812842047] [joint_selfcheck]: id=9 result success=True message=ok final_pwm=1495
+[INFO] [1795087528.313867487] [joint_selfcheck]: ID 9 完成，读回=[1495, 1517, 1495]，请核对 +delta 时的机械方向
+[INFO] [1795087528.314172239] [joint_selfcheck]: ========== 测试 ID 10 ==========
+[INFO] [1795087528.314573525] [joint_selfcheck]: id=10 logical=1500 applied=1510 duration=1200ms
+[INFO] [1795087530.048850209] [joint_selfcheck]: id=10 result success=True message=ok final_pwm=1506
+[INFO] [1795087530.549778136] [joint_selfcheck]: id=10 logical=1550 applied=1560 duration=1200ms
+[INFO] [1795087532.284122817] [joint_selfcheck]: id=10 result success=True message=ok final_pwm=1553
+[INFO] [1795087532.785205197] [joint_selfcheck]: id=10 logical=1500 applied=1510 duration=1200ms
+[INFO] [1795087534.521496839] [joint_selfcheck]: id=10 result success=True message=ok final_pwm=1517
+[INFO] [1795087535.022510789] [joint_selfcheck]: ID 10 完成，读回=[1506, 1553, 1517]，请核对 +delta 时的机械方向
+[INFO] [1795087535.022839994] [joint_selfcheck]: 全部关节自检成功，均已回到校准标准位

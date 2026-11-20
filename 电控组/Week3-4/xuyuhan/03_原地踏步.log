@@ -1,0 +1,222 @@
+[INFO] [1795108426.203405088] [sequence_player]: 动作文件: /home/xmx/ros2_ws/install/cquick_servo/share/cquick_servo/config/actions/march_in_place_final.yaml
+[INFO] [1795108426.218006394] [sequence_player]: 动作组 "march_in_place_final" 共 29 步
+[INFO] [1795108428.972853408] [sequence_player]: ===== 第 1/1 遍 =====
+[INFO] [1795108428.973290583] [sequence_player]: --- step 0: 全部关节到校准位 ---
+[INFO] [1795108428.973603036] [sequence_player]: [01:13:48.973] send goal id=1 pwm=1500 dur=1500
+[INFO] [1795108428.974034755] [sequence_player]: [01:13:48.973] send goal id=2 pwm=1500 dur=1500
+[INFO] [1795108428.974346305] [sequence_player]: [01:13:48.974] send goal id=3 pwm=1500 dur=1500
+[INFO] [1795108428.974652984] [sequence_player]: [01:13:48.974] send goal id=4 pwm=1500 dur=1500
+[INFO] [1795108428.974926287] [sequence_player]: [01:13:48.974] send goal id=5 pwm=1500 dur=1500
+[INFO] [1795108428.975522774] [sequence_player]: [01:13:48.974] send goal id=6 pwm=1500 dur=1500
+[INFO] [1795108428.976129615] [sequence_player]: [01:13:48.975] send goal id=7 pwm=1500 dur=1500
+[INFO] [1795108428.976446115] [sequence_player]: [01:13:48.976] send goal id=8 pwm=1500 dur=1500
+[INFO] [1795108428.977389391] [sequence_player]: [01:13:48.976] send goal id=9 pwm=1500 dur=1500
+[INFO] [1795108428.977742991] [sequence_player]: [01:13:48.977] send goal id=10 pwm=1500 dur=1500
+[INFO] [1795108431.018040966] [sequence_player]: [01:13:51.017] result id=2 success=True message=ok final_pwm=1375
+[INFO] [1795108431.099377367] [sequence_player]: [01:13:51.099] result id=1 success=True message=ok final_pwm=1502
+[INFO] [1795108431.181900993] [sequence_player]: [01:13:51.181] result id=6 success=True message=ok final_pwm=1454
+[INFO] [1795108431.265203922] [sequence_player]: [01:13:51.264] result id=8 success=True message=ok final_pwm=1646
+[INFO] [1795108431.348323260] [sequence_player]: [01:13:51.348] result id=5 success=True message=ok final_pwm=1609
+[INFO] [1795108431.431811404] [sequence_player]: [01:13:51.431] result id=9 success=True message=ok final_pwm=1485
+[INFO] [1795108431.512623562] [sequence_player]: [01:13:51.512] result id=4 success=True message=ok final_pwm=1536
+[INFO] [1795108431.594261421] [sequence_player]: [01:13:51.593] result id=10 success=True message=ok final_pwm=1508
+[INFO] [1795108431.675325802] [sequence_player]: [01:13:51.675] result id=3 success=True message=ok final_pwm=1470
+[INFO] [1795108431.757918211] [sequence_player]: [01:13:51.757] result id=7 success=True message=ok final_pwm=1440
+[INFO] [1795108431.758145456] [sequence_player]: [01:13:51.757] step 0 result 全部回收 ok=True
+[INFO] [1795108431.758453901] [sequence_player]: --- step 1: 重心先向右侧支撑50 ---
+[INFO] [1795108431.758682278] [sequence_player]: [01:13:51.758] send goal id=6 pwm=1550 dur=1500
+[INFO] [1795108431.759020377] [sequence_player]: [01:13:51.758] send goal id=10 pwm=1500 dur=1500
+[INFO] [1795108433.778972057] [sequence_player]: [01:13:53.778] result id=6 success=True message=ok final_pwm=1481
+[INFO] [1795108433.881626987] [sequence_player]: [01:13:53.881] result id=10 success=True message=ok final_pwm=1508
+[INFO] [1795108433.881858064] [sequence_player]: [01:13:53.881] step 1 result 全部回收 ok=True
+[INFO] [1795108433.882069380] [sequence_player]: --- step 2: 右侧支撑到100后抬左腿（不做骨盆动作） ---
+[INFO] [1795108433.882280069] [sequence_player]: [01:13:53.882] send goal id=6 pwm=1600 dur=1500
+[INFO] [1795108433.882861707] [sequence_player]: [01:13:53.882] send goal id=10 pwm=1500 dur=1500
+[INFO] [1795108435.908842391] [sequence_player]: [01:13:55.908] result id=10 success=True message=ok final_pwm=1508
+[INFO] [1795108436.030656742] [sequence_player]: [01:13:56.030] result id=6 success=True message=ok final_pwm=1519
+[INFO] [1795108436.030982627] [sequence_player]: [01:13:56.030] step 2 result 全部回收 ok=True
+[INFO] [1795108436.031248817] [sequence_player]: --- step 3: 左腿抬起第一级（髋膝100、提跟50） ---
+[INFO] [1795108436.031550682] [sequence_player]: [01:13:56.031] send goal id=2 pwm=1400 dur=1500
+[INFO] [1795108436.033692615] [sequence_player]: [01:13:56.031] send goal id=3 pwm=1400 dur=1500
+[INFO] [1795108436.034055818] [sequence_player]: [01:13:56.033] send goal id=4 pwm=1450 dur=1500
+[INFO] [1795108438.049361911] [sequence_player]: [01:13:58.049] result id=2 success=True message=ok final_pwm=1290
+[INFO] [1795108438.171136310] [sequence_player]: [01:13:58.170] result id=3 success=True message=ok final_pwm=1391
+[INFO] [1795108438.251845732] [sequence_player]: [01:13:58.251] result id=4 success=True message=ok final_pwm=1508
+[INFO] [1795108438.252132221] [sequence_player]: [01:13:58.251] step 3 result 全部回收 ok=True
+[INFO] [1795108438.252446381] [sequence_player]: --- step 4: 左腿抬起第二级（髋膝200、提跟75） ---
+[INFO] [1795108438.252750266] [sequence_player]: [01:13:58.252] send goal id=2 pwm=1300 dur=1500
+[INFO] [1795108438.253634357] [sequence_player]: [01:13:58.252] send goal id=3 pwm=1300 dur=1500
+[INFO] [1795108438.254091354] [sequence_player]: [01:13:58.253] send goal id=4 pwm=1425 dur=1500
+[INFO] [1795108440.274377319] [sequence_player]: [01:14:00.274] result id=2 success=True message=ok final_pwm=1190
+[INFO] [1795108440.395571471] [sequence_player]: [01:14:00.395] result id=4 success=True message=ok final_pwm=1485
+[INFO] [1795108440.478255429] [sequence_player]: [01:14:00.477] result id=3 success=True message=ok final_pwm=1292
+[INFO] [1795108440.478550411] [sequence_player]: [01:14:00.478] step 4 result 全部回收 ok=True
+[INFO] [1795108440.478821635] [sequence_player]: --- step 5: 左腿抬起第三级（髋膝300、脚踝保持） ---
+[INFO] [1795108440.479075267] [sequence_player]: [01:14:00.478] send goal id=2 pwm=1200 dur=1500
+[INFO] [1795108440.479636512] [sequence_player]: [01:14:00.479] send goal id=3 pwm=1200 dur=1500
+[INFO] [1795108442.498814102] [sequence_player]: [01:14:02.498] result id=2 success=True message=ok final_pwm=1091
+[INFO] [1795108442.620587866] [sequence_player]: [01:14:02.620] result id=3 success=True message=ok final_pwm=1191
+[INFO] [1795108442.620959058] [sequence_player]: [01:14:02.620] step 5 result 全部回收 ok=True
+[INFO] [1795108442.621294962] [sequence_player]: --- step 6: 左髋至边界320、左膝加深至400 ---
+[INFO] [1795108442.621623673] [sequence_player]: [01:14:02.621] send goal id=2 pwm=1180 dur=1500
+[INFO] [1795108442.621990738] [sequence_player]: [01:14:02.621] send goal id=3 pwm=1100 dur=1500
+[INFO] [1795108444.642221400] [sequence_player]: [01:14:04.641] result id=2 success=True message=ok final_pwm=1064
+[INFO] [1795108444.762285706] [sequence_player]: [01:14:04.761] result id=3 success=True message=ok final_pwm=1099
+[INFO] [1795108444.762772172] [sequence_player]: [01:14:04.762] step 6 result 全部回收 ok=True
+[INFO] [1795108444.763123890] [sequence_player]: --- step 7: 左腿回收准备（髋回20、膝回100、脚踝先回水平） ---
+[INFO] [1795108444.763434529] [sequence_player]: [01:14:04.763] send goal id=2 pwm=1200 dur=1500
+[INFO] [1795108444.763863558] [sequence_player]: [01:14:04.763] send goal id=3 pwm=1200 dur=1500
+[INFO] [1795108444.764220681] [sequence_player]: [01:14:04.763] send goal id=4 pwm=1500 dur=1500
+[INFO] [1795108446.783584533] [sequence_player]: [01:14:06.783] result id=3 success=True message=ok final_pwm=1158
+[INFO] [1795108446.904568927] [sequence_player]: [01:14:06.904] result id=4 success=True message=ok final_pwm=1525
+[INFO] [1795108446.984711432] [sequence_player]: [01:14:06.984] result id=2 success=True message=ok final_pwm=1072
+[INFO] [1795108446.984945392] [sequence_player]: [01:14:06.984] step 7 result 全部回收 ok=True
+[INFO] [1795108446.985159696] [sequence_player]: --- step 8: 左腿分级回收第二级 ---
+[INFO] [1795108446.985371693] [sequence_player]: [01:14:06.985] send goal id=2 pwm=1300 dur=1500
+[INFO] [1795108446.985808695] [sequence_player]: [01:14:06.985] send goal id=3 pwm=1300 dur=1500
+[INFO] [1795108446.986662612] [sequence_player]: [01:14:06.986] send goal id=4 pwm=1500 dur=1500
+[INFO] [1795108449.006487067] [sequence_player]: [01:14:09.006] result id=2 success=True message=ok final_pwm=1171
+[INFO] [1795108449.128158697] [sequence_player]: [01:14:09.127] result id=4 success=True message=ok final_pwm=1526
+[INFO] [1795108449.209290572] [sequence_player]: [01:14:09.209] result id=3 success=True message=ok final_pwm=1261
+[INFO] [1795108449.209623821] [sequence_player]: [01:14:09.209] step 8 result 全部回收 ok=True
+[INFO] [1795108449.209903070] [sequence_player]: --- step 9: 左脚回正后再落地 ---
+[INFO] [1795108449.210168927] [sequence_player]: [01:14:09.209] send goal id=2 pwm=1400 dur=1500
+[INFO] [1795108449.211830781] [sequence_player]: [01:14:09.210] send goal id=3 pwm=1400 dur=1500
+[INFO] [1795108451.229184942] [sequence_player]: [01:14:11.228] result id=2 success=True message=ok final_pwm=1270
+[INFO] [1795108451.349697796] [sequence_player]: [01:14:11.349] result id=3 success=True message=ok final_pwm=1361
+[INFO] [1795108451.349989699] [sequence_player]: [01:14:11.349] step 9 result 全部回收 ok=True
+[INFO] [1795108451.350245543] [sequence_player]: --- step 10: 左髋左膝完全回校准位 ---
+[INFO] [1795108451.350561423] [sequence_player]: [01:14:11.350] send goal id=2 pwm=1500 dur=1500
+[INFO] [1795108451.350958159] [sequence_player]: [01:14:11.350] send goal id=3 pwm=1500 dur=1500
+[INFO] [1795108453.369563348] [sequence_player]: [01:14:13.369] result id=3 success=True message=ok final_pwm=1462
+[INFO] [1795108453.494362950] [sequence_player]: [01:14:13.493] result id=2 success=True message=ok final_pwm=1371
+[INFO] [1795108453.494774682] [sequence_player]: [01:14:13.494] step 10 result 全部回收 ok=True
+[INFO] [1795108453.495057638] [sequence_player]: --- step 11: 左脚落地后右侧支撑回到50 ---
+[INFO] [1795108453.495358326] [sequence_player]: [01:14:13.495] send goal id=6 pwm=1550 dur=1500
+[INFO] [1795108453.495738157] [sequence_player]: [01:14:13.495] send goal id=10 pwm=1500 dur=1500
+[INFO] [1795108455.517943092] [sequence_player]: [01:14:15.517] result id=6 success=True message=ok final_pwm=1514
+[INFO] [1795108455.640226552] [sequence_player]: [01:14:15.639] result id=10 success=True message=ok final_pwm=1508
+[INFO] [1795108455.640561873] [sequence_player]: [01:14:15.640] step 11 result 全部回收 ok=True
+[INFO] [1795108455.640837006] [sequence_player]: --- step 12: 右侧支撑缓慢回校准位 ---
+[INFO] [1795108455.641093291] [sequence_player]: [01:14:15.640] send goal id=6 pwm=1500 dur=1500
+[INFO] [1795108455.642724050] [sequence_player]: [01:14:15.641] send goal id=10 pwm=1500 dur=1500
+[INFO] [1795108457.659084605] [sequence_player]: [01:14:17.658] result id=6 success=True message=ok final_pwm=1472
+[INFO] [1795108457.761563675] [sequence_player]: [01:14:17.761] result id=10 success=True message=ok final_pwm=1508
+[INFO] [1795108457.761832830] [sequence_player]: [01:14:17.761] step 12 result 全部回收 ok=True
+[INFO] [1795108457.762109163] [sequence_player]: --- step 13: 重心先向左侧支撑50 ---
+[INFO] [1795108457.762372558] [sequence_player]: [01:14:17.762] send goal id=1 pwm=1450 dur=1500
+[INFO] [1795108457.762803267] [sequence_player]: [01:14:17.762] send goal id=5 pwm=1500 dur=1500
+[INFO] [1795108459.782925893] [sequence_player]: [01:14:19.782] result id=1 success=True message=ok final_pwm=1475
+[INFO] [1795108459.904776748] [sequence_player]: [01:14:19.904] result id=5 success=True message=ok final_pwm=1611
+[INFO] [1795108459.905012318] [sequence_player]: [01:14:19.904] step 13 result 全部回收 ok=True
+[INFO] [1795108459.905227736] [sequence_player]: --- step 14: 左侧支撑到100后抬右腿（不做骨盆动作） ---
+[INFO] [1795108459.905441667] [sequence_player]: [01:14:19.905] send goal id=1 pwm=1400 dur=1500
+[INFO] [1795108459.906160348] [sequence_player]: [01:14:19.905] send goal id=5 pwm=1500 dur=1500
+[INFO] [1795108461.927613656] [sequence_player]: [01:14:21.927] result id=1 success=True message=ok final_pwm=1437
+[INFO] [1795108462.049090253] [sequence_player]: [01:14:22.048] result id=5 success=True message=ok final_pwm=1611
+[INFO] [1795108462.049628513] [sequence_player]: [01:14:22.049] step 14 result 全部回收 ok=True
+[INFO] [1795108462.049955509] [sequence_player]: --- step 15: 右腿抬起第一级（髋膝100、提跟50） ---
+[INFO] [1795108462.050217535] [sequence_player]: [01:14:22.050] send goal id=7 pwm=1600 dur=1500
+[INFO] [1795108462.052211399] [sequence_player]: [01:14:22.051] send goal id=8 pwm=1600 dur=1500
+[INFO] [1795108462.052975936] [sequence_player]: [01:14:22.052] send goal id=9 pwm=1550 dur=1500
+[INFO] [1795108464.066330364] [sequence_player]: [01:14:24.066] result id=7 success=True message=ok final_pwm=1522
+[INFO] [1795108464.187814768] [sequence_player]: [01:14:24.187] result id=9 success=True message=ok final_pwm=1514
+[INFO] [1795108464.270518286] [sequence_player]: [01:14:24.270] result id=8 success=True message=ok final_pwm=1715
+[INFO] [1795108464.270875266] [sequence_player]: [01:14:24.270] step 15 result 全部回收 ok=True
+[INFO] [1795108464.271228138] [sequence_player]: --- step 16: 右腿第二级前半（髋膝各再动50、提跟到75） ---
+[INFO] [1795108464.271547127] [sequence_player]: [01:14:24.271] send goal id=7 pwm=1650 dur=1500
+[INFO] [1795108464.272579429] [sequence_player]: [01:14:24.271] send goal id=8 pwm=1650 dur=1500
+[INFO] [1795108464.273708608] [sequence_player]: [01:14:24.273] send goal id=9 pwm=1525 dur=1500
+[INFO] [1795108466.289273155] [sequence_player]: [01:14:26.288] result id=7 success=True message=ok final_pwm=1571
+[INFO] [1795108466.389334283] [sequence_player]: [01:14:26.389] result id=8 success=True message=ok final_pwm=1766
+[INFO] [1795108466.470501772] [sequence_player]: [01:14:26.470] result id=9 success=True message=ok final_pwm=1512
+[INFO] [1795108466.470795649] [sequence_player]: [01:14:26.470] step 16 result 全部回收 ok=True
+[INFO] [1795108466.471054318] [sequence_player]: --- step 17: 右腿第二级后半（髋膝200、提跟保持75） ---
+[INFO] [1795108466.471337595] [sequence_player]: [01:14:26.471] send goal id=7 pwm=1700 dur=1500
+[INFO] [1795108466.472862994] [sequence_player]: [01:14:26.471] send goal id=8 pwm=1700 dur=1500
+[INFO] [1795108468.489812620] [sequence_player]: [01:14:28.489] result id=7 success=True message=ok final_pwm=1622
+[INFO] [1795108468.591724890] [sequence_player]: [01:14:28.591] result id=8 success=True message=ok final_pwm=1818
+[INFO] [1795108468.592081282] [sequence_player]: [01:14:28.591] step 17 result 全部回收 ok=True
+[INFO] [1795108468.592374852] [sequence_player]: --- step 18: 右腿抬起第三级（髋膝300、脚踝保持） ---
+[INFO] [1795108468.592790487] [sequence_player]: [01:14:28.592] send goal id=7 pwm=1800 dur=1500
+[INFO] [1795108468.593264515] [sequence_player]: [01:14:28.593] send goal id=8 pwm=1800 dur=1500
+[INFO] [1795108470.611849077] [sequence_player]: [01:14:30.611] result id=7 success=True message=ok final_pwm=1724
+[INFO] [1795108470.735319279] [sequence_player]: [01:14:30.735] result id=8 success=True message=ok final_pwm=1919
+[INFO] [1795108470.735693063] [sequence_player]: [01:14:30.735] step 18 result 全部回收 ok=True
+[INFO] [1795108470.736020093] [sequence_player]: --- step 19: 右髋增加至400、右膝加深至400 ---
+[INFO] [1795108470.736252431] [sequence_player]: [01:14:30.736] send goal id=7 pwm=1900 dur=1500
+[INFO] [1795108470.736603017] [sequence_player]: [01:14:30.736] send goal id=8 pwm=1900 dur=1500
+[INFO] [1795108472.757742906] [sequence_player]: [01:14:32.757] result id=7 success=True message=ok final_pwm=1821
+[INFO] [1795108472.879321979] [sequence_player]: [01:14:32.879] result id=8 success=True message=ok final_pwm=2017
+[INFO] [1795108472.879938287] [sequence_player]: [01:14:32.879] step 19 result 全部回收 ok=True
+[INFO] [1795108472.880297567] [sequence_player]: --- step 20: 右髋最后增加至500 ---
+[INFO] [1795108472.880643387] [sequence_player]: [01:14:32.880] send goal id=7 pwm=2000 dur=1500
+[INFO] [1795108474.902572120] [sequence_player]: [01:14:34.902] result id=7 success=True message=ok final_pwm=1910
+[INFO] [1795108474.903002416] [sequence_player]: [01:14:34.902] step 20 result 全部回收 ok=True
+[INFO] [1795108474.903328323] [sequence_player]: --- step 21: 右腿回收第一级（髋膝各回100、脚踝先回水平） ---
+[INFO] [1795108474.903646538] [sequence_player]: [01:14:34.903] send goal id=7 pwm=1900 dur=1500
+[INFO] [1795108474.904671013] [sequence_player]: [01:14:34.903] send goal id=8 pwm=1800 dur=1500
+[INFO] [1795108474.905760599] [sequence_player]: [01:14:34.905] send goal id=9 pwm=1500 dur=1500
+[INFO] [1795108476.928278295] [sequence_player]: [01:14:36.927] result id=7 success=True message=ok final_pwm=1841
+[INFO] [1795108477.048464784] [sequence_player]: [01:14:37.048] result id=8 success=True message=ok final_pwm=1962
+[INFO] [1795108477.129705151] [sequence_player]: [01:14:37.129] result id=9 success=True message=ok final_pwm=1504
+[INFO] [1795108477.130084579] [sequence_player]: [01:14:37.129] step 21 result 全部回收 ok=True
+[INFO] [1795108477.130438457] [sequence_player]: --- step 22: 右腿回收第二级 ---
+[INFO] [1795108477.130743318] [sequence_player]: [01:14:37.130] send goal id=7 pwm=1800 dur=1500
+[INFO] [1795108477.131121202] [sequence_player]: [01:14:37.130] send goal id=8 pwm=1700 dur=1500
+[INFO] [1795108477.131496317] [sequence_player]: [01:14:37.131] send goal id=9 pwm=1500 dur=1500
+[INFO] [1795108479.151793415] [sequence_player]: [01:14:39.151] result id=7 success=True message=ok final_pwm=1738
+[INFO] [1795108479.273983852] [sequence_player]: [01:14:39.273] result id=9 success=True message=ok final_pwm=1504
+[INFO] [1795108479.355626628] [sequence_player]: [01:14:39.355] result id=8 success=True message=ok final_pwm=1859
+[INFO] [1795108479.355948554] [sequence_player]: [01:14:39.355] step 22 result 全部回收 ok=True
+[INFO] [1795108479.356223048] [sequence_player]: --- step 23: 右腿回收第三级 ---
+[INFO] [1795108479.356510295] [sequence_player]: [01:14:39.356] send goal id=7 pwm=1700 dur=1500
+[INFO] [1795108479.357136771] [sequence_player]: [01:14:39.356] send goal id=8 pwm=1600 dur=1500
+[INFO] [1795108481.381287341] [sequence_player]: [01:14:41.381] result id=8 success=True message=ok final_pwm=1757
+[INFO] [1795108481.503747321] [sequence_player]: [01:14:41.503] result id=7 success=True message=ok final_pwm=1636
+[INFO] [1795108481.503981284] [sequence_player]: [01:14:41.503] step 23 result 全部回收 ok=True
+[INFO] [1795108481.504195363] [sequence_player]: --- step 24: 右脚回正后准备落地 ---
+[INFO] [1795108481.504407832] [sequence_player]: [01:14:41.504] send goal id=7 pwm=1600 dur=1500
+[INFO] [1795108481.506184445] [sequence_player]: [01:14:41.504] send goal id=8 pwm=1500 dur=1500
+[INFO] [1795108483.522609186] [sequence_player]: [01:14:43.522] result id=7 success=True message=ok final_pwm=1536
+[INFO] [1795108483.623558873] [sequence_player]: [01:14:43.623] result id=8 success=True message=ok final_pwm=1657
+[INFO] [1795108483.624023072] [sequence_player]: [01:14:43.623] step 24 result 全部回收 ok=True
+[INFO] [1795108483.624460802] [sequence_player]: --- step 25: 右髋完全回校准位 ---
+[INFO] [1795108483.624814132] [sequence_player]: [01:14:43.624] send goal id=7 pwm=1500 dur=1500
+[INFO] [1795108485.645481179] [sequence_player]: [01:14:45.645] result id=7 success=True message=ok final_pwm=1450
+[INFO] [1795108485.645924171] [sequence_player]: [01:14:45.645] step 25 result 全部回收 ok=True
+[INFO] [1795108485.646206360] [sequence_player]: --- step 26: 右脚落地后左侧支撑回到50 ---
+[INFO] [1795108485.646501397] [sequence_player]: [01:14:45.646] send goal id=1 pwm=1450 dur=1500
+[INFO] [1795108485.646863814] [sequence_player]: [01:14:45.646] send goal id=5 pwm=1500 dur=1500
+[INFO] [1795108487.668095632] [sequence_player]: [01:14:47.667] result id=1 success=True message=ok final_pwm=1441
+[INFO] [1795108487.789169950] [sequence_player]: [01:14:47.788] result id=5 success=True message=ok final_pwm=1611
+[INFO] [1795108487.789595731] [sequence_player]: [01:14:47.789] step 26 result 全部回收 ok=True
+[INFO] [1795108487.789909619] [sequence_player]: --- step 27: 左侧支撑缓慢回校准位 ---
+[INFO] [1795108487.790235429] [sequence_player]: [01:14:47.789] send goal id=1 pwm=1500 dur=1500
+[INFO] [1795108487.790678528] [sequence_player]: [01:14:47.790] send goal id=5 pwm=1500 dur=1500
+[INFO] [1795108489.814299812] [sequence_player]: [01:14:49.814] result id=1 success=True message=ok final_pwm=1489
+[INFO] [1795108489.935013876] [sequence_player]: [01:14:49.934] result id=5 success=True message=ok final_pwm=1611
+[INFO] [1795108489.935457775] [sequence_player]: [01:14:49.935] step 27 result 全部回收 ok=True
+[INFO] [1795108489.935765557] [sequence_player]: --- step 28: 全部关节确认回校准位 ---
+[INFO] [1795108489.936153551] [sequence_player]: [01:14:49.935] send goal id=1 pwm=1500 dur=1500
+[INFO] [1795108489.937608962] [sequence_player]: [01:14:49.936] send goal id=2 pwm=1500 dur=1500
+[INFO] [1795108489.938839791] [sequence_player]: [01:14:49.938] send goal id=3 pwm=1500 dur=1500
+[INFO] [1795108489.939519473] [sequence_player]: [01:14:49.938] send goal id=4 pwm=1500 dur=1500
+[INFO] [1795108489.940285887] [sequence_player]: [01:14:49.940] send goal id=5 pwm=1500 dur=1500
+[INFO] [1795108489.940976698] [sequence_player]: [01:14:49.940] send goal id=6 pwm=1500 dur=1500
+[INFO] [1795108489.941293013] [sequence_player]: [01:14:49.941] send goal id=7 pwm=1500 dur=1500
+[INFO] [1795108489.941596586] [sequence_player]: [01:14:49.941] send goal id=8 pwm=1500 dur=1500
+[INFO] [1795108489.941898248] [sequence_player]: [01:14:49.941] send goal id=9 pwm=1500 dur=1500
+[INFO] [1795108489.942177361] [sequence_player]: [01:14:49.941] send goal id=10 pwm=1500 dur=1500
+[INFO] [1795108492.015166461] [sequence_player]: [01:14:52.014] result id=1 success=True message=ok final_pwm=1489
+[INFO] [1795108492.099057472] [sequence_player]: [01:14:52.098] result id=3 success=True message=ok final_pwm=1473
+[INFO] [1795108492.182200032] [sequence_player]: [01:14:52.181] result id=4 success=True message=ok final_pwm=1535
+[INFO] [1795108492.264471681] [sequence_player]: [01:14:52.264] result id=5 success=True message=ok final_pwm=1611
+[INFO] [1795108492.347371816] [sequence_player]: [01:14:52.347] result id=2 success=True message=ok final_pwm=1377
+[INFO] [1795108492.430351050] [sequence_player]: [01:14:52.430] result id=8 success=True message=ok final_pwm=1643
+[INFO] [1795108492.511939276] [sequence_player]: [01:14:52.511] result id=6 success=True message=ok final_pwm=1456
+[INFO] [1795108492.594531836] [sequence_player]: [01:14:52.594] result id=10 success=True message=ok final_pwm=1508
+[INFO] [1795108492.675397971] [sequence_player]: [01:14:52.675] result id=7 success=True message=ok final_pwm=1445
+[INFO] [1795108492.757820966] [sequence_player]: [01:14:52.757] result id=9 success=True message=ok final_pwm=1486
+[INFO] [1795108492.758052536] [sequence_player]: [01:14:52.757] step 28 result 全部回收 ok=True
+[INFO] [1795108492.758270928] [sequence_player]: [01:14:52.758] 动作组播放结束 ok=True，共 1 遍

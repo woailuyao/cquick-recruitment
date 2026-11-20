@@ -1,0 +1,18 @@
+# 脚踝方向单独确认：只动4/9，其他关节不下发动作。
+# 实测：4正/9负=脚尖上、脚跟下；本文件用4负/9正验证提跟。
+name: ankle_check
+steps:
+  - name: 两脚踝回校准位
+    servos:
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+
+  - name: 两脚踝提跟100（便于观察方向）
+    servos:
+      - {id: 4, pwm: 1400, duration_ms: 1500}
+      - {id: 9, pwm: 1600, duration_ms: 1500}
+
+  - name: 两脚踝回校准位
+    servos:
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}

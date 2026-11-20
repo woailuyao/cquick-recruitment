@@ -1,0 +1,79 @@
+# 双侧同步屈伸（大幅分级验证版）
+# 髋250、膝300、踝200；每级最多100，结束全部回校准位。
+name: sync_flex
+steps:
+  - name: 全部关节到校准位
+    servos:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}
+
+  - name: 双侧同步屈伸第一级100
+    servos:
+      - {id: 2, pwm: 1400, duration_ms: 1200}
+      - {id: 3, pwm: 1400, duration_ms: 1200}
+      - {id: 4, pwm: 1400, duration_ms: 1200}
+      - {id: 7, pwm: 1600, duration_ms: 1200}
+      - {id: 8, pwm: 1600, duration_ms: 1200}
+      - {id: 9, pwm: 1600, duration_ms: 1200}
+
+  - name: 双侧同步屈伸第二级200
+    servos:
+      - {id: 2, pwm: 1300, duration_ms: 1200}
+      - {id: 3, pwm: 1300, duration_ms: 1200}
+      - {id: 4, pwm: 1300, duration_ms: 1200}
+      - {id: 7, pwm: 1700, duration_ms: 1200}
+      - {id: 8, pwm: 1700, duration_ms: 1200}
+      - {id: 9, pwm: 1700, duration_ms: 1200}
+
+  - name: 双侧同步屈伸第三级（髋250、膝300）
+    servos:
+      - {id: 2, pwm: 1250, duration_ms: 1200}
+      - {id: 3, pwm: 1200, duration_ms: 1200}
+      - {id: 7, pwm: 1750, duration_ms: 1200}
+      - {id: 8, pwm: 1800, duration_ms: 1200}
+
+  - name: 双侧分级回收第一级
+    servos:
+      - {id: 2, pwm: 1300, duration_ms: 1200}
+      - {id: 3, pwm: 1300, duration_ms: 1200}
+      - {id: 4, pwm: 1400, duration_ms: 1200}
+      - {id: 7, pwm: 1700, duration_ms: 1200}
+      - {id: 8, pwm: 1700, duration_ms: 1200}
+      - {id: 9, pwm: 1600, duration_ms: 1200}
+
+  - name: 双侧分级回收第二级
+    servos:
+      - {id: 2, pwm: 1400, duration_ms: 1200}
+      - {id: 3, pwm: 1400, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1600, duration_ms: 1200}
+      - {id: 8, pwm: 1600, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+
+  - name: 双侧髋膝回校准位
+    servos:
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+
+  - name: 全部关节确认回校准位
+    servos:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}
