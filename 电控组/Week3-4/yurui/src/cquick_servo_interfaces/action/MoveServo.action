@@ -1,0 +1,8 @@
+ServoCommand command
+---
+bool success
+uint16 final_pwm
+string reason
+---
+uint16 current_pwm
+float32 progress

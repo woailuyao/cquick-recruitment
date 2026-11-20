@@ -1,0 +1,82 @@
+# 动作组 2：挥手/摇摆（wave）—— 文件名必须叫 wave.yaml（考核细则指定）
+# 效果：一侧的腿依次抬起再放下，像挥手/波浪绕机身一圈。
+# 体现了"一步之内有先后"：每条腿单独一个 step，不靠调 duration_ms 硬凑先后。
+#
+# 编号：右下角逆时针一圈 1 2 3 4 5 6 7 8 9 0
+# 幅度：pwm 中位 1500；第一次上机把 1560 改成 1520 小幅试，确认不打架再加。
+motion_name: wave
+
+steps:
+  - name: "全体回中位(起点)"
+    duration_ms: 800
+    moves:
+      - {id: 1, pwm: 1500}
+      - {id: 2, pwm: 1500}
+      - {id: 3, pwm: 1500}
+      - {id: 4, pwm: 1500}
+      - {id: 5, pwm: 1500}
+      - {id: 6, pwm: 1500}
+      - {id: 7, pwm: 1500}
+      - {id: 8, pwm: 1500}
+      - {id: 9, pwm: 1500}
+      - {id: 0, pwm: 1500}
+
+  # 依次抬起再放下：一个一个来，每个都是独立 step（先后靠 step，不靠 sleep）
+  - name: "1号 抬起"
+    duration_ms: 400
+    moves:
+      - {id: 1, pwm: 1560}
+  - name: "1号 放下"
+    duration_ms: 400
+    moves:
+      - {id: 1, pwm: 1500}
+
+  - name: "2号 抬起"
+    duration_ms: 400
+    moves:
+      - {id: 2, pwm: 1560}
+  - name: "2号 放下"
+    duration_ms: 400
+    moves:
+      - {id: 2, pwm: 1500}
+
+  - name: "3号 抬起"
+    duration_ms: 400
+    moves:
+      - {id: 3, pwm: 1560}
+  - name: "3号 放下"
+    duration_ms: 400
+    moves:
+      - {id: 3, pwm: 1500}
+
+  - name: "4号 抬起"
+    duration_ms: 400
+    moves:
+      - {id: 4, pwm: 1560}
+  - name: "4号 放下"
+    duration_ms: 400
+    moves:
+      - {id: 4, pwm: 1500}
+
+  - name: "5号 抬起"
+    duration_ms: 400
+    moves:
+      - {id: 5, pwm: 1560}
+  - name: "5号 放下"
+    duration_ms: 400
+    moves:
+      - {id: 5, pwm: 1500}
+
+  - name: "全体回中位(收尾)"
+    duration_ms: 800
+    moves:
+      - {id: 1, pwm: 1500}
+      - {id: 2, pwm: 1500}
+      - {id: 3, pwm: 1500}
+      - {id: 4, pwm: 1500}
+      - {id: 5, pwm: 1500}
+      - {id: 6, pwm: 1500}
+      - {id: 7, pwm: 1500}
+      - {id: 8, pwm: 1500}
+      - {id: 9, pwm: 1500}
+      - {id: 0, pwm: 1500}
