@@ -1,0 +1,31 @@
+map_name: C0_half_pitch
+map_version: c0-v1-2026-11-20
+unit: meter
+origin: 中圈圆心（也就是整场中心）
+ground_plane: Z = 0
+x_axis: 从原点指向唯一球门的方向为正
+y_axis: 面向 +X 时的左侧为正
+z_axis: 垂直地面向上
+yaw: 从 +X 轴逆时针为正，单位度
+field:
+  type: half_pitch
+  depth_m: 6.94
+  width_m: 8.95
+  center_circle_radius_m: 1.47
+  penalty_point_distance_from_goal_line_m: 2.045
+  penalty_area_depth_m: 0.91
+  penalty_area_width_m: 3.945
+source:
+  based_on: BoosterRobotics/robocup_demo src/vision/config/field.yaml
+  url: "https://raw.githubusercontent.com/BoosterRobotics/robocup_demo/main/src/vision/config/field.yaml"
+  official_sha256: 自行计算：sha256sum field.yaml（本次取自 GitHub main 分支，2026-11-20）
+  transform:
+    X_new: y_old - (-4.010)
+    Y_new: -(x_old - 3.035)
+    explain: 官方原点在场地外角落；3.035 是中圈圆心的官方 x，-4.010 是中线官方 y
+  fetched_at: 2026-11-20
+  branch: main
+verification:
+  status: 未实测
+  todo: 用卷尺量：①中线到球门线深度 ②场地宽度 ③中圈半径 ④罚球点到球门线距离；与 field 段数值对比
+  tolerance_m: 0.05

@@ -1,0 +1,35 @@
+# 相机外参：相机相对地面的安装参数
+#
+# height_m / pitch_deg / roll_deg 为占位值，仅用于流程联调。
+# 采集标定照片时相机为手持（各帧高度 0.35~1.49 m、俯仰 26~88° 不一致），
+# 无法据此得到安装参数；相机装机后需用 src/tools/calibrate_extrinsics.py 重新标定。
+camera_name: task2_extrinsics
+frame: ground_plane_origin_below_camera
+x_axis: forward
+y_axis: left
+z_axis: up
+unit: meter
+
+height_m: 0.85
+pitch_deg: 20.0
+roll_deg: 0.0
+
+t_gc:
+  - 0.0
+  - 0.0
+  - 0.85
+
+# R_gc：3x3 旋转（按行展开），P_ground = R_gc · P_camera + t_gc
+R_gc:
+  - 0.0
+  - -0.3420201433256687
+  - 0.9396926207859084
+  - -1.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - -0.9396926207859084
+  - -0.3420201433256687
+
+method: pending_mount_calibration
+image_count: 0

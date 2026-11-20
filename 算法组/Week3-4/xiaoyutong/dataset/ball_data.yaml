@@ -1,0 +1,16 @@
+# 任务一：足球检测数据集配置
+# 数据由本人拍摄的 1280x720 视频抽帧、在 Roboflow 标注后导出（238 张，单类 ball）。
+# 图片与标签体积较大，不随仓库上传；本地/共享盘保留如下结构即可直接训练。
+
+path: ./dataset/ball
+train: images/train
+val: images/valid
+test: images/test
+
+nc: 1
+names: [ball]
+
+# 本地实际划分（Roboflow 导出）：
+#   train 170 张 / valid 170 张 / test 23 张
+# 注意：valid 与 train 为同名帧（完全重复），验证集指标偏乐观，
+#      独立评估请使用 test（23 张），结果见 README 2.2 节。

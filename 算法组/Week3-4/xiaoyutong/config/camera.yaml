@@ -1,0 +1,51 @@
+# 相机配置汇总（内参 + 外参 + 安装说明）
+#
+# 说明：细则里 config/camera.yaml 是"相机配置"的汇总文件。
+# 下面把内参、外参、坐标系约定放在一起，程序实际读取的是
+#   calibration/camera_intrinsics.yaml
+#   calibration/camera_extrinsics.yaml
+# 本文件只做汇总说明，方便评审一目了然。
+
+camera:
+  type: "单目 RGB（USB，队长统一发放）"
+  resolution: [1280, 720]
+  fps_nominal: 30
+  fps_measured: 28.6
+  focus: "固定焦距、固定对焦；采集与现场测试使用同一台、同一分辨率"
+  interface: "USB / UVC（Linux 下 /dev/video0，Windows 下摄像头 0）"
+
+intrinsics:            # 见 calibration/camera_intrinsics.yaml
+  model: "fx=fy, 主点固定在画面中心, 畸变置 0"
+  fx: 1515.5
+  fy: 1515.5
+  cx: 639.5
+  cy: 359.5
+  dist_coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
+  rms_reprojection_px: 0.49
+  fov_deg: [45.8, 26.7]
+  board:
+    cols_inner: 6
+    rows_inner: 9
+    square_mm: 25.0
+    images_used: 24
+  caveat: "标定照片均为棋盘格平铺地面拍摄，焦距与高度耦合，fx 不确定度约 ±15%"
+
+extrinsics:            # 见 calibration/camera_extrinsics.yaml
+  frame: "ground_plane_origin_below_camera"
+  axes: {x: forward, y: left, z: up}
+  height_m: null       # 【填：实测值】
+  pitch_deg: null      # 【填】
+  roll_deg: null       # 【填】
+  method: "棋盘格平铺地面 + 实时网格核对，3~5 次记录取中位数"
+  status: "待实测（当前 yaml 里是占位值）"
+
+coordinate_convention:
+  map:
+    origin: "中圈圆心（= 整场中心）"
+    x: "指向唯一球门"
+    y: "面向 +X 时的左侧"
+    z: "垂直地面向上, 地面 Z=0"
+    yaw: "从 +X 逆时针为正, 单位度"
+  carrier:
+    origin: "相机光心在地面的投影点"
+    note: "本工程相机与载体刚性固定，carrier 与 camera 位姿一致"
