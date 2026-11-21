@@ -1,0 +1,26 @@
+# 升蹲动作组
+steps:
+  # 起始中立位
+  - goals:
+      - {id: 2, pwm: 1500, duration_ms: 3000}
+      - {id: 9, pwm: 1500, duration_ms: 3000}
+      - {id: 3, pwm: 1500, duration_ms: 3000}
+      - {id: 8, pwm: 1500, duration_ms: 3000}
+
+  # 先让 2、9 号舵机动作
+  - goals:
+      - {id: 2, pwm: 1810, duration_ms: 3000}
+      - {id: 9, pwm: 1178, duration_ms: 3000}
+
+  # 再让 3、8 号舵机动作
+  - goals:
+      - {id: 3, pwm: 1907, duration_ms: 3000}
+      - {id: 8, pwm: 1084, duration_ms: 3000}
+
+  # 复原 3、8 号舵机，再复原 2、9 号舵机
+  - goals:
+      - {id: 3, pwm: 1500, duration_ms: 3000}
+      - {id: 8, pwm: 1500, duration_ms: 3000}
+  - goals:
+      - {id: 2, pwm: 1500, duration_ms: 3000}
+      - {id: 9, pwm: 1500, duration_ms: 3000}

@@ -1,0 +1,14 @@
+# Goal：希望哪个舵机怎样运动
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# Result：最终是否完成，以及读回位置
+bool success
+uint16 final_pwm
+string message
+---
+# Feedback：运动过程中的状态
+uint8 id
+uint16 current_pwm
+float32 progress
