@@ -1,0 +1,38 @@
+action_name: 分步渐进半蹲
+steps:
+  - step_name: 髋关节同步前倾
+    joints:
+      - id: 3
+        target_pwm: 1400
+        duration_ms: 1000
+      - id: 4
+        target_pwm: 1400
+        duration_ms: 1000
+
+  - step_name: 膝关节同步弯曲
+    joints:
+      - id: 5
+        target_pwm: 1700
+        duration_ms: 1000
+      - id: 6
+        target_pwm: 1700
+        duration_ms: 1000
+
+  - step_name: 膝关节同步伸直
+    joints:
+      - id: 5
+        target_pwm: 1500
+        duration_ms: 1000
+      - id: 6
+        target_pwm: 1500
+        duration_ms: 1000
+
+  - step_name: 髋关节同步回正
+    joints:
+      - id: 3
+        target_pwm: 1500
+        duration_ms: 1000
+      - id: 4
+        target_pwm: 1500
+        duration_ms: 1000
+
