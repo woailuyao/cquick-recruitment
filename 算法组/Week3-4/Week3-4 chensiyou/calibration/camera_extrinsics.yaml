@@ -1,0 +1,7 @@
+
+
+camera_height_m: 0.5       
+pitch_down_deg: 15.0       
+roll_deg: 0.0              
+yaw_deg: 0.0               
+calibration_method: "Manual measurement with tape measure and phone level" 
