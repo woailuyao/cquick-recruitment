@@ -1,0 +1,12 @@
+# 注意：最外层 key 必须等于节点名（launch 里 Node(name='servo_driver')），
+# 写错不会报错，只会静默不加载，然后用 ros2 param get 才发现全是默认值。
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    servo_ids: [1, 2, 3, 4, 5, 6]
+    startup_reset: true
+    dry_run: false

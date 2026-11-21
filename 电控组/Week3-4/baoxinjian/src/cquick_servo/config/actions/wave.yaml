@@ -1,0 +1,35 @@
+# 动作组：挥手
+# 这一套刻意写成「先单独动一个关节，再两个一起动」，
+# 用来证明 step 切割能表达先后关系，而不是靠 duration_ms 硬凑。
+name: wave
+description: 一个关节先到位，另一个随后跟上，再来回摆两次
+
+steps:
+  - - id: 2
+      pwm: 1700
+      duration_ms: 800
+
+  - - id: 1
+      pwm: 1400
+      duration_ms: 700
+
+  - - id: 2
+      pwm: 1300
+      duration_ms: 500
+    - id: 1
+      pwm: 1600
+      duration_ms: 500
+
+  - - id: 2
+      pwm: 1750
+      duration_ms: 500
+    - id: 1
+      pwm: 1450
+      duration_ms: 500
+
+  - - id: 1
+      pwm: 1500
+      duration_ms: 600
+    - id: 2
+      pwm: 1500
+      duration_ms: 600
