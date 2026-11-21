@@ -1,0 +1,7 @@
+# YOLO 数据集配置（由 tools/prepare_dataset.py 生成）
+# 不写绝对路径：根目录 = 本文件所在目录
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names: ['ball']
