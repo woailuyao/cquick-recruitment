@@ -1,0 +1,7 @@
+# field_geometry.yaml
+field_length: 9.0     # 场地长度 (X轴方向，米)
+field_width: 6.0      # 场地宽度 (Y轴方向，米)
+origin: "center"      # 原点在场地中心
+x_axis_direction: "指向唯一球门"
+y_axis_direction: "面向球门时的左侧"
+unit: "m"

@@ -1,0 +1,35 @@
+# 相机标定结果（由 calibrate_camera.py 生成）
+calibration_date: 2026-11-14 15:13:34
+image_width: 1280
+image_height: 720
+pattern_cols: 9
+pattern_rows: 9
+square_size_mm: 25.0
+num_images: 14
+rms_reprojection_error: 0.342875
+
+# 内参矩阵 3x3：[fx, 0, cx; 0, fy, cy; 0, 0, 1]
+camera_matrix:
+  - [1519.10828219, 0.00000000, 660.03221928]
+  - [0.00000000, 1523.24532081, 349.92193740]
+  - [0.00000000, 0.00000000, 1.00000000]
+
+# 畸变系数，OpenCV 顺序：[k1, k2, p1, p2, k3]
+dist_coeffs: [0.1992811883, -1.3968850972, 0.0026869538, 0.0032333293, 1.6183407952]
+
+# 每张图的重投影误差（px），用来找哪张图拖后腿
+per_image_rms:
+  - {image: img_00.jpg, rms_px: 0.2875}
+  - {image: img_01.jpg, rms_px: 0.3940}
+  - {image: img_02.jpg, rms_px: 0.3039}
+  - {image: img_03.jpg, rms_px: 0.3336}
+  - {image: img_04.jpg, rms_px: 0.2771}
+  - {image: img_05.jpg, rms_px: 0.2662}
+  - {image: img_06.jpg, rms_px: 0.2548}
+  - {image: img_10.jpg, rms_px: 0.4653}
+  - {image: img_11.jpg, rms_px: 0.3283}
+  - {image: img_12.jpg, rms_px: 0.4322}
+  - {image: img_13.jpg, rms_px: 0.4079}
+  - {image: img_14.jpg, rms_px: 0.2875}
+  - {image: img_15.jpg, rms_px: 0.3659}
+  - {image: img_16.jpg, rms_px: 0.3127}
