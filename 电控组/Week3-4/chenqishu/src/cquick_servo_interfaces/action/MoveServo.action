@@ -1,0 +1,15 @@
+# 走到目标位置
+uint8 id            # 舵机 ID
+uint16 pwm          # 目标 PWM
+uint16 duration_ms  # 用时（ms）
+
+---
+# 结果
+bool success        # 到底成没成
+uint16 final_pwm    # 最终 PRAD 读回的 PWM
+string message      # 失败原因：超限 / canceled / serial_error / not_reached / ok
+
+---
+# 反馈
+uint16 current_pwm  # 当前（估算）PWM
+float32 progress    # 进度 0.0 ~ 1.0
