@@ -1,0 +1,26 @@
+name: all_up
+# 10 个舵机同时抬起：第一段抬到 1700，第二段抬到 1800
+# 若某关节方向装反或幅度过大，只需改这里的 pwm 数值
+steps:
+  - commands:
+      - {id: 1, pwm: 1700, duration_ms: 800}
+      - {id: 2, pwm: 1700, duration_ms: 800}
+      - {id: 3, pwm: 1700, duration_ms: 800}
+      - {id: 4, pwm: 1700, duration_ms: 800}
+      - {id: 5, pwm: 1700, duration_ms: 800}
+      - {id: 6, pwm: 1700, duration_ms: 800}
+      - {id: 7, pwm: 1700, duration_ms: 800}
+      - {id: 8, pwm: 1700, duration_ms: 800}
+      - {id: 9, pwm: 1700, duration_ms: 800}
+      - {id: 10, pwm: 1700, duration_ms: 800}
+  - commands:
+      - {id: 1, pwm: 1800, duration_ms: 1200}
+      - {id: 2, pwm: 1800, duration_ms: 1200}
+      - {id: 3, pwm: 1800, duration_ms: 1200}
+      - {id: 4, pwm: 1800, duration_ms: 1200}
+      - {id: 5, pwm: 1800, duration_ms: 1200}
+      - {id: 6, pwm: 1800, duration_ms: 1200}
+      - {id: 7, pwm: 1800, duration_ms: 1200}
+      - {id: 8, pwm: 1800, duration_ms: 1200}
+      - {id: 9, pwm: 1800, duration_ms: 1200}
+      - {id: 10, pwm: 1800, duration_ms: 1200}

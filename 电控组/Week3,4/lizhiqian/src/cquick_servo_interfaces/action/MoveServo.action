@@ -1,0 +1,13 @@
+# Goal：一条完整指令
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# Result：是否成功、原因、最终位置
+bool success
+string message
+uint16 final_pwm
+---
+# Feedback：当前 pwm 和进度 0~1
+uint16 current_pwm
+float32 progress
