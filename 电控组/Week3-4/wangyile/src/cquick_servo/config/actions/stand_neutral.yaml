@@ -1,0 +1,14 @@
+action_name: stand_neutral
+steps:
+  # 全部 10 个关节并发回到校准直立姿态 (1500 + offset)
+  - joints:
+      - { id: 1, pwm: 1509, duration_ms: 800 }
+      - { id: 2, pwm: 1381, duration_ms: 800 }
+      - { id: 3, pwm: 1478, duration_ms: 800 }
+      - { id: 4, pwm: 1544, duration_ms: 800 }
+      - { id: 5, pwm: 1619, duration_ms: 800 }
+      - { id: 6, pwm: 1449, duration_ms: 800 }
+      - { id: 7, pwm: 1432, duration_ms: 800 }
+      - { id: 8, pwm: 1635, duration_ms: 800 }
+      - { id: 9, pwm: 1480, duration_ms: 800 }
+      - { id: 10, pwm: 1510, duration_ms: 800 }

@@ -1,0 +1,13 @@
+action_name: stand_up
+steps:
+  - joints:
+      - { id: 1, pwm: 1650, duration_ms: 800 }
+      - { id: 2, pwm: 1350, duration_ms: 800 }
+  - joints:
+      - { id: 3, pwm: 1700, duration_ms: 700 }
+      - { id: 4, pwm: 1300, duration_ms: 700 }
+  - joints:
+      - { id: 1, pwm: 1500, duration_ms: 800 }
+      - { id: 2, pwm: 1500, duration_ms: 800 }
+      - { id: 3, pwm: 1500, duration_ms: 800 }
+      - { id: 4, pwm: 1500, duration_ms: 800 }
