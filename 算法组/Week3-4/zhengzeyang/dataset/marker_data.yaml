@@ -1,0 +1,10 @@
+path: C:/Users/wen/Desktop/ltx_dataset_3cls
+train: images/train
+val: images/val
+test: images/test
+
+nc: 3
+names:
+  0: LCross
+  1: TCross
+  2: XCross
