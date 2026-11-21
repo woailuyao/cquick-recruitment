@@ -1,0 +1,15 @@
+# 相机与图像采集参数
+# 任务 1（足球）与任务 2（场地标志）使用同一台相机采集与演示。
+
+camera:
+  type: "单目 RGB 摄像头"
+  interface: "USB / 内置摄像头"
+  device_node:
+    windows: "cv2.VideoCapture(0, cv2.CAP_DSHOW)  # 索引 0"
+    linux: "/dev/video0"
+  resolution: [1280, 720]
+  capture_fps: 30
+  effective_fps: "10~15（含 YOLOv8n CPU 推理）"
+  lens: "固定焦距、固定对焦"
+  focus: "关闭自动对焦与数码变焦"
+  note: "采集、标定、演示全程使用同一台相机，未更换、未变焦"
