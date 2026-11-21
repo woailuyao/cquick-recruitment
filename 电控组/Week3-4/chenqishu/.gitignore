@@ -1,0 +1,22 @@
+# ROS 2 / Python 构建产物
+build/
+install/
+log/
+
+# Python 缓存
+__pycache__/
+*.pyc
+*.pyo
+
+# bag 只保留 run1，其他不交
+*.db3-journal
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# 录屏不进仓库（一律发 B 站）
+*.mp4
+*.avi

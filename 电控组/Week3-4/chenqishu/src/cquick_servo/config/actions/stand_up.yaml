@@ -1,0 +1,34 @@
+# 动作组 1：从趴着到站起来
+# 结构规则：
+#   steps 是有序列表，按顺序执行
+#   每个 step 里的 joints 会【并行】下发（同时动）
+#   step 之间要等上一步所有 result 回来才发下一步
+#   duration_ms 给太小会猛跳撞结构，这里统一 600~900 ms
+
+name: stand_up
+
+steps:
+  # ① 先把所有关节松开到中间位置，避免一下子顶住
+  - name: 归中
+    joints:
+      - {id: 0, pwm: 1500, duration_ms: 700}
+      - {id: 1, pwm: 1500, duration_ms: 700}
+      - {id: 2, pwm: 1500, duration_ms: 700}
+
+  # ② 两个前腿同时抬起（并行）
+  - name: 抬前腿
+    joints:
+      - {id: 0, pwm: 1750, duration_ms: 800}
+      - {id: 1, pwm: 1750, duration_ms: 800}
+
+  # ③ 后腿跟着撑起来
+  - name: 撑后腿
+    joints:
+      - {id: 2, pwm: 1250, duration_ms: 900}
+
+  # ④ 微调回站立姿态
+  - name: 站稳
+    joints:
+      - {id: 0, pwm: 1650, duration_ms: 600}
+      - {id: 1, pwm: 1650, duration_ms: 600}
+      - {id: 2, pwm: 1350, duration_ms: 600}

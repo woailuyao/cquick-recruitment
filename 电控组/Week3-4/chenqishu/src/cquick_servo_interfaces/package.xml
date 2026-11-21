@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo_interfaces</name>
+  <version>0.1.0</version>
+  <description>舵机接口定义：ServoCommand 消息 + MoveServo 动作</description>
+  <maintainer email="chenqishu@todo.todo">chenqishu</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 编译期：生成接口代码 -->
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- 运行期：加载接口类型 -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- 声明本包是接口包，少了这行别人引用不到 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
