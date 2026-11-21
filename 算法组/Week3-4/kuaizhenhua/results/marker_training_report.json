@@ -1,0 +1,30 @@
+{
+  "kind": "marker",
+  "started_at": "2026-11-18T17:47:53.422329+08:00",
+  "finished_at": "2026-11-18T17:50:54.969285+08:00",
+  "elapsed_seconds": 181.5476837999886,
+  "epochs": 40,
+  "imgsz": 960,
+  "batch": 6,
+  "initialization": "previous 60-epoch marker model",
+  "evaluation": "training images only; NOT independent validation",
+  "independent_validation": false,
+  "metrics": {
+    "metrics/precision(B)": 0.9957175439814065,
+    "metrics/recall(B)": 0.9986511074224668,
+    "metrics/mAP50(B)": 0.995,
+    "metrics/mAP50-95(B)": 0.8359442053944365,
+    "fitness": 0.8359442053944365
+  },
+  "weights_sha256": "f3242f3dad6e1f3c21afa443174af7e0dc2c7e8ff7706eac6c1bf421d112afc0",
+  "weights_file": "marker_best.pt",
+  "torch": "2.7.1+cu128",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+  "speed_ms_per_image": {
+    "preprocess": 0.6435341453719203,
+    "inference": 2.0689000009996366,
+    "loss": 0.0008024394557606884,
+    "postprocess": 0.9021926823884203
+  },
+  "weights_bytes": 6282865
+}

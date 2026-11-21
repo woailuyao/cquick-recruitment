@@ -1,0 +1,14 @@
+local_data/
+weights/
+runs/
+outputs/
+Ultralytics/
+.pytest_cache/
+.venv/
+__pycache__/
+*.pyc
+*.cache
+*.pt
+*.engine
+*.avi
+*.mp4

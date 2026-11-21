@@ -1,0 +1,189 @@
+{
+  "created_at": "2026-11-19T13:28:54.808490+08:00",
+  "method": "known-size sphere angular diameter + assumed unchanged camera tilt/height across clips004/005",
+  "status": "video_estimate",
+  "assumed_ball_diameter_m": 0.22,
+  "assumption_source": "https://www.theifab.com/laws/latest/the-ball/",
+  "assumption_note": "Typical regulation ball circumference 68-70 cm. Actual ball size and unchanged cross-clip rig pose are assumptions, not measurements.",
+  "unrounded_median_metres_per_unit": 3.0396287971298666,
+  "estimated_metres_per_unit": 3.0,
+  "sample_count": 17,
+  "sample_range": [
+    2.632146197036333,
+    3.0396287971298666
+  ],
+  "sample_spread_is_not_accuracy_bound": true,
+  "metric_scale_verified": false,
+  "samples": [
+    {
+      "source_frame_index_0based": 0,
+      "bbox": [
+        803,
+        208,
+        906,
+        310
+      ],
+      "metres_per_unit": 2.953701315183059
+    },
+    {
+      "source_frame_index_0based": 54,
+      "bbox": [
+        803,
+        208,
+        906,
+        310
+      ],
+      "metres_per_unit": 2.953701315183059
+    },
+    {
+      "source_frame_index_0based": 109,
+      "bbox": [
+        800,
+        214,
+        922,
+        336
+      ],
+      "metres_per_unit": 2.632146197036333
+    },
+    {
+      "source_frame_index_0based": 272,
+      "bbox": [
+        925,
+        246,
+        1059,
+        381
+      ],
+      "metres_per_unit": 2.64265581657149
+    },
+    {
+      "source_frame_index_0based": 1201,
+      "bbox": [
+        685,
+        163,
+        774,
+        253
+      ],
+      "metres_per_unit": 2.9331621720349688
+    },
+    {
+      "source_frame_index_0based": 1255,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1310,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1364,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1419,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1474,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1528,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1583,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1637,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1692,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1746,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1801,
+      "bbox": [
+        707,
+        179,
+        797,
+        269
+      ],
+      "metres_per_unit": 3.0396287971298666
+    },
+    {
+      "source_frame_index_0based": 1856,
+      "bbox": [
+        256,
+        259,
+        397,
+        400
+      ],
+      "metres_per_unit": 2.6819473174816926
+    }
+  ]
+}

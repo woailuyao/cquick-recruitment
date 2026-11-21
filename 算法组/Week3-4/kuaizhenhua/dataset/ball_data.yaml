@@ -1,0 +1,10 @@
+{
+  "path": "./local_data/ball",
+  "train": "images/train",
+  "val": "images/val",
+  "nc": 1,
+  "names": [
+    "ball"
+  ],
+  "test": "images/test"
+}

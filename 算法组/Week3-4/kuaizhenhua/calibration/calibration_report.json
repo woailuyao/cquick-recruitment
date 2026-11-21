@@ -1,0 +1,530 @@
+{
+  "calibration_all": {
+    "overall_rms_px": 0.662304461305761,
+    "K": [
+      [
+        1624.282123018917,
+        0.0,
+        709.1721593312034
+      ],
+      [
+        0.0,
+        1621.2262123567696,
+        362.7541962207473
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "D_k1_k2_p1_p2_k3": [
+      0.22322393912217178,
+      -0.6253105823503361,
+      0.0005421092406394289,
+      0.011118283037008484,
+      -1.3595116606941955
+    ],
+    "per_image": [
+      {
+        "file": "chessboard_20261116T131706_420462_7fceb888.png",
+        "rms_px": 0.28011056780815125,
+        "max_point_error_px": 0.6860003471374512,
+        "p95_error_px": 0.5881863236427307,
+        "normal_tilt_degrees": 1.1697879209479665
+      },
+      {
+        "file": "chessboard_20261116T131709_747391_89fe3239.png",
+        "rms_px": 0.41390231251716614,
+        "max_point_error_px": 1.2577110528945923,
+        "p95_error_px": 0.6834568977355957,
+        "normal_tilt_degrees": 1.113151829357592
+      },
+      {
+        "file": "chessboard_20261116T131710_916170_62900a6f.png",
+        "rms_px": 0.5350344181060791,
+        "max_point_error_px": 1.5785104036331177,
+        "p95_error_px": 1.0937055349349976,
+        "normal_tilt_degrees": 1.9177611080456785
+      },
+      {
+        "file": "chessboard_20261116T131711_988935_ef0daae1.png",
+        "rms_px": 0.5619491934776306,
+        "max_point_error_px": 1.0354987382888794,
+        "p95_error_px": 0.8617467880249023,
+        "normal_tilt_degrees": 0.418253012684316
+      },
+      {
+        "file": "chessboard_20261116T131713_060824_5ac2c2c2.png",
+        "rms_px": 0.4495730400085449,
+        "max_point_error_px": 1.421324610710144,
+        "p95_error_px": 0.8369497656822205,
+        "normal_tilt_degrees": 2.1345424143462326
+      },
+      {
+        "file": "chessboard_20261116T131715_412455_91ee06cd.png",
+        "rms_px": 0.6230971217155457,
+        "max_point_error_px": 1.2711467742919922,
+        "p95_error_px": 1.090664267539978,
+        "normal_tilt_degrees": 9.94239060705488
+      },
+      {
+        "file": "chessboard_20261116T131716_419427_cee45065.png",
+        "rms_px": 0.4056805670261383,
+        "max_point_error_px": 1.008256435394287,
+        "p95_error_px": 0.6287768483161926,
+        "normal_tilt_degrees": 11.139768535247674
+      },
+      {
+        "file": "chessboard_20261116T131717_220394_25b73a38.png",
+        "rms_px": 0.3883327543735504,
+        "max_point_error_px": 1.3897813558578491,
+        "p95_error_px": 0.6320760250091553,
+        "normal_tilt_degrees": 11.286287511859248
+      },
+      {
+        "file": "chessboard_20261116T131722_692608_4eaa6b5b.png",
+        "rms_px": 0.5535735487937927,
+        "max_point_error_px": 1.4780117273330688,
+        "p95_error_px": 1.005677580833435,
+        "normal_tilt_degrees": 13.61704495036361
+      },
+      {
+        "file": "chessboard_20261116T131723_957158_bd0bcf57.png",
+        "rms_px": 0.4466959238052368,
+        "max_point_error_px": 1.1272746324539185,
+        "p95_error_px": 0.7027216553688049,
+        "normal_tilt_degrees": 12.406903159401514
+      },
+      {
+        "file": "chessboard_20261116T131725_013152_ccbe4007.png",
+        "rms_px": 0.41753560304641724,
+        "max_point_error_px": 1.1015291213989258,
+        "p95_error_px": 0.7158854007720947,
+        "normal_tilt_degrees": 13.246634585595567
+      },
+      {
+        "file": "chessboard_20261116T131729_988808_c161e626.png",
+        "rms_px": 0.7978650331497192,
+        "max_point_error_px": 1.9684535264968872,
+        "p95_error_px": 1.667608380317688,
+        "normal_tilt_degrees": 24.335039082174863
+      },
+      {
+        "file": "chessboard_20261116T131730_885039_f04c774d.png",
+        "rms_px": 0.8172510862350464,
+        "max_point_error_px": 2.233250856399536,
+        "p95_error_px": 1.4246429204940796,
+        "normal_tilt_degrees": 24.043778827516867
+      },
+      {
+        "file": "chessboard_20261116T131732_148648_8a4b39fb.png",
+        "rms_px": 0.8854678273200989,
+        "max_point_error_px": 2.117943048477173,
+        "p95_error_px": 1.9284180402755737,
+        "normal_tilt_degrees": 23.34003566960365
+      },
+      {
+        "file": "chessboard_20261116T131733_957112_a669fcda.png",
+        "rms_px": 1.117820382118225,
+        "max_point_error_px": 2.5495309829711914,
+        "p95_error_px": 2.1776773929595947,
+        "normal_tilt_degrees": 24.800015712961187
+      },
+      {
+        "file": "chessboard_20261116T131743_220569_cc7dce22.png",
+        "rms_px": 0.817719042301178,
+        "max_point_error_px": 2.4117162227630615,
+        "p95_error_px": 1.695205569267273,
+        "normal_tilt_degrees": 27.040499727228127
+      },
+      {
+        "file": "chessboard_20261116T131752_613101_dd105e7c.png",
+        "rms_px": 0.5176653861999512,
+        "max_point_error_px": 1.1921442747116089,
+        "p95_error_px": 1.0563408136367798,
+        "normal_tilt_degrees": 30.764582259891572
+      },
+      {
+        "file": "chessboard_20261116T131753_381174_9e57ebae.png",
+        "rms_px": 1.382807970046997,
+        "max_point_error_px": 7.153757095336914,
+        "p95_error_px": 1.6660503149032593,
+        "normal_tilt_degrees": 29.99641530717275
+      },
+      {
+        "file": "chessboard_20261116T131758_709131_93b6ebaa.png",
+        "rms_px": 0.468003511428833,
+        "max_point_error_px": 1.2137982845306396,
+        "p95_error_px": 0.9095900058746338,
+        "normal_tilt_degrees": 37.56451452324035
+      },
+      {
+        "file": "chessboard_20261116T131759_381301_26a3a833.png",
+        "rms_px": 0.5045865178108215,
+        "max_point_error_px": 1.484545111656189,
+        "p95_error_px": 0.9910810589790344,
+        "normal_tilt_degrees": 36.81656044801188
+      },
+      {
+        "file": "chessboard_20261116T131805_845356_cc692d20.png",
+        "rms_px": 0.7348816990852356,
+        "max_point_error_px": 2.23512601852417,
+        "p95_error_px": 1.5145395994186401,
+        "normal_tilt_degrees": 37.833793465827746
+      },
+      {
+        "file": "chessboard_20261116T131807_108766_7132917e.png",
+        "rms_px": 0.7331368327140808,
+        "max_point_error_px": 1.8966772556304932,
+        "p95_error_px": 1.413636326789856,
+        "normal_tilt_degrees": 37.42421519801632
+      },
+      {
+        "file": "chessboard_20261116T131809_205230_4e9d5389.png",
+        "rms_px": 0.7231186628341675,
+        "max_point_error_px": 2.4207568168640137,
+        "p95_error_px": 1.5558162927627563,
+        "normal_tilt_degrees": 37.175525919286585
+      },
+      {
+        "file": "chessboard_20261116T131817_509352_5721bbb7.png",
+        "rms_px": 0.5375717878341675,
+        "max_point_error_px": 1.4951300621032715,
+        "p95_error_px": 1.1045821905136108,
+        "normal_tilt_degrees": 16.265189524849333
+      },
+      {
+        "file": "chessboard_20261116T131820_469798_089c1e32.png",
+        "rms_px": 0.5723874568939209,
+        "max_point_error_px": 1.6992539167404175,
+        "p95_error_px": 1.0156598091125488,
+        "normal_tilt_degrees": 24.64663941073635
+      },
+      {
+        "file": "chessboard_20261116T131821_478246_b59407c5.png",
+        "rms_px": 0.5158298015594482,
+        "max_point_error_px": 1.7447930574417114,
+        "p95_error_px": 0.966424286365509,
+        "normal_tilt_degrees": 26.263914877156513
+      },
+      {
+        "file": "chessboard_20261116T131822_741696_8a1aaf99.png",
+        "rms_px": 0.4852515161037445,
+        "max_point_error_px": 1.3704166412353516,
+        "p95_error_px": 1.062636375427246,
+        "normal_tilt_degrees": 27.293223407433363
+      },
+      {
+        "file": "chessboard_20261116T131827_142064_7433f024.png",
+        "rms_px": 0.4914363622665405,
+        "max_point_error_px": 1.2719367742538452,
+        "p95_error_px": 0.8705843687057495,
+        "normal_tilt_degrees": 38.88143116259159
+      },
+      {
+        "file": "chessboard_20261116T131828_406081_cd60b0eb.png",
+        "rms_px": 0.5671325922012329,
+        "max_point_error_px": 1.391412377357483,
+        "p95_error_px": 1.2144367694854736,
+        "normal_tilt_degrees": 40.7068248965078
+      },
+      {
+        "file": "chessboard_20261116T131829_701782_6db2fc73.png",
+        "rms_px": 0.49843862652778625,
+        "max_point_error_px": 1.2573128938674927,
+        "p95_error_px": 1.0365395545959473,
+        "normal_tilt_degrees": 41.05218149664797
+      },
+      {
+        "file": "chessboard_20261116T131835_877973_172f523c.png",
+        "rms_px": 1.0093729496002197,
+        "max_point_error_px": 2.2606914043426514,
+        "p95_error_px": 1.759683609008789,
+        "normal_tilt_degrees": 5.9637985343147255
+      },
+      {
+        "file": "chessboard_20261116T131837_845408_7dc70961.png",
+        "rms_px": 0.7685331106185913,
+        "max_point_error_px": 1.3045023679733276,
+        "p95_error_px": 1.2592682838439941,
+        "normal_tilt_degrees": 4.992533899467554
+      },
+      {
+        "file": "chessboard_20261116T131838_933855_46d2eaf4.png",
+        "rms_px": 0.4871442914009094,
+        "max_point_error_px": 1.403103232383728,
+        "p95_error_px": 0.8026372194290161,
+        "normal_tilt_degrees": 6.252085805240409
+      }
+    ]
+  },
+  "coverage": {
+    "bbox_xyxy": [
+      66.03627014160156,
+      84.93061828613281,
+      841.6680297851562,
+      640.9213256835938
+    ],
+    "image_wh": [
+      1280,
+      720
+    ],
+    "centers_range_fraction": [
+      0.24966068267822267,
+      0.4013967725965712,
+      0.37153656482696534,
+      0.5754008399115669
+    ]
+  },
+  "sensitivity_exclude_worst3": {
+    "overall_rms_px": 0.580710379826015,
+    "K": [
+      [
+        1625.953846289995,
+        0.0,
+        714.700742628248
+      ],
+      [
+        0.0,
+        1622.221192437015,
+        363.4574446216614
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "D_k1_k2_p1_p2_k3": [
+      0.19263262911735385,
+      -0.46559566688271464,
+      -0.0006645615393847223,
+      0.010181611269078008,
+      -1.6068394568349602
+    ],
+    "per_image": [
+      {
+        "file": "chessboard_20261116T131706_420462_7fceb888.png",
+        "rms_px": 0.2771940231323242,
+        "max_point_error_px": 0.6511717438697815,
+        "p95_error_px": 0.5775259137153625,
+        "normal_tilt_degrees": 1.1313700903523312
+      },
+      {
+        "file": "chessboard_20261116T131709_747391_89fe3239.png",
+        "rms_px": 0.37916091084480286,
+        "max_point_error_px": 1.1106880903244019,
+        "p95_error_px": 0.6610220074653625,
+        "normal_tilt_degrees": 1.0541495139169967
+      },
+      {
+        "file": "chessboard_20261116T131710_916170_62900a6f.png",
+        "rms_px": 0.49266859889030457,
+        "max_point_error_px": 1.4870591163635254,
+        "p95_error_px": 0.9526316523551941,
+        "normal_tilt_degrees": 1.8497789283378254
+      },
+      {
+        "file": "chessboard_20261116T131711_988935_ef0daae1.png",
+        "rms_px": 0.6102633476257324,
+        "max_point_error_px": 1.1539416313171387,
+        "p95_error_px": 0.9119353890419006,
+        "normal_tilt_degrees": 0.4771284044420724
+      },
+      {
+        "file": "chessboard_20261116T131713_060824_5ac2c2c2.png",
+        "rms_px": 0.4082064628601074,
+        "max_point_error_px": 1.257812261581421,
+        "p95_error_px": 0.7550821304321289,
+        "normal_tilt_degrees": 2.162096968225428
+      },
+      {
+        "file": "chessboard_20261116T131715_412455_91ee06cd.png",
+        "rms_px": 0.5939169526100159,
+        "max_point_error_px": 1.193652629852295,
+        "p95_error_px": 1.0373607873916626,
+        "normal_tilt_degrees": 9.850989893318086
+      },
+      {
+        "file": "chessboard_20261116T131716_419427_cee45065.png",
+        "rms_px": 0.3864766061306,
+        "max_point_error_px": 0.9353859424591064,
+        "p95_error_px": 0.6033334732055664,
+        "normal_tilt_degrees": 11.039488164716378
+      },
+      {
+        "file": "chessboard_20261116T131717_220394_25b73a38.png",
+        "rms_px": 0.37372732162475586,
+        "max_point_error_px": 1.330315113067627,
+        "p95_error_px": 0.6256673336029053,
+        "normal_tilt_degrees": 11.178845754276626
+      },
+      {
+        "file": "chessboard_20261116T131722_692608_4eaa6b5b.png",
+        "rms_px": 0.5416977405548096,
+        "max_point_error_px": 1.4487868547439575,
+        "p95_error_px": 0.995582640171051,
+        "normal_tilt_degrees": 13.451599720381408
+      },
+      {
+        "file": "chessboard_20261116T131723_957158_bd0bcf57.png",
+        "rms_px": 0.44947630167007446,
+        "max_point_error_px": 1.16854989528656,
+        "p95_error_px": 0.7028111815452576,
+        "normal_tilt_degrees": 12.225381225284462
+      },
+      {
+        "file": "chessboard_20261116T131725_013152_ccbe4007.png",
+        "rms_px": 0.4160868227481842,
+        "max_point_error_px": 1.0649105310440063,
+        "p95_error_px": 0.7605457901954651,
+        "normal_tilt_degrees": 13.072470029899272
+      },
+      {
+        "file": "chessboard_20261116T131729_988808_c161e626.png",
+        "rms_px": 0.7661493420600891,
+        "max_point_error_px": 1.8546006679534912,
+        "p95_error_px": 1.6519107818603516,
+        "normal_tilt_degrees": 24.5091921446688
+      },
+      {
+        "file": "chessboard_20261116T131730_885039_f04c774d.png",
+        "rms_px": 0.7829292416572571,
+        "max_point_error_px": 2.2449843883514404,
+        "p95_error_px": 1.4945573806762695,
+        "normal_tilt_degrees": 24.22864241357525
+      },
+      {
+        "file": "chessboard_20261116T131732_148648_8a4b39fb.png",
+        "rms_px": 0.8764246106147766,
+        "max_point_error_px": 2.0589041709899902,
+        "p95_error_px": 1.837371826171875,
+        "normal_tilt_degrees": 23.521919965009644
+      },
+      {
+        "file": "chessboard_20261116T131743_220569_cc7dce22.png",
+        "rms_px": 0.8197384476661682,
+        "max_point_error_px": 2.3650972843170166,
+        "p95_error_px": 1.7078120708465576,
+        "normal_tilt_degrees": 27.006976785830567
+      },
+      {
+        "file": "chessboard_20261116T131752_613101_dd105e7c.png",
+        "rms_px": 0.5203505158424377,
+        "max_point_error_px": 1.195652723312378,
+        "p95_error_px": 1.0719237327575684,
+        "normal_tilt_degrees": 30.72297258122067
+      },
+      {
+        "file": "chessboard_20261116T131758_709131_93b6ebaa.png",
+        "rms_px": 0.45508575439453125,
+        "max_point_error_px": 1.1845964193344116,
+        "p95_error_px": 0.9067023396492004,
+        "normal_tilt_degrees": 37.508696374127496
+      },
+      {
+        "file": "chessboard_20261116T131759_381301_26a3a833.png",
+        "rms_px": 0.49960407614707947,
+        "max_point_error_px": 1.4807602167129517,
+        "p95_error_px": 0.9739406108856201,
+        "normal_tilt_degrees": 36.76435456471402
+      },
+      {
+        "file": "chessboard_20261116T131805_845356_cc692d20.png",
+        "rms_px": 0.727728545665741,
+        "max_point_error_px": 2.3240010738372803,
+        "p95_error_px": 1.523854374885559,
+        "normal_tilt_degrees": 37.86255326761166
+      },
+      {
+        "file": "chessboard_20261116T131807_108766_7132917e.png",
+        "rms_px": 0.7126507759094238,
+        "max_point_error_px": 1.7738171815872192,
+        "p95_error_px": 1.4294652938842773,
+        "normal_tilt_degrees": 37.448583429502534
+      },
+      {
+        "file": "chessboard_20261116T131809_205230_4e9d5389.png",
+        "rms_px": 0.726192057132721,
+        "max_point_error_px": 2.432880401611328,
+        "p95_error_px": 1.5523337125778198,
+        "normal_tilt_degrees": 37.19535383998075
+      },
+      {
+        "file": "chessboard_20261116T131817_509352_5721bbb7.png",
+        "rms_px": 0.5258714556694031,
+        "max_point_error_px": 1.4594963788986206,
+        "p95_error_px": 1.1035737991333008,
+        "normal_tilt_degrees": 16.076204246012754
+      },
+      {
+        "file": "chessboard_20261116T131820_469798_089c1e32.png",
+        "rms_px": 0.5532817244529724,
+        "max_point_error_px": 1.6349245309829712,
+        "p95_error_px": 0.9836485981941223,
+        "normal_tilt_degrees": 24.458865250078762
+      },
+      {
+        "file": "chessboard_20261116T131821_478246_b59407c5.png",
+        "rms_px": 0.5155789852142334,
+        "max_point_error_px": 1.7184398174285889,
+        "p95_error_px": 0.9456231594085693,
+        "normal_tilt_degrees": 26.073102382281665
+      },
+      {
+        "file": "chessboard_20261116T131822_741696_8a1aaf99.png",
+        "rms_px": 0.47776558995246887,
+        "max_point_error_px": 1.3359917402267456,
+        "p95_error_px": 1.0671921968460083,
+        "normal_tilt_degrees": 27.10617838978457
+      },
+      {
+        "file": "chessboard_20261116T131827_142064_7433f024.png",
+        "rms_px": 0.5002881288528442,
+        "max_point_error_px": 1.2787531614303589,
+        "p95_error_px": 0.9183146953582764,
+        "normal_tilt_degrees": 39.11463443468568
+      },
+      {
+        "file": "chessboard_20261116T131828_406081_cd60b0eb.png",
+        "rms_px": 0.578925609588623,
+        "max_point_error_px": 1.3770679235458374,
+        "p95_error_px": 1.2160108089447021,
+        "normal_tilt_degrees": 40.93718636834868
+      },
+      {
+        "file": "chessboard_20261116T131829_701782_6db2fc73.png",
+        "rms_px": 0.49986502528190613,
+        "max_point_error_px": 1.2553596496582031,
+        "p95_error_px": 1.0084927082061768,
+        "normal_tilt_degrees": 41.29935620946997
+      },
+      {
+        "file": "chessboard_20261116T131837_845408_7dc70961.png",
+        "rms_px": 0.8430235981941223,
+        "max_point_error_px": 1.4128860235214233,
+        "p95_error_px": 1.3418331146240234,
+        "normal_tilt_degrees": 5.125827373845131
+      },
+      {
+        "file": "chessboard_20261116T131838_933855_46d2eaf4.png",
+        "rms_px": 0.4989042580127716,
+        "max_point_error_px": 1.355320930480957,
+        "p95_error_px": 0.7955619096755981,
+        "normal_tilt_degrees": 6.397702374074176
+      }
+    ],
+    "excluded_files": [
+      "chessboard_20261116T131753_381174_9e57ebae.png",
+      "chessboard_20261116T131733_957112_a669fcda.png",
+      "chessboard_20261116T131835_877973_172f523c.png"
+    ]
+  },
+  "warnings": [
+    "Observed corners do not cover the rightmost 34.2 percent of image width.",
+    "One view has maximum corner reprojection error 7.15 pixels; see sensitivity analysis.",
+    "Screen square size/focus/zoom continuity are user confirmed, not independent measurements.",
+    "RMS is a calibration fit error, not field localization accuracy."
+  ]
+}

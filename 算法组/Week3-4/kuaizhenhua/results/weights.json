@@ -1,0 +1,14 @@
+{
+  "ball": {
+    "file": "ball_best.pt",
+    "sha256": "abad431653a5c98c66c92af510791cdef50e17c999091a1696933b5614b4e829",
+    "bytes": 6245553,
+    "download_url": "https://pan.baidu.com/s/1ltI9I2vObKr14ZxfbN5luw?pwd=9wu5"
+  },
+  "marker": {
+    "file": "marker_best.pt",
+    "sha256": "f3242f3dad6e1f3c21afa443174af7e0dc2c7e8ff7706eac6c1bf421d112afc0",
+    "bytes": 6282865,
+    "download_url": "https://pan.baidu.com/s/1ltI9I2vObKr14ZxfbN5luw?pwd=9wu5"
+  }
+}

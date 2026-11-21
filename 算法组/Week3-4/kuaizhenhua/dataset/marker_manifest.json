@@ -1,0 +1,2572 @@
+{
+  "created_at": "2026-11-16T20:08:37.735985+08:00",
+  "class_names": [
+    "LCross",
+    "TCross",
+    "XCross",
+    "PenaltyPoint"
+  ],
+  "count_images": 82,
+  "class_instances": {
+    "0": 36,
+    "1": 39,
+    "2": 35,
+    "3": 0
+  },
+  "independent_validation": false,
+  "validation_policy": "All images come from clip005. Any train-split metrics are fitting diagnostics, never independent validation.",
+  "exclusions": {
+    "1920": "Incorrect connected-component proposal on seam instead of visible X; excluded after full-frame review.",
+    "3300": "Other partially visible tape marker at bottom; excluded.",
+    "3360": "Other partially visible tape marker at right; excluded."
+  },
+  "images": [
+    {
+      "image": "images/train/m005_f000900.png",
+      "label": "labels/train/m005_f000900.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 900,
+      "receipt_iso_local": "2026-11-16T16:06:42.898760+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "cab398d1fea62191a73fd63c861abe04f7db6a415f75234dc81098b708f4ce4c",
+      "labels": [
+        {
+          "id": "f00900_b1",
+          "bbox": [
+            564,
+            346,
+            633,
+            392
+          ],
+          "mask_area": 1308,
+          "sharpness": 314.38704170900223,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f00900_b2",
+          "bbox": [
+            1022,
+            354,
+            1118,
+            407
+          ],
+          "mask_area": 2030,
+          "sharpness": 206.24246249499376,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        },
+        {
+          "id": "f00900_b3",
+          "bbox": [
+            65,
+            363,
+            143,
+            419
+          ],
+          "mask_area": 1503,
+          "sharpness": 210.6009287806592,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f000960.png",
+      "label": "labels/train/m005_f000960.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 960,
+      "receipt_iso_local": "2026-11-16T16:06:44.897706+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "253d2dc33fd2b46deb7cbcee084391aca7da6532422a89fc66181bdd5b33b993",
+      "labels": [
+        {
+          "id": "f00960_b3",
+          "bbox": [
+            158,
+            476,
+            225,
+            540
+          ],
+          "mask_area": 1612,
+          "sharpness": 167.6866905125724,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f00960_b4",
+          "bbox": [
+            643,
+            478,
+            705,
+            532
+          ],
+          "mask_area": 1340,
+          "sharpness": 238.22200061664162,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f00960_b5",
+          "bbox": [
+            1098,
+            508,
+            1188,
+            568
+          ],
+          "mask_area": 2154,
+          "sharpness": 155.4197085048011,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001020.png",
+      "label": "labels/train/m005_f001020.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1020,
+      "receipt_iso_local": "2026-11-16T16:06:46.899474+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "4835f2ab9c9237b4400081c29610862afaebb2f5d657dfdb2d2da9e94aab4651",
+      "labels": [
+        {
+          "id": "f01020_b5",
+          "bbox": [
+            116,
+            532,
+            183,
+            589
+          ],
+          "mask_area": 1048,
+          "sharpness": 469.3733948742801,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f01020_b6",
+          "bbox": [
+            603,
+            542,
+            663,
+            589
+          ],
+          "mask_area": 1038,
+          "sharpness": 573.3788455057592,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f01020_b7",
+          "bbox": [
+            1051,
+            576,
+            1138,
+            632
+          ],
+          "mask_area": 1677,
+          "sharpness": 347.1712692211249,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001320.png",
+      "label": "labels/train/m005_f001320.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1320,
+      "receipt_iso_local": "2026-11-16T16:06:56.891944+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "5856996d239ca13bda5f69293118dcc90f8587d6467d0ecd2ccbfc084626078e",
+      "labels": [
+        {
+          "id": "f01320_b4",
+          "bbox": [
+            457,
+            480,
+            530,
+            548
+          ],
+          "mask_area": 1985,
+          "sharpness": 198.6563698597671,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f01320_b5",
+          "bbox": [
+            988,
+            545,
+            1089,
+            627
+          ],
+          "mask_area": 3318,
+          "sharpness": 128.9847264510408,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001380.png",
+      "label": "labels/train/m005_f001380.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1380,
+      "receipt_iso_local": "2026-11-16T16:06:58.892889+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "4d431b8737efdbb10eb662f649a1a485a8834c2f59a5c47f77488521afda378f",
+      "labels": [
+        {
+          "id": "f01380_b3",
+          "bbox": [
+            27,
+            419,
+            116,
+            495
+          ],
+          "mask_area": 2484,
+          "sharpness": 178.58732283935444,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f01380_b4",
+          "bbox": [
+            607,
+            443,
+            687,
+            507
+          ],
+          "mask_area": 2149,
+          "sharpness": 235.70823726654052,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f01380_b5",
+          "bbox": [
+            1153,
+            503,
+            1265,
+            583
+          ],
+          "mask_area": 3640,
+          "sharpness": 141.46820711096936,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001440.png",
+      "label": "labels/train/m005_f001440.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1440,
+      "receipt_iso_local": "2026-11-16T16:07:00.893905+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "7926cd679e19ac8363f0c3746febea0b9e971d77b0719788077c3ec2fd83c0ff",
+      "labels": [
+        {
+          "id": "f01440_b0",
+          "bbox": [
+            95,
+            243,
+            197,
+            328
+          ],
+          "mask_area": 3895,
+          "sharpness": 117.80663520418682,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f01440_b1",
+          "bbox": [
+            718,
+            313,
+            832,
+            404
+          ],
+          "mask_area": 4163,
+          "sharpness": 173.66784470184672,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001500.png",
+      "label": "labels/train/m005_f001500.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1500,
+      "receipt_iso_local": "2026-11-16T16:07:02.894763+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "89aa1665de64b3a73b3aac1c62c2e92405585c09eff1c786c5013656cf8fbffa",
+      "labels": [
+        {
+          "id": "f01500_b0",
+          "bbox": [
+            121,
+            83,
+            281,
+            221
+          ],
+          "mask_area": 10676,
+          "sharpness": 160.13604415883938,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001620.png",
+      "label": "labels/train/m005_f001620.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1620,
+      "receipt_iso_local": "2026-11-16T16:07:06.896609+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "2d0abef6693ce1c3b3c199559fc875a235b1d1881c2bdc6efb6da2978fcb6a13",
+      "labels": [
+        {
+          "id": "f01620_b3",
+          "bbox": [
+            14,
+            185,
+            194,
+            338
+          ],
+          "mask_area": 11482,
+          "sharpness": 187.1639865747531,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001680.png",
+      "label": "labels/train/m005_f001680.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1680,
+      "receipt_iso_local": "2026-11-16T16:07:08.898361+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "4f150f351b5cf7904e0824d3c6eae84c55e0795684adcb097e1490a32e6cf4c7",
+      "labels": [
+        {
+          "id": "f01680_b1",
+          "bbox": [
+            632,
+            280,
+            834,
+            440
+          ],
+          "mask_area": 11987,
+          "sharpness": 140.67917598362752,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001740.png",
+      "label": "labels/train/m005_f001740.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1740,
+      "receipt_iso_local": "2026-11-16T16:07:10.901022+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "0953c574b59b408123ed530fa7e26319eb7d3a406c86b6adfd9caaea8f3e9d95",
+      "labels": [
+        {
+          "id": "f01740_b0",
+          "bbox": [
+            436,
+            328,
+            611,
+            483
+          ],
+          "mask_area": 10015,
+          "sharpness": 296.72807630011255,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001800.png",
+      "label": "labels/train/m005_f001800.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1800,
+      "receipt_iso_local": "2026-11-16T16:07:12.899698+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "4ac3f3febd66a3bf486681f98cba3afe53ad795ef1792091015370d692f07904",
+      "labels": [
+        {
+          "id": "f01800_b0",
+          "bbox": [
+            436,
+            40,
+            598,
+            211
+          ],
+          "mask_area": 11099,
+          "sharpness": 164.13079934172183,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001860.png",
+      "label": "labels/train/m005_f001860.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1860,
+      "receipt_iso_local": "2026-11-16T16:07:14.899057+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "2f03efb61960dcb105e99b248ec4523a2d42af85e81abc9654cd16eeaa17aa9f",
+      "labels": [
+        {
+          "id": "f01860_b0",
+          "bbox": [
+            419,
+            192,
+            613,
+            403
+          ],
+          "mask_area": 18237,
+          "sharpness": 96.24338071640142,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f001980.png",
+      "label": "labels/train/m005_f001980.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 1980,
+      "receipt_iso_local": "2026-11-16T16:07:18.899313+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "293e46252713a92aec7006f3f2da074e59e4d82045fb41180e1d77bd5299478f",
+      "labels": [
+        {
+          "id": "f01980_b7",
+          "bbox": [
+            665,
+            363,
+            820,
+            478
+          ],
+          "mask_area": 7386,
+          "sharpness": 180.1566325247999,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002100.png",
+      "label": "labels/train/m005_f002100.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2100,
+      "receipt_iso_local": "2026-11-16T16:07:22.896720+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "7b8709cd5e2a673f6b3b8d05981f4b952d9d08cc1bc452165ff21a6535a9bab5",
+      "labels": [
+        {
+          "id": "f02100_b0",
+          "bbox": [
+            548,
+            254,
+            716,
+            364
+          ],
+          "mask_area": 8879,
+          "sharpness": 94.15650151796255,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002220.png",
+      "label": "labels/train/m005_f002220.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2220,
+      "receipt_iso_local": "2026-11-16T16:07:26.893819+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "0081e9e78ee3f45da61d6800d7911b2bf7363d4fd60ae568eb5c55b40eeb0ef3",
+      "labels": [
+        {
+          "id": "f02220_b4",
+          "bbox": [
+            322,
+            281,
+            518,
+            432
+          ],
+          "mask_area": 9901,
+          "sharpness": 135.9661027947911,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002280.png",
+      "label": "labels/train/m005_f002280.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2280,
+      "receipt_iso_local": "2026-11-16T16:07:28.895006+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "ebd8e3356cb47003f4b5f4a9dd5780b976f2d3bceb5ef8804997ffb1df8da9da",
+      "labels": [
+        {
+          "id": "f02280_b0",
+          "bbox": [
+            272,
+            214,
+            488,
+            365
+          ],
+          "mask_area": 12831,
+          "sharpness": 94.03660525802992,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002400.png",
+      "label": "labels/train/m005_f002400.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2400,
+      "receipt_iso_local": "2026-11-16T16:07:32.895829+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "1cb11957dd2220ddf9ce768ea29c522b1e4273d0c8d3bd9411bf60f05422d10e",
+      "labels": [
+        {
+          "id": "f02400_b0",
+          "bbox": [
+            220,
+            262,
+            418,
+            401
+          ],
+          "mask_area": 12592,
+          "sharpness": 121.51316700634644,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002580.png",
+      "label": "labels/train/m005_f002580.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2580,
+      "receipt_iso_local": "2026-11-16T16:07:38.899314+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "7e277dc6a3e78750ef2d1eb2afde682b19d3c64b18d0802cb519b787823c62bb",
+      "labels": [
+        {
+          "id": "f02580_b0",
+          "bbox": [
+            74,
+            217,
+            330,
+            412
+          ],
+          "mask_area": 20580,
+          "sharpness": 93.67138004782011,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002640.png",
+      "label": "labels/train/m005_f002640.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2640,
+      "receipt_iso_local": "2026-11-16T16:07:40.900135+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "c4317617ac6bc9afcf0518861aa80937e8ac5f37db522a4c85c97b2b5d827cc6",
+      "labels": [
+        {
+          "id": "f02640_b3",
+          "bbox": [
+            466,
+            370,
+            682,
+            556
+          ],
+          "mask_area": 13523,
+          "sharpness": 192.76826366367513,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002700.png",
+      "label": "labels/train/m005_f002700.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2700,
+      "receipt_iso_local": "2026-11-16T16:07:42.899515+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "419402883f70efa448d1284ae594fff289c7d3c7079f7a4d06c8160433541c16",
+      "labels": [
+        {
+          "id": "f02700_b1",
+          "bbox": [
+            87,
+            359,
+            341,
+            557
+          ],
+          "mask_area": 17522,
+          "sharpness": 190.8129346235735,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002760.png",
+      "label": "labels/train/m005_f002760.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2760,
+      "receipt_iso_local": "2026-11-16T16:07:44.899775+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "29953013f764683ad80644362752507560c3aca9d8bc4c2a0d831215e8801570",
+      "labels": [
+        {
+          "id": "f02760_b1",
+          "bbox": [
+            687,
+            200,
+            894,
+            371
+          ],
+          "mask_area": 12853,
+          "sharpness": 177.81154275701246,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f002820.png",
+      "label": "labels/train/m005_f002820.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 2820,
+      "receipt_iso_local": "2026-11-16T16:07:46.899928+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "297eeb286ba3ed8910ca366bf37306d9a5d626a08c9daedf4d258c61dd23809a",
+      "labels": [
+        {
+          "id": "f02820_b0",
+          "bbox": [
+            460,
+            339,
+            633,
+            499
+          ],
+          "mask_area": 10168,
+          "sharpness": 303.5129440704981,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003120.png",
+      "label": "labels/train/m005_f003120.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3120,
+      "receipt_iso_local": "2026-11-16T16:07:56.880149+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "379e19ccf646759e14758402bbd665104c89fef6094ad474e2af91f481d748b7",
+      "labels": [
+        {
+          "id": "f03120_b0",
+          "bbox": [
+            537,
+            203,
+            758,
+            351
+          ],
+          "mask_area": 10447,
+          "sharpness": 225.79667960071205,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003180.png",
+      "label": "labels/train/m005_f003180.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3180,
+      "receipt_iso_local": "2026-11-16T16:07:58.881140+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "f06b7b6c264665d9b94d0bec4a4616b4a7587e41fd5f2158ee46e1a93233a507",
+      "labels": [
+        {
+          "id": "f03180_b1",
+          "bbox": [
+            618,
+            280,
+            829,
+            420
+          ],
+          "mask_area": 9343,
+          "sharpness": 292.2843809215922,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003240.png",
+      "label": "labels/train/m005_f003240.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3240,
+      "receipt_iso_local": "2026-11-16T16:08:00.882497+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "e72c1f88b60e5e02c9bbe9c38fcb84a010dcec1e7df7d7a29634b01e27b06ecc",
+      "labels": [
+        {
+          "id": "f03240_b1",
+          "bbox": [
+            359,
+            426,
+            539,
+            557
+          ],
+          "mask_area": 8415,
+          "sharpness": 215.82410659110056,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003420.png",
+      "label": "labels/train/m005_f003420.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3420,
+      "receipt_iso_local": "2026-11-16T16:08:06.883093+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "652bb3e1e4465ed2c43ae9226a717c4da9e5e3b56798a4e3adf01dbe1158d755",
+      "labels": [
+        {
+          "id": "f03420_b0",
+          "bbox": [
+            770,
+            449,
+            986,
+            647
+          ],
+          "mask_area": 19885,
+          "sharpness": 68.0094392098753,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003480.png",
+      "label": "labels/train/m005_f003480.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3480,
+      "receipt_iso_local": "2026-11-16T16:08:08.884324+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "a056f07ce7e78dd2e6555e954d0886a03a3776c016ba21a90ccf5e2716bbe24f",
+      "labels": [
+        {
+          "id": "f03480_b0",
+          "bbox": [
+            552,
+            303,
+            770,
+            476
+          ],
+          "mask_area": 14138,
+          "sharpness": 122.51542126750167,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003600.png",
+      "label": "labels/train/m005_f003600.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3600,
+      "receipt_iso_local": "2026-11-16T16:08:12.883618+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "00a3288b788c24a02f558dafaec16dfdc3e8b9dead4b87d8b0b7047c71d4006d",
+      "labels": [
+        {
+          "id": "f03600_b0",
+          "bbox": [
+            195,
+            206,
+            344,
+            360
+          ],
+          "mask_area": 10719,
+          "sharpness": 82.93776138709518,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f03600_b1",
+          "bbox": [
+            1099,
+            247,
+            1267,
+            406
+          ],
+          "mask_area": 12806,
+          "sharpness": 69.25690625128655,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003660.png",
+      "label": "labels/train/m005_f003660.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3660,
+      "receipt_iso_local": "2026-11-16T16:08:14.884768+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "6611956aba0e308f6e131445879575450f9b0350be3cfc9e2f651d8008568882",
+      "labels": [
+        {
+          "id": "f03660_b0",
+          "bbox": [
+            467,
+            436,
+            600,
+            584
+          ],
+          "mask_area": 7918,
+          "sharpness": 205.2887669167977,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003720.png",
+      "label": "labels/train/m005_f003720.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3720,
+      "receipt_iso_local": "2026-11-16T16:08:16.880165+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "627e5d2b3343563b09ae1d7b814f45651aa84a7879fee2133458600cc379e35b",
+      "labels": [
+        {
+          "id": "f03720_b1",
+          "bbox": [
+            569,
+            290,
+            703,
+            440
+          ],
+          "mask_area": 7261,
+          "sharpness": 409.14627917873315,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003780.png",
+      "label": "labels/train/m005_f003780.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3780,
+      "receipt_iso_local": "2026-11-16T16:08:18.878429+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "9aff1cb883c4d23e9ac48c067fdfa07300ee2c7bdbd45ac1cba7b8011bd4041f",
+      "labels": [
+        {
+          "id": "f03780_b2",
+          "bbox": [
+            553,
+            328,
+            685,
+            477
+          ],
+          "mask_area": 7087,
+          "sharpness": 394.59711564833674,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f003840.png",
+      "label": "labels/train/m005_f003840.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 3840,
+      "receipt_iso_local": "2026-11-16T16:08:20.879618+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "3e19d3a90d8c345de755ecbcbb46be0a7b3c2412264750d3fd324bf643f6cda0",
+      "labels": [
+        {
+          "id": "f03840_b0",
+          "bbox": [
+            589,
+            297,
+            694,
+            407
+          ],
+          "mask_area": 4907,
+          "sharpness": 333.5095978336238,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004020.png",
+      "label": "labels/train/m005_f004020.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4020,
+      "receipt_iso_local": "2026-11-16T16:08:26.881730+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "8f39155cddb95a727dc26d0c65e3f1ef16abae354885c79788e59fd5a0c95917",
+      "labels": [
+        {
+          "id": "f04020_b0",
+          "bbox": [
+            799,
+            209,
+            912,
+            352
+          ],
+          "mask_area": 7045,
+          "sharpness": 122.85146019056762,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004080.png",
+      "label": "labels/train/m005_f004080.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4080,
+      "receipt_iso_local": "2026-11-16T16:08:28.882855+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "dac832a42faae831bd8a93048e6a4333a2321a7490428b56287d59cb1f79f9ba",
+      "labels": [
+        {
+          "id": "f04080_b0",
+          "bbox": [
+            878,
+            123,
+            1040,
+            270
+          ],
+          "mask_area": 11950,
+          "sharpness": 72.57891026892588,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f04080_b1",
+          "bbox": [
+            54,
+            227,
+            188,
+            350
+          ],
+          "mask_area": 8637,
+          "sharpness": 120.2587535418465,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004200.png",
+      "label": "labels/train/m005_f004200.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4200,
+      "receipt_iso_local": "2026-11-16T16:08:32.884086+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "2ec0ca405f07e504c498dfb60c6fb765a22f0added50a0b66ae1d9ce5c0a9da0",
+      "labels": [
+        {
+          "id": "f04200_b0",
+          "bbox": [
+            440,
+            133,
+            604,
+            294
+          ],
+          "mask_area": 11788,
+          "sharpness": 91.13194956115342,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004320.png",
+      "label": "labels/train/m005_f004320.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4320,
+      "receipt_iso_local": "2026-11-16T16:08:36.886421+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "6b9b0b584576e277208984173cd5b41bdec288be4cbfbbad071eb668a754ec57",
+      "labels": [
+        {
+          "id": "f04320_b0",
+          "bbox": [
+            146,
+            59,
+            249,
+            184
+          ],
+          "mask_area": 5024,
+          "sharpness": 177.77876233386746,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f04320_b1",
+          "bbox": [
+            870,
+            181,
+            1002,
+            319
+          ],
+          "mask_area": 7322,
+          "sharpness": 128.29485219659023,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004380.png",
+      "label": "labels/train/m005_f004380.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4380,
+      "receipt_iso_local": "2026-11-16T16:08:38.886280+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "67dec85c88296d9b9df9d2cba47053e4e3e0a6710f4dc20af84d395ed4015e61",
+      "labels": [
+        {
+          "id": "f04380_b0",
+          "bbox": [
+            524,
+            380,
+            646,
+            514
+          ],
+          "mask_area": 6388,
+          "sharpness": 232.39543023335312,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004440.png",
+      "label": "labels/train/m005_f004440.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4440,
+      "receipt_iso_local": "2026-11-16T16:08:40.885133+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "63055cd52df130ba346885c39d75bb7cfa5222ea812c3fffcf0699ca80f1c003",
+      "labels": [
+        {
+          "id": "f04440_b0",
+          "bbox": [
+            640,
+            195,
+            766,
+            339
+          ],
+          "mask_area": 6892,
+          "sharpness": 189.53240642321742,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004500.png",
+      "label": "labels/train/m005_f004500.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4500,
+      "receipt_iso_local": "2026-11-16T16:08:42.880540+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "7b0bb5772a8a2619915ce3cc5c083dae76595d2336f31ceaaa434c048e738626",
+      "labels": [
+        {
+          "id": "f04500_b0",
+          "bbox": [
+            798,
+            75,
+            936,
+            241
+          ],
+          "mask_area": 10770,
+          "sharpness": 74.22617362466164,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004560.png",
+      "label": "labels/train/m005_f004560.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4560,
+      "receipt_iso_local": "2026-11-16T16:08:44.878265+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "3fabe742bf44bddbfd752d1e070d26f1f2fbfc3afbf9e4747d75c84b614123aa",
+      "labels": [
+        {
+          "id": "f04560_b2",
+          "bbox": [
+            1122,
+            563,
+            1249,
+            674
+          ],
+          "mask_area": 6201,
+          "sharpness": 139.59189873902838,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        },
+        {
+          "id": "f04560_b3",
+          "bbox": [
+            388,
+            578,
+            494,
+            688
+          ],
+          "mask_area": 5459,
+          "sharpness": 110.45440990293888,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004620.png",
+      "label": "labels/train/m005_f004620.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4620,
+      "receipt_iso_local": "2026-11-16T16:08:46.880453+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "f3e85ae9687d2bf76986e9817a92df60a5399257d2159297410d5e81839cfee9",
+      "labels": [
+        {
+          "id": "f04620_b0",
+          "bbox": [
+            600,
+            203,
+            711,
+            309
+          ],
+          "mask_area": 5037,
+          "sharpness": 326.2542691224414,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004740.png",
+      "label": "labels/train/m005_f004740.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4740,
+      "receipt_iso_local": "2026-11-16T16:08:50.881022+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "0efc14e181c2b5ac21defa724ab76421a73403dacca75229a0a8909ca82cebd3",
+      "labels": [
+        {
+          "id": "f04740_b1",
+          "bbox": [
+            1008,
+            551,
+            1136,
+            717
+          ],
+          "mask_area": 8551,
+          "sharpness": 92.16009740099919,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004800.png",
+      "label": "labels/train/m005_f004800.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4800,
+      "receipt_iso_local": "2026-11-16T16:08:52.882222+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "4bbaad28a64677007190926c5284bc474a5b80f7613bede171e5e5a598aa4b5a",
+      "labels": [
+        {
+          "id": "f04800_b0",
+          "bbox": [
+            634,
+            539,
+            767,
+            671
+          ],
+          "mask_area": 6026,
+          "sharpness": 101.51060186805276,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004860.png",
+      "label": "labels/train/m005_f004860.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4860,
+      "receipt_iso_local": "2026-11-16T16:08:54.884316+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "7ec6753e72b867b87ba368acc60404dbdb3d285b06cf6d0a07e0d49fadd51358",
+      "labels": [
+        {
+          "id": "f04860_b5",
+          "bbox": [
+            684,
+            432,
+            831,
+            559
+          ],
+          "mask_area": 5949,
+          "sharpness": 264.660935736606,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004920.png",
+      "label": "labels/train/m005_f004920.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4920,
+      "receipt_iso_local": "2026-11-16T16:08:56.884931+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "acdf44725215a613d89eaf8fef10d8ab48fffcdaeb9af6a9c68c437afb708a37",
+      "labels": [
+        {
+          "id": "f04920_b0",
+          "bbox": [
+            368,
+            309,
+            543,
+            455
+          ],
+          "mask_area": 10679,
+          "sharpness": 121.81290834517331,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f004980.png",
+      "label": "labels/train/m005_f004980.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 4980,
+      "receipt_iso_local": "2026-11-16T16:08:58.885712+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "0c39c4cbf1788dfe327088fec4f539f8056ff10c171efaccbabe9d92d8985dad",
+      "labels": [
+        {
+          "id": "f04980_b6",
+          "bbox": [
+            1145,
+            300,
+            1240,
+            441
+          ],
+          "mask_area": 4049,
+          "sharpness": 174.74605228533596,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        },
+        {
+          "id": "f04980_b9",
+          "bbox": [
+            535,
+            377,
+            665,
+            549
+          ],
+          "mask_area": 6728,
+          "sharpness": 246.90178922078462,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005040.png",
+      "label": "labels/train/m005_f005040.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5040,
+      "receipt_iso_local": "2026-11-16T16:09:00.886281+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "c5d67da798d99821964cefd75b9fdbd6f7b66ddbbd466dc8e90ff16c56a1af65",
+      "labels": [
+        {
+          "id": "f05040_b18",
+          "bbox": [
+            569,
+            313,
+            689,
+            469
+          ],
+          "mask_area": 5925,
+          "sharpness": 406.2771840043785,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        },
+        {
+          "id": "f05040_b19",
+          "bbox": [
+            1109,
+            354,
+            1199,
+            484
+          ],
+          "mask_area": 3704,
+          "sharpness": 186.18460348454965,
+          "touches_edge": false,
+          "class_id": 2,
+          "class_name": "XCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005160.png",
+      "label": "labels/train/m005_f005160.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5160,
+      "receipt_iso_local": "2026-11-16T16:09:04.879627+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "cb20000b683eeb7b3508dba0f7998bd8892ab755b9bee5d167837fdf117f4ac0",
+      "labels": [
+        {
+          "id": "f05160_b2",
+          "bbox": [
+            315,
+            480,
+            470,
+            603
+          ],
+          "mask_area": 6304,
+          "sharpness": 237.9629956869707,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005220.png",
+      "label": "labels/train/m005_f005220.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5220,
+      "receipt_iso_local": "2026-11-16T16:09:06.880056+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "653313d4af7696625dea63bd103e3dfcdc58e02db51b4b6c753554dc4ff0d487",
+      "labels": [
+        {
+          "id": "f05220_b1",
+          "bbox": [
+            370,
+            366,
+            539,
+            496
+          ],
+          "mask_area": 7043,
+          "sharpness": 185.7676818038584,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005280.png",
+      "label": "labels/train/m005_f005280.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5280,
+      "receipt_iso_local": "2026-11-16T16:09:08.881282+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "5d434805146a1c0d52f3069b9441106a78450e50de12e2bb0da16bbe1b5b2e37",
+      "labels": [
+        {
+          "id": "f05280_b0",
+          "bbox": [
+            398,
+            512,
+            546,
+            671
+          ],
+          "mask_area": 9954,
+          "sharpness": 82.05940415088678,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005340.png",
+      "label": "labels/train/m005_f005340.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5340,
+      "receipt_iso_local": "2026-11-16T16:09:10.881754+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "446d4647de129ff513a8ddc932c13f242c0f08442b15fcc16f9435cdafcd5159",
+      "labels": [
+        {
+          "id": "f05340_b0",
+          "bbox": [
+            597,
+            261,
+            722,
+            415
+          ],
+          "mask_area": 8210,
+          "sharpness": 170.32778455456233,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005400.png",
+      "label": "labels/train/m005_f005400.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5400,
+      "receipt_iso_local": "2026-11-16T16:09:12.884121+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "4d58d765d307d2ff86f45d737dfe122dc6f0940ee54e227371917ef0fa0df192",
+      "labels": [
+        {
+          "id": "f05400_b0",
+          "bbox": [
+            590,
+            333,
+            707,
+            462
+          ],
+          "mask_area": 6118,
+          "sharpness": 375.5049771519935,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005580.png",
+      "label": "labels/train/m005_f005580.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5580,
+      "receipt_iso_local": "2026-11-16T16:09:18.886034+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "bbdd0b6f50548dce2cb99df93cca5b334dc91e92de69fbee3e7101965864553f",
+      "labels": [
+        {
+          "id": "f05580_b2",
+          "bbox": [
+            534,
+            304,
+            664,
+            459
+          ],
+          "mask_area": 6884,
+          "sharpness": 468.67746206429445,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005640.png",
+      "label": "labels/train/m005_f005640.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5640,
+      "receipt_iso_local": "2026-11-16T16:09:20.886258+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "e23be85c04caf2b65e6502b2e61df2db61840eba64d3b824c85981193f14de4d",
+      "labels": [
+        {
+          "id": "f05640_b1",
+          "bbox": [
+            518,
+            227,
+            654,
+            382
+          ],
+          "mask_area": 7293,
+          "sharpness": 489.20298308783026,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005700.png",
+      "label": "labels/train/m005_f005700.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5700,
+      "receipt_iso_local": "2026-11-16T16:09:22.885103+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "100be673794908f63f2b10e4efa79f237e7c4fd6a54ef7bcb632590077ccbe98",
+      "labels": [
+        {
+          "id": "f05700_b1",
+          "bbox": [
+            533,
+            230,
+            673,
+            386
+          ],
+          "mask_area": 8237,
+          "sharpness": 212.55537000488064,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005760.png",
+      "label": "labels/train/m005_f005760.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5760,
+      "receipt_iso_local": "2026-11-16T16:09:24.883134+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "c0034406aee9341d0df562eccb837238fa5acedd1969c7ec9afae21329ec9c49",
+      "labels": [
+        {
+          "id": "f05760_b0",
+          "bbox": [
+            621,
+            17,
+            750,
+            180
+          ],
+          "mask_area": 8745,
+          "sharpness": 74.51310872256768,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005820.png",
+      "label": "labels/train/m005_f005820.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5820,
+      "receipt_iso_local": "2026-11-16T16:09:26.864526+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "d2234017d3a750539948a97f13b256b6dfbbee7781814eaaccd9b756ebc89ad8",
+      "labels": [
+        {
+          "id": "f05820_b0",
+          "bbox": [
+            569,
+            288,
+            673,
+            435
+          ],
+          "mask_area": 3909,
+          "sharpness": 299.4061099452863,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f05820_b2",
+          "bbox": [
+            1196,
+            310,
+            1259,
+            412
+          ],
+          "mask_area": 2643,
+          "sharpness": 206.92735656354046,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005880.png",
+      "label": "labels/train/m005_f005880.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5880,
+      "receipt_iso_local": "2026-11-16T16:09:28.865828+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "8587c408443240a20da77ad5d17289dac2bf09888421abe254807c4c312eba98",
+      "labels": [
+        {
+          "id": "f05880_b4",
+          "bbox": [
+            524,
+            270,
+            616,
+            425
+          ],
+          "mask_area": 3594,
+          "sharpness": 252.65165536745945,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f05880_b9",
+          "bbox": [
+            1099,
+            376,
+            1158,
+            478
+          ],
+          "mask_area": 2508,
+          "sharpness": 185.16668074871433,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f005940.png",
+      "label": "labels/train/m005_f005940.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 5940,
+      "receipt_iso_local": "2026-11-16T16:09:30.866099+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "fd42c92545c6349538f3acfc1ed8ba597182b705325c1889dde57897c5947f1d",
+      "labels": [
+        {
+          "id": "f05940_b0",
+          "bbox": [
+            858,
+            150,
+            1066,
+            320
+          ],
+          "mask_area": 14575,
+          "sharpness": 77.35153698272839,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006000.png",
+      "label": "labels/train/m005_f006000.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6000,
+      "receipt_iso_local": "2026-11-16T16:09:32.866624+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "1387dab529c7a4e3afc30fd38e176d03529d29a64045d3a17c67ad72ae39ca2f",
+      "labels": [
+        {
+          "id": "f06000_b6",
+          "bbox": [
+            704,
+            413,
+            833,
+            523
+          ],
+          "mask_area": 4566,
+          "sharpness": 122.95254719871909,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006060.png",
+      "label": "labels/train/m005_f006060.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6060,
+      "receipt_iso_local": "2026-11-16T16:09:34.868782+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "aa9471419b7af8294bf69775201ca1b189dba38d19756254c40e6c5996f38874",
+      "labels": [
+        {
+          "id": "f06060_b0",
+          "bbox": [
+            595,
+            268,
+            719,
+            385
+          ],
+          "mask_area": 3872,
+          "sharpness": 251.91028136250128,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006120.png",
+      "label": "labels/train/m005_f006120.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6120,
+      "receipt_iso_local": "2026-11-16T16:09:36.872561+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "f3b5c0f6d014d13c2e226491d2445cbc88cad4b0f5a3dc7f08c7f9c6196071d5",
+      "labels": [
+        {
+          "id": "f06120_b0",
+          "bbox": [
+            522,
+            233,
+            654,
+            342
+          ],
+          "mask_area": 3976,
+          "sharpness": 426.16619660790593,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006240.png",
+      "label": "labels/train/m005_f006240.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6240,
+      "receipt_iso_local": "2026-11-16T16:09:40.869808+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "3b56bd28f898ab642c8487f33bc5576535b38ab861be4d8c9be8968bcc163fcd",
+      "labels": [
+        {
+          "id": "f06240_b2",
+          "bbox": [
+            683,
+            124,
+            756,
+            271
+          ],
+          "mask_area": 2210,
+          "sharpness": 240.66928954605552,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f06240_b4",
+          "bbox": [
+            1182,
+            387,
+            1233,
+            485
+          ],
+          "mask_area": 2066,
+          "sharpness": 167.8399771673375,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006300.png",
+      "label": "labels/train/m005_f006300.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6300,
+      "receipt_iso_local": "2026-11-16T16:09:42.870307+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "1654d826c542815a47d438cd7e5cdf6049dafe1de50ddb47a956313067f29059",
+      "labels": [
+        {
+          "id": "f06300_b9",
+          "bbox": [
+            577,
+            236,
+            680,
+            362
+          ],
+          "mask_area": 2078,
+          "sharpness": 274.43247262143615,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        },
+        {
+          "id": "f06300_b10",
+          "bbox": [
+            1155,
+            355,
+            1222,
+            440
+          ],
+          "mask_area": 1945,
+          "sharpness": 199.1264197527058,
+          "touches_edge": false,
+          "class_id": 1,
+          "class_name": "TCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006360.png",
+      "label": "labels/train/m005_f006360.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6360,
+      "receipt_iso_local": "2026-11-16T16:09:44.869429+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "022f2bae438c36c512ec1986f59f0425b95315b82a51eb86ebfa397e6b09b7a8",
+      "labels": [
+        {
+          "id": "f06360_b0",
+          "bbox": [
+            596,
+            122,
+            715,
+            256
+          ],
+          "mask_area": 5561,
+          "sharpness": 209.17051925011745,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006600.png",
+      "label": "labels/train/m005_f006600.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6600,
+      "receipt_iso_local": "2026-11-16T16:09:52.869011+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "8d2dc8efadf756c97eee6ba7199cb7f62cf0ce1ec93335fed7f5f6d25523e684",
+      "labels": [
+        {
+          "id": "f06600_b0",
+          "bbox": [
+            752,
+            249,
+            866,
+            390
+          ],
+          "mask_area": 6173,
+          "sharpness": 127.06275497102496,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006660.png",
+      "label": "labels/train/m005_f006660.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6660,
+      "receipt_iso_local": "2026-11-16T16:09:54.869248+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "d452e0dffbcdba9d244b0860d7f74552c19fc5214149c05fe282ce539b7d7a68",
+      "labels": [
+        {
+          "id": "f06660_b0",
+          "bbox": [
+            755,
+            3,
+            876,
+            155
+          ],
+          "mask_area": 7589,
+          "sharpness": 85.43217747338377,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006720.png",
+      "label": "labels/train/m005_f006720.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6720,
+      "receipt_iso_local": "2026-11-16T16:09:56.869617+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "87863606d7229df40f167e8ce012e7a9c6386fa9716143d9840298384765c159",
+      "labels": [
+        {
+          "id": "f06720_b0",
+          "bbox": [
+            702,
+            261,
+            811,
+            392
+          ],
+          "mask_area": 5126,
+          "sharpness": 173.0468493719606,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006780.png",
+      "label": "labels/train/m005_f006780.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6780,
+      "receipt_iso_local": "2026-11-16T16:09:58.869443+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "2aafbe17f0e1a0f4083356ae788c1da40ac06449e2ad9190737fea1b9dad62ee",
+      "labels": [
+        {
+          "id": "f06780_b0",
+          "bbox": [
+            596,
+            93,
+            710,
+            257
+          ],
+          "mask_area": 8007,
+          "sharpness": 54.606084522140065,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f006960.png",
+      "label": "labels/train/m005_f006960.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 6960,
+      "receipt_iso_local": "2026-11-16T16:10:04.871512+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "90f421c1f75e2b6cfb3dec86d25c71b35878e6d3dad53986ec7327d7029b8faa",
+      "labels": [
+        {
+          "id": "f06960_b1",
+          "bbox": [
+            792,
+            193,
+            922,
+            324
+          ],
+          "mask_area": 5249,
+          "sharpness": 165.47707713823382,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007020.png",
+      "label": "labels/train/m005_f007020.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7020,
+      "receipt_iso_local": "2026-11-16T16:10:06.869026+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "15a97e168c094d00d43d41e6f44fc55472e6e8fbfae64e9df08e3d942cbdb687",
+      "labels": [
+        {
+          "id": "f07020_b1",
+          "bbox": [
+            776,
+            301,
+            901,
+            421
+          ],
+          "mask_area": 4659,
+          "sharpness": 155.1864531155556,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007080.png",
+      "label": "labels/train/m005_f007080.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7080,
+      "receipt_iso_local": "2026-11-16T16:10:09.231719+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "46a39a37fd3439109e650bffeaa0d9dcde4fa2e13cb2324c1ac7e271375c8394",
+      "labels": [
+        {
+          "id": "f07080_b0",
+          "bbox": [
+            754,
+            54,
+            961,
+            264
+          ],
+          "mask_area": 15654,
+          "sharpness": 67.93631689968184,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007560.png",
+      "label": "labels/train/m005_f007560.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7560,
+      "receipt_iso_local": "2026-11-16T16:10:25.426338+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "fe7ae76e6e9eae4c8bd23307cffaab52119f2f1a5107f23c3144e675a3702ac9",
+      "labels": [
+        {
+          "id": "f07560_b0",
+          "bbox": [
+            67,
+            356,
+            321,
+            587
+          ],
+          "mask_area": 19043,
+          "sharpness": 107.42766947612941,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007620.png",
+      "label": "labels/train/m005_f007620.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7620,
+      "receipt_iso_local": "2026-11-16T16:10:27.429048+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "cde9aaf2e82173727b614f42367a2367194725e5a5ae5c4588efff61bd60a57d",
+      "labels": [
+        {
+          "id": "f07620_b2",
+          "bbox": [
+            326,
+            340,
+            550,
+            567
+          ],
+          "mask_area": 16932,
+          "sharpness": 200.16442271702508,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007680.png",
+      "label": "labels/train/m005_f007680.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7680,
+      "receipt_iso_local": "2026-11-16T16:10:29.430981+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "c86c3e696da7e2009c6d49f8697b21df5b0b04ec28f912ee91346b1300282ead",
+      "labels": [
+        {
+          "id": "f07680_b2",
+          "bbox": [
+            402,
+            198,
+            670,
+            474
+          ],
+          "mask_area": 22809,
+          "sharpness": 160.11687072810312,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007740.png",
+      "label": "labels/train/m005_f007740.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7740,
+      "receipt_iso_local": "2026-11-16T16:10:31.430739+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "29eaebdc8e373ceb2bf16654102aa0a8274e06dc7324267e016a6f2c2782e90c",
+      "labels": [
+        {
+          "id": "f07740_b0",
+          "bbox": [
+            461,
+            400,
+            657,
+            628
+          ],
+          "mask_area": 17185,
+          "sharpness": 100.41137576369492,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007800.png",
+      "label": "labels/train/m005_f007800.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7800,
+      "receipt_iso_local": "2026-11-16T16:10:33.429991+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "cab077c2b3e622c816c9b4e2a414a8d93c15d689f8d6e7b046cd70dddf8134aa",
+      "labels": [
+        {
+          "id": "f07800_b0",
+          "bbox": [
+            456,
+            419,
+            613,
+            577
+          ],
+          "mask_area": 9000,
+          "sharpness": 127.10797714963756,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f007860.png",
+      "label": "labels/train/m005_f007860.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 7860,
+      "receipt_iso_local": "2026-11-16T16:10:35.429891+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "3a057992d28846061326d3955b00855df027476505f84c00ffa8adb01e4dcb46",
+      "labels": [
+        {
+          "id": "f07860_b0",
+          "bbox": [
+            548,
+            453,
+            683,
+            577
+          ],
+          "mask_area": 5636,
+          "sharpness": 92.66171104844776,
+          "touches_edge": false,
+          "class_id": 0,
+          "class_name": "LCross"
+        }
+      ],
+      "review": "Assistant visual crop classification + full-frame contact review; not user manual annotation."
+    },
+    {
+      "image": "images/train/m005_f000000.png",
+      "label": "labels/train/m005_f000000.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 0,
+      "receipt_iso_local": "2026-11-16T16:06:12.910449+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "287f97d6b90fcc1064fa910208990099b395fb652c687985f3c7721b9661abca",
+      "labels": [
+        {
+          "class_id": 0,
+          "bbox": [
+            278,
+            312,
+            319,
+            338
+          ]
+        },
+        {
+          "class_id": 1,
+          "bbox": [
+            615,
+            322,
+            657,
+            338
+          ]
+        },
+        {
+          "class_id": 2,
+          "bbox": [
+            932,
+            334,
+            1010,
+            360
+          ]
+        }
+      ],
+      "review": "Assistant reviewed original full scene and tape band; added distant L/T/X after replay error analysis."
+    },
+    {
+      "image": "images/train/m005_f000180.png",
+      "label": "labels/train/m005_f000180.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 180,
+      "receipt_iso_local": "2026-11-16T16:06:18.898640+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "0ea913c34123ecd001ff41d96dadd53427e99868f485ee3af90e9eff6a566a79",
+      "labels": [
+        {
+          "class_id": 0,
+          "bbox": [
+            228,
+            306,
+            273,
+            329
+          ]
+        },
+        {
+          "class_id": 1,
+          "bbox": [
+            572,
+            306,
+            614,
+            323
+          ]
+        },
+        {
+          "class_id": 2,
+          "bbox": [
+            891,
+            315,
+            956,
+            335
+          ]
+        }
+      ],
+      "review": "Assistant reviewed original full scene and tape band; added distant L/T/X after replay error analysis."
+    },
+    {
+      "image": "images/train/m005_f000450.png",
+      "label": "labels/train/m005_f000450.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 450,
+      "receipt_iso_local": "2026-11-16T16:06:27.906647+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "a38a9e91cca6703b6938da8896ebe200050936d7f9ee0b5704922a0bb6a77cf9",
+      "labels": [
+        {
+          "class_id": 0,
+          "bbox": [
+            229,
+            312,
+            272,
+            335
+          ]
+        },
+        {
+          "class_id": 1,
+          "bbox": [
+            571,
+            315,
+            612,
+            332
+          ]
+        },
+        {
+          "class_id": 2,
+          "bbox": [
+            889,
+            326,
+            952,
+            345
+          ]
+        }
+      ],
+      "review": "Assistant reviewed original full scene and tape band; added distant L/T/X after replay error analysis."
+    },
+    {
+      "image": "images/train/m005_f000720.png",
+      "label": "labels/train/m005_f000720.txt",
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "source_frame_index_0based": 720,
+      "receipt_iso_local": "2026-11-16T16:06:36.894179+08:00",
+      "source_group": "clip005",
+      "split": "train",
+      "image_sha256": "8bc626a35601da0a075c5cf7a51f29429b44c10c51b259c6f5c134dea364f636",
+      "labels": [
+        {
+          "class_id": 0,
+          "bbox": [
+            230,
+            310,
+            272,
+            334
+          ]
+        },
+        {
+          "class_id": 1,
+          "bbox": [
+            572,
+            314,
+            613,
+            331
+          ]
+        },
+        {
+          "class_id": 2,
+          "bbox": [
+            891,
+            325,
+            956,
+            346
+          ]
+        }
+      ],
+      "review": "Assistant reviewed original full scene and tape band; added distant L/T/X after replay error analysis."
+    }
+  ],
+  "updated_at": "2026-11-18T17:47:53.419819+08:00"
+}

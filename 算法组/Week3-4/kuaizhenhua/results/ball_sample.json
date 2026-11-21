@@ -1,0 +1,45 @@
+{
+  "processed_at": "2026-11-18T18:07:48.629+08:00",
+  "name": "kuaizhenhua",
+  "input_mode": "OFFLINE REPLAY",
+  "source": "clip_004_20261116T155736_717256_483bd78f.avi",
+  "frame_index_0based": 0,
+  "source_time_seconds": 0.0,
+  "source_receipt_iso": "2026-11-16T15:57:36.742302+08:00",
+  "processing_ms": 15692.159400001401,
+  "ball_detected": true,
+  "balls": [
+    {
+      "class_name": "ball",
+      "confidence": 0.6498605608940125,
+      "bbox": [
+        802.2392578125,
+        207.83773803710938,
+        903.5677490234375,
+        311.5752868652344
+      ],
+      "u": 852.9035034179688,
+      "v": 259.7065124511719
+    }
+  ],
+  "markers": [],
+  "pose": {
+    "valid": false,
+    "metric_valid": false,
+    "relative_valid": false,
+    "status": "insufficient_markers",
+    "x_camera_map": null,
+    "y_camera_map": null,
+    "yaw_camera_map": null,
+    "x_camera_map_units": null,
+    "y_camera_map_units": null,
+    "yaw_camera_map_deg": null,
+    "marker_count": 0,
+    "residual_units": null,
+    "unit": "reference_white_rectangle_width",
+    "matched_ids": [],
+    "observations": [],
+    "assumption": "video-estimated plane; unchanged camera height and tilt",
+    "field_sha256": "53847255b4c6bcbde5b3c62a05949033adf8a0975d0667ce7606256b30f73869"
+  }
+}

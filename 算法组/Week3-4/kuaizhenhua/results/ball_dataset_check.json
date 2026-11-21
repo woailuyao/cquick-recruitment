@@ -1,0 +1,38 @@
+{
+  "data": "work\\week34\\rebuild_check\\ball\\data.yaml",
+  "nc": 1,
+  "names": {
+    "0": "ball"
+  },
+  "splits": {
+    "train": {
+      "image_count": 107,
+      "instance_count": 98,
+      "missing_labels": 0,
+      "invalid_lines": 0,
+      "classes": {
+        "0": 98
+      }
+    },
+    "val": {
+      "image_count": 55,
+      "instance_count": 52,
+      "missing_labels": 0,
+      "invalid_lines": 0,
+      "classes": {
+        "0": 52
+      }
+    },
+    "test": {
+      "image_count": 55,
+      "instance_count": 35,
+      "missing_labels": 0,
+      "invalid_lines": 0,
+      "classes": {
+        "0": 35
+      }
+    }
+  },
+  "issues": [],
+  "ok": true
+}

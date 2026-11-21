@@ -1,0 +1,5 @@
+{
+  "status": "not_measured",
+  "metric_scale_verified": false,
+  "note": "Video-derived relative ground-plane reconstruction is in config/field_geometry.yaml; no measured camera-to-robot transform exists."
+}

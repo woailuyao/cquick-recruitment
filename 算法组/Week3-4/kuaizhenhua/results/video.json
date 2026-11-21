@@ -1,0 +1,38 @@
+{
+  "codec": "H.264",
+  "dimensions": [
+    1760,
+    720
+  ],
+  "frames": 12156,
+  "export_fps": 30.0,
+  "duration_seconds": 405.2,
+  "full_decode_passed": true,
+  "chapters": [
+    {
+      "section": "intro",
+      "start_frame": 0,
+      "frames": 210
+    },
+    {
+      "section": "ball",
+      "start_frame": 210,
+      "frames": 3216
+    },
+    {
+      "section": "markers",
+      "start_frame": 3426,
+      "frames": 210
+    },
+    {
+      "section": "field",
+      "start_frame": 3636,
+      "frames": 8220
+    },
+    {
+      "section": "poses",
+      "start_frame": 11856,
+      "frames": 300
+    }
+  ]
+}
