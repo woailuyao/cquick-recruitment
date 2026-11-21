@@ -1,0 +1,10 @@
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+bool success
+uint16 final_pwm
+string message
+---
+uint16 current_pwm
+float32 progress

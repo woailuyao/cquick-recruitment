@@ -1,0 +1,26 @@
+name: 左右摆髋
+steps:
+  - name: 髋部左偏
+    goals:
+      - {id: 5, pwm: 1560, duration_ms: 900}
+      - {id: 6, pwm: 1560, duration_ms: 900}
+      - {id: 1, pwm: 1540, duration_ms: 900}
+      - {id: 10, pwm: 1540, duration_ms: 900}
+  - name: 回正
+    goals:
+      - {id: 5, pwm: 1500, duration_ms: 900}
+      - {id: 6, pwm: 1500, duration_ms: 900}
+      - {id: 1, pwm: 1500, duration_ms: 900}
+      - {id: 10, pwm: 1500, duration_ms: 900}
+  - name: 髋部右偏
+    goals:
+      - {id: 5, pwm: 1440, duration_ms: 900}
+      - {id: 6, pwm: 1440, duration_ms: 900}
+      - {id: 1, pwm: 1460, duration_ms: 900}
+      - {id: 10, pwm: 1460, duration_ms: 900}
+  - name: 回中
+    goals:
+      - {id: 5, pwm: 1500, duration_ms: 900}
+      - {id: 6, pwm: 1500, duration_ms: 900}
+      - {id: 1, pwm: 1500, duration_ms: 900}
+      - {id: 10, pwm: 1500, duration_ms: 900}
