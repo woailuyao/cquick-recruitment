@@ -1,0 +1,11 @@
+# 由 train_xian.py 自动生成（训练前会重建，手改记得另存）
+path: C:/Users/yangshuyuan/Desktop/w3_task2/dataset_v2
+train: images/train
+val: images/val
+test: images/test
+nc: 4
+names:
+  0: LCross
+  1: TCross
+  2: XCross
+  3: PenaltyPoint
