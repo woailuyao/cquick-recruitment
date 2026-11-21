@@ -1,0 +1,28 @@
+{
+  "kind": "ball",
+  "resumed_at": "2026-11-18T17:38:56.144521+08:00",
+  "finished_at": "2026-11-18T17:41:02.815681+08:00",
+  "resume_elapsed_seconds": 126.67142420000164,
+  "resumed_after_epoch": 36,
+  "requested_epochs": 60,
+  "evaluation": "held-out original clip004 test",
+  "independent_validation": true,
+  "metrics": {
+    "metrics/precision(B)": 0.9935827815720679,
+    "metrics/recall(B)": 0.7428571428571429,
+    "metrics/mAP50(B)": 0.9171426567568018,
+    "metrics/mAP50-95(B)": 0.6007066628761465,
+    "fitness": 0.6007066628761465
+  },
+  "weights_sha256": "abad431653a5c98c66c92af510791cdef50e17c999091a1696933b5614b4e829",
+  "weights_file": "ball_best.pt",
+  "torch": "2.7.1+cu128",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+  "speed_ms_per_image": {
+    "preprocess": 0.41652545491656795,
+    "inference": 1.4065181810027836,
+    "loss": 0.000556363110345873,
+    "postprocess": 1.044254545228217
+  },
+  "weights_bytes": 6245553
+}

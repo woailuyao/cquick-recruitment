@@ -1,0 +1,36 @@
+{
+  "data": "work\\week34\\rebuild_check\\marker\\data.yaml",
+  "nc": 4,
+  "names": {
+    "0": "LCross",
+    "1": "TCross",
+    "2": "XCross",
+    "3": "PenaltyPoint"
+  },
+  "splits": {
+    "train": {
+      "image_count": 82,
+      "instance_count": 110,
+      "missing_labels": 0,
+      "invalid_lines": 0,
+      "classes": {
+        "0": 36,
+        "1": 39,
+        "2": 35
+      }
+    },
+    "val": {
+      "image_count": 82,
+      "instance_count": 110,
+      "missing_labels": 0,
+      "invalid_lines": 0,
+      "classes": {
+        "0": 36,
+        "1": 39,
+        "2": 35
+      }
+    }
+  },
+  "issues": [],
+  "ok": true
+}

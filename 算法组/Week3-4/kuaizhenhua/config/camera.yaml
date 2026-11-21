@@ -1,0 +1,14 @@
+{
+  "backend": "DSHOW on Windows; select real video device on Linux",
+  "device_index_at_recording": 0,
+  "width": 1280,
+  "height": 720,
+  "fourcc": "MJPG",
+  "requested_fps": 30,
+  "measured_receipt_fps_range": [
+    29.943,
+    30.009
+  ],
+  "same_external_camera_and_focus": "user_confirmed",
+  "linux_device": null
+}

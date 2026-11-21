@@ -1,0 +1,114 @@
+{
+  "status": "provisional_from_recorded_chessboard",
+  "image_width": 1280,
+  "image_height": 720,
+  "camera_matrix": [
+    [
+      1624.282123018917,
+      0.0,
+      709.1721593312034
+    ],
+    [
+      0.0,
+      1621.2262123567696,
+      362.7541962207473
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "dist_coeffs": [
+    0.22322393912217178,
+    -0.6253105823503361,
+    0.0005421092406394289,
+    0.011118283037008484,
+    -1.3595116606941955
+  ],
+  "reprojection_error_px": 0.662304461305761,
+  "source_image_count": 33,
+  "pattern_inner_corners": [
+    9,
+    6
+  ],
+  "square_size_m": 0.02,
+  "square_size_source": "user_measured_screen_square",
+  "capture_date": "2026-11-16",
+  "computed_at": "2026-11-16T18:53:52.430665+08:00",
+  "source_session": "preflight_20261116T131337_371691_2de570d1",
+  "source_files": [
+    "chessboard_20261116T131706_420462_7fceb888.png",
+    "chessboard_20261116T131709_747391_89fe3239.png",
+    "chessboard_20261116T131710_916170_62900a6f.png",
+    "chessboard_20261116T131711_988935_ef0daae1.png",
+    "chessboard_20261116T131713_060824_5ac2c2c2.png",
+    "chessboard_20261116T131715_412455_91ee06cd.png",
+    "chessboard_20261116T131716_419427_cee45065.png",
+    "chessboard_20261116T131717_220394_25b73a38.png",
+    "chessboard_20261116T131722_692608_4eaa6b5b.png",
+    "chessboard_20261116T131723_957158_bd0bcf57.png",
+    "chessboard_20261116T131725_013152_ccbe4007.png",
+    "chessboard_20261116T131729_988808_c161e626.png",
+    "chessboard_20261116T131730_885039_f04c774d.png",
+    "chessboard_20261116T131732_148648_8a4b39fb.png",
+    "chessboard_20261116T131733_957112_a669fcda.png",
+    "chessboard_20261116T131743_220569_cc7dce22.png",
+    "chessboard_20261116T131752_613101_dd105e7c.png",
+    "chessboard_20261116T131753_381174_9e57ebae.png",
+    "chessboard_20261116T131758_709131_93b6ebaa.png",
+    "chessboard_20261116T131759_381301_26a3a833.png",
+    "chessboard_20261116T131805_845356_cc692d20.png",
+    "chessboard_20261116T131807_108766_7132917e.png",
+    "chessboard_20261116T131809_205230_4e9d5389.png",
+    "chessboard_20261116T131817_509352_5721bbb7.png",
+    "chessboard_20261116T131820_469798_089c1e32.png",
+    "chessboard_20261116T131821_478246_b59407c5.png",
+    "chessboard_20261116T131822_741696_8a1aaf99.png",
+    "chessboard_20261116T131827_142064_7433f024.png",
+    "chessboard_20261116T131828_406081_cd60b0eb.png",
+    "chessboard_20261116T131829_701782_6db2fc73.png",
+    "chessboard_20261116T131835_877973_172f523c.png",
+    "chessboard_20261116T131837_845408_7dc70961.png",
+    "chessboard_20261116T131838_933855_46d2eaf4.png"
+  ],
+  "calibration_model": "OpenCV pinhole + k1 k2 p1 p2 k3; all 33 recorded views",
+  "limitations": [
+    "Observed corners do not cover the rightmost 34.2 percent of image width.",
+    "One view has maximum corner reprojection error 7.15 pixels; see sensitivity analysis.",
+    "Screen square size/focus/zoom continuity are user confirmed, not independent measurements.",
+    "RMS is a calibration fit error, not field localization accuracy."
+  ],
+  "sensitivity_exclude_three_high_residual_views": {
+    "overall_rms_px": 0.580710379826015,
+    "K": [
+      [
+        1625.953846289995,
+        0.0,
+        714.700742628248
+      ],
+      [
+        0.0,
+        1622.221192437015,
+        363.4574446216614
+      ],
+      [
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "D_k1_k2_p1_p2_k3": [
+      0.19263262911735385,
+      -0.46559566688271464,
+      -0.0006645615393847223,
+      0.010181611269078008,
+      -1.6068394568349602
+    ],
+    "excluded_files": [
+      "chessboard_20261116T131753_381174_9e57ebae.png",
+      "chessboard_20261116T131733_957112_a669fcda.png",
+      "chessboard_20261116T131835_877973_172f523c.png"
+    ]
+  }
+}

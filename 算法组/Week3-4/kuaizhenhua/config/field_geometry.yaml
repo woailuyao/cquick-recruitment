@@ -1,0 +1,143 @@
+{
+  "status": "video_estimate_relative_only",
+  "metric_scale_verified": false,
+  "unit": "reference_white_rectangle_width",
+  "metres_per_unit": null,
+  "origin": "approximate centre of visible centre-circle fitted after rectification",
+  "axis_x": "toward goal, parallel rectangle depth",
+  "axis_y": "left when facing +X",
+  "axis_z": "up",
+  "source_clip": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+  "source_frame_index_0based": 0,
+  "created_at": "2026-11-16T20:12:38.704851+08:00",
+  "white_rectangle_pixels": [
+    [
+      250.0,
+      151.0
+    ],
+    [
+      1163.0,
+      174.0
+    ],
+    [
+      1233.0,
+      219.0
+    ],
+    [
+      171.0,
+      197.0
+    ]
+  ],
+  "rectangle_depth_over_width": 0.25728759209554614,
+  "rectangle_orthogonality_cosine_before_projection": -0.17026606372849695,
+  "rectangle_pnp_reprojection_rmse_px": 1.4740448388568812,
+  "camera_matrix": [
+    [
+      1624.282123018917,
+      0.0,
+      709.1721593312034
+    ],
+    [
+      0.0,
+      1621.2262123567696,
+      362.7541962207473
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "dist_coeffs": [
+    0.22322393912217178,
+    -0.6253105823503361,
+    0.0005421092406394289,
+    0.011118283037008484,
+    -1.3595116606941955
+  ],
+  "rotation_camera_to_reference": [
+    [
+      0.017451752324591507,
+      -0.2837405797199383,
+      0.9587422592965196
+    ],
+    [
+      -0.9996063597189464,
+      -0.026018717331478758,
+      0.010495330288331606
+    ],
+    [
+      0.02196729273801623,
+      -0.9585480216288688,
+      -0.2840829602090633
+    ]
+  ],
+  "camera_center_reference": [
+    -1.7872545100101949,
+    -0.533801557947121,
+    0.3011580117177691
+  ],
+  "circle_center_reference_xy": [
+    -1.2479192694615324,
+    -0.5239202679436866
+  ],
+  "circle_radius_units": 0.2826186545689118,
+  "camera_center_map_units": [
+    -0.5393352405486624,
+    -0.009881290003434406,
+    0.3011580117177691
+  ],
+  "homography_reference_ground_to_undistorted_pixel": [
+    [
+      708.2598875835771,
+      -1616.1997441040312,
+      453.0375088631608
+    ],
+    [
+      -112.21988769729737,
+      -38.37500144687974,
+      277.99141615398344
+    ],
+    [
+      0.9587422592965196,
+      0.010495330288331606,
+      1.8046727099836086
+    ]
+  ],
+  "marker_pixels": {
+    "LCross1": [
+      292,
+      329
+    ],
+    "TCross1": [
+      634,
+      330
+    ],
+    "XCross1": [
+      964,
+      345
+    ]
+  },
+  "markers": {
+    "LCross1": [
+      0.532283,
+      0.288105
+    ],
+    "TCross1": [
+      0.552838,
+      0.055098
+    ],
+    "XCross1": [
+      0.535515,
+      -0.170866
+    ]
+  },
+  "limitations": [
+    "Rectangle corner pixels selected visually; physical rectangle and circle geometry only approximated.",
+    "Unknown absolute length scale; all translations and radius expressed in rectangle-width units.",
+    "Three tape points are nearly collinear; pose ambiguity and geometry must be rejected when unstable.",
+    "Camera tilt/height assumed unchanged when using the fixed ray-plane model.",
+    "Reprojection residual is internal fit consistency, not metric position accuracy.",
+    "PenaltyPoint has no visible labelled target and is not inserted as a detected marker."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "status": "video_estimate",
+  "estimated_metres_per_unit": 3.0,
+  "independently_measured_reference": false,
+  "examples": [
+    {
+      "frame": 0,
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "capture_time": "2026-11-16T16:06:12.910449+08:00",
+      "processed_at": "2026-11-21T16:13:42.934+08:00",
+      "estimated_x_m": -1.6060693981821565,
+      "estimated_y_m": 0.023820411234397897,
+      "estimated_yaw_deg": -0.18221355566913644,
+      "matched_ids": [
+        "XCross1",
+        "LCross1",
+        "TCross1"
+      ],
+      "residual_units": 0.008823310669164185
+    },
+    {
+      "frame": 1020,
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "capture_time": "2026-11-16T16:06:46.899474+08:00",
+      "processed_at": "2026-11-21T16:14:08.020+08:00",
+      "estimated_x_m": -0.4052507040585741,
+      "estimated_y_m": 0.06163819857120711,
+      "estimated_yaw_deg": 0.412509720705458,
+      "matched_ids": [
+        "LCross1",
+        "XCross1",
+        "TCross1"
+      ],
+      "residual_units": 0.010766795220719487
+    },
+    {
+      "frame": 7980,
+      "source": "clip_005_20261116T160612_868254_30dcf8b6.avi",
+      "capture_time": "2026-11-16T16:10:39.429589+08:00",
+      "processed_at": "2026-11-21T16:16:40.221+08:00",
+      "estimated_x_m": -0.15698944886361177,
+      "estimated_y_m": 0.5259534534156862,
+      "estimated_yaw_deg": -11.828283099204242,
+      "matched_ids": [
+        "TCross1",
+        "XCross1",
+        "LCross1"
+      ],
+      "residual_units": 0.014178424256435222
+    }
+  ]
+}

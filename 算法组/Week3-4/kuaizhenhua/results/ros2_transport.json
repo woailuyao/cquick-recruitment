@@ -1,0 +1,15 @@
+{
+  "started_at": "2026-11-18T17:52:24.399658+08:00",
+  "finished_at": "2026-11-18T17:52:28.373542+08:00",
+  "environment": "WSL Ubuntu22.04 ROS2 Humble; separate publisher/subscriber processes",
+  "input_mode": "OFFLINE REPLAY transport check",
+  "messages_received": {
+    "ball": 10,
+    "pose": 10
+  },
+  "publisher_exit_code": 0,
+  "metric_invalid_preserved": true,
+  "timestamps_present": true,
+  "stderr": "",
+  "passed": true
+}

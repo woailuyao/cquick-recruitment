@@ -1,0 +1,19 @@
+{
+  "checked_at": "2026-11-19T12:56:09.303405+08:00",
+  "recreated_images_matching_original_pixels": {
+    "ball": 217,
+    "marker": 82
+  },
+  "original_png_hashes_verified": true,
+  "recreated_labels_identical_to_training": true,
+  "map_reconstruction_numeric_match": true,
+  "geometry_unittests_passed": 6,
+  "ros2_transport_passed": true,
+  "local_launcher_check": "actual two-frame headless run succeeded; separate GUI preview not tested this run",
+  "full_replay_frames": {
+    "ball": 300,
+    "marker": 275
+  },
+  "metric_map_verified": false,
+  "live_camera_verified_this_delivery": false
+}

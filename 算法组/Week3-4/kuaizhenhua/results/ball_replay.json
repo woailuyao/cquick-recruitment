@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-11-18T18:07:32.936+08:00",
+  "finished_at": "2026-11-18T18:08:01.251+08:00",
+  "input_mode": "OFFLINE REPLAY",
+  "frames_processed": 300,
+  "ball_detection_frames": 193,
+  "relative_pose_frames": 0,
+  "metric_pose_frames": 0,
+  "wall_seconds": 28.31452280000667,
+  "end_to_end_processed_fps": 10.595269506005213,
+  "mean_processing_ms_excluding_first": 28.252063877705368,
+  "source_fps_metadata": 30.054,
+  "stride": 1,
+  "stop_reason": "max_frames",
+  "performance_note": "Offline throughput is not measured live camera FPS; first inference includes warm-up."
+}
