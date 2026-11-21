@@ -1,0 +1,37 @@
+action_name: 单腿交替前摆
+steps:
+  - step_name: 左腿前摆
+    joints:
+      - id: 3
+        target_pwm: 1800
+        duration_ms: 800
+      - id: 5
+        target_pwm: 1800
+        duration_ms: 800
+
+  - step_name: 左腿收回
+    joints:
+      - id: 3
+        target_pwm: 1500
+        duration_ms: 800
+      - id: 5
+        target_pwm: 1500
+        duration_ms: 800
+
+  - step_name: 右腿前摆
+    joints:
+      - id: 4
+        target_pwm: 1800
+        duration_ms: 800
+      - id: 6
+        target_pwm: 1800
+        duration_ms: 800
+
+  - step_name: 右腿收回
+    joints:
+      - id: 4
+        target_pwm: 1500
+        duration_ms: 800
+      - id: 6
+        target_pwm: 1500
+        duration_ms: 800
