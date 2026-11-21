@@ -24,7 +24,7 @@ graph LR
     end
 
     subgraph 硬件层
-        S[总线舵机组 ID0~ID6]
+        S[总线舵机组 ID1~ID10]
     end
 
     U[上位机/客户端] --> A
@@ -295,9 +295,9 @@ steps:
 
 ## 12. 演示录屏
 
-任务二正反转：https://www.bilibili.com/video/BV1LeyazLET8/
-任务二取消打断：https://www.bilibili.com/video/BV1DwyazTE8E/
-任务二改参数生效：https://www.bilibili.com/video/BV18wyazTE15/
-任务二bag回放：https://www.bilibili.com/video/BV15eyazLEzj/
-任务三整机与动作组：https://www.bilibili.com/video/BV1ihyaz7E6Y/
-任务四下电流程：https://www.bilibili.com/video/BV1ihyaz7Ej2/
+1. 任务二正反转：https://www.bilibili.com/video/BV1LeyazLET8/
+2. 任务二取消打断：https://www.bilibili.com/video/BV1DwyazTE8E/
+3. 任务二改参数生效：https://www.bilibili.com/video/BV18wyazTE15/
+4. 任务二bag回放：https://www.bilibili.com/video/BV15eyazLEzj/
+5. 任务三整机与动作组：https://www.bilibili.com/video/BV1ihyaz7E6Y/
+6. 任务四下电流程：https://www.bilibili.com/video/BV1ihyaz7Ej2/
