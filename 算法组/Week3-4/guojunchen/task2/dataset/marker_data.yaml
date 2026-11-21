@@ -1,0 +1,9 @@
+﻿path: D:/guojunchen/task2/dataset
+train: images/train
+val: images/val
+nc: 4
+names:
+  0: L
+  1: T
+  2: X
+  3: Point

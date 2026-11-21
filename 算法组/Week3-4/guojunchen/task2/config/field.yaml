@@ -1,0 +1,59 @@
+# 场地特征点坐标文件（field.yaml）
+#
+# 这是什么：机器可读的“特征点坐标表”，不是球场图片，也不是 Nav2 的栅格地图（pgm+yaml）。
+#           界面右侧显示的 field_map.png 只是给人看的示意图，不参与任何计算。
+# 坐标系：原点 O = 中圈圆心；+X 向右（指向球门）；+Y 向上；Z 轴向上，地面 Z = 0；
+#         yaw 从 +X 轴逆时针为正（单位：度）；长度单位：米。
+# 尺寸来源：本人用卷尺实测（不是按图片比例换算）。
+#
+version: 1
+frame: camera_map
+unit: m
+
+field:
+  length: 7.80          # 场地总长（沿 X）
+  width: 6.00           # 场地总宽（沿 Y）
+
+zones:
+  penalty_area:         # 大禁区：贴底线，总长 1.90、总宽 4.00
+    length: 1.90
+    width: 4.00
+  goal_area:            # 小禁区：贴底线，总长 0.94、总宽 2.70
+    length: 0.94
+    width: 2.70
+
+center_circle:
+  r: 0.75               # 中圈半径（卷尺实测）
+
+markers:                # 25 个可用特征点；id 与程序内部编号一致
+  - {id:  0, type: LCross, x: -3.900, y: -3.000}
+  - {id:  1, type: LCross, x: -2.000, y: -2.000}
+  - {id:  2, type: LCross, x: -2.960, y: -1.350}
+  - {id:  3, type: TCross, x: -3.900, y: -2.000}
+  - {id:  4, type: TCross, x: -3.900, y: -1.350}
+  - {id:  5, type: LCross, x: -3.900, y: +3.000}
+  - {id:  6, type: LCross, x: -2.000, y: +2.000}
+  - {id:  7, type: LCross, x: -2.960, y: +1.350}
+  - {id:  8, type: TCross, x: -3.900, y: +2.000}
+  - {id:  9, type: TCross, x: -3.900, y: +1.350}
+  - {id: 10, type: LCross, x: +3.900, y: -3.000}
+  - {id: 11, type: LCross, x: +2.000, y: -2.000}
+  - {id: 12, type: LCross, x: +2.960, y: -1.350}
+  - {id: 13, type: TCross, x: +3.900, y: -2.000}
+  - {id: 14, type: TCross, x: +3.900, y: -1.350}
+  - {id: 15, type: LCross, x: +3.900, y: +3.000}
+  - {id: 16, type: LCross, x: +2.000, y: +2.000}
+  - {id: 17, type: LCross, x: +2.960, y: +1.350}
+  - {id: 18, type: TCross, x: +3.900, y: +2.000}
+  - {id: 19, type: TCross, x: +3.900, y: +1.350}
+  - {id: 20, type: TCross, x: +0.000, y: -3.000}
+  - {id: 21, type: TCross, x: +0.000, y: +3.000}
+  - {id: 22, type: XCross, x: +0.000, y: +0.750}
+  - {id: 23, type: XCross, x: +0.000, y: -0.750}
+  - {id: 24, type: PenaltyPoint, x: +0.000, y: +0.000}
+
+# 说明
+# 1) 四角、大禁区角、小禁区角都是 LCross（线段端点相交）；
+# 2) 大/小禁区侧线与底线相交、中线与边线相交都是 TCross（线段端点在另一条线上）；
+# 3) 中圈与中线的两个交点是 XCross（两条线互相穿过）；
+# 4) 中圈圆心现场无可见标记，PenaltyPoint 仅作占位，定位时不参与匹配。

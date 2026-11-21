@@ -1,0 +1,11 @@
+﻿把下载到的权重放到本目录，文件名必须一致：
+
+  任务1：task1_best.pt        ->  D:\guojunchen\task1\weights\best.pt
+  任务2：task2_marker_best.pt ->  D:\guojunchen\task2\weights\marker_best.pt
+
+网盘（永久有效）：
+  https://pan.baidu.com/s/1UhbZ_PyChPVQwycBPv7Qaw?pwd=5408   提取码 5408
+
+SHA256 校验：
+  best.pt          88974eb2a5ce720c01eb8599b0bbddc709c49ad85225c3dc1a973948e06fc437
+  marker_best.pt   5edda17feca64453e9623f4b152d69b0b3665b7db4495048c339592d25101af1
