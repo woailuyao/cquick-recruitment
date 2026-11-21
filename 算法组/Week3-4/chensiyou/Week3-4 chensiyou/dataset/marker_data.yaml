@@ -1,0 +1,6 @@
+path: D:\Marker_Dataset
+train: images/train
+val: images/val
+
+nc: 4
+names: ['LCross', 'TCross', 'XCross', 'PenaltyPoint']
