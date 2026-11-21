@@ -1,0 +1,46 @@
+action_name: alternating_leg_lift
+steps:
+  # Step 1: 全部回到校准直立姿态
+  - joints:
+      - { id: 1, pwm: 1509, duration_ms: 1000 }
+      - { id: 2, pwm: 1381, duration_ms: 1000 }
+      - { id: 3, pwm: 1478, duration_ms: 1000 }
+      - { id: 4, pwm: 1544, duration_ms: 1000 }
+      - { id: 5, pwm: 1619, duration_ms: 1000 }
+      - { id: 6, pwm: 1449, duration_ms: 1000 }
+      - { id: 7, pwm: 1432, duration_ms: 1000 }
+      - { id: 8, pwm: 1635, duration_ms: 1000 }
+      - { id: 9, pwm: 1480, duration_ms: 1000 }
+      - { id: 10, pwm: 1510, duration_ms: 1000 }
+
+  # Step 2: 左腿大幅高抬腿+屈膝（2号髋 -330 到 1051，3号膝 -320 到 1158，4号踝 +150 到 1694）
+  - joints:
+      - { id: 2, pwm: 1051, duration_ms: 1800 }
+      - { id: 3, pwm: 1158, duration_ms: 1800 }
+      - { id: 4, pwm: 1694, duration_ms: 1800 }
+      - { id: 6, pwm: 1509, duration_ms: 1800 }
+      - { id: 10, pwm: 1560, duration_ms: 1800 }
+
+  # Step 3: 左腿平稳放下回直立基准
+  - joints:
+      - { id: 2, pwm: 1381, duration_ms: 1800 }
+      - { id: 3, pwm: 1478, duration_ms: 1800 }
+      - { id: 4, pwm: 1544, duration_ms: 1800 }
+      - { id: 6, pwm: 1449, duration_ms: 1800 }
+      - { id: 10, pwm: 1510, duration_ms: 1800 }
+
+  # Step 4: 右腿大幅高抬腿+屈膝（7号髋 +330 到 1762，8号膝 +320 到 1955，9号踝 -150 到 1330）
+  - joints:
+      - { id: 7, pwm: 1762, duration_ms: 1800 }
+      - { id: 8, pwm: 1955, duration_ms: 1800 }
+      - { id: 9, pwm: 1330, duration_ms: 1800 }
+      - { id: 1, pwm: 1449, duration_ms: 1800 }
+      - { id: 5, pwm: 1569, duration_ms: 1800 }
+
+  # Step 5: 全部平稳恢复校准直立姿态
+  - joints:
+      - { id: 1, pwm: 1509, duration_ms: 1800 }
+      - { id: 5, pwm: 1619, duration_ms: 1800 }
+      - { id: 7, pwm: 1432, duration_ms: 1800 }
+      - { id: 8, pwm: 1635, duration_ms: 1800 }
+      - { id: 9, pwm: 1480, duration_ms: 1800 }
