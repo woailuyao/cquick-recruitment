@@ -1,0 +1,22 @@
+# 下跪动作组：先回中位，再下跪，最后复原
+steps:
+  # 先将参与动作的舵机回到中位
+  - goals:
+      - {id: 2, pwm: 1500, duration_ms: 3000}
+      - {id: 3, pwm: 1500, duration_ms: 3000}
+      - {id: 8, pwm: 1500, duration_ms: 3000}
+      - {id: 9, pwm: 1500, duration_ms: 3000}
+
+  # 下跪：2、3号 -400；8、9号 +400
+  - goals:
+      - {id: 2, pwm: 1100, duration_ms: 3000}
+      - {id: 3, pwm: 1100, duration_ms: 3000}
+      - {id: 8, pwm: 1900, duration_ms: 3000}
+      - {id: 9, pwm: 1900, duration_ms: 3000}
+
+  # 复原到中位
+  - goals:
+      - {id: 2, pwm: 1500, duration_ms: 3000}
+      - {id: 3, pwm: 1500, duration_ms: 3000}
+      - {id: 8, pwm: 1500, duration_ms: 3000}
+      - {id: 9, pwm: 1500, duration_ms: 3000}
