@@ -1,0 +1,28 @@
+﻿# 相机参数（内参来自 calibrate_camera.py 的 3 参数模型重标结果）
+image_width: 1280
+image_height: 720
+
+camera_matrix:
+  fx: 1635.252930
+  fy: 1638.718750
+  cx: 629.792969
+  cy: 354.964996
+
+dist_coeffs: [0.230210, -1.223720, 0.000000, 0.000000, 0.000000]
+
+mount:
+  height_m: 0.98
+  pitch_deg: 30.0
+  roll_deg: 0.0
+  yaw_deg: 0.0
+
+projection:
+  min_range_m: 0.3
+  max_range_m: 6.0        # 地面投影的有效距离上限（超出的观测直接判无效）
+
+localization:
+  max_residual_m: 0.6     # 匹配残差阈值，超过判 high_residual
+  ambiguity_margin_m: 0.20   # 次优解残差必须比最优解差至少这么多，才算唯一确定
+  ambiguity_pose_m: 0.5      # 且两位姿相距超过它 -> ambiguous
+  ambiguity_yaw_deg: 15.0    # 或朝向差超过它 -> ambiguous
+  track_max_age: 0.5

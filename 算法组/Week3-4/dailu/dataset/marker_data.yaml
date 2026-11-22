@@ -1,0 +1,9 @@
+# 场地标志检测数据集（YOLO 格式）
+# 注意：本数据集中 0=XCross, 1=TCross, 2=LCross（与 MakeSense 标注时的编号一致）
+path: D:/week3_4_dailu/marker_dataset
+train: images/train
+val: images/val
+test: images/test
+
+nc: 3
+names: ['XCross', 'TCross', 'LCross']

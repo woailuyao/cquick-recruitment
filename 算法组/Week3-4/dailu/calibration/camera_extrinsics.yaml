@@ -1,0 +1,26 @@
+# 相机相对于载体（移动测试架 / 笔记本）的安装外参
+# 本次把「相机光心正下方的地面点」定义为载体原点，故 T_base_camera 只有高度。
+frame:
+  carrier: "rig_frame（原点 = 相机光心正下方的地面点，X 前、Y 左、Z 上）"
+  camera: "camera_frame（OpenCV：X 右、Y 下、Z 沿光轴）"
+
+mount:
+  height_m: 1.13     # 卷尺量：相机光心到地面
+  pitch_deg: 30.0         # 俯角（向下为正）
+  roll_deg: 0.0
+  yaw_deg: 0.0            # 相机光轴相对载体 +X 的水平偏角
+
+# 相机安装角是怎么来的（不是随便写的）：
+#   笔记本合页内角 120° -> 屏幕与桌面成 60° -> 屏幕背板法线与水平面成 30°
+#   相机用胶带贴在背板上，光轴垂直于屏幕 => 俯角 30°
+#   高度用卷尺量到光心
+method: "合页几何角 + 卷尺高度；滚转按 0 处理（贴平）"
+
+T_base_camera:
+  translation: [0.0, 0.0, 0.98]
+  rotation_order: "pitch only"
+  note: "P_base = R_vc(pitch=30deg) * P_camera + [0, 0, 1.13]"
+
+valid_range:
+  min_range_m: 0.3
+  max_range_m: 6.0
