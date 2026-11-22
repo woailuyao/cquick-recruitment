@@ -1,0 +1,15 @@
+servo_driver:
+  ros__parameters:
+    port: /dev/cq_servo
+    baudrate: 115200
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: true
+watchdog:
+  ros__parameters:
+    port: /dev/cq_servo
+    baudrate: 115200
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    timeout_sec: 1.0
