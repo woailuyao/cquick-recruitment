@@ -17,8 +17,8 @@
 
 用法：
   python locator_fixed.py --video /mnt/d/captures/M1.mp4 --truth=0,2.99,-36.94 \\
-      --detector yolo --weights /mnt/d/captures/landmarks/weights/best_manual_150.pt \\
-      --conf 0.05 --imgsz 1280 --enhance clahe --stride 10 \\
+      --detector yolo --weights /mnt/d/captures/landmarks/weights/best_facing_v3.pt \\
+      --conf 0.05 --imgsz 640 --enhance none --stride 10 \\
       --intr /mnt/d/captures/calib/intrinsics.yaml \\
       --extr templates/camera_extrinsics.yaml
 """
@@ -211,10 +211,10 @@ def main():
     ap.add_argument("--extr", default="templates/camera_extrinsics.yaml")
     ap.add_argument("--detector", choices=["classic", "yolo"], default="yolo")
     ap.add_argument("--weights", default="/mnt/d/captures/landmarks/"
-                                        "weights/best_manual_150.pt")
+                                        "weights/best_facing_v3.pt")
     ap.add_argument("--conf", type=float, default=0.05)
-    ap.add_argument("--imgsz", type=int, default=1280)
-    ap.add_argument("--enhance", choices=["none", "clahe"], default="clahe")
+    ap.add_argument("--imgsz", type=int, default=640)
+    ap.add_argument("--enhance", choices=["none", "clahe"], default="none")
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args()
 

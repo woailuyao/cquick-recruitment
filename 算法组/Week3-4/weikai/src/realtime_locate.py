@@ -14,7 +14,7 @@
   实时相机：
     ~/vision_ws/k1_soccer_vision/.venv/bin/python realtime_locate.py \\
         --source net://127.0.0.1:8090 \\
-        --weights /mnt/d/captures/landmarks/weights/best_manual_150.pt \\
+        --weights /mnt/d/captures/landmarks/weights/best_facing_v3.pt \\
         --intr /mnt/d/captures/calib/intrinsics.yaml \\
         --extr templates/camera_extrinsics.yaml
   视频回放（无相机时验证链路）：
@@ -178,7 +178,7 @@ def main():
     ap.add_argument("--source", default="net://127.0.0.1:8090",
                     help="net://host:port 网络相机 / 视频文件路径 / 相机序号")
     ap.add_argument("--weights", default="/mnt/d/captures/landmarks/"
-                                        "weights/best_manual_150.pt")
+                                        "weights/best_facing_v3.pt")
     ap.add_argument("--field", default=os.path.join(
         os.path.dirname(os.path.abspath(__file__)), "templates/field.yaml"))
     ap.add_argument("--intr", default="/mnt/d/captures/calib/"

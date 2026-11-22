@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>k1_vision_locate</name>
+  <version>1.0.0</version>
+  <description>CQuick 第3-4周视觉定位 ROS2 包：足球检测 + 固定外参单目自定位节点与 launch</description>
+  <maintainer email="weikai@example.com">weikai</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <exec_depend>cquick_interfaces</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
