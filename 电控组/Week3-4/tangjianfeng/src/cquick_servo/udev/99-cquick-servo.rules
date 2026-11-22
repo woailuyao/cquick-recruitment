@@ -1,0 +1,26 @@
+# USB-TTL 固定设备名（CQuick 电控组 · 第 3/4 周）
+#
+# 为什么需要：ttyUSB0 / ttyUSB1 是按插拔顺序编号的，换一个 USB 口、
+# 或者电脑上还插着别的串口设备，名字就变了 —— 代码里写死 ttyUSB0 就会打到别的东西上。
+# 这条规则按 USB 芯片的 ID 认设备，不管插哪个口都给同一个名字 /dev/cquick_servo。
+#
+# 安装（只做一次）：
+#   sudo cp 99-cquick-servo.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules && sudo udevadm trigger
+# 验证：
+#   ls -l /dev/cquick_servo        # 应该指向 ttyUSB*
+# config/servo_params.yaml 与驱动节点的 port 默认值已经是 /dev/cquick_servo，
+# 装完规则即可直接用，不用改代码。
+#
+# 没装规则的机器上临时跑：
+#   ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB0
+#
+# 常见 USB 转 TTL 芯片：
+#   CH340 / CH341   1a86:7523   最便宜的那种蓝色小板
+#   CP2102          10c4:ea60   Silicon Labs
+#   FT232           0403:6001   FTDI
+# 拿不准自己的是哪个：lsusb 看 idVendor:idProduct，对着改下面三行。
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cquick_servo", MODE="0666", GROUP="dialout"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="cquick_servo", MODE="0666", GROUP="dialout"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="cquick_servo", MODE="0666", GROUP="dialout"
