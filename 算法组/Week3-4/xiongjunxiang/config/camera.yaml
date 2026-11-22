@@ -1,0 +1,22 @@
+# 相机采集参数
+# 说明：开发期用 USB/IP 转发进 WSL，1280x720 帧不完整（只有上部有效），
+#       故实际使用 640x480；原生 Ubuntu 直连时可改回 1280x720。
+
+device: /dev/video0
+interface: USB 2.0 UVC
+pixel_format: MJPG
+
+request_width: 1280
+request_height: 720
+request_fps: 30
+
+# 实际生效值（由程序启动打印确认后填写）
+actual_width: 640
+actual_height: 480
+actual_fps: TODO      # 用连续取帧实测，不能抄 CAP_PROP_FPS
+
+# 网络相机（Windows 采集 + TCP 推流，绕过 USB/IP 带宽限制）
+net_camera:
+  enable: true
+  port: 5599
+  note: 发送端 JPEG 质量 80，1280x720 约 2.3 MB/s

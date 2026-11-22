@@ -1,0 +1,34 @@
+# 视频与录制文件（不提交）
+*.avi
+*.mp4
+*.mov
+*.mkv
+
+# 模型权重（放共享存储/网盘）
+*.pt
+*.onnx
+*.engine
+
+# 数据集图片与标签（只提交 dataset_summary.md）
+dataset/**/images/
+dataset/**/labels/
+dataset/ball/
+dataset/markers/
+dataset/markers2/
+
+# 训练输出与临时产物
+runs/
+demo_out/
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# 编辑器
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
