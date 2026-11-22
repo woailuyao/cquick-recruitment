@@ -1,0 +1,12 @@
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# Result：执行完成返回
+bool success
+string message
+uint16 final_pwm
+---
+# Feedback：运动过程实时反馈
+float32 progress
+uint16 current_pwm
