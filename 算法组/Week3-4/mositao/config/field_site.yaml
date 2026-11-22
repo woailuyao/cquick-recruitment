@@ -41,7 +41,7 @@ field_site_overrides:
     camera_height_history:
       - {height_m: 1.375, measured_at: "2026-11-20", note: 桌面机位，外参已于 22:31 解出}
       - {height_m: 0.73,  measured_at: "2026-11-21", note: 降低机位，外参需重解}
-      - {height_m: 1.08,  measured_at: "2026-11-21", note: 抬高机位到 1.08 m、俯角约 19.8°，外参已用人工点 PnP 重解（残差 10.23 px）}
+      - {height_m: 1.08,  measured_at: "2026-11-21", note: 抬高机位到 1.08 m、俯角 19.75°，外参已用人工点 PnP 重解（残差以 calibration/camera_extrinsics.yaml 的 residual_px = 10.74 为准）}
 
   # ── 点球点（PenaltyPoint）────────────────────────────────────────────
   # 官方反推：x_field = file_y + 4.010, y_field = -file_x + 3.035

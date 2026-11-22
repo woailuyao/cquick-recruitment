@@ -43,8 +43,13 @@ intrinsics:
     board_cols: 9               # 内角点 9×6
     board_rows: 6
     square_mm: 25.0
-  # 顺序：k1, k2, p1, p2, k3
-  dist_coeffs: [0.09270429245620773, 0.0, 0.006651198331711839, 0.00039999999999999996, 0.0]
+  # 顺序：k1, k2, p1, p2, k3（与 calibration/camera_intrinsics.yaml 逐位一致）
+  dist_coeffs:
+    - 0.09270429245620773
+    - 0.0
+    - 0.006651198331711839
+    - 0.004000391599643471
+    - 0.0
 
 # ── 外参（calibration/camera_extrinsics.yaml）───────────────
 extrinsics:
