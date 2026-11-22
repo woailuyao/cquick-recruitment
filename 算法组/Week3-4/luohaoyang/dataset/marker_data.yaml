@@ -1,0 +1,9 @@
+path: F:/robot/luohaoyang/week3_4/task2_markers/dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 3
+names:
+  0: LCross
+  1: TCross
+  2: XCross

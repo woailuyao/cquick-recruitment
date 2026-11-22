@@ -1,0 +1,29 @@
+camera_frame: 'camera (OpenCV: x right, y down, z forward)'
+base_frame: base_link (x forward, y left, z up, ground z=0)
+method: solvePnP on measured ground points (IPPE)
+R_base_camera:
+- -0.0031831453085826578
+- -0.16381215027605123
+- 0.9864864150143584
+- -0.9985410552134182
+- 0.053696669837671185
+- 0.005694620410318207
+- -0.053903883340793934
+- -0.9850290589978961
+- -0.16374408169610744
+camera_origin_base_m:
+- 0.18015907175462303
+- 0.024566800066391253
+- 0.642796318337331
+camera_height_m: 0.642796318337331
+pitch_deg: 9.424283394760426
+roll_deg: 3.1322808049207507
+yaw_deg: 0.3307436233643207
+translation_x_m: 0.18015907175462303
+translation_y_m: 0.024566800066391253
+translation_z_m: 0.642796318337331
+reprojection_rms_px: 6.894033099392328
+n_points: 6
+date: '2026-11-22'
+measurement_note: solvePnP on 6 ground points, RMS 6.89px; positive pitch means lens
+  tilted down
