@@ -1,0 +1,5 @@
+path: C:/Users/15403/Desktop/CQuick_Week3-4/dataset
+train: images
+val: images
+nc: 1
+names: ['ball']

@@ -1,0 +1,9 @@
+﻿# 相机安装外参（相对载体 / 三脚架，安装后刚性固定）
+mount: tripod（固定焦距、手动对焦，考核期间不调整）
+camera_height_m: 0.73
+pitch_deg: 19.0          # 向下为正
+roll_deg: 0.0
+yaw_offset_deg: 0.0      # 水平朝向不作为标定量，由标志匹配求解
+calibration_method: 用地面一个卷尺实测点反解俯仰角（src/task2_localization.py --pitch）
+recalibrate_trigger: 相机俯仰角或安装高度发生变化后必须重标（约 10 秒）
+uncertainty: 俯仰角 ±0.5°，高度 ±0.01 m

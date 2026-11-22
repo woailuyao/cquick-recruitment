@@ -1,0 +1,17 @@
+﻿# 场地几何与坐标系定义
+version: 2026-11-22
+field_id: C0
+shape: half_field（中线到球门线）
+half_length_m: 3.80      # 中线中点 -> 球门线
+width_m: 3.98            # 左边线 -> 右边线
+half_width_m: 1.99
+origin: 中线中点（中圈中心）
+axes:
+  x: 指向唯一球门
+  y: 面朝 +x 时的左侧
+  z: 垂直地面向上
+units: m
+ground_plane: z = 0
+marker_types: [CenterPoint, TCross, LCross]
+marker_count: 13
+notes: 坐标为卷尺实测；与组织方示意图存在 0.05~0.10 m 差异，已在 field.yaml 中按实测填写
