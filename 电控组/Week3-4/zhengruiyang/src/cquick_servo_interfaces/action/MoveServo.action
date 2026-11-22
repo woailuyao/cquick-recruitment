@@ -1,0 +1,12 @@
+# ---- 第一段：Goal（客户端发给服务端的"任务"）----
+ServoCommand command    # 一条完整指令（直接嵌套上面的 msg，不用重复写 id/pwm/duration）
+---
+# ---- 第二段：Result（任务结束时返回的"结果"）----
+bool success            # 到底成没成（true=成功，false=失败）
+string message          # 失败原因一句话（如"超限""canceled""没到位"）
+uint16 final_pwm        # 最终 PRAD 读回的实际 PWM 是多少
+---
+# ---- 第三段：Feedback（执行过程中持续回报的"进度"）----
+uint8 id                # 这是哪个舵机的反馈
+uint16 current_pwm      # 当前估算的 PWM 是多少
+float32 progress        # 进度 0~1（0=刚开始，1=完成）
