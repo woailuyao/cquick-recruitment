@@ -1,0 +1,5 @@
+# Python 运行产物（提交时不该进仓库）
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage

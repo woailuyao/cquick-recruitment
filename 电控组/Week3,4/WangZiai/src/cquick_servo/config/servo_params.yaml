@@ -1,0 +1,17 @@
+# 参数文件：最外层 key 必须等于节点名（servo_driver），否则静默不加载
+servo_driver:
+  ros__parameters:
+    port: "/dev/cq_servo"       # udev 固定名；没装规则时：port:=/dev/ttyUSB0（无硬件：port:=mock）
+    baudrate: 115200
+    pwm_min: 900                # 安全下限
+    pwm_max: 2100               # 安全上限
+    default_duration_ms: 800
+    servo_ids: [1,2,3,4,5,6,7,8,9,10]
+    startup_reset: true
+    watchdog_timeout: 3.0   # 3 秒没新指令才卸力
+    resend_threshold: 30   # PRAD 偏差超过 30 自动补发一次
+    accept_wait_timeout: 3.0  # goal 到达时舵机忙，最多等 3 秒再拒
+    send_wait_timeout: 1.0    # 抢舵机锁最多等 1 秒
+    release_on_finish: false   # true=每个动作结束全部 PULK（整机负载重时慎用）
+    echo_ttl: 1.0              # 回声去重窗口；太小（<0.2 s）会自激抽搐
+    stop_on_finish: true       # 动作结束发 T=0 钉住，停掉残余插值
