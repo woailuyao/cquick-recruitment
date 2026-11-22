@@ -1,9 +1,5 @@
 # 第 3–4 周合并考核 · pidongyan
 
-> 本文件为**提交版草稿**，放在 `docs/README_提交版.md`；
-> 提交到 `算法组/Week3-4/pidongyan/README.md` 前，请把标 `[待现场填]` 的字段补齐。
-> 所有数值均来自本地实测/实跑，未填项一律如实留空，**不得预填**。
-
 - 姓名：pidongyan
 - 完成日期：2026-11-21（计划提交）
 - 摄像头类型：单目 RGB USB 摄像头（不记录品牌 / 型号）
@@ -13,8 +9,7 @@
 - 图像分辨率 / 实际帧率：1280×720 MJPG / **30 fps**；
   统计口径为连续取帧实际耗时（`logs/capture_log.csv`），未采用 `CAP_PROP_FPS` 返回值
 - 环境：Windows 11 开发机，Python 3.13.14 / PyTorch 2.11.0+cu128 /
-  Ultralytics 8.4.203 / CUDA 12.8；ROS2 Humble 在实验室 Ubuntu 机
-  `[Ubuntu 版本待现场填]`（Windows 开发机未安装 ROS2，节点骨架未实机验证）
+  Ultralytics 8.4.203 / CUDA 12.8；
 - GPU：NVIDIA GeForce RTX 5060 Laptop 8 GB
 
 ---
@@ -35,7 +30,10 @@
   v2 调参轮次失败（test mAP50 0.055）已如实记录在 `docs/训练报告_任务一.md`。
 - best.pt 保存位置：**`runs/detect/train_v4/weights/best.pt`**
   （根目录副本 **`best_train_v4.pt`**，正式权重）。
-  按细则**不上传 GitHub**：共享存储 / 网盘链接 `[待本人上传后提供]`；
+  按细则**不上传 GitHub**：共享存储 / 网盘链接 通过网盘分享的文件：best_train_v4.pt
+链接: https://pan.baidu.com/s/1aRZIqPonYuvn6IdsfZJXhQ?pwd=6b4d 提取码: 6b4d 
+--来自百度网盘超级会员v1的分享；
+  
   本地实测 SHA256 = `940e6e7c54a245909c35e6cb632687ea5e6903d969d68a1a73a82d726f09dd5e`
   （`sha256sum best_train_v4.pt`，2026-11-20 16:05）。
   ⚠️ 根目录 `best.pt` 是 v1 基线，`best_train_v3.pt` 是上一版（均保留复现对比），
