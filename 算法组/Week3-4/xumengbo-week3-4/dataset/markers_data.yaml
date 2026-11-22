@@ -1,0 +1,18 @@
+# 任务 2 场地标志检测数据集配置（YOLO 格式）
+# 类别编号与考核细则 2.3 节一致：
+#   0 LCross   L 型场地交点 / 角点标志
+#   1 TCross   T 型场地交点标志
+#   2 XCross   X 型场地交点标志
+# 说明：现场没有白色圆点点球标记，PenaltyPoint 暂不纳入训练类别；
+#       若组长确认需要补点球点，再在下方 names 增加 3: PenaltyPoint 并把 nc 改为 4。
+
+path: D:/W34_dataset/markers
+train: images/train
+val: images/val
+test: images/test
+
+nc: 3
+names:
+  0: LCross
+  1: TCross
+  2: XCross
