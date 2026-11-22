@@ -1,0 +1,4 @@
+# CH340 USB-TTL -> 固定设备名 /dev/cq_servo
+# 安装：sudo cp 99_cq_servo.rules /etc/udev/rules.d/
+#       sudo udevadm control --reload-rules && sudo udevadm trigger
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666"
