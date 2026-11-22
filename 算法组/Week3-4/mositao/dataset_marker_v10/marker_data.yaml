@@ -1,0 +1,6 @@
+path: dataset_marker_v10
+train: images/train
+val: images/val
+test: images/test
+nc: 3
+names: ['LCross', 'TCross', 'XCross']

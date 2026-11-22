@@ -1,0 +1,44 @@
+camera_intrinsics:
+  fx: 1677.5747203858457
+  fy: 1672.2383583299893
+  cx: 674.1690497059957
+  cy: 380.71937511065863
+  dist_coeffs:
+  - 0.09270429245620773
+  - 0.0
+  - 0.006651198331711839
+  - 0.004000391599643471
+  - 0.0
+  width: 1280
+  height: 720
+  reprojection_error_px: 0.3680176783869652
+  distortion_model: k1
+  calibration_images: 21
+  board:
+    cols: 9
+    rows: 6
+    square_mm: 25.0
+  per_image_error_px:
+  - 0.6055
+  - 0.3021
+  - 0.2828
+  - 0.2828
+  - 0.3008
+  - 0.2939
+  - 0.3067
+  - 0.2979
+  - 0.284
+  - 0.3052
+  - 0.4978
+  - 0.6123
+  - 0.3105
+  - 0.3076
+  - 0.333
+  - 0.3565
+  - 0.3037
+  - 0.3538
+  - 0.3745
+  - 0.2933
+  - 0.4444
+  method: OpenCV calibrateCamera（棋盘格内角点，findChessboardCornersSB 检测）
+  calibrated_at: '2026-11-10 17:37:19'

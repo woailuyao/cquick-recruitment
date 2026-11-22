@@ -1,0 +1,107 @@
+# ============================================================================
+# 第 3–4 周提交范围（细则 §五「GitHub 只提交轻量工程文件」）
+#
+# 这些排除**不影响本地运行**：文件仍在磁盘上，只是不进 Git。
+# 提交清单（保留项）见文件末尾。
+# ============================================================================
+
+# ── 原始视频 / 屏幕录制 ──────────────────────────────────────────────
+data/videos/
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# ── 相机标定原图与外参候选帧（几十 MB 起，不入库）────────────────────
+data/*/
+!data/ext_final/
+
+# ── 整套抽帧图片与标注（细则：不上传整套，只交 dataset_summary.md）──
+# dataset/ 与 dataset_marker*/ 下的 raw/pre/manucalib/images/labels 全部排除，
+# 只保留各目录根一级的 yaml 与统计页。
+dataset*/*/
+
+# ── 训练产物与临时文件 ───────────────────────────────────────────────
+runs/
+.tmp/
+__pycache__/
+*.py[cod]
+.venv/
+*.log
+
+# ── 权重（细则：放实验室共享存储 / 指定网盘，README 写获取方式与校验值）──
+weights/*.pt
+weights/*.pth
+weights/*.onnx
+weights/*.h5
+weights/*.weights
+
+# ── outputs：只留指标文本与少量证据图 ────────────────────────────────
+outputs/*
+!outputs/metrics_ball.md
+!outputs/metrics.md
+!outputs/frame_recall.md
+
+# 任务一 误检/漏检/正确案例（README 3.4 与录屏分镜会用到）
+!outputs/cases_ball
+outputs/cases_ball/*
+!outputs/cases_ball/*.png
+
+# 任务二 诊断对比图（README 4.9 引用其中三张）
+!outputs/realtime
+outputs/realtime/*
+!outputs/realtime/ab_b1_20261121_214433_imgsz1280_conf035.png
+!outputs/realtime/v11_vs_v12_v3_20261121_212022_imgsz1280_conf035.png
+!outputs/realtime/light_boost_g05_conf030.png
+
+# ── 办公文档二进制（操作手册，非考核要求）──────────────────────────
+*.docx
+*.pdf
+*.zip
+*.rar
+*.7z
+
+# ── 系统 / 编辑器 ───────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+
+# ── 过时 / 废弃文件：留着会误导评审，故不入库（本地仍保留）──────────
+# 非正式外参（备份、演示、样本、自检、旧实测版）
+calibration/camera_extrinsics.bak_0.73m.yaml
+calibration/camera_extrinsics.demo.yaml
+calibration/camera_extrinsics.sample.yaml
+calibration/camera_extrinsics.simcheck.yaml
+calibration/camera_extrinsics.site.yaml
+calibration/camera_intrinsics.sample.yaml
+calibration/extrinsics_correspondences.example.yaml
+# 已弃用的占位地图与测量模板
+config/field.placeholder.yaml
+config/field_measurement_template.yaml
+# 进行中的现场状态记录（结论已并入 README 4.x，原文档停留在 11-20）
+docs/task2_site_status.md
+# 被 v10 合并集取代的旧标志数据集（v1–v9 时代）与废弃的 4 类集
+dataset_marker/
+dataset_marker_keepP/
+
+# ============================================================================
+# 保留并提交的内容（不需要规则，此段仅供 review 对照）
+#   README.md
+#   run.bat  label.bat
+#   dataset/ball_data.yaml  dataset/marker_data.yaml  dataset/dataset_summary.md
+#   dataset/data.yaml（训练脚本默认入口，与 ball_data.yaml 同内容）
+#   dataset_marker_v10/（正式训练集描述）dataset_marker_v12/（对照实验集描述）
+#   calibration/camera_intrinsics.yaml  calibration/camera_extrinsics.yaml
+#   config/field.yaml  config/field_geometry.yaml  config/field_site.yaml  config/camera.yaml
+#   src/**（common 接口包 / loc 视觉定位包 / sim 自检）
+#   tools/**（全部可执行脚本）
+#   docs/*.md  docs/coord_frame_check.png
+#   weights/README.md（权重获取方式与校验值）
+#   outputs/metrics_ball.md  outputs/metrics.md  outputs/frame_recall.md
+#   outputs/cases_ball/*.png
+#   outputs/realtime/{ab_b1,v11_vs_v12_v3,light_boost_g05}*.png
+#   data/ext_final/（标定帧，README 4.4 引用）
+# ============================================================================

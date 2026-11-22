@@ -1,0 +1,72 @@
+field_geometry:
+  # ⚠ 本文件不是组织方发布版本（组织方 field_geometry.yaml 仍未公开）。
+  #   内容由 Booster 官方源码 + 官方 field.yaml 反推得出，标注 derived；
+  #   组长确认或发布正式版后整体替换。坐标未修改任何官方数值。
+  version: booster-adult_size-derived
+  map_version: booster-robocup_demo@main
+  status: derived
+  derived_by: 由 FieldDimensions(FD_ADULTSIZE) 生成特征集，对官方 14 点做刚体变换拟合
+  verified_by_leader: false
+
+  units: m
+
+  # ── 场地尺寸（Booster types.h 的 FD_ADULTSIZE，字段顺序见源码）─────────
+  # const FieldDimensions FD_ADULTSIZE{14, 9, 2.1, 2.6, 1.5, 3, 6, 1, 4};
+  field_type: adult_size
+  field_length_m: 14.0
+  field_width_m: 9.0
+  penalty_dist_m: 2.1
+  goal_width_m: 2.6
+  circle_radius_m: 1.5
+  penalty_area_length_m: 3.0
+  penalty_area_width_m: 6.0
+  goal_area_length_m: 1.0
+  goal_area_width_m: 4.0
+
+  # ── 地图坐标系（Booster 约定）──────────────────────────────────────
+  origin:
+    description: 场地中心（两条中线交点）
+    in_file_frame: {x_m: 3.035, y_m: -4.010}
+  axis:
+    x: 沿场地长边指向唯一球门（组长《场地坐标系示意图·俯视图》：+X 指向球门）
+    y: 面朝 +X 时的左侧（右手系 x̂ × ŷ = ẑ，与组长示意图一致）
+    z: 垂直地面向上，地面 Z=0
+    yaw: 从 +X 轴逆时针为正，单位 degree
+    handedness: right
+    convention_source: 组长《场地坐标系示意图·俯视图》（2026-11-21 收到）
+
+  # ── 官方 field.yaml 的数值到本坐标系的换算 ─────────────────────────
+  # 官方文件里的坐标不是场地中心系：它相对场地中心旋转了 90° 并平移。
+  file_to_field:
+    formula:
+      - x_field =  file_y + 4.010
+      - y_field = -file_x + 3.035
+    rotation_deg: -90.0
+    translation_x_m: 4.010
+    translation_y_m: 3.035
+
+  # ── 官方地图的覆盖范围：只有半个场地 ───────────────────────────────
+  coverage:
+    x_field_min: 0.0
+    x_field_max: 7.0
+    note: >
+      官方 field.yaml 的 14 个点全部落在 x∈[0,7] 这半个场地内（中线到 +X 端球门线），
+      另外半场没有特征点。若 C0 为全场，另半场无法定位，需组长补充地图。
+
+  # ── 拟合结论（可复现：scripts 见 docs/field_map_source.md）──────────
+  fit:
+    candidate_field_types: [kid_size, adult_size]
+    rotations_tested_deg: [0, 90, 180, 270]
+    best: {field_type: adult_size, rotation_deg: 90}
+    residual_max_m: 0.108
+    residual_mean_m: 0.067
+    residual_rms_m: 0.072
+    matched: 14/14
+    scale_check: {observed_xcross_sep_m: 2.940, ideal_2circle_radius_m: 3.000}
+
+  # ── 官方文件事实 ───────────────────────────────────────────────────
+  marker_count: 14
+  marker_types: {TCross: 6, LCross: 5, XCross: 2, PenaltyPoint: 1}
+  source: https://raw.githubusercontent.com/BoosterRobotics/robocup_demo/main/src/vision/config/field.yaml
+  sha256: 1d65e27b1491712392d43b8b8040224d5561125f9419b505081143a88183cf73
+  fetched_at: '2026-11-15 19:10:00'

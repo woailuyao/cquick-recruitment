@@ -1,0 +1,15 @@
+# 任务二 · 场地标志检测数据集（细则 §五「提交目录」点名的 marker_data.yaml）
+#
+# 图片与标注实际放在 ../dataset_marker/、../dataset_marker_v10/、../dataset_marker_v12/，
+# 三套都是本地数据，不提交仓库（细则：不上传整套抽帧图片和标注图片），统计见 dataset_summary.md。
+#
+# 本文件指向**正式交付模型 v11 所用的合并集** dataset_marker_v10（高姿 5 段 + 低姿 3 段，1753 框）。
+# `path` 与同目录 ball_data.yaml 一样，按「项目根下的相对路径」书写；
+# 训练/评估命令都在项目根执行（见 README 第 9 节），故解析基准一致。
+
+path: dataset_marker_v10
+train: images/train
+val: images/val
+test: images/test
+nc: 3
+names: ['LCross', 'TCross', 'XCross']
