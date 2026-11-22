@@ -1,0 +1,13 @@
+steps:
+  - step_name: "摇头准备"
+    actions:
+      - {id: 1, pwm: 1200, duration_ms: 500}
+  - step_name: "摇过去"
+    actions:
+      - {id: 1, pwm: 1800, duration_ms: 500}
+  - step_name: "摇回来"
+    actions:
+      - {id: 1, pwm: 1200, duration_ms: 500}
+  - step_name: "回中"
+    actions:
+      - {id: 1, pwm: 1500, duration_ms: 500}

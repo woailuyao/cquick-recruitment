@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://://download.ros.org/schema/package_format3.xsd" schematypens="http://://www.ros.org/xml/ns/package-3"?>
+<package format="3">
+  <name>ball_comm</name>
+  <version>0.0.0</version>
+  <description>publisher subscriber for BallPos</description>
+  <maintainer email="leyili@example.com">leyili</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+  <depend>rclpy</depend>
+  <depend>geometry_msgs</depend>
+  <depend>turtlesim</depend>
+  <depend>ball_interfaces</depend>
+
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>
