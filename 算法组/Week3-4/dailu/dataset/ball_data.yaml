@@ -1,0 +1,9 @@
+# 足球检测数据集（YOLO 格式）
+# 图片与标签体积较大，按考核要求不上传仓库，此处仅保留配置。
+# 本地实际路径：D:/week3_4_dailu/soccer_dataset/images/{train,val,test}
+train: ./images/train
+val: ./images/val
+test: ./images/test
+
+nc: 1
+names: ['ball']
