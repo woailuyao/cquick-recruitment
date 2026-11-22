@@ -1,0 +1,48 @@
+# 相机外参：camera <-> base/rig
+# ------------------------------------------------------------------
+# 坐标约定
+#   base / rig : +X 朝向球门（前进方向）, +Y 向左, +Z 竖直向上
+#   camera     : +Z 沿光轴向前, +X 向右, +Y 向下  (OpenCV 相机系)
+# 单位：米 / 度
+# 参考原点：直接定义为相机光心在地面上的铅垂投影点
+#          => 平面位姿上 carrier_pose == camera_pose（无需再换算）
+# ------------------------------------------------------------------
+
+frame:
+  parent: rig
+  child: camera
+  origin_note: "rig 原点 = 相机光心铅垂投影点；因此 x_carrier_map == x_camera_map"
+
+mount:
+  height_m: 0.728          # 相机光心到地面距离
+  pitch_deg: 15.0          # 光轴在水平线"下方"的角度（低头）
+  roll_deg: 5.0            # 横滚；若现场实测方向相反，请改为 -5.0 并同步 localize.py
+
+# T_base_camera：相机光心在 base 系中的位置
+translation_base_camera: [0.0, 0.0, 0.728]
+
+# R_base_camera：把相机系向量旋转到 base 系（行优先，3x3）
+# 由 pitch=15.0°, roll=5.0° 按 R = R_noroll @ Rz(roll) 生成，det = 1.0
+rotation_base_camera:
+  - [-0.02255757, -0.25783416,  0.96592583]
+  - [-0.99619470,  0.08715574,  0.00000000]
+  - [-0.08418598, -0.96225019, -0.25881905]
+
+calibration:
+  method: "卷尺测光心离地高度 + 角度尺测安装俯仰角/横滚角（手工测量，非棋盘格外参标定）"
+  date: "2026-11-21"
+  height_uncertainty_m: 0.01
+  pitch_uncertainty_deg: 1.0
+  roll_uncertainty_deg: 1.0
+  sensitivity_note: >
+    实测敏感度（地面落点位移）：俯角误差 1° ≈ 0.09 m；高度误差 1 cm ≈ 0.025 m；
+    横滚误差 1° ≈ 0.015 m。因此俯角是最需要量准的量。
+
+constraints:
+  - "相机与测试架必须刚性固定，测试期间不得改变高度/俯仰/横滚"
+  - "拆除或重新安装相机后必须重新测量并更新本文件"
+  - "本外参为安装标定值，不属于通过场地标志恢复的 6DoF 位姿"
+
+usage:
+  formula: "P_base = R_base_camera @ P_camera + T_base_camera"
+  ground_intersection: "令 P_base.z = 0，解 lambda = -T_z / d_z"

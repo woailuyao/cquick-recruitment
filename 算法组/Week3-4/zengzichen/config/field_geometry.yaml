@@ -1,0 +1,63 @@
+# 场地几何与地图坐标系定义
+# ------------------------------------------------------------------
+# 说明：本文件记录 C0 场地地图的坐标约定与版本信息。
+#       地图特征坐标本身在 config/field.yaml 中，本文件不重复、不修改。
+# ------------------------------------------------------------------
+
+field_id: C0
+units: m
+
+# ---------------- 坐标系定义 ----------------
+coordinate_system:
+  origin: "点球点（field.yaml 中的 PenalityPoint）"
+  x_axis: "+X 指向球门"
+  y_axis: "+Y 为面朝球门时的左侧"
+  z_axis: "+Z 竖直向上"
+  yaw_definition: "从 +X 轴逆时针为正，单位 度"
+  handedness: "右手系"
+
+# ---------------- 地面平面 ----------------
+ground_plane:
+  equation: "Z = 0"
+  assumption: "测试范围内地面近似为平面；地面不平会引入深度方向误差"
+
+# ---------------- 地图文件信息 ----------------
+map_file:
+  name: field.yaml
+  sha256: 09b9dd9c7c16683709334815829575b987f753767662ab31bf04f015aee37581
+  source: "组长统一发布的场地标志坐标（本人未修改任何坐标值）"
+  feature_counts:
+    TCross: 6
+    LCross: 5
+    XCross: 2
+    Point: 1
+  total_features: 14
+
+# 地图中全部标志点的包围盒（由 field.yaml 直接统计得出）
+marker_bounds:
+  x_min: 0.000
+  x_max: 3.962
+  y_min: -2.995
+  y_max: 2.995
+
+# ---------------- 类别别名映射 ----------------
+# 官方 field.yaml 中拼写为 PenalityPoint，模型类别名统一为 Point，解析时必须映射
+class_alias:
+  PenalityPoint: Point
+  PenaltyPoint: Point
+  LCross: LCross
+  TCross: TCross
+  XCross: XCross
+
+# ---------------- 场地总尺寸（待确认项） ----------------
+# 组织方发布的官方 field_geometry.yaml 若含以下字段，请以官方值为准覆盖本段
+field_dimensions:
+  length_m: null          # TODO 由官方 field_geometry.yaml 确认
+  width_m: null           # TODO 由官方 field_geometry.yaml 确认
+  goal_width_m: null      # TODO 由官方 field_geometry.yaml 确认
+  verified_with_actual_field: true    # 已与组长确认：实际场地与 field.yaml 一致
+
+map_version:
+  version: "v1 (2026-11-21)"
+  status: "已与组长确认：点球点即场地中心，作为地图原点"
+  revision_note: "如官方发布修订版地图，必须以新版本 SHA256 覆盖本文件并重新评估定位误差"
