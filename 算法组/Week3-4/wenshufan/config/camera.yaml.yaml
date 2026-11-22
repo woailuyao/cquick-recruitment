@@ -1,0 +1,10 @@
+camera:
+  type: "USB_Monocular_RGB"
+  device_node: "/dev/video0"  
+  resolution:
+    width: 1280
+    height: 720
+  fps: 30
+  format: "MJPG"
+  auto_focus: false
+  fixed_focus: true
