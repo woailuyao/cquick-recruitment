@@ -1,0 +1,305 @@
+#!/usr/bin/env python3
+import time
+import serial
+
+import rclpy
+from rclpy.node import Node
+from rclpy.action import ActionServer
+from rclpy.action.server import CancelResponse, GoalResponse
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import ReentrantCallbackGroup
+from rcl_interfaces.msg import SetParametersResult
+
+from cquick_servo_interfaces.action import MoveServo
+from cquick_servo_interfaces.msg import ServoCommand
+
+
+def build_move_command(servo_id, pwm, duration_ms):
+    return f"#{servo_id:03d}P{pwm}T{duration_ms}!"
+
+
+def parse_position(response):
+    if not response:
+        return None
+    try:
+        start = response.index('P') + 1
+        end = start
+        while end < len(response) and response[end].isdigit():
+            end += 1
+        if end == start:
+            return None
+        return int(response[start:end])
+    except ValueError:
+        return None
+
+
+class ServoDriver(Node):
+    def __init__(self):
+        super().__init__('servo_driver')
+
+        self.declare_parameter('port', '/dev/ttyUSB0')
+        self.declare_parameter('baudrate', 115200)
+        self.declare_parameter('pwm_min', 900)
+        self.declare_parameter('pwm_max', 2100)
+        self.declare_parameter('default_duration_ms', 800)
+        self.declare_parameter('servo_ids', [1, 2, 3, 4, 5, 6])
+        self.declare_parameter('startup_reset', True)
+
+        self.serial = None
+        try:
+            self.serial = serial.Serial(
+                port=self.get_parameter('port').value,
+                baudrate=self.get_parameter('baudrate').value,
+                timeout=0.2)
+            self.get_logger().info('串口已打开')
+        except serial.SerialException as e:
+            self.get_logger().warn(f'串口打开失败，进入无硬件模式：{e}')
+
+        self.server = ActionServer(
+            self,
+            MoveServo,
+            'move_servo',
+            execute_callback=self.execute_callback,
+            goal_callback=self.goal_callback,
+            cancel_callback=self.cancel_callback,
+            callback_group=ReentrantCallbackGroup())
+                # 2.7 bag 用：话题订阅/发布
+        
+        self.command_sub = self.create_subscription(
+            ServoCommand, '/servo/command',
+            self.on_command, 10)
+        self.state_pub = self.create_publisher(
+            ServoCommand, '/servo/state', 10)
+        self.get_logger().info('已订阅 /servo/command，已创建 /servo/state')
+
+        # ====== 2.6 门卫回调：参数修改必须经过我同意 ======
+        self.add_on_set_parameters_callback(self.on_set_parameters)
+
+        if self.serial and self.get_parameter('startup_reset').value:
+            for sid in list(self.get_parameter('servo_ids').value):
+                self.send_command(f'#{sid:03d}PULR!')
+                self.send_command(f'#{sid:03d}P1500T1000!')
+
+    def send_command(self, cmd):
+        if self.serial is None:
+            self.get_logger().warn(f'无串口，指令未发送: {cmd}')
+            return False
+        try:
+            self.serial.write(cmd.encode())
+            self.serial.flush()
+            return True
+        except serial.SerialException as e:
+            self.get_logger().warn(f'串口写入失败: {e}')
+            return False
+
+    def read_position(self, servo_id):
+        if not self.send_command(f'#{servo_id:03d}PRAD!'):
+            return None
+        time.sleep(0.2)
+        try:
+            response = self.serial.read_all().decode(errors='replace')
+        except serial.SerialException:
+            return None
+        pos = parse_position(response)
+        if pos is not None:
+            self.get_logger().info(f'PRAD 回读: {response.strip()} -> {pos}')
+        return pos
+
+    # ====== 回调 1：goal 校验（现读参数，保证当帧生效）======
+    def goal_callback(self, goal_request):
+        cmd = goal_request.command
+        pwm_min = self.get_parameter('pwm_min').value
+        pwm_max = self.get_parameter('pwm_max').value
+        ids = list(self.get_parameter('servo_ids').value)
+        if not (pwm_min <= cmd.pwm <= pwm_max):
+            self.get_logger().warn(f'REJECT pwm={cmd.pwm} 超出 [{pwm_min},{pwm_max}]')
+            return GoalResponse.REJECT
+        if cmd.id not in ids:
+            self.get_logger().warn(f'REJECT id={cmd.id} 不在 servo_ids={ids}')
+            return GoalResponse.REJECT
+        if cmd.duration_ms > 10000:
+            self.get_logger().warn(f'REJECT duration_ms={cmd.duration_ms} 非法')
+            return GoalResponse.REJECT
+        self.get_logger().info(f'ACCEPT id={cmd.id} pwm={cmd.pwm} t={cmd.duration_ms}')
+        return GoalResponse.ACCEPT
+
+    def cancel_callback(self, cancel_request):
+        return CancelResponse.ACCEPT
+
+    def execute_callback(self, goal_handle):
+        cmd = goal_handle.request.command
+        duration = cmd.duration_ms if cmd.duration_ms > 0 else \
+            self.get_parameter('default_duration_ms').value
+
+        result = MoveServo.Result()
+        feedback = MoveServo.Feedback()
+
+        start = self.read_position(cmd.id)
+        if start is None:
+            start = cmd.pwm
+
+        self.send_command(f'#{cmd.id:03d}PULR!')
+        if not self.send_command(build_move_command(cmd.id, cmd.pwm, duration)):
+            result.success = False
+            result.error_code = MoveServo.Result.ERR_SERIAL
+            result.message = '串口未连接，指令未送达'
+            goal_handle.abort()
+            return result
+
+        t0 = time.time()
+        total = duration / 1000.0
+        canceled = False
+        while time.time() - t0 < total:
+            if goal_handle.is_cancel_requested:
+                canceled = True
+                break
+            progress = min((time.time() - t0) / total, 1.0)
+            feedback.progress = progress
+            feedback.current_pwm = int(start + (cmd.pwm - start) * progress)
+            feedback.status = MoveServo.Feedback.STATUS_MOVING
+            goal_handle.publish_feedback(feedback)
+            time.sleep(0.1)
+
+                        # 发布当前状态到 /servo/state
+            state_msg = ServoCommand()
+            state_msg.id = sid
+            state_msg.pwm = current_pwm
+            state_msg.duration_ms = 0
+            self.state_pub.publish(state_msg)
+
+        if canceled:
+            self.send_command(f'#{cmd.id:03d}P1500T500!')
+            feedback.status = MoveServo.Feedback.STATUS_CANCELING
+            feedback.progress = (time.time() - t0) / total
+            goal_handle.publish_feedback(feedback)
+            result.success = False
+            result.error_code = MoveServo.Result.ERR_CANCELED
+            result.message = 'canceled'
+            goal_handle.canceled()
+            return result
+
+        real = self.read_position(cmd.id)
+        result.final_pwm = real if real is not None else 0
+        if real is None:
+            result.success = False
+            result.error_code = MoveServo.Result.ERR_SERIAL
+            result.message = 'PRAD 读回失败'
+            goal_handle.abort()
+        elif abs(real - cmd.pwm) > 30:
+            result.success = False
+            result.error_code = MoveServo.Result.ERR_NOT_REACHED
+            result.message = f'未到位: 目标{cmd.pwm} 读回{real}'
+            goal_handle.abort()
+        else:
+            result.success = True
+            result.error_code = MoveServo.Result.ERR_OK
+            result.message = '到位'
+            goal_handle.succeed()
+        return result
+
+    # ====== 2.6 门卫回调：拦截非法参数修改 ======
+    def on_set_parameters(self, params):
+        """参数修改的守门员。返回 SetParametersResult：
+        successful=True 允许修改，False 拒绝并附带 reason"""
+        result = SetParametersResult()
+        result.successful = True
+        result.reason = ''
+
+        # 先把本轮要改的所有参数收进字典，方便交叉验证（比如同时改 min 和 max）
+        pending = {p.name: p.value for p in params}
+
+        for p in params:
+            name = p.name
+            value = p.value
+
+            if name == 'pwm_min':
+                # 如果本轮也改 pwm_max，用待改值；否则用当前值
+                new_max = pending.get('pwm_max', self.get_parameter('pwm_max').value)
+                if not isinstance(value, int):
+                    result.successful = False
+                    result.reason = 'pwm_min 必须是整数'
+                    return result
+                if value < 500 or value > 2500:
+                    result.successful = False
+                    result.reason = f'pwm_min={value} 超出 [500,2500]'
+                    return result
+                if value >= new_max:
+                    result.successful = False
+                    result.reason = f'pwm_min({value}) 必须小于 pwm_max({new_max})'
+                    return result
+
+            elif name == 'pwm_max':
+                new_min = pending.get('pwm_min', self.get_parameter('pwm_min').value)
+                if not isinstance(value, int):
+                    result.successful = False
+                    result.reason = 'pwm_max 必须是整数'
+                    return result
+                if value < 500 or value > 2500:
+                    result.successful = False
+                    result.reason = f'pwm_max={value} 超出 [500,2500]'
+                    return result
+                if value <= new_min:
+                    result.successful = False
+                    result.reason = f'pwm_max({value}) 必须大于 pwm_min({new_min})'
+                    return result
+
+            elif name == 'baudrate':
+                if value not in (9600, 19200, 38400, 57600, 115200):
+                    result.successful = False
+                    result.reason = f'baudrate={value} 不是常见波特率'
+                    return result
+
+            elif name == 'port':
+                if not isinstance(value, str) or not value.startswith('/dev/'):
+                    result.successful = False
+                    result.reason = f'port={value} 格式非法'
+                    return result
+
+            elif name == 'servo_ids':
+                if not isinstance(value, list) or not all(
+                        isinstance(x, int) and 1 <= x <= 254 for x in value):
+                    result.successful = False
+                    result.reason = 'servo_ids 必须是 1~254 的整数列表'
+                    return result
+
+            elif name == 'default_duration_ms':
+                if not isinstance(value, int) or value <= 0 or value > 10000:
+                    result.successful = False
+                    result.reason = f'duration_ms={value} 必须在 (0,10000]'
+                    return result
+
+            elif name == 'startup_reset':
+                if not isinstance(value, bool):
+                    result.successful = False
+                    result.reason = 'startup_reset 必须是布尔值'
+                    return result
+
+        return result
+    
+    def on_command(self, msg):
+        """bag 回放时收到的话题指令，直接发给舵机"""
+        self.get_logger().info(f'[bag回放] 收到话题指令: id={msg.id} pwm={msg.pwm} t={msg.duration_ms}')
+        cmd = build_move_command(msg.id, msg.pwm, msg.duration_ms)
+        try:
+            self.serial.write(cmd.encode())
+            self.serial.flush()
+        except Exception as e:
+            self.get_logger().error(f'发送失败: {e}')
+
+    
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = ServoDriver()
+    executor = MultiThreadedExecutor()
+    executor.add_node(node)
+    try:
+        executor.spin()
+    except KeyboardInterrupt:
+        pass
+    node.destroy_node()
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

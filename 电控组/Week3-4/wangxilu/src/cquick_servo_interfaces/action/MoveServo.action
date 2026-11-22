@@ -1,0 +1,23 @@
+# ====== Goal======
+ServoCommand command
+---
+# ====== Result ======
+uint8 error_code      # 失败原因码，见下方常量
+string message        
+uint16 final_pwm      
+bool success
+
+uint8 ERR_OK=0           # 成功
+uint8 ERR_LIMIT=1        # 目标超限（预留）
+uint8 ERR_CANCELED=2     # 执行中被取消
+uint8 ERR_SERIAL=3       # 串口读写失败
+uint8 ERR_NOT_REACHED=4  # 走完读回与目标差超过 ±30，没到位
+---
+# ====== Feedback ======
+uint16 current_pwm  
+float32 progress     
+uint8 status         # 状态字，见下方常量
+
+uint8 STATUS_STOP=0
+uint8 STATUS_MOVING=1
+uint8 STATUS_CANCELING=2
