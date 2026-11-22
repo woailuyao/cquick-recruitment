@@ -179,7 +179,13 @@ ros2 bag play bag/run1
 
 ## 12. 录屏
 
-B 站链接待补。拍了三段：正反转回中位；取消打断——goal 发出去 5 秒后取消，终端打出 CANCELED，舵机当场停住还自己回了中位，取消是真生效到硬件上的；改参数六步演示，最关键的是第④步，param set 改完不重启，再发同一个 goal 直接被拒。bag 回放的情况见第 7 节。
+录屏（B 站，三个分P）：https://www.bilibili.com/video/BV121yjzQECA/
+
+- P1 正反转回中位：1200 → 2100 → 中位，三次 SUCCEEDED，final_pwm 读回 1527
+- P2 取消打断：goal 发出去 5 秒后取消，终端打出 CANCELED，舵机当场停住还自己回了中位——取消是真生效到硬件上的
+- P3 改参数六步演示：最关键的是第④步，param set 改完不重启，再发同一个 goal 直接 Goal was rejected；结尾 SUCCEEDED，final_pwm 1700
+
+说明：P3 那段录制时切了六次窗口看命令清单，已剪掉（跳接可见）；bag 回放段未单独录制，bag 文件与 ros2 bag info 截图见上文，回放验证情况见第 7 节。
 
 ---
 
