@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo_interfaces</name>
+  <version>0.1.0</version>
+  <description>CQuick 舵机接口定义（msg + action），供 cquick_servo 驱动包引用</description>
+  <maintainer email="dev@cquick.local">CQuick EControl</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 构建工具：接口包必须用 ament_cmake，不能用 ament_python -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <!-- 代码生成器：负责把 .msg/.action 编译成 Python/C++ 代码 -->
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  <!-- 运行时依赖：生成的消息在运行期要用到这个库 -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+  <!-- 消息里若用到 time/duration 等基础类型需引入；此处显式声明避免隐式依赖 -->
+  <depend>builtin_interfaces</depend>
+
+  <!-- 关键一行：缺了它别的包 find_package 找不到本接口，且报错信息毫不相关 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
