@@ -1,0 +1,46 @@
+# 动作组 A：站起与蹲下
+# 3 右前膝 / 4 左前膝 / 5 右后膝 / 6 左后膝
+# 实测：pwm 增大 = 向后收，pwm 减小 = 向前伸
+# 下蹲：前膝往前，后膝往后
+name: stand_up
+strict: true
+
+steps:
+  - name: 预备
+    duration_ms: 1500
+    joints:
+      - {id: 1, pwm: 1500}
+      - {id: 2, pwm: 1500}
+      - {id: 3, pwm: 1500}
+      - {id: 4, pwm: 1500}
+      - {id: 5, pwm: 1500}
+      - {id: 6, pwm: 1500}
+      - {id: 7, pwm: 1500}
+      - {id: 8, pwm: 1500}
+      - {id: 9, pwm: 1500}
+      - {id: 10, pwm: 1500}
+
+  - name: 蹲下
+    duration_ms: 2000
+    joints:
+      - {id: 3, pwm: 1700}
+      - {id: 4, pwm: 1300}
+      - {id: 5, pwm: 1300}
+      - {id: 6, pwm: 1700}
+
+  - name: 蹲住
+    duration_ms: 1000
+    joints:
+      - {id: 3, pwm: 1700}
+      - {id: 4, pwm: 1300}
+      - {id: 5, pwm: 1300}
+      - {id: 6, pwm: 1700}
+
+  - name: 起立
+    duration_ms: 1000
+    joints:
+      - {id: 3, pwm: 1500}
+      - {id: 4, pwm: 1500}
+      - {id: 5, pwm: 1500}
+      - {id: 6, pwm: 1500}
+
