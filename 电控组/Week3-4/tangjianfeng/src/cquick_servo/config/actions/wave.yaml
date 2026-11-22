@@ -1,0 +1,24 @@
+# 单关节冒烟测试：只用 1 号舵机，验证 yaml → goal → result 这条链路是通的
+# 用法：ros2 run cquick_servo sequence_player --action wave
+# 注意：整机 servo_ids 是 [1..10]，这里必须用 1~10 里的 ID；
+#       id: 0 是任务 1、2 单舵机阶段的出厂 ID，整机上会被 REJECT。
+name: wave
+description: 1 号关节 中位 → 正转 1700 → 反转 1300 → 回中位 1500
+loop: false
+
+steps:
+  - name: 回中位起手
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 800}
+
+  - name: 正转出去
+    joints:
+      - {id: 1, pwm: 1700, duration_ms: 900}
+
+  - name: 反转回来
+    joints:
+      - {id: 1, pwm: 1300, duration_ms: 1200}
+
+  - name: 回中位收尾
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 900}

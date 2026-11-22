@@ -1,0 +1,32 @@
+# 整机站立动作（模板：先把 4 个舵机 ID 改成 1/2/3/4 再启用）
+#
+# 为什么现在跑不了：任务 1 的标定表里四个舵机出厂 ID 全是 000，
+# 一起挂总线会互相抢应答，所以必须逐个改 ID 之后才能上整机（细则任务 3 第 1 条）。
+# 改完 ID 记得同步 config/servo_params.yaml 的 servo_ids: [1, 2, 3, 4]。
+#
+# 用法：ros2 run cquick_servo sequence_player --action stand_up
+name: stand_up
+description: 四腿同时从趴姿抬到站姿，再回中位（需先把 ID 改成 1~4）
+loop: false
+
+steps:
+  - name: 四腿同时抬起（step 内并行，四个 goal 一起发）
+    joints:
+      - {id: 1, pwm: 1700, duration_ms: 1000}
+      - {id: 2, pwm: 1300, duration_ms: 1000}
+      - {id: 3, pwm: 1700, duration_ms: 1000}
+      - {id: 4, pwm: 1300, duration_ms: 1000}
+
+  - name: 稳住 600ms（拆成一个「原地保持」的 step，等价于等待）
+    joints:
+      - {id: 1, pwm: 1700, duration_ms: 600}
+      - {id: 2, pwm: 1300, duration_ms: 600}
+      - {id: 3, pwm: 1700, duration_ms: 600}
+      - {id: 4, pwm: 1300, duration_ms: 600}
+
+  - name: 四腿同时回中位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 900}
+      - {id: 2, pwm: 1500, duration_ms: 900}
+      - {id: 3, pwm: 1500, duration_ms: 900}
+      - {id: 4, pwm: 1500, duration_ms: 900}

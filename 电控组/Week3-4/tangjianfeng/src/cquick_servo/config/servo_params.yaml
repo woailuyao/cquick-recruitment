@@ -1,0 +1,15 @@
+servo_driver:
+  ros__parameters:
+    # udev/99-cquick-servo.rules 把 USB-TTL 固定成这个名字；换硬件只改这里。
+    # 没装 udev 规则的机器临时用 launch 覆盖：port:=/dev/ttyUSB0
+    port: /dev/cquick_servo
+    baudrate: 115200
+    # 结构实测的安全范围（电气极限是 500~2500，这里按实机取值）
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    # 整机在线的十个舵机（不在列表里的 ID 一律拒绝）
+    # 任务 1、2 阶段只有单舵机时，这里是 [0]（出厂 ID = 000）
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    # 启动时是否全部回中位
+    startup_reset: true
