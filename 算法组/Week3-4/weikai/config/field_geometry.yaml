@@ -1,0 +1,59 @@
+# =====================================================================
+# field_geometry.yaml —— 场地几何配置
+# 对应任务书要求的 config/field_geometry.yaml（本工程与 field.yaml 同放
+# src/templates/ 下，key 名 / 格式对齐 Booster 官方约定）。
+# 每次 field.yaml 增删标志，必须同步递增 map_version、更新 SHA256，
+# 并在 README 与定位验证报告中同步说明。
+# =====================================================================
+
+map_version: 2
+map_version_date: 2026-11-21
+author: weikai
+
+# --- 地图坐标系（组长统一规定）---
+origin: "场地中心 O（场地长宽中线交点）"
+axes:
+  x: "+X 指向唯一球门（球门侧端线 x = +3.977 m）"
+  y: "+Y 为面向 +X 时的左侧（左右边线 y = ±2.991 m）"
+  z: "+Z 垂直地面向上；地面平面 Z = 0"
+unit: meter
+yaw_convention: "从地图 +X 轴逆时针为正"
+
+# --- 场地实测尺寸（卷尺实测 2026-11-19，见 field.yaml 测量记录）---
+field_length: 7.954    # X 向：球门侧端线 到 对面端线
+field_width:  5.982    # Y 向：左侧边线 到 右侧边线
+goal_width:   2.886    # 球门宽（信息记录用，不参与定位）
+
+# --- 配套地图文件校验 ---
+field_yaml:
+  path: src/templates/field.yaml
+  sha256: fba9059789f7b45fc9466453ed005b2c869ef94b5d322fc2c09620d9328436c8
+  landmark_count: 12        # 参与定位匹配：6 TCross + 6 LCross
+  auxiliary_points: 1       # PenalityPoint：实测中心点，field_type 返回 None，不参与匹配
+
+# --- 版本变更记录 ---
+changelog:
+  - version: 1
+    date: 2026-11-19
+    desc: "初版：8 个标志（TCross1-4 / LCross1-4）+ 点球点。本任务全部离线定位验证基于此版。"
+  - version: 2
+    date: 2026-11-21
+    desc: >-
+      新增 TCross5/6（左右边线中点）、LCross5/6（球门侧两角）共 4 个标志，合计 12 个。
+      新点物理形状与既有同类拐角/交汇点相似，沿用现有检测权重（未重训）。
+      新增点尚未参与离线精度验证；下方 verification_note 说明。
+  - version: 2
+    date: 2026-11-21
+    desc: >-
+      坐标修正：LCross5/6（球门侧两角）x 由 3.084 改为 3.977，对齐球门侧端线
+      （场地半长 x=3.977）；原值 3.084 是 LCross2/4 的 x，属录入笔误。
+      标志数量不变，SHA256 相应更新为 fba90597...36c8。
+  - version: 3
+    date: 2026-11-21
+    desc: "占位：若组织方后续发布统一版本或新增点重训，递增至此并同步 SHA256。"
+
+# --- 数据口径说明 ---
+# v1 时代的 4 段定点视频验证结果（位置 0.064~0.233 m、航向 0.4°~1.3°）
+# 基于 8 个标志跑出；v2 新增 4 点后未重跑该批视频，故 README/报告中的误差
+# 数字仍为 v1 口径，如实保留，不冒充 v2 结果。
+verification_note: "离线精度数字基于 map_version=1（8 标志）；map_version=2 新增点未重跑验证。"

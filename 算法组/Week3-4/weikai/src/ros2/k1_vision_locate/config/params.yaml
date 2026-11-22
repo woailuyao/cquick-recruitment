@@ -1,0 +1,19 @@
+# k1_vision_node 参数（launch 里可被命令行覆盖）
+/k1_vision_node:
+  ros__parameters:
+    # net://host:port = win_cam_bridge MJPEG 流；视频文件路径 = 回放；数字 = V4L2
+    source: "net://127.0.0.1:8090"
+    ball_weights: "/home/weikai/vision_ws/k1_soccer_vision/runs/ball_yolov8n_aug2/weights/best.pt"
+    marker_weights: "/mnt/d/captures/landmarks/weights/best_facing_v3.pt"
+    # 留空则用包内相对路径定位仓库 src/templates/
+    field_yaml: ""
+    intrinsics_yaml: "/mnt/d/captures/calib/intrinsics.yaml"
+    extrinsics_yaml: ""
+    ball_conf: 0.25
+    marker_conf: 0.05
+    imgsz: 640
+    enhance: "none"
+    solve_stride: 5
+    residual_max: 0.30
+    smooth: 5
+    # 注意：本节点需用视觉 venv 解释器运行（见 README），ultralytics/torch 来自 venv

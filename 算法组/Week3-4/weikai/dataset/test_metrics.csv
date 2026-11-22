@@ -1,0 +1,4 @@
+﻿version,description,model,epochs,imgsz,precision,recall,mAP50,mAP50-95
+baseline,原始训练集（无干扰负样本）,yolov8n,50,640,0.76531,0.72414,0.82185,0.77708
+green_aug,加入黄绿Molten球负样本,yolov8n,50,640,0.66592,0.96552,0.82694,0.76793
+dual_aug_final,同时加入黄绿球+红蓝花纹球负样本（最终提交版）,yolov8n,50,640,0.76021,0.92925,0.92450,0.84935
