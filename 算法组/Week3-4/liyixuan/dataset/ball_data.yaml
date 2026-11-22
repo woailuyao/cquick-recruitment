@@ -1,0 +1,10 @@
+﻿# 足球检测数据集配置
+# 注意：数据集图片与视频不随仓库提交，仅提交本配置与 dataset_summary.md。
+# 复现时把 path 指向你本地的 soccer_dataset 目录即可。
+path: ./soccer_dataset
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names: [ "ball" ]

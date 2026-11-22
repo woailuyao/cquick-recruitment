@@ -1,0 +1,10 @@
+﻿# 场地标志检测数据集配置
+# class_id 顺序必须与 cvlib/fieldmap.py 的 CLASSES 一致：0 LCross  1 TCross
+# C0 场地实测无 X 型交叉与点球点，故只训练 2 类。
+path: ./marker_dataset
+train: images/train
+val: images/val
+test: images/test
+
+nc: 2
+names: [ "LCross", "TCross" ]

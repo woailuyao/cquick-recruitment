@@ -1,0 +1,26 @@
+# C0 场地几何与坐标约定（组织方发放版本；学生不得改动坐标值）
+map_version: "c0-official-2026-11"
+source: "BoosterRobotics/robocup_demo src/vision/config/field.yaml"
+
+# 地图坐标系：+X 向右，+Y 向上（俯视），Yaw 从 +X 逆时针为正，单位 m / deg
+axes:
+  x_positive: "right"
+  y_positive: "up"
+  yaw_positive: "counter_clockwise_from_+X"
+  length_unit: "m"
+  angle_unit: "deg"
+
+ground_plane_z: 0.0
+
+# 由 field.yaml 实测得到的外框（用于剔除场地外的地面投影点）
+bounds:
+  x_min: -1.485
+  x_max: 7.465
+  y_min: -4.010
+  y_max: 2.930
+size_m:
+  length_x: 8.95
+  width_y: 6.94
+
+# 地图外框之外再多留一点余量做有效性判断
+valid_margin_m: 0.6
