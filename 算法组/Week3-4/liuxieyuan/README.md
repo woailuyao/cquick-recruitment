@@ -97,7 +97,7 @@ ros2 launch task2_localization task2.launch.py use_camera:=true   # 实时相机
 
 - B 站链接（任务 1 · 足球检测）：https://b23.tv/DUWuV6X
 - B 站链接（任务 2 · 单目场地定位）：https://b23.tv/iRs7xsh
-- ROS2 接口演示（P2 补充）：https://b23.tv/1vTT5Or
+- ROS2 接口演示（P2 补充）：https://b23.tv/vBbUYRB
 - 视频标题：《CQuick算法组考核-任务一足球检测-刘勰渊》《CQuick算法组第3-4周考核 单目场地定位 刘勰渊》
 - 视频时长：任务一约 2 分钟；任务二约 3 分 36 秒
 - 访问权限：公开
