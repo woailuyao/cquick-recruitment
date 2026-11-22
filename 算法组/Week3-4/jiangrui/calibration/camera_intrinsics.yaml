@@ -1,0 +1,21 @@
+# 单目相机内参（固定主点 + 方像素 + 只估 k1）
+# 该组标定图姿态高度相似，主点/高阶畸变不可观测，已固定。
+# 若换分辨率使用，需按比例缩放 fx,fy,cx,cy。
+image_width: 1280
+image_height: 720
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [1564.284843, 0.000000, 639.500000, 0.000000, 1564.284843, 359.500000, 0.000000, 0.000000, 1.000000]
+distortion_model: plumb_bob
+dist_coeffs: [-0.00388050, 0.00000000, 0.00000000, 0.00000000, 0.00000000]
+rms_reprojection_error: 0.698671
+fov_h_deg: 44.502
+fov_v_deg: 25.920
+checkerboard: 9x9 inner corners
+square_size_mm: 0   # 未知；不影响内参
+# 方格边长未单独实测；按拍摄距离估算约 32–36 mm，仅作记录，不影响内参
+calibration_images_used: 11
+calibration_images_total: 15
+fx_uncertainty: '约 +/-1%（留一法实测跨距 1.56%）'
+# 用于地面投影时，这个内参可直接配合 solvePnP/手眼外参使用。

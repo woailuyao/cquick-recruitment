@@ -1,0 +1,13 @@
+# 任务 1：足球检测数据集
+# 类别顺序: 0 = ball（考核细则固定）
+# 数据规模: 208 张有效图片 / 208 个实例，来自 9 段独立视频
+# 说明: 图片与标签未上传 GitHub，此处为本地数据集的相对目录布局，
+#       具体来源与划分见同目录 dataset_summary.md
+
+path: .
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names: ['ball']

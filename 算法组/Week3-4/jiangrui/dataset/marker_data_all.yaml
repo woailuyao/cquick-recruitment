@@ -1,0 +1,24 @@
+# 合并数据集：
+#   marker_dataset   11-20 采集，高机位斜视，含大量近景（框宽最大 245 px）；
+#                    其中 80 张为更早日期的旧帧，全部只在 train
+#   marker_dataset2  同机位多距离，中远景（框宽 44~97 px）
+#   marker_dataset3  球门区低视角（框宽 19~91 px）
+# 三批视角与尺度互补；val 只用 dataset2/3，因为 marker_dataset 的 val 与 train 是近重复帧，
+# 放进去会使验证指标虚高。
+#
+# 注意：下面是本机绝对路径，复现时需按实际存放位置修改。
+path: D:/vision_data
+train:
+  - D:/vision_data/marker_dataset/images/train
+  - D:/vision_data/marker_dataset2/images/train
+  - D:/vision_data/marker_dataset3/images/train
+val:
+  - D:/vision_data/marker_dataset2/images/val
+  - D:/vision_data/marker_dataset3/images/val
+test:
+  - D:/vision_data/marker_dataset2/images/test
+  - D:/vision_data/marker_dataset3/images/test
+
+names:
+  0: TCross
+  1: LCross

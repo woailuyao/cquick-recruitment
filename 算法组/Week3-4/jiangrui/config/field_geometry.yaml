@@ -1,0 +1,37 @@
+# field_geometry.yaml —— 场地几何与坐标定义
+#
+# 状态：组织方尚未在考核仓库公共目录发布 field_geometry.yaml。
+#       以下内容由本人在 field.yaml 坐标反推并整理，仅作为本地实现依据，
+#       正式版本以组长发布为准；两者不一致时以官方文件为准并重新核对。
+
+map:
+  version: 本地整理 v0（待官方替换）
+  source: 官方 Booster field.yaml + 本人坐标变换（平移 + 旋转，相对位置未改动）
+  field_id: C0
+
+frame:
+  origin: 球场中心
+  x_axis: 指向球门方向
+  y_axis: 面朝 +X 时的左手方向
+  z_axis: 向上（地面 Z = 0）
+  yaw_positive: 从 +X 轴逆时针为正
+  unit: m
+  angle_unit: deg
+
+dimensions:
+  goal_separation_m: 6.940      # 两侧球门之间的距离（沿 X）
+  goal_line_length_m: 8.950     # 球门线长度（沿 Y）
+  x_min_m: -3.470
+  x_max_m: 3.470
+  y_min_m: -4.475
+  y_max_m: 4.475
+
+camera:
+  ground_plane: Z = 0
+  resolution: 1280x720
+
+# 待组长确认：官方地图中 XCross1/XCross2 位于 x = -3.470（球门线上），
+# 而中圈附近的交叉点在 x ≈ 0，二者是否同属 C0 实际场地特征尚未核实。
+open_questions:
+  - XCross 位于球门线上的坐标是否与实际场地一致
+  - 实际场地是否存在点球点标志（现场未观察到）

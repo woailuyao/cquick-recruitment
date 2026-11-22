@@ -1,0 +1,20 @@
+# 任务 2：场地标志检测数据集（L / T 型）
+# 数据规模: 三份数据合并 271 张有效图片 / 494 个标注框
+#           train 239 张 / 386 框，val 18 张 / 54 框，test 14 张 / 54 框
+#           合并与划分细节见同目录 marker_data_all.yaml、dataset_summary.md
+#
+# 类别顺序说明：
+#   考核细则建议 LCross=0 / TCross=1 / XCross=2 / PenaltyPoint=3。
+#   本项目训练时实际采用 TCross=0 / LCross=1（先标注 T 型后补 L 型），
+#   权重内的 names 与该顺序一致，运行时由代码统一映射为细则名称。
+#   C0 现场未观察到 X 型标志与点球点，因此只训练这两类。
+#
+# 图片与标签未上传 GitHub，此处为本地数据集的相对目录布局。
+
+path: .
+train: images/train
+val: images/val
+test: images/test
+
+nc: 2
+names: ['TCross', 'LCross']
