@@ -1,0 +1,46 @@
+# 动作组：左右重心摆动 / 挥手（腿式机构，10 个舵机）
+# 关节语义：1/2 踝（脚部侧向）、3~8 腿（弯曲）、9/10 髋（张合）
+# 说明：这是 2026-11-22 按腿部语义重写的版本；机械臂时代的旧版留在 config/actions/legacy/wave.yaml 留档。
+# 注意：本板固件忽略 T<1000 的移动指令，所以每一步的 duration_ms 都写 >=1000；幅度控制在 ±80 内，避免顶机械限位。
+name: wave
+repeat: 2
+steps:
+  - name: 先全部回中位（1500，摆动的起点必须是中位）
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}
+
+  - name: 重心压向左侧（髋 9 内收 60、髋 10 张开 60，两侧腿配合各 40）
+    joints:
+      - {id: 9, pwm: 1440, duration_ms: 1000}
+      - {id: 10, pwm: 1560, duration_ms: 1000}
+      - {id: 3, pwm: 1540, duration_ms: 1000}
+      - {id: 4, pwm: 1460, duration_ms: 1000}
+
+  - name: 重心压向右侧（与上一步反向）
+    joints:
+      - {id: 9, pwm: 1560, duration_ms: 1000}
+      - {id: 10, pwm: 1440, duration_ms: 1000}
+      - {id: 3, pwm: 1460, duration_ms: 1000}
+      - {id: 4, pwm: 1540, duration_ms: 1000}
+
+  - name: 回中位收尾（所有关节回 1500）
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}

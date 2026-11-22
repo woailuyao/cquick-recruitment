@@ -95,6 +95,8 @@ ros2 launch cquick_servo servo.launch.py port:=/tmp/ttySERVO demo:=true \
 
 launch arg：`params_file`（默认 `config/servo_params.yaml`）、`port`（非空时覆盖 yaml 里的 port）、`demo`（`true` 才额外起动作组播放器）、`actions_file`、`log_level`。
 
+> `config/actions/` 里现有三套动作组：`stand_up.yaml`（站立：回中→髋张开→腿微曲→站起）、`squat.yaml`（蹲起）、`wave.yaml`（左右重心摆动，**2026-11-22 按腿部语义重写**）。机械臂时代的旧版 `wave.yaml` / `nod.yaml` 留在 `config/actions/legacy/` 留档，不再被命令引用。
+
 真实输出（2026-11-07 18:56，软件仿真环境）:
 
 ```
@@ -358,7 +360,7 @@ colcon test --packages-select cquick_servo && colcon test-result --verbose
 
 **为什么任务 1/2/4 额外拍了手机实拍**：细则 L682 写明「录屏里要出现终端」，同时任务 1 要求「舵机转动录屏」、任务 2 要求「正反转回中位」、任务 4 要求「从 `PULK` 到关机」——只拍终端证明不了实物在动，只拍实物证明不了是 ROS 2 驱动的，所以实拍段一律把终端和机械臂拍进同一画面。
 
-> 2026-11-22 晚已完成：`servo_ids` 实测为 1~10，`03_多舵机动作_关键帧.png` 用它重拍；旧的动作组 `wave.yaml` / `nod.yaml`（机械臂时代）已移到 `config/actions/legacy/` 留档。
+> 2026-11-22 晚已完成：`servo_ids` 实测为 1~10，`03_多舵机动作_关键帧.png` 用它重拍；机械臂时代的旧 `wave.yaml` / `nod.yaml` 留在 `config/actions/legacy/` 留档，`config/actions/wave.yaml` 已按腿部语义（左右重心摆动）重写放回原位，本文 §4 的示例命令可直接跑。
 
 ## 16. 加分项：固定设备名（udev）
 
