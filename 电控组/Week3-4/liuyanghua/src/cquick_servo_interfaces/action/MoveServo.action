@@ -1,0 +1,8 @@
+ServoCommand command # 同包就不用写前缀了
+---
+bool successful
+int16 prad
+string reason
+---
+int16 pwm
+float32 progress
