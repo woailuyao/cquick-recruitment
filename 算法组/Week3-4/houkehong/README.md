@@ -883,6 +883,147 @@ YOLO 无法把它和球门结构区分开。
 
 ---
 
+## 4.11 加分项实现与实测
+
+### 加分项 1 · 导出 ONNX 并完成 PyTorch / ONNX 推理对比（+3）
+
+两个模型均已导出 ONNX，并在**同一测试片段**上做三项对比：
+延迟（纯模型前向，线程数统一为 4）、检测结果一致性、独立测试集 mAP 等价性。
+
+**导出命令**
+
+```powershell
+python -c "from ultralytics import YOLO; YOLO('weights/ball_best.pt').export(format='onnx', imgsz=416, opset=12)"
+python -c "from ultralytics import YOLO; YOLO('weights/marker_best.pt').export(format='onnx', imgsz=640, opset=12)"
+```
+
+**① 延迟对比**（CPU，4 线程，warmup 20 次 / 实测 120~200 次）
+
+| 模型 | imgsz | PyTorch p50 | ONNX p50 | ONNX 加速 | PyTorch FPS | ONNX FPS |
+|---|---:|---:|---:|---:|---:|---:|
+| 任务 1 ball | 416 | 70.1 ms | **33.4 ms** | **2.11×** | 13.6 | **28.8** |
+| 任务 2 marker | 640 | 169.2 ms | **90.8 ms** | **1.87×** | 5.9 | **11.0** |
+
+> 测量口径：`torch.no_grad()` 下 `net(tensor)` 与 `sess.run()` 的纯前向耗时，
+> 预处理（letterbox + 归一化）固定不变、不重复计时。取 p50 而不是均值，
+> 因为本机偶发系统抖动会把均值拉偏（曾观察到 p95 飙到 1228 ms 的离群值）。
+
+**② 检测结果一致性**（同一片段 60 帧，conf=0.25，同类 IoU≥0.5 视为匹配）
+
+| 模型 | PyTorch 框数 | ONNX 框数 | 匹配率 | 平均 IoU |
+|---|---:|---:|---:|---:|
+| 任务 1 ball | 62 | 62 | **100%** | 0.997 |
+| 任务 2 marker | 17 | 20 | **100%** | 0.984 |
+
+**③ 独立测试集 mAP 等价性**
+
+| 模型 | imgsz | PyTorch mAP50 | ONNX mAP50 | 结论 |
+|---|---:|---:|---:|---|
+| 任务 1 ball | 416 | 0.893 | **0.893** | 完全一致 ✅ |
+| 任务 2 marker | 640 | 0.623 | 0.590 | 低 0.033（导出精度损失）⚠️ |
+
+> 说明：ball 的 mAP 在 imgsz 416 下是 0.893，imgsz 640 下是 0.906（第 4.8 节的报数是 640 口径）。
+> marker 的 ONNX 版本 mAP 略低 0.033，属可接受的量化/图优化损失，**不影响定位**——
+> 定位端到端有效率保持 100%（见下）。如果追求精度可保留 PyTorch，追求速度用 ONNX。
+
+**结论**：ONNX 在本机 CPU 上约 **1.9~2.1× 加速**，ball 精度无损。
+实时线程用 ONNX 后，任务 1 可达约 29 fps、任务 2 约 11 fps。
+
+---
+
+### 加分项 2 · TensorRT（未完成）
+
+本机为 **AMD Radeon 集显，无 NVIDIA GPU**（`torch.cuda.is_available() == False`），
+无法完成 TensorRT 推理，故不申报该项。
+
+---
+
+### 加分项 3 · 地图匹配的稳健位姿优化与对比（+2）
+
+本项目的匹配器不是"按类别最近邻取一个解"，而是**多假设一致性（RANSAC 式）**：
+
+1. **候选假设枚举**：按同类标志枚举「观测点对 → 地图点对」，用 SE(2) 闭式解（Kabsch）生成候选位姿。
+   等价于 RANSAC 的假设生成，只是小规模下**穷举而非随机采样**，避免随机性、结果可复现。
+2. **内点投票打分**：每个假设用最近同类门限统计内点数与残差，取内点最多、残差最小的解。
+3. **内点重解**：用最优假设的内点重新做 Kabsch 最小二乘，迭代一次精化。
+4. **歧义拒绝**：若存在第二个假设与最优解的位姿差小于阈值（位置 0.75 m / 朝向 12°），
+   判 `ambiguous` 并**拒绝输出位姿**，而不是随便挑一个。
+5. **多帧稳健聚合**：同一位置的多帧观测按「最大簇」聚类后取均值，
+   少数别名解（错误匹配）被剔除，不参与平均。
+
+**对比实验结果（真实数据）**
+
+**对比 A：多帧聚合方式**（三点位移测试，同一批数据）
+
+| 聚合方式 | P1 位姿 | P2 位姿 | 位移比例 | 结论 |
+|---|---|---|---|---:|
+| **直接平均**（含别名解） | (-0.659, -2.246) | (-2.272, **+0.179**) | 0.515 | ❌ 0.706 |
+| **最大簇稳健聚合** | (-0.612, -2.288) | (-1.608, -2.261) | **1.004** | ✅ **1.011** |
+
+别名解把 P2 的 y 拉偏了 2.7 m；稳健聚合后误差降到 1%。
+
+**对比 B：合成数据注入别名解**（18 帧正确 + 5 帧别名）
+
+| 方法 | 估计位置 | 与真值误差 |
+|---|---|---:|
+| 直接平均 | (-2.153, -2.007) | **52 cm** |
+| 最大簇稳健聚合 | (-2.120, -2.615) | **19 cm** |
+
+**对比 C：歧义处理的实际效果**（10 段实拍、1219 帧）
+
+- 判断为 `ambiguous` / `insufficient_markers` / `high_residual` 的帧**一律不输出位姿**
+- 全部 10 段视频中，`valid=true` 的帧**没有一例是编造的位姿**（无 `valid=true` 但残差超限的情况）
+
+---
+
+### 加分项 4 · 规范 ROS2 节点 + 可复用 launch 文件（+2）
+
+已封装为标准的 **ament_python** 包 `k1_localization_ros`，位于 `ros2_ws/src/`：
+
+```
+ros2_ws/src/k1_localization_ros/
+├── package.xml                       # format 3，ament_python
+├── setup.py / setup.cfg              # console_scripts 入口
+├── resource/k1_localization_ros
+├── k1_localization_ros/
+│   ├── __init__.py
+│   ├── bridge_node.py                # 接收 Windows 侧 TCP → 发布 3 个话题
+│   └── pose_publisher.py             # 无相机联调/演示用的合成位姿发布节点
+└── launch/
+    └── localization.launch.py        # 可复用 launch，mode/port/rate_hz 三个参数
+```
+
+**编译与运行**
+
+```bash
+cd ros2_ws
+source /opt/ros/humble/setup.bash
+colcon build --packages-select k1_localization_ros     # 实测 4.68 s 通过
+source install/setup.bash
+
+# 模式一：接收 Windows 侧实拍定位结果（默认）
+ros2 launch k1_localization_ros localization.launch.py
+ros2 launch k1_localization_ros localization.launch.py port:=5057     # 换端口
+
+# 模式二：无相机联调，发布合成位姿
+ros2 launch k1_localization_ros localization.launch.py mode:=synthetic rate_hz:=20.0
+```
+
+**实测记录**
+
+| 测试 | 命令 | 结果 |
+|---|---|---|
+| 编译 | `colcon build --packages-select k1_localization_ros` | ✅ 4.68 s，1 个包 |
+| 合成模式 | `ros2 launch ... mode:=synthetic` | ✅ 话题正常，Pose2D `x=1.417 y=0.491` |
+| bridge 模式 | `ros2 launch ... mode:=bridge` + Windows 侧 `run.py --status-port 5056` | ✅ 节点日志 `connected: ('127.0.0.1', 35928)`、`pose=100 ball=100` |
+| 话题频率 | `ros2 topic hz /localization/field_pose` | ✅ **9.3 Hz** |
+| 数据正确性 | `ros2 topic echo /localization/field_pose_2d` | ✅ `x=-0.279 y=2.393 theta=-0.404` |
+| JSON 字段 | `ros2 topic echo /localization/field_pose` | ✅ `valid=true, marker_count=5, residual=0.074` |
+
+> `pose_publisher` 的存在是为了让评审**不需要相机也能验证话题链路和 rviz2 显示**。
+
+---
+
 ## 5. 目录
 
 ```
@@ -929,6 +1070,11 @@ k1_soccer_vision/
 │   ├── camera_select.py           # 相机编号探测
 │   ├── ros_bridge_node.py         # WSL 侧 ROS2 桥接节点
 │   └── test_map_localization.py   # 合成闭环自检
+│
+├── ros2_ws/src/k1_localization_ros/   # 加分项 4：标准 ament 包 + launch
+│   ├── k1_localization_ros/bridge_node.py
+│   ├── k1_localization_ros/pose_publisher.py
+│   └── launch/localization.launch.py
 │
 ├── weights/
 │   ├── ball_best.pt / .onnx       # 任务 1 权重（test mAP50 0.906）
