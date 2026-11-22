@@ -1,0 +1,32 @@
+# 相机外参（相机相对于地面的安装参数）
+#
+# 说明
+#   本值由「4 个地面标志点的 PnP」反解得到，用于地面投影与位姿初值。
+#   相机高度同时用卷尺量过，两者差 15~20 cm：地面点的水平距离由 h/tan(俯角) 决定，
+#   h 偏小可由俯角偏大补偿，仅凭共线度高的少量点无法把两者分开，故并列记录。
+#
+# 单位：m / deg
+
+method: ground_marker_pnp
+source: 后.avi 第 378 帧（4 个标志点：T03 / T06 / L02 / L05）
+reprojection_rms_px: 8.39
+
+camera_height_m: 0.82          # PnP 反解值
+camera_height_tape_m: 0.96     # 卷尺实测值（待现场复核后统一）
+
+nominal_attitude_deg:
+  yaw: -8.9                    # 相对地图 +X 轴，逆时针为正
+  pitch: -14.1                 # 俯角（向下为负）
+  roll: -0.35
+
+# 相机系 → 场地系 的旋转（yaw/pitch/roll 对应的 R，按需使用）
+# R 的列依次为相机 x / y / z 轴在场地系中的方向
+R_camera_to_field: null        # 运行时由标定结果填充，参考 calibration 说明
+
+# 相机相对载体的安装偏移（相机光心相对底座参考原点）
+camera_offset_in_base_m: [0.0, 0.0, 0.82]
+
+# TODO（现场复核后填写）
+#   - 卷尺高度与 PnP 高度统一到同一基准
+#   - 俯仰角随云台/支架变化时的实时更新方式
+#   - 相机光心到载体底座的 x/y 偏移（目前按 0 处理）

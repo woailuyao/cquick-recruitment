@@ -1,0 +1,10 @@
+# 场地标志数据集配置（图片与标签不入库，见 dataset_summary.md）
+path: ../dataset/markers
+train: train/images
+val: valid/images
+test: test/images
+
+names:
+  0: Lcross
+  1: Tcross
+  2: Xcross

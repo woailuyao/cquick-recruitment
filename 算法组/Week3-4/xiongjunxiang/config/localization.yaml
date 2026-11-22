@@ -1,0 +1,110 @@
+# 定位模块的集中配置。代码里不再硬编码路径、阈值、视频清单。
+# 这里每一项的当前值都等于原先写在 .py 里的常量，改配置不会改变既有行为。
+
+# 相机采集参数（当前环境是 usbipd 转发，1280x720 会传不完整，故用 640x480）
+# 原生 Ubuntu 直连时可改回 1280x720
+camera:
+  device: /dev/video0
+  width: 640
+  height: 480
+  fourcc: MJPG
+
+paths:
+  marker_model: runs/detect/runs/detect/finetune_cpu_fast-2/weights/best.pt   # 新模型 finetune_cpu_fast-2
+  # 只用单个模型（多模型融合留空即可）
+  marker_models:
+    - runs/detect/runs/detect/finetune_cpu_fast-2/weights/best.pt
+  ball_model:   runs/detect/train-2/weights/best.pt
+  intrinsics:   calibration/camera_intrinsics.yaml
+  field:        config/field_c0.yaml
+  anchors:      config/marker_anchors.yaml
+  video_dir:    /mnt/c/Users/Oscar/Pictures/marker_videos
+
+# 标志检测与几何细化（原 marker_geometry.py 顶部常量）
+geometry:
+  merge_radius: 25.0          # 多模型融合：同类且中心距小于此值视为同一个点
+  memory_gap: 0               # 检测记忆：0 = 关闭（不补"影子"，避免拖影）
+  memory_radius: 45.0         # 记忆关联的像素半径（要能覆盖帧间位移）
+  memory_min_hits: 3          # 至少稳定出现几次才允许补影子
+  half_restrict: "x<0"      # 只在左半场（x<0）的标志里枚举，组合数 11880 -> 360
+  face_near_goal: false       # true = 相机必须朝它靠近的那条底线看（本场地暂无解，先关）           # 只在一个半场："" / "x<0" / "x>0" / "y<0" / "y>0"
+  marker_confidence: 0.25
+  low_res_marker_confidence: 0.15   # 实际分辨率低于标定时用，换召回
+  marker_imgsz: 512
+  min_refine_size: 80
+  expand: 1.5
+  intersection_min_angle: 25.0    # 度
+  ridge_ratio: 0.55
+  ridge_percentile: 85
+
+# 单帧 PnP（原 pose_estimator.py 顶部常量）
+pose:
+  min_points: 4
+  height_min: 0.55
+  height_max: 1.35
+  rms_max: 12.0                # 当前场地模型下锚点残差约 6.4 px
+  try_symmetry: true
+
+# 增量跟踪（原 pose_tracker_inc.py 类常量）
+tracking:
+  match_radius: 90.0
+  min_pairs: 2
+  max_yaw_step: 12.0
+  max_pitch_step: 6.0
+  max_pos_step: 0.08        # 单帧最大平移（m），只在 solve_translation 时生效
+  static_px: 1.2            # 帧间平均像素位移小于此值 → 认为静止，位置锁死
+  min_move: 0.012          # 解出的位移小于此值(m) → 不更新位置
+  smooth_alpha: 0.45       # 位置低通系数（0=完全平滑 1=全信新解）
+  trans_min_points: 4      # 解平移所需最少匹配点（3 点太病态）
+  fixed_height: 0.0         # >0 时进入「固定高度」模式：相机高度锁死为该值（m），只解 x/y/yaw/pitch/roll
+  solve_translation: true   # 同时解平移（边走边定位）；只原地转可改 false 提高角度精度
+  max_lost: 5
+  map_correct_radius: 45.0
+  map_correct_min_points: 4
+  map_correct_every: 5      # 每 N 帧用地图点做一次绝对校正（官方 predict→match→correct）
+
+# 自动初始化（原 auto_init.py 顶部常量）
+auto_init:
+  match_radius: 50.0
+  max_hyp: 6000
+  min_inliers: 4
+  ambiguity_err: 0.35
+  rms_max: 6.0
+  height_min: 0.45
+  height_max: 1.45
+  top_k_pnp: 12
+
+# 官方风格粒子滤波（原 particle_locator.py）
+particle:
+  num_particles: 800
+  min_marker_cnt: 3
+  residual_tolerance: 0.30
+  mu_offset: 1.0
+  max_iteration: 80
+  converge_tolerance: 0.08
+  num_shrink_ratio: 0.75
+  offset_shrink_ratio: 1.06
+
+# 演示程序（原 demo_full.py / demo_localizer.py 常量）
+demo:
+  panel_width: 700
+  panel_height: 720
+  panel_margin: 1.1
+  match_radius: 45.0
+  ball_confidence: 0.30
+  ball_imgsz: 640
+  record_fps: 15
+  trail_max: 400
+  ball_every_n: 2          # 足球检测每 N 帧跑一次（复用上次结果，省一半时间）
+  demo_max_hyp: 600        # 演示时自动初始化的假设上限（越大越慢）
+  auto_init_cooldown: 40   # 自动初始化失败后至少隔多少帧再试
+  window_left_width: 1280
+
+# 批量演示的视频与实测机位（近似值，来自卷尺）
+videos:
+  - {tag: hou,        file: 后.avi,     from_goal_line: 2.88, from_touchline: 1.79, height: 0.76}
+  - {tag: v3053,      file: 3053.avi,   from_goal_line: 3.00, from_touchline: 0.53, height: 0.76}
+  - {tag: v30532,     file: 30532.avi,  from_goal_line: 3.00, from_touchline: 0.53, height: 0.76}
+  - {tag: zhongjian,  file: 中间.avi,   from_goal_line: 4.00, from_touchline: 3.00, height: 0.76}
+  - {tag: zhongjian2, file: 中间2.avi,  from_goal_line: 4.00, from_touchline: 3.00, height: 0.76}
+  - {tag: jiao,       file: 角.avi,     from_goal_line: 0.00, from_touchline: 0.00, height: 0.76}
