@@ -1,0 +1,33 @@
+classes:
+  # 顺序即标签编号；penalty_far_* 仅预留坐标，部署权重未训练该类
+  - corner_front_left
+  - corner_front_right
+  - corner_back_left
+  - corner_back_right
+  - goalarea_far_left
+  - goalarea_far_right
+  - penalty_far_left
+  - penalty_far_right
+
+corners:
+  corner_front_left:  [ 4.200,  2.950]
+  corner_front_right: [ 4.200, -2.950]
+  corner_back_left:   [-4.200,  2.950]
+  corner_back_right:  [-4.200, -2.950]
+  goalarea_far_left:  [ 3.300,  1.450]
+  goalarea_far_right: [ 3.300, -1.450]
+  penalty_far_left:   [ 2.400,  1.950]
+  penalty_far_right:  [ 2.400, -1.950]
+
+field:
+  length_x: 8.40
+  width_y: 5.90
+  center_circle_radius: 0.75
+  penalty_far_x: 2.40
+  penalty_half_y: 1.95
+  goalarea_far_x: 3.30
+  goalarea_half_y: 1.45
+
+camera:
+  height_m: 1.00
+  pitch_deg: 2.00

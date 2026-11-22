@@ -1,0 +1,14 @@
+# 棋盘格标定结果，分辨率 1280x720
+image_size: [1280, 720]
+
+camera_matrix:
+  - [1653.274, 0.0, 646.380]
+  - [0.0, 1642.710, 307.337]
+  - [0.0, 0.0, 1.0]
+
+dist_coeffs: [0.282308, -2.161663, -0.004933, 0.003390, 3.708067]
+
+rms_reproj_error: 0.53
+calibrated_on: "2026-11-15"
+board: "9x6 inner corners, square 20mm"
+note: "完整标定报告见 calibration/camera_intrinsics.yaml"

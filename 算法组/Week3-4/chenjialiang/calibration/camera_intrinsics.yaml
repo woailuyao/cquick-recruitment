@@ -1,0 +1,24 @@
+image_width: 1280
+image_height: 720
+
+camera_matrix:
+  fx: 1653.274
+  fy: 1642.710
+  cx: 646.380
+  cy: 307.337
+
+distortion:
+  model: plumb_bob
+  k1:  0.282308
+  k2: -2.161663
+  p1: -0.004933
+  p2:  0.003390
+  k3:  3.708067
+
+calibration:
+  rms_reprojection_px: 0.53
+  num_views: 15
+  board_pattern: [9, 6]
+  square_size_m: 0.020
+
+horizontal_fov_deg: 42.3
