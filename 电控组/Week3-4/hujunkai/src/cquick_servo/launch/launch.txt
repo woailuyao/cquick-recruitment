@@ -1,0 +1,59 @@
+import os
+
+from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
+from launch_ros.actions import Node
+
+
+def generate_launch_description():
+    pkg_dir = get_package_share_directory('cquick_servo')
+    # 用包里查出来的绝对路径，不许写相对路径（相对路径在别人机器上必挂）
+    yaml_path = os.path.join(pkg_dir, 'config', 'servo_params.yaml')
+
+    return LaunchDescription([
+        DeclareLaunchArgument(
+            'port', default_value='/dev/ttyUSB0',
+            description='串口设备名，可用 port:=/dev/ttyUSB1 在命令行覆盖'),
+        DeclareLaunchArgument(
+            'demo', default_value='false',
+            description='true 时启动客户端自动演示（1700→1300→1500）'),
+        DeclareLaunchArgument(
+            'watchdog', default_value='false',
+            description='true 时启动安全看门狗（加分项）'),
+
+        # 驱动节点：参数来自 yaml，port 可被 launch 参数覆盖
+        Node(
+            package='cquick_servo',
+            executable='servo_driver',
+            name='servo_driver',
+            output='screen',
+            parameters=[
+                yaml_path,
+                {'port': LaunchConfiguration('port')},
+            ],
+        ),
+
+        # 客户端默认不起，demo:=true 才起（条件启动）
+        Node(
+            package='cquick_servo',
+            executable='move_client',
+            name='move_client',
+            output='screen',
+            arguments=['--auto'],
+            condition=IfCondition(
+                PythonExpression(["'", LaunchConfiguration('demo'), "' == 'true'"])),
+        ),
+
+        # 看门狗（加分项），watchdog:=true 才起
+        Node(
+            package='cquick_servo',
+            executable='servo_watchdog',
+            name='servo_watchdog',
+            output='screen',
+            condition=IfCondition(
+                PythonExpression(["'", LaunchConfiguration('watchdog'), "' == 'true'"])),
+        ),
+    ])

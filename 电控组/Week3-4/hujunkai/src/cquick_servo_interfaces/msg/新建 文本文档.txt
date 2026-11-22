@@ -1,0 +1,13 @@
+# 一条舵机指令：内部调试总线 /servo/command 与 Action goal 共用
+# id:          舵机 ID，1~254
+# pwm:         目标 PWM。500~2500 是电气极限，安全区间由驱动节点参数 pwm_min/pwm_max 决定
+# duration_ms: 从当前位置走到目标的时间（ms）。0 = 用驱动节点的 default_duration_ms
+# mode:        0=正常移动  1=卸力(PULK)  2=恢复扭力(PULR)
+uint8 MODE_MOVE=0
+uint8 MODE_RELEASE=1
+uint8 MODE_HOLD=2
+
+uint8 id
+uint16 pwm
+uint16 duration_ms
+uint8 mode

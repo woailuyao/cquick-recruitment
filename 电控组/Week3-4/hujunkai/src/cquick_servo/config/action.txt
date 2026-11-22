@@ -1,0 +1,14 @@
+name: leg_alternate
+steps:
+  - name: 左前右后
+    commands:
+      - {id: 110, pwm: 1560, duration_ms: 1200}
+      - {id: 109, pwm: 1440, duration_ms: 1200}
+  - name: 左后右前
+    commands:
+      - {id: 110, pwm: 1440, duration_ms: 1200}
+      - {id: 109, pwm: 1560, duration_ms: 1200}
+  - name: 回中
+    commands:
+      - {id: 110, pwm: 1500, duration_ms: 1200}
+      - {id: 109, pwm: 1500, duration_ms: 1200}
