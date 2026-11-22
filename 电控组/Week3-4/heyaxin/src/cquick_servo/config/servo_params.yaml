@@ -1,0 +1,23 @@
+# servo_driver 节点参数
+#
+# ⚠️ 最外层 key 必须等于节点名 servo_driver：写错了参数一个都不加载，且不报错。
+# ros2 param set 当帧生效：代码里每次判断都重新 get_parameter，不存副本。
+
+/servo_driver:
+  ros__parameters:
+    # 串口设备名：两条路选一条
+    #   ① TCP 桥（当前用的，VBox USB 直通会僵死，所以绕开）：
+    #      宿主 python bridge.py COM3 9000 → VM 里 socat 出 /tmp/ttySERVO
+    #   ② 直连（不经虚拟机、或 USB 直通正常时）：/dev/ttyUSB0
+    # 写错不会报错，只会静默进入仿真模式 —— 启动后必须先看日志有没有「串口已打开」。
+    port: '/tmp/ttySERVO'
+    baudrate: 115200
+    # 安全限位：结构实测，评审会问怎么试出来的
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    # 任务1 单舵机阶段实测 ID=0；整机上电后实扫结果为 001~010 共 10 只（000 不在线）。
+    # 0 保留是为了任务2 的 bag 回放和 2.6 六步演示还能跑（那些记录里用的是 id 0）；
+    # 换硬件只改这一行，代码不动。
+    servo_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: true
