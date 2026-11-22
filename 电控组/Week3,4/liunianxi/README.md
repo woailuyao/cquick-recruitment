@@ -382,9 +382,9 @@ ros2 launch cquick_servo servo.launch.py port:=/dev/cq_servo
 | 项 | 分值 | 做了没有 | 怎么验证 |
 | --- | --- | --- | --- |
 | ① udev 固定设备名 | +2 | 已做（规则见 §16） | 装规则后 `ls -l /dev/cq_servo` 有软链；没规则时驱动自动退回 `ttyUSB*` |
-| ② PRAD 闭环自动重发 | +3 | 已做 | 假舵机注入「第一次少走 80」→ 日志「未到位 → 重发一次」，结果 `ok(diff=0,retried)` |
-| ③ 安全看门狗 | +3 | 已做 | `param set watchdog_stall_test 2.0` → `看门狗超时…全部 PULK` + goal 被拒 → `rearm` 后恢复 |
-| ④ 串口掉线自动重连 | +3 | 已做 | 拔掉转接器 → `serial_error` + WARN，进程不崩；插回 → `串口已重连`，动作继续 |
+| ② PRAD 闭环自动重发 | +3 | 已做 | 假舵机注入「第一次少走 80」→ 日志「未到位 → 重发一次」，结果 `ok(diff=0,retried)`；真机舵机都在容差内到位，未触发重发 |
+| ③ 安全看门狗 | +3 | 已做（仿真 + **真机**） | `param set watchdog_stall_test 2.0` → `看门狗超时…全部 PULK` + goal 被拒 → `rearm` 后恢复；真机上机械臂当场卸力 |
+| ④ 串口掉线自动重连 | +3 | 已做（仿真 + **真机**） | 拔掉转接器 → `serial_error` / `串口断开` + WARN，进程不崩；插回 → `串口已重连`，动作继续；真机另加了每秒 PRAD 探活 |
 | ⑤ pytest | +2 | 已做（12 例） | `colcon test` → `12 tests, 0 errors, 0 failures` |
 | ⑥ 动作组抢占 | +4 | 已做（2026-11-23 凌晨） | 跑到一半发 `/sequence/play` 换动作组 → 旧组在步间中止、在跑 goal 被取消、新组接着跑完，见 §17.4 与 `03_动作组抢占日志.png` |
 
@@ -419,9 +419,22 @@ success=True, message='rearmed'
 - 恢复**必须**由外部调用 `ros2 service call /servo_driver/rearm std_srvs/srv/Trigger`，它不会自己动 —— 这样「有人看着」才恢复，符合细则里「不许自己起来」的要求；
 - `watchdog_stall_test > 0` 只是**故障注入开关**（时间门控、不睡线程），用来演示看门狗真的会响。
 
-### 17.3 真机回归待补
+### 17.3 真机回归（2026-11-23 00:10–00:20，ZL-IS2 + 10 个舵机）
 
-上面三项是在仿真里验证的（真机那会儿转接器已拔）。真机复测只要插上 CH340、用 `port:=/dev/ttyUSB0` 或默认 `/dev/cq_servo` 起 launch，按 §11 的步骤走一遍即可，验证命令与 §17.1 完全相同。
+仿真验证之后，把 CH340 通过 USB 直通给虚拟机（VBox OHCI 全速），真机把这几项又跑了一遍：
+
+| 项 | 真机结果 | 关键证据 |
+| --- | --- | --- |
+| ① udev 固定设备名 | **通过** | 插上后自动出现 `lrwxrwxrwx /dev/cq_servo -> ttyUSB0`（`crw-rw-rw- root dialout`）；拔插后软链自己改指向 `ttyUSB1`，驱动按名字打开照样通 |
+| ② PRAD 超差重发 | **真机未触发**（舵机都在容差内到位） | 真机 `1700→1675 (diff=25)`、`1300→1307 (diff=7)`、`1600→1598 (diff=2)`；重发路径与仿真同一份代码，仿真已验 `ok(diff=0,retried)` |
+| ③ 安全看门狗 | **通过** | `看门狗超时（1.0s 没有心跳）：全部 PULK 卸力，等待 rearm` → 机械臂当场卸力变软 → 期间发动作 `Goal was rejected.` → `rearm` 回 `success=True, message='rearmed'` → 再发 `ok(diff=27)` |
+| ④ 串口掉线自动重连 | **通过（顺带修了一个真机才暴露的问题）** | 拔掉 USB → `串口断开（连续 3 次 PRAD 没回应，设备可能已被拔掉），进入自动重连`；插回 → `串口已重连：/dev/cq_servo @ 115200` → 动作 `ok(diff=2)` |
+| ⑤ pytest | **通过** | `colcon test` → `12 tests, 0 errors, 0 failures, 0 skipped` |
+
+**真机上踩到、仿真里发现不了的两个问题**（都已修掉，见下面两条）：
+
+1. **Ubuntu 默认的 brltty 会抢 CH340**：插上 USB 后 `dmesg` 里先是 `ch341-uart converter now attached to ttyUSB0`，几秒后就被 `brltty` 以「usbfs: interface 0 claimed by ch341 while 'brltty' sets config #1」抢走并断开，设备消失。`systemctl mask brltty` 只挡下次启动，必须 `sudo apt-get purge brltty` 才算干净。
+2. **拔线时 `write()` 不一定报错**：原来的重连只靠读写异常触发，真机拔掉后 fd 还挂着、写进去也不抛错，驱动以为串口还在。加了**每秒一次 PRAD 探活**（连续 3 次没回应就判定掉线）才真正能感知拔线。
 
 ### 17.4 动作组抢占（+4，2026-11-23 凌晨）
 

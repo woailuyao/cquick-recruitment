@@ -91,6 +91,7 @@ class ServoDriver(Node):
         self._lock = threading.Lock()
         self._shutdown = False
         self._watchdog_thread = None
+        self._missed_probes = 0
         self._open_link()
 
         self._state_pub = self.create_publisher(ServoState, "/servo/state", 10)
@@ -122,6 +123,8 @@ class ServoDriver(Node):
         )
         # 加分项④：每 0.5 s 检查一次串口，掉线自动重连
         self.create_timer(0.5, self._on_reconnect, callback_group=self._cb_group)
+        # 加分项④：拔线时写操作不一定报错（fd 还挂着），每秒用一次 PRAD 探活
+        self.create_timer(1.0, self._on_liveness, callback_group=self._cb_group)
         self._start_watchdog()
 
         if self.get_parameter("startup_reset").value:
@@ -248,6 +251,29 @@ class ServoDriver(Node):
         return response
 
     # -------------------------------------------------------- 串口自动重连
+    def _on_liveness(self) -> None:
+        """加分项④：真机拔线时 write 可能不报错（fd 还挂着），所以每秒读一次 PRAD 探活。"""
+        if self._link is None or not self._link.is_open:
+            self._missed_probes = 0
+            return
+        ids = list(self.get_parameter("servo_ids").value) or [1]
+        try:
+            value = self._link.read_pwm(int(ids[0]))
+        except Exception as exc:  # 读的时候抛错，直接当掉线
+            self._missing_probe_reset()
+            self._on_serial_failure(exc)
+            return
+        if value is not None and PWM_ELECTRIC_MIN <= int(value) <= PWM_ELECTRIC_MAX:
+            self._missed_probes = 0
+            return
+        self._missed_probes += 1
+        if self._missed_probes >= 3:
+            self._missing_probe_reset()
+            self._on_serial_failure(RuntimeError("连续 3 次 PRAD 没回应，设备可能已被拔掉"))
+
+    def _missing_probe_reset(self) -> None:
+        self._missed_probes = 0
+
     def _on_serial_failure(self, exc: Exception) -> None:
         """加分项④：写失败就关掉链路，交给 _on_reconnect 定时重连，进程不崩。"""
         self.get_logger().warn(f"串口断开（{exc}），进入自动重连，进程继续运行")
