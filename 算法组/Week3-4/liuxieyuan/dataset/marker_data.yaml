@@ -1,0 +1,8 @@
+﻿# 场地标志检测数据集配置（预留）
+path: ./marker_dataset
+train: images/train
+val: images/val
+nc: 3
+names: ['LCross', 'TCross', 'CenterPoint']
+# 说明：当前版本尚未标注/训练标志检测模型，标志点由人工点击“标志与地面的接触点”获得。
+# 该配置与采集脚本保留，用于后续按同一流程训练标志检测器（详见 README“当前局限与下一步计划”）。
