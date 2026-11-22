@@ -1,0 +1,10 @@
+stand_up:
+  steps:
+    step1_左腿抬:
+      - { id: 3, pwm: 1600, duration_ms: 800 }
+    step2_左腿放:
+      - { id: 3, pwm: 1400, duration_ms: 800 }
+    step3_右腿抬:
+      - { id: 4, pwm: 1600, duration_ms: 800 }
+    step4_右腿放:
+      - { id: 4, pwm: 1400, duration_ms: 800 }
