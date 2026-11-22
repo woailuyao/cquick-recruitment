@@ -1,0 +1,16 @@
+# 第二套动作：验证「换动作只改 yaml，不改一行 python」
+name: wave
+default_duration_ms: 900
+steps:
+  - name: 抬
+    commands:
+      - {id: 0, pwm: 1540, duration_ms: 900}
+      - {id: 1, pwm: 1460, duration_ms: 900}
+  - name: 落
+    commands:
+      - {id: 0, pwm: 1460, duration_ms: 900}
+      - {id: 1, pwm: 1540, duration_ms: 900}
+  - name: 归位
+    commands:
+      - {id: 0, pwm: 1500, duration_ms: 900}
+      - {id: 1, pwm: 1500, duration_ms: 900}

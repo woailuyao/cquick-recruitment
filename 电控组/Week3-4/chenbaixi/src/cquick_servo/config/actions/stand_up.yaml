@@ -1,0 +1,18 @@
+# 一套动作 = 若干 step 的有序列表
+# 同一 step 内多条指令同时下发；step 之间串行（等上一步 result 全部回来才发下一步）
+# 桌面阶段只有 2 个舵机（ID 0、1）；整机 4 或 6 舵机时把 id 扩展即可（只改本文件，不动 python）
+name: stand_up
+default_duration_ms: 800
+steps:
+  - name: 两舵机同时正转
+    commands:
+      - {id: 0, pwm: 1525, duration_ms: 800}
+      - {id: 1, pwm: 1525, duration_ms: 800}
+  - name: 两舵机同时反转
+    commands:
+      - {id: 0, pwm: 1475, duration_ms: 800}
+      - {id: 1, pwm: 1475, duration_ms: 800}
+  - name: 全部回中位
+    commands:
+      - {id: 0, pwm: 1500, duration_ms: 800}
+      - {id: 1, pwm: 1500, duration_ms: 800}
