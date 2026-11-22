@@ -1,0 +1,31 @@
+name: step
+description: 踏步——左腿先动，回中；右腿再动，回中（一步之内有先后）
+steps:
+  - name: 左腿抬起（id 1~5）
+    joints:
+      - {id: 1, pwm: 1540, duration_ms: 700}
+      - {id: 2, pwm: 1460, duration_ms: 700}
+      - {id: 3, pwm: 1540, duration_ms: 700}
+      - {id: 4, pwm: 1460, duration_ms: 700}
+      - {id: 5, pwm: 1540, duration_ms: 700}
+  - name: 左腿放下
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 600}
+      - {id: 2, pwm: 1500, duration_ms: 600}
+      - {id: 3, pwm: 1500, duration_ms: 600}
+      - {id: 4, pwm: 1500, duration_ms: 600}
+      - {id: 5, pwm: 1500, duration_ms: 600}
+  - name: 右腿抬起（id 6~10）
+    joints:
+      - {id: 6, pwm: 1540, duration_ms: 700}
+      - {id: 7, pwm: 1460, duration_ms: 700}
+      - {id: 8, pwm: 1540, duration_ms: 700}
+      - {id: 9, pwm: 1460, duration_ms: 700}
+      - {id: 10, pwm: 1540, duration_ms: 700}
+  - name: 右腿放下
+    joints:
+      - {id: 6, pwm: 1500, duration_ms: 600}
+      - {id: 7, pwm: 1500, duration_ms: 600}
+      - {id: 8, pwm: 1500, duration_ms: 600}
+      - {id: 9, pwm: 1500, duration_ms: 600}
+      - {id: 10, pwm: 1500, duration_ms: 600}

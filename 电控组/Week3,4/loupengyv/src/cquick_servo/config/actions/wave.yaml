@@ -1,0 +1,13 @@
+name: wave
+description: 一个舵机先动，另一个跟上；再一起摆回来（演示「一步之内有先后」）
+steps:
+  - name: 一号先抬
+    joints:
+      - {id: 1, pwm: 1900, duration_ms: 700}
+  - name: 二号跟上
+    joints:
+      - {id: 2, pwm: 1200, duration_ms: 700}
+  - name: 两个一起摆回中位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 700}
+      - {id: 2, pwm: 1500, duration_ms: 700}
