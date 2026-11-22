@@ -1,0 +1,48 @@
+# 相机设备与采集参数
+# ------------------------------------------------------------------
+# 说明：本文件记录本次考核实际使用的单目 RGB 相机的接入方式与采集参数。
+#       带 TODO 的字段需按现场实测填写。
+# ------------------------------------------------------------------
+
+device:
+  type: "单目 RGB 摄像头（UVC 免驱）"
+  interface: "USB"
+  node_linux: "/dev/video0"        # TODO 用 v4l2-ctl --list-devices 确认实际节点
+  brand_model: "不限定品牌型号（按考核细则要求不记录）"
+
+capture:
+  width: 1280
+  height: 720
+  fps_nominal: 30
+  fps_measured: null               # TODO 用连续取帧实际耗时统计后填写（CAP_PROP_FPS 不可靠）
+  color_order: "BGR（OpenCV VideoCapture 默认）"
+  focus: "固定对焦，已关闭自动对焦"
+  zoom: "固定焦距，已关闭自动变焦"
+  autofocus_disabled: true
+  autozoom_disabled: true
+
+# 内参标定必须与推理使用同一分辨率
+calibration_resolution:
+  width: 1280
+  height: 720
+  note: "改变分辨率、裁剪或缩放时必须同步调整内参或重新标定"
+
+files:
+  intrinsics: calibration/camera_intrinsics.yaml
+  extrinsics: calibration/camera_extrinsics.yaml
+
+mounting:
+  rigid: true
+  carrier: "移动测试架（相机光心投影点即载体参考原点）"
+  note: "测试期间相机相对载体不得松动；若松动必须重新测外参"
+
+data_collection:
+  date_range: "2026-11-20 ~ 2026-11-21"
+  resolution: "1280x720"
+  formats: ["mp4（现场录像）", "jpg（抽帧）"]
+
+# 自检命令参考
+selfcheck:
+  list_devices: "v4l2-ctl --list-devices"
+  list_formats: "v4l2-ctl -d /dev/video0 --list-formats-ext"
+  check_opencv: "python -c \"import cv2; print(cv2.__version__)\""
