@@ -1,0 +1,28 @@
+# 动作组 2：挥手
+#
+# 这个文件专门示范「一步之内有先后」：
+# 右大臂必须先单独抬到位（step 01 只有 id=3），小臂才能开始摆。
+name: wave
+description: 右臂单独抬到位 -> 小臂展开 -> 来回摆两次
+repeat: 1
+
+steps:
+  # 只有这一个关节：它没到位之前，后面所有 step 都不会发
+  - name: 01_right_arm_up
+    joints:
+      - {id: 3, pwm: 1750, duration_ms: 2000}
+
+  - name: 02_forearm_out
+    joints:
+      - {id: 5, pwm: 1250, duration_ms: 2000}
+
+  - name: 03_wave_out
+    joints:
+      - {id: 5, pwm: 1550, duration_ms: 2000}
+      - {id: 6, pwm: 1450, duration_ms: 2000}
+
+  - name: 04_wave_back
+    joints:
+      - {id: 5, pwm: 1250, duration_ms: 2000}
+      - {id: 6, pwm: 1550, duration_ms: 2000}
+

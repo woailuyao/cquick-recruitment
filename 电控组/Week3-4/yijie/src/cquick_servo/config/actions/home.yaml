@@ -1,0 +1,21 @@
+# 安全姿态：六个关节同时回 1500
+#
+# 用途：
+#   1. 上电后第一件事（确认每个关节都能动、方向对）
+#   2. 收工前最后一件事（回到安全姿态再卸力）
+#   3. 它还是「一个 step 内多舵机并行」的最小例子：6 条 goal 同时下发。
+#
+# 舵机编号 1~6，和 servo_params.yaml 的 servo_ids 一致。
+name: home
+description: 全部回中位 1500（并行）
+repeat: 1
+
+steps:
+  - name: 01_all_center
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1500}
+      - {id: 2, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}

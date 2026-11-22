@@ -1,0 +1,32 @@
+# 第一次多舵机测试：只动 1、2 两个关节，小幅对向摆动
+#
+# 为什么先跑这个：
+#   - 只碰 2 个关节，万一方向反了、幅度大了，损失最小；
+#   - 它同时验证「一个 step 内并行下发」和「等上一步 result 回来再走下一步」；
+#   - 三遍跑下来耗时应几乎一致（±50ms），不一致说明有东西在抢时序。
+#
+# 关节表（按你的实际结构改）：
+#   id 1 = 左髋    id 2 = 右髋
+#   id 3 = 左肩    id 4 = 右肩
+#   id 5 = 左肘    id 6 = 右肘
+name: demo_2joint
+description: 两个关节对向小幅摆动，三步，每步 600ms
+repeat: 1
+
+steps:
+  - name: 01_forward
+    joints:
+      - {id: 1, pwm: 1560, duration_ms: 600}
+      - {id: 2, pwm: 1440, duration_ms: 600}
+
+  - name: 02_backward
+    joints:
+      - {id: 1, pwm: 1440, duration_ms: 600}
+      - {id: 2, pwm: 1560, duration_ms: 600}
+
+  - name: 03_center
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 600}
+      - {id: 2, pwm: 1500, duration_ms: 600}
+
+

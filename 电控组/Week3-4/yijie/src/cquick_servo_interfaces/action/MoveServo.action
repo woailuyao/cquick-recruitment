@@ -1,0 +1,14 @@
+# ===== Goal：要干什么 =====
+# 一条完整的指令：哪个舵机、去哪、用多久
+uint8  id
+uint16 pwm
+uint16 duration_ms
+---
+# ===== Result：到底成没成 =====
+bool   success      # 到位且读回校验通过才为 True
+uint16 final_pwm    # 动作结束后 PRAD 读回的真实位置；0 表示没读到
+string message      # ok diff=0 / canceled / rejected / preempted / watchdog / serial unavailable / not in position ...
+---
+# ===== Feedback：现在到哪了（≥5 Hz） =====
+uint16  current_pwm   # 按运动模型估计的当前位置
+float32 progress      # 0.0 ~ 1.0
