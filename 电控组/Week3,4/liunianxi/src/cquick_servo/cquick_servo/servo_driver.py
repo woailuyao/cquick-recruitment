@@ -8,6 +8,7 @@
 """
 from __future__ import annotations
 
+import threading
 import time
 from typing import Optional
 
@@ -17,18 +18,40 @@ from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.executors import MultiThreadedExecutor
 from rclpy.node import Node
 from rclpy.parameter import Parameter
+from std_srvs.srv import Trigger
 
 from builtin_interfaces.msg import Time as TimeMsg
 from cquick_servo_interfaces.action import MoveServo
 from cquick_servo_interfaces.msg import ServoCommand, ServoState
 
-from .servo_link import PWM_ELECTRIC_MAX, PWM_ELECTRIC_MIN, SerialLink
+from .servo_link import (
+    HEARTBEAT_PERIOD,
+    PWM_ELECTRIC_MAX,
+    PWM_ELECTRIC_MIN,
+    RETRY_DURATION_MS,
+    WATCHDOG_TIMEOUT,
+    SerialLink,
+    clamp_duration,
+)
 
 FEEDBACK_PERIOD = 0.05      # 20 Hz，细则要求 >= 5 Hz
 PRAD_TOLERANCE = 30         # 回读与目标差超过 30 算没到位
 ALLOWED_BAUD = (9600, 19200, 38400, 57600, 115200, 230400)
 CENTER_PWM = 1500           # 中立位（协议/物理约定，不是配置）
+UDEV_PORT = "/dev/cq_servo"  # 加分项①：99-cq-servo.rules 固定出来的设备名
+
+
+def _first_usb_serial_port() -> Optional[str]:
+    """没装 udev 规则时的退路：扫 /dev/ttyUSB*、/dev/ttyACM*，取第一个。"""
+    import glob
+
+    for pattern in ("/dev/ttyUSB*", "/dev/ttyACM*"):
+        hits = sorted(glob.glob(pattern))
+        if hits:
+            return hits[0]
+    return None
 PRAD_EVERY = 4              # 每 4 个反馈周期读一次 PRAD（20Hz -> 5Hz），别把半双工总线读爆
+WATCHDOG_POLL = 0.1         # 看门狗轮询间隔（心跳/超时常数在 servo_link 里，pytest 能直接测）
 
 
 class ServoDriver(Node):
@@ -36,19 +59,23 @@ class ServoDriver(Node):
         super().__init__("servo_driver")
 
         # ---------- ① 声明参数（只声明，不在 __init__ 存副本！） ----------
-        self.declare_parameter("port", "/dev/ttyUSB0")
+        self.declare_parameter("port", UDEV_PORT)   # udev 固定名；没装规则会自动退回 ttyUSB*
         self.declare_parameter("baudrate", 115200)
-        self.declare_parameter("pwm_min", 900)
+        self.declare_parameter("pwm_min", 1000)      # 实测下限：再低 PRAD 卡在 1005（顶机械限位）
         self.declare_parameter("pwm_max", 2100)
-        self.declare_parameter("default_duration_ms", 800)
+        self.declare_parameter("default_duration_ms", 1000)
         # 经过对 ZL-IS2 + 总线舵机的测试，T<1000 的移动指令会被直接忽略，
         # 发现舵机一动不动、PRAD 停在原值。所以都抬到下限。
         self.declare_parameter("min_duration_ms", 1000)
-        self.declare_parameter("servo_ids", [1, 2, 3, 4, 5, 6])
+        self.declare_parameter("servo_ids", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         self.declare_parameter("startup_reset", True)
         # 开始时板子只执行不回包，为了应对这种情况改了此代码，
         # 后来解决问题，这个开关用于兜底换板或者换线后回读恢复的可能情况。
         self.declare_parameter("readback_enabled", True)
+        self.declare_parameter("heartbeat_period", HEARTBEAT_PERIOD)
+        self.declare_parameter("watchdog_timeout", WATCHDOG_TIMEOUT)
+        # 故障注入：>0 时让心跳回调睡这么久，用来验证看门狗真的会卸力（平时保持 0）
+        self.declare_parameter("watchdog_stall_test", 0.0)
 
         # ---------- ② 参数校验：不注册这个回调，100000 也能进得去 ----------
         self.add_on_set_parameters_callback(self._on_param_set)
@@ -57,6 +84,13 @@ class ServoDriver(Node):
         self._link: Optional[SerialLink] = None
         self._torque_on_done: set[int] = set()
         self._tick = 0
+        self._last_beat = time.monotonic()
+        self._stall_until: Optional[float] = None
+        self._beat_count = 0
+        self._locked = False
+        self._lock = threading.Lock()
+        self._shutdown = False
+        self._watchdog_thread = None
         self._open_link()
 
         self._state_pub = self.create_publisher(ServoState, "/servo/state", 10)
@@ -77,6 +111,19 @@ class ServoDriver(Node):
             callback_group=self._cb_group,
         )
 
+        # 加分项③：rearm 服务（看门狗锁住之后，只有人能解开）
+        self.create_service(
+            Trigger, "/servo_driver/rearm", self._on_rearm, callback_group=self._cb_group
+        )
+        self.create_timer(
+            float(self.get_parameter("heartbeat_period").value),
+            self._on_heartbeat,
+            callback_group=self._cb_group,
+        )
+        # 加分项④：每 0.5 s 检查一次串口，掉线自动重连
+        self.create_timer(0.5, self._on_reconnect, callback_group=self._cb_group)
+        self._start_watchdog()
+
         if self.get_parameter("startup_reset").value:
             self._startup_reset()
 
@@ -93,12 +140,27 @@ class ServoDriver(Node):
 
     # ------------------------------------------------------------------ 串口
     def _open_link(self) -> None:
-        port = self.get_parameter("port").value
-        baud = self.get_parameter("baudrate").value
+        port = str(self.get_parameter("port").value)
+        baud = int(self.get_parameter("baudrate").value)
         try:
-            self._link = SerialLink(port, int(baud))
+            self._link = SerialLink(port, baud)
             self.get_logger().info(f"串口已打开：{port} @ {baud} 8-N-1")
+            return
         except Exception as exc:  # 板卡上没插线也要能起来，别直接崩
+            # 加分项①：默认走 udev 固定名 /dev/cq_servo；没装规则时退回 ttyUSB*
+            if port == UDEV_PORT:
+                fallback = _first_usb_serial_port()
+                if fallback:
+                    self.get_logger().warn(
+                        f"打不开 {UDEV_PORT}（{exc}），退回 {fallback}"
+                        "（装好 99-cq-servo.rules 后就会用它）"
+                    )
+                    try:
+                        self._link = SerialLink(fallback, baud)
+                        self.get_logger().info(f"串口已打开：{fallback} @ {baud} 8-N-1")
+                        return
+                    except Exception as exc2:
+                        exc = exc2
             self._link = None
             self.get_logger().error(f"串口打不开：{port} -> {exc}")
 
@@ -108,6 +170,106 @@ class ServoDriver(Node):
         self.get_logger().warn("串口不可用，尝试重连…")
         self._open_link()
         return self._link is not None
+
+    # ------------------------------------------------------- 心跳 / 看门狗
+    def _start_watchdog(self) -> None:
+        """加分项③：独立线程盯心跳。主循环被卡住时，它还能把动作卸掉。"""
+        timeout = float(self.get_parameter("watchdog_timeout").value)
+
+        def _loop() -> None:
+            while not self._shutdown:
+                time.sleep(WATCHDOG_POLL)
+                if self._locked:
+                    continue
+                if time.monotonic() - self._last_beat > timeout:
+                    self._emergency_stop(timeout)
+
+        self._watchdog_thread = threading.Thread(
+            target=_loop, name="servo-watchdog", daemon=True
+        )
+        self._watchdog_thread.start()
+
+    def stop_watchdog(self) -> None:
+        self._shutdown = True
+
+    def _on_heartbeat(self) -> None:
+        """5 Hz 心跳：刷新时间戳；每 5 次往 /servo/state 发一条心跳消息。"""
+        stall = float(self.get_parameter("watchdog_stall_test").value)
+        if stall > 0.0:
+            now = time.monotonic()
+            if self._stall_until is None:
+                self._stall_until = now + stall
+                self.get_logger().warn(f"故障注入：心跳停 {stall:.1f}s（验证看门狗）")
+            if now < self._stall_until:
+                return          # 故意不刷新心跳，让看门狗抓得到
+            self._stall_until = None
+        self._last_beat = time.monotonic()
+        self._beat_count += 1
+        if self._beat_count % 5 == 1:
+            hb = ServoCommand()
+            hb.id = 0
+            hb.pwm = 0
+            hb.duration_ms = 0
+            self._publish_state(hb, 0, True, "heartbeat")
+
+    def _emergency_stop(self, timeout: float) -> None:
+        """超时 -> 全部 PULK 卸力，然后锁住，必须 rearm 才恢复。"""
+        with self._lock:
+            if self._locked:
+                return
+            self._locked = True
+        self.get_logger().error(
+            f"看门狗超时（{timeout:.1f}s 没有心跳）：全部 PULK 卸力，等待 rearm"
+        )
+        ids = list(self.get_parameter("servo_ids").value)
+        if self._link is not None and self._link.is_open:
+            for frame_id in ids:
+                try:
+                    self._link.torque_off(int(frame_id))
+                except Exception as exc:
+                    self.get_logger().warn(f"PULK id={frame_id} 失败：{exc}")
+        self._torque_on_done.clear()
+        for frame_id in ids:
+            cmd = ServoCommand()
+            cmd.id = int(frame_id)
+            cmd.pwm = 0
+            cmd.duration_ms = 0
+            self._publish_state(cmd, 0, False, "watchdog_pulk")
+
+    def _on_rearm(self, request, response):
+        """外部确认：解除看门狗锁，之后才允许再发动作。"""
+        with self._lock:
+            self._locked = False
+        self._last_beat = time.monotonic()
+        self._torque_on_done.clear()
+        self.get_logger().warn("rearm 收到：看门狗锁已解除，可以重新发动作")
+        response.success = True
+        response.message = "rearmed"
+        return response
+
+    # -------------------------------------------------------- 串口自动重连
+    def _on_serial_failure(self, exc: Exception) -> None:
+        """加分项④：写失败就关掉链路，交给 _on_reconnect 定时重连，进程不崩。"""
+        self.get_logger().warn(f"串口断开（{exc}），进入自动重连，进程继续运行")
+        try:
+            if self._link is not None:
+                self._link.close()
+        except Exception:
+            pass
+        self._link = None
+        self._torque_on_done.clear()
+
+    def _on_reconnect(self) -> None:
+        if self._link is not None and self._link.is_open:
+            return
+        port = self.get_parameter("port").value
+        baud = int(self.get_parameter("baudrate").value)
+        try:
+            self._link = SerialLink(port, baud)
+            self._torque_on_done.clear()
+            self.get_logger().info(f"串口已重连：{port} @ {baud}，下次动作会重新上力")
+        except Exception:
+            pass  # 还没插回来，下一轮再试
 
     # -------------------------------------------------------------- 参数校验
     def _on_param_set(self, params: list[Parameter]):
@@ -171,7 +333,7 @@ class ServoDriver(Node):
     def _effective_duration(self, wanted_ms: int, log: bool = True) -> int:
         """把 duration 抬到固件真正接受的下限（ZL-IS2: 1000 ms）。"""
         floor_ms = int(self.get_parameter("min_duration_ms").value)
-        value = max(int(wanted_ms), floor_ms)
+        value = clamp_duration(int(wanted_ms), floor_ms)
         if value != int(wanted_ms) and log:
             self.get_logger().warn(
                 f"duration_ms={wanted_ms} 低于固件下限 {floor_ms}，已抬到 {value}"
@@ -199,6 +361,7 @@ class ServoDriver(Node):
         except Exception as exc:
             self.get_logger().error(f"串口写失败：{exc}")
             self._publish_state(cmd, 0, False, "serial_error")
+            self._on_serial_failure(exc)   # 加分项④：断开后自动重连
             return False
 
     def _publish_state(self, cmd: ServoCommand, actual: int, ok: bool, note: str) -> None:
@@ -211,6 +374,40 @@ class ServoDriver(Node):
         msg.ok = bool(ok)
         msg.note = note
         self._state_pub.publish(msg)
+
+    def _read_settled(self, cmd: ServoCommand, tries: int = 3) -> int:
+        """等舵机停稳再读：最多 3 次，只要有一次进容差就收工。"""
+        actual = 0
+        for _ in range(tries):
+            time.sleep(0.15)
+            actual = self._read_pwm(int(cmd.id))
+            if actual and abs(int(actual) - int(cmd.pwm)) <= PRAD_TOLERANCE:
+                break
+        return int(actual)
+
+    def _verify_and_maybe_resend(self, cmd: ServoCommand):
+        """加分项②：PRAD 超差就自动重发一次，日志里能查"未到位 -> 重发 -> 到位"。"""
+        actual = self._read_settled(cmd)
+        if actual == 0:
+            return 0, True, "ok(no_readback)"
+        diff = abs(int(actual) - int(cmd.pwm))
+        if diff <= PRAD_TOLERANCE:
+            return actual, True, f"ok(diff={diff})"
+        self.get_logger().warn(
+            f"未到位 id={int(cmd.id)} 目标={int(cmd.pwm)} 读回={actual} diff={diff} -> 重发一次"
+        )
+        retry = ServoCommand()
+        retry.id = int(cmd.id)
+        retry.pwm = int(cmd.pwm)
+        retry.duration_ms = self._effective_duration(RETRY_DURATION_MS)
+        self._send_to_hardware(retry)
+        # 重发也是一次完整行程：先等它走完再读，否则读到的是中段位置
+        time.sleep(min(int(retry.duration_ms), 1500) / 1000.0)
+        actual2 = self._read_settled(cmd)
+        if actual2 and abs(int(actual2) - int(cmd.pwm)) <= PRAD_TOLERANCE:
+            return actual2, True, f"ok(diff={abs(int(actual2) - int(cmd.pwm))},retried)"
+        final = actual2 or actual
+        return final, False, f"not_reached:{abs(int(final) - int(cmd.pwm))}"
 
     def _read_pwm(self, frame_id: int, retry: int = 2) -> int:
         if self._link is None or not self._link.is_open:
@@ -238,6 +435,11 @@ class ServoDriver(Node):
 
     # ------------------------------------------------------------- Action 回调
     def _goal_callback(self, goal_request: MoveServo.Goal):
+        if self._locked:
+            self.get_logger().warn(
+                "看门狗已锁住：先 ros2 service call /servo_driver/rearm std_srvs/srv/Trigger"
+            )
+            return GoalResponse.REJECT
         reason = self._check_command(goal_request.command)
         if reason is not None:
             self.get_logger().warn(f"goal rejected：{reason}")
@@ -320,34 +522,17 @@ class ServoDriver(Node):
             self.get_logger().warn(f"动作被取消，id={cmd.id} 已回中位 {CENTER_PWM}")
             return result
 
-        # ---------- 收尾：读 PRAD 校验 ----------
+        # ---------- 收尾：读 PRAD 校验（超差自动重发一次，加分项②） ----------
         actual = 0
         readback_enabled = bool(self.get_parameter("readback_enabled").value)
         if goal_handle.request.verify_on_finish and readback_enabled:
-            # 舵机走到位再读，别在运动末尾抢读；多舵机同时动作时最后几度收敛会慢半拍，
-            # 所以最多读 3 次，只要有一次进了容差就停（不要一次没进就判 not_reached）。
-            for _ in range(3):
-                time.sleep(0.15)
-                actual = self._read_pwm(int(cmd.id))
-                if actual and abs(int(actual) - int(cmd.pwm)) <= PRAD_TOLERANCE:
-                    break
-        result.prad_actual = int(actual)
-
-        if actual == 0:
-            # 真舵机可能不回包：不判死，但要在 message 里说清楚
-            result.success = True
-            result.message = "ok(no_readback)"
-            self._publish_state(cmd, 0, True, "ok(no_readback)")
+            actual, ok, message = self._verify_and_maybe_resend(cmd)
         else:
-            diff = abs(int(actual) - int(cmd.pwm))
-            if diff <= PRAD_TOLERANCE:
-                result.success = True
-                result.message = f"ok(diff={diff})"
-                self._publish_state(cmd, actual, True, f"ok(diff={diff})")
-            else:
-                result.success = False
-                result.message = f"not_reached:{diff}"
-                self._publish_state(cmd, actual, False, f"not_reached:{diff}")
+            ok, message = True, "ok(no_verify)"
+        result.prad_actual = int(actual)
+        result.success = bool(ok)
+        result.message = message
+        self._publish_state(cmd, actual, ok, message)
 
         goal_handle.succeed()
         self.get_logger().info(
@@ -357,6 +542,9 @@ class ServoDriver(Node):
 
     # ---------------------------------------------------- /servo/command 订阅
     def _on_command_msg(self, msg: ServoCommand) -> None:
+        if self._locked:
+            self.get_logger().warn("/servo/command 被忽略：看门狗已锁，先 rearm")
+            return
         reason = self._check_command(msg)
         if reason is not None:
             self.get_logger().warn(f"/servo/command 被忽略：{reason}")
@@ -376,6 +564,7 @@ def main(argv=None) -> None:
     except KeyboardInterrupt:
         pass
     finally:
+        node.stop_watchdog()
         if node._link is not None:
             node._link.close()
         node.destroy_node()

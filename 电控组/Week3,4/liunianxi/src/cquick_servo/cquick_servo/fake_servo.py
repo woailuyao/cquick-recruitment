@@ -31,6 +31,10 @@ class FakeServo(Node):
         super().__init__("fake_servo")
         self.declare_parameter("port", "/tmp/ttyFAKE")
         self.declare_parameter("baudrate", 115200)
+        # 演示/验证用：>0 时每个 ID 的第一次动作故意少走这么多 pwm，
+        # 这样驱动会判"未到位"并自动重发一次（加分项②的验证手段）。平时是 0。
+        self.declare_parameter("first_move_short", 0)
+        self._tested: set[int] = set()
         self._port = str(self.get_parameter("port").value)
         # id -> (from_pwm, to_pwm, t0, duration_s)
         self._motion: dict[int, tuple[int, int, float, float]] = {}
@@ -84,7 +88,15 @@ class FakeServo(Node):
         for frame_id, pwm, duration in MOVE_RE.findall(text):
             frame_id = int(frame_id)
             from_pwm = self.current_pwm(frame_id)
-            self._motion[frame_id] = (from_pwm, int(pwm), time.monotonic(), int(duration) / 1000.0)
+            target = int(pwm)
+            short = int(self.get_parameter("first_move_short").value)
+            if short > 0 and frame_id not in self._tested:
+                self._tested.add(frame_id)
+                target = target - short if target >= from_pwm else target + short
+                self.get_logger().warn(
+                    f"演示注入：id={frame_id} 第一次少走 {short} -> 目标 {target}"
+                )
+            self._motion[frame_id] = (from_pwm, target, time.monotonic(), int(duration) / 1000.0)
             self.get_logger().info(f"收到动作 #{frame_id:03d}P{int(pwm)}T{int(duration)}!")
         for frame_id, verb in VERB_RE.findall(text):
             frame_id = int(frame_id)

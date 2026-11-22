@@ -30,6 +30,15 @@ PWM_ELECTRIC_MAX = 2500
 # 总线帧间隔：连发两条消息时，固件只执行第一条、丢掉后面的，
 # 经测试，30 ms 能被稳定接收。
 MIN_FRAME_GAP = 0.03
+# ---- 看门狗与重发的时间常数（放协议层，pytest 不用起 rclpy 就能测） ----
+HEARTBEAT_PERIOD = 0.2      # 5 Hz 心跳
+WATCHDOG_TIMEOUT = 1.0      # 超过 1 s 没心跳就全部 PULK
+RETRY_DURATION_MS = 600     # 回读超差时重发用的短行程（会被 min_duration_ms 抬到 1000）
+
+
+def clamp_duration(wanted_ms: int, floor_ms: int) -> int:
+    """把 duration 抬到固件真正接受的下限（ZL-IS2 实测忽略 T<1000）。"""
+    return max(int(wanted_ms), int(floor_ms))
 
 _PRAD_RE = re.compile(r"#?\s*(\d{1,3})\s*P\s*(\d{3,4})")
 _PID_RE = re.compile(r"#?\s*(\d{1,3})")

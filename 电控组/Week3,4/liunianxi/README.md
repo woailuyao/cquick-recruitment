@@ -374,4 +374,50 @@ ls -l /dev/cq_servo          # 应看到指向 ttyUSB* 的软链
 ros2 launch cquick_servo servo.launch.py port:=/dev/cq_servo
 ```
 
-> 默认 `servo_params.yaml` 仍写 `port: /dev/ttyUSB0`（评测评测机不一定装了这条规则，写死 `/dev/cq_servo` 反而会打不开）；装好规则的机器用 `port:=/dev/cq_servo` 覆盖即可，两种都能跑。
+> `servo_params.yaml` 默认已改成 `port: /dev/cq_servo`；**没装这条规则的机器会自动退回 `/dev/ttyUSB*`**（驱动日志里会打一条 WARN，见 §17①），所以装没装规则都能直接跑。
+
+## 17. 加分项（2026-11-22 深夜加做并验证）
+
+| 项 | 分值 | 做了没有 | 怎么验证 |
+| --- | --- | --- | --- |
+| ① udev 固定设备名 | +2 | 已做（规则见 §16） | 装规则后 `ls -l /dev/cq_servo` 有软链；没规则时驱动自动退回 `ttyUSB*` |
+| ② PRAD 闭环自动重发 | +3 | 已做 | 假舵机注入「第一次少走 80」→ 日志「未到位 → 重发一次」，结果 `ok(diff=0,retried)` |
+| ③ 安全看门狗 | +3 | 已做 | `param set watchdog_stall_test 2.0` → `看门狗超时…全部 PULK` + goal 被拒 → `rearm` 后恢复 |
+| ④ 串口掉线自动重连 | +3 | 已做 | 拔掉转接器 → `serial_error` + WARN，进程不崩；插回 → `串口已重连`，动作继续 |
+| ⑤ pytest | +2 | 已做（10 例） | `colcon test` → `10 tests, 0 errors, 0 failures` |
+| 动作组抢占 | +4 | 没做 | —— |
+
+### 17.1 三项验证的真实日志（仿真：socat + `fake_servo`）
+
+```
+① 看门狗
+$ ros2 param set /servo_driver watchdog_stall_test 2.0
+[ERROR] 看门狗超时（1.0s 没有心跳）：全部 PULK 卸力，等待 rearm
+Goal was rejected.                       <- 锁住期间发动作直接被拒
+$ ros2 service call /servo_driver/rearm std_srvs/srv/Trigger
+success=True, message='rearmed'
+再发一次 1600 → success: true / ok(diff=0)
+
+② 超差重发
+[WARN] 未到位 id=5 目标=1700 读回=1620 diff=80 -> 重发一次
+[INFO] 发送 #005P1700T1000!
+结果 → success: true / prad_actual: 1700 / ok(diff=0,retried)
+
+③ 掉线重连
+[ERROR] 串口写失败：write failed: [Errno 5] Input/output error
+[WARN] 串口断开（write failed: …），进入自动重连，进程继续运行
+[INFO] 串口已重连：/tmp/ttySERVO @ 115200，下次动作会重新上力
+再发一次 → success: true / ok(diff=0)
+```
+
+### 17.2 看门狗怎么做的
+
+- 心跳 5 Hz，每 5 次往 `/servo/state` 发一条 `heartbeat`（bag 里也能看到）；
+- 另起一个**独立线程**盯 `_last_beat`：超过 `watchdog_timeout`（默认 1.0 s）没刷新 → 10 个 ID 全部 `PULK` 卸力 + ERROR 日志 + 置 `_locked`；
+- 锁住期间 `goal_callback` 一律拒绝，`/servo/command` 也不执行；
+- 恢复**必须**由外部调用 `ros2 service call /servo_driver/rearm std_srvs/srv/Trigger`，它不会自己动 —— 这样「有人看着」才恢复，符合细则里「不许自己起来」的要求；
+- `watchdog_stall_test > 0` 只是**故障注入开关**（时间门控、不睡线程），用来演示看门狗真的会响。
+
+### 17.3 真机回归待补
+
+上面三项是在仿真里验证的（真机那会儿转接器已拔）。真机复测只要插上 CH340、用 `port:=/dev/ttyUSB0` 或默认 `/dev/cq_servo` 起 launch，按 §11 的步骤走一遍即可，验证命令与 §17.1 完全相同。

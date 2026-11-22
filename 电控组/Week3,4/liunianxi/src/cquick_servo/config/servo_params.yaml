@@ -3,7 +3,7 @@
 # 下面这些值都是 2026-11-22 在本机 ZL-IS2 24 路板 + 10 个总线舵机（ID 1~10）上量出来的。
 servo_driver:
   ros__parameters:
-    port: /dev/ttyUSB0     # udev 规则做好后建议写 /dev/servo
+    port: /dev/cq_servo     # 加分项①：99-cq-servo.rules 固定出来的名字；没装规则会自动退回 ttyUSB*
     baudrate: 115200       # 8-N-1，实测可用
     pwm_min: 1000          # 实测下限：比 1000 再低 PRAD 就卡在 1005（顶到机械限位了）
     pwm_max: 2100          # 实测上限：2100 还跟得住（读回 2090），留 50 余量
@@ -16,3 +16,9 @@ servo_driver:
     # 实测：CH340 走「用户」口回读正常（#003PID! -> #003P!，#003PRAD! -> #003P1509!），
     # 所以这里保持 true，走 PRAD 闭环校验。
     readback_enabled: true
+    # 加分项③ 看门狗：节点 5 Hz 刷心跳，超过 1 s 没心跳就把 10 个舵机全部 PULK 卸力，
+    # 然后锁住不接受任何动作，必须有人调 /servo_driver/rearm 才恢复。
+    heartbeat_period: 0.2
+    watchdog_timeout: 1.0
+    # 故障注入开关，只用于演示/验证看门狗：>0 时让心跳停这么多秒。平时保持 0。
+    watchdog_stall_test: 0.0
