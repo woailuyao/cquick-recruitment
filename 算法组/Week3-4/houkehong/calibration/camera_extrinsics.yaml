@@ -1,0 +1,48 @@
+# 相机相对于载体（机器人底座 / 移动测试架）的安装外参（考核细则 2.6）
+#
+# 状态：**已标定并现场闭环验证**（2026-11-21）
+# 要求：相机与载体刚性固定，测试期间外参不得变化；一旦相机相对载体移动必须重新标定。
+#
+# 约定：本文件描述 T_carrier_camera，即把「相机坐标系」下的点变换到「载体坐标系」：
+#       P_carrier = R_carrier_camera @ P_camera + t_carrier_camera
+#       载体坐标系：原点在载体参考点在地面的投影，Z 轴向上，X 轴为载体的正前方向。
+#
+# 标定方法：卷尺实测 3 个地面点的图像纵坐标，反解「安装高度 + 俯仰角」
+#   .\.venv\Scripts\python.exe scripts\calibrate_extrinsics.py --camera 1 --height 1.0 --write
+#
+# 实测数据点（相机距目标水平距离 D -> 目标在图像中的纵坐标 v）：
+#   D = 4.00 m -> v = 382 px
+#   D = 6.00 m -> v = 257 px
+#   D = 8.00 m -> v = 191 px
+#   → 反解结果的**平均距离误差 0.014 m**
+#
+# 现场闭环验证（README 4.10.2）：
+#   三点位移测试，位移比例 1.004 / 1.017，综合 1.011（误差约 1%）
+#
+# ⚠️ 以下任一情况必须重新标定：
+#   1. 相机相对载体的安装高度或俯仰角发生变化
+#   2. 相机被拆下再装回
+#   3. 换了另一台相机
+
+extrinsics:
+  reference_frame: base_link      # 载体参考坐标系名称：base_link / rig_frame / camera_frame
+  camera_frame: camera_link
+
+  # 便于人工核对的安装参数（固定安装方案，R 由 pitch/roll/yaw_offset 生成）
+  camera_height_m: 1.0            # 相机光心离地高度，米
+  pitch_deg: -13.118              # 安装俯仰角，度（**向下为负**）
+  roll_deg: 0.0                   # 安装滚转角，度
+  yaw_offset_deg: 0.0             # 相机光轴水平投影相对载体 +X 的偏角，度
+
+  # 相机光心在载体坐标系下的位置，米（本方案把光心定义为载体原点正上方）
+  t_carrier_camera: [0.0, 0.0, 1.0]
+
+  # 标定过程说明
+  method: "卷尺实测 3 点距地面标志的水平距离与其图像纵坐标，联立反解安装高度与俯仰角"
+  measured_by: HouKehong
+  calibration_date: '2026-11-21'
+  verified: true
+  uncertainty_note: >
+    高度由卷尺测得（±0.01 m），俯仰角由 3 点最小二乘反解（3 点残差 0.014 m）。
+    滚转角与 yaw_offset 按安装方式假定为 0（三脚架云台水平），未单独测量。
+    地面平整度与卷尺拉直程度是主要误差来源。

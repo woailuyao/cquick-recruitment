@@ -1,0 +1,27 @@
+# 任务 1 足球检测数据集配置
+# 图片与标注不上传 GitHub；本文件说明路径结构与类别定义，便于评审复现。
+# 完整路径示例：<数据集根目录>/images/{train,val,test} 与 labels/{train,val,test}
+
+path: ../datasets/ball
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names:
+  - ball
+
+# 数据来源
+#   采集人       : HouKehong（本人）
+#   采集设备     : 本人考核用单目 RGB USB 摄像头 1280x720 @30fps
+#   采集日期     : 2026-11-17 / 2026-11-18
+#   原始视频     : 17 段独立录制
+#   抽帧 / 标注  : 2297 张 / 3068 个框
+#
+# 划分（按视频片段，非随机）
+#   train 1556 张 / 2185 框
+#   val    417 张 /  513 框
+#   test   324 张 /  370 框   <- 所属视频片段完全未参与训练
+#
+# 测试集指标（weights/ball_best.pt）
+#   Precision 0.981   Recall 0.811   mAP50 0.906   mAP50-95 0.852

@@ -1,0 +1,12 @@
+LCross     Precision 0.886  Recall 0.879  mAP50 0.930  mAP50-95 0.304
+TCross     Precision 0.799  Recall 0.364  mAP50 0.316  mAP50-95 0.095
+all        Precision 0.842  Recall 0.621  mAP50 0.623  mAP50-95 0.200
+epochs     40（从 marker_start.pt 微调，全参数；最佳 epoch 21）
+
+# val（含未见过方位角 164214 + 224316）
+# LCross   P=0.887 R=0.792 mAP50=0.899 mAP50-95=0.419
+# TCross   P=0.717 R=0.838 mAP50=0.798 mAP50-95=0.402
+# all      P=0.802 R=0.815 mAP50=0.848 mAP50-95=0.411
+#
+# 逐片段召回（conf>=0.25）：164402=0.88  164427=0.68  224416=0.00（该视角检出为 0，见 TRAIN_REPORT 第 5 节）
+# 两条验收线：val 0.848（期望>=0.90，未完全达到）  test 0.623 >= 0.50 ✅
