@@ -1,10 +1,14 @@
-# 动作组：站起/抬臂（数据化，改动作只改这个文件）
-# 同步逻辑全在 sequence_player 里——同一步并行下发，等 result 回来再下一步，没有 sleep。
+# 动作组：站立（腿式机构，10 个舵机）
+# 关节语义（2026-11-22 装配后确认）：
+#   1, 2      踝关节 —— 控制脚部的侧向弯曲
+#   3~8       腿部关节 —— 控制腿部弯曲（左侧 3/5/7，右侧 4/6/8）
+#   9, 10     髋关节 —— 控制腿张开或合上
+# 同步逻辑全在 sequence_player 里：同一步并行下发，等 result 回来再下一步，没有 sleep。
 # 注意：本板固件忽略 T<1000 的移动指令，所以每一步的 duration_ms 都写 >=1000。
 name: stand_up
 repeat: 1
 steps:
-  - name: 先把六个关节回中位（pwm 1500）
+  - name: 全部回中位 1500（上电初始姿态）
     joints:
       - {id: 1, pwm: 1500, duration_ms: 1000}
       - {id: 2, pwm: 1500, duration_ms: 1000}
@@ -12,18 +16,32 @@ steps:
       - {id: 4, pwm: 1500, duration_ms: 1000}
       - {id: 5, pwm: 1500, duration_ms: 1000}
       - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
 
-  - name: 同时抬起大臂与小臂
+  - name: 髋关节张开（9、10 反向各 60）
     joints:
-      - {id: 1, pwm: 1650, duration_ms: 1200}
-      - {id: 2, pwm: 1350, duration_ms: 1200}
+      - {id: 9, pwm: 1560, duration_ms: 1200}
+      - {id: 10, pwm: 1440, duration_ms: 1200}
 
-  - name: 张开夹爪
+  - name: 六条腿微微弯曲（3/4/5 与 6/7/8 反向各 80）
     joints:
-      - {id: 6, pwm: 1900, duration_ms: 1000}
+      - {id: 3, pwm: 1580, duration_ms: 1200}
+      - {id: 4, pwm: 1580, duration_ms: 1200}
+      - {id: 5, pwm: 1580, duration_ms: 1200}
+      - {id: 6, pwm: 1420, duration_ms: 1200}
+      - {id: 7, pwm: 1420, duration_ms: 1200}
+      - {id: 8, pwm: 1420, duration_ms: 1200}
 
-  - name: 放下
+  - name: 站起（腿与髋一起回中位）
     joints:
-      - {id: 1, pwm: 1500, duration_ms: 1200}
-      - {id: 2, pwm: 1500, duration_ms: 1200}
-      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}

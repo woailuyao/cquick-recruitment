@@ -324,8 +324,13 @@ class ServoDriver(Node):
         actual = 0
         readback_enabled = bool(self.get_parameter("readback_enabled").value)
         if goal_handle.request.verify_on_finish and readback_enabled:
-            time.sleep(0.15)   # 舵机走到位再读，别在运动末尾抢读（真机也一样）
-            actual = self._read_pwm(int(cmd.id))
+            # 舵机走到位再读，别在运动末尾抢读；多舵机同时动作时最后几度收敛会慢半拍，
+            # 所以最多读 3 次，只要有一次进了容差就停（不要一次没进就判 not_reached）。
+            for _ in range(3):
+                time.sleep(0.15)
+                actual = self._read_pwm(int(cmd.id))
+                if actual and abs(int(actual) - int(cmd.pwm)) <= PRAD_TOLERANCE:
+                    break
         result.prad_actual = int(actual)
 
         if actual == 0:
