@@ -1,0 +1,14 @@
+height_m: 0.75
+pitch_deg: 18.5
+roll_deg: 0.0
+dx: 0.0
+dy: 0.0
+R_bc:
+- [0.0, -0.317304656, 0.948323655]
+- [-1.0, 0.0, 0.0]
+- [0.0, -0.948323655, -0.317304656]
+O_b: [0.0, 0.0, 0.75]
+convention: {body: x 前 / y 左 / z 上，原点在车体中心的地面投影, camera: x 右 / y 下 / z 前（OpenCV）,
+  pitch: 绕 y_b 旋转，低头为正, roll: 绕光轴 z_c 旋转，右手定则为正}
+measured_note: 高度用卷尺量到光心；俯仰用侧视照片+水平仪估算，改完重跑 tools/make_extrinsics.py 与 tools/calib_check_extrinsics.py
+  验证

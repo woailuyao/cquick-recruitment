@@ -1,0 +1,40 @@
+# 场地几何（实测重建版）—— 用于俯视图底图与一致性自检
+version: cquick-field-map/3
+generated: 2026-11-21 20:33:25
+unit: m
+map_frame:
+  origin: 球场中心（中线与中圈圆心）
+  x_axis: 沿中线指向球门
+  y_axis: 面向 +X 时的左侧
+  z_axis: 垂直地面向上
+  x_range: [-4.305, 4.305]
+  y_range: [-3.000, 3.000]
+
+field:
+  lines:
+    available: true
+    x_left: -4.305
+    x_right: 4.305
+    y_bottom: -3.000
+    y_top: 3.000
+    note: 单门场地，球门在 +X 端
+  center_circle:
+    available: true
+    cx: 0.0
+    cy: 0.0
+    radius_m: 0.750
+  goal_area:
+    available: true
+    depth_m: 0.950
+    half_width_m: 1.475
+    side: +x and -x（两端对称，2026-11-21 实测修正）
+  penalty_area:
+    available: true
+    depth_m: 1.950
+    half_width_m: 1.975
+    side: +x and -x（两端对称，2026-11-21 实测修正）
+
+consistency:
+  bbox_margin_m: 0.05
+  min_markers: 6
+  min_same_class_sep_m: 0.10

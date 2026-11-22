@@ -1,0 +1,64 @@
+intrinsics: calibration/camera_intrinsics.yaml
+extrinsics: calibration/camera_extrinsics.yaml
+field_map: config/field.yaml
+field_geometry: config/field_geometry.yaml
+detector:
+  backend: auto
+  marker_model: weights/marker_best.onnx
+  ball_model: weights/ball_best.onnx
+  conf: 0.25
+  iou: 0.45
+  imgsz: 640
+  device: cpu
+  max_det: 100
+  half: false
+  class_conf:
+    Ball: 0.35
+    LCross: 0.12
+    TCross: 0.12
+    XCross: 0.12
+    PenaltyPoint: 0.12
+    PenalityPoint: 0.12
+  class_alias:
+    penalitypoint: PenaltyPoint
+    penalty_point: PenaltyPoint
+    penalty: PenaltyPoint
+    lcross: LCross
+    l_cross: LCross
+    tcross: TCross
+    t_cross: TCross
+    xcross: XCross
+    x_cross: XCross
+    ball: Ball
+    football: Ball
+    soccer_ball: Ball
+refine:
+  enable: true
+  margin: 0.3
+  min_quality: 0.05
+solver:
+  tol_m: 0.35
+  min_pair_sep_m: 0.25
+  ambiguity_penalty: 0.6
+  max_hypotheses: 4000
+  use_prior: true
+  prior_gate_m: 1.5
+  # 细则要求：valid 仅当 status==ok 且内点 ≥3。只有 2 个观测时位姿欠定，
+  # 一个错误配对就能把航向拧到反方向而残差仍然很小 → 这里卡死最少内点数。
+  min_inliers: 3
+  # 给了先验时，解与先验的偏差超过该倍数 σ 就判不可信（默认 3σ）。
+  prior_gate_sigma: 3.0
+  # 连续多少帧"与先验矛盾"后才允许无先验重捕获（相机被搬远时用；8 帧≈0.3 s）。
+  reacquire_after: 8
+  l_as_t: false
+output:
+  publish_ros: true
+  jsonl: true
+  debug_image: true
+  fps_window: 30
+viewer:
+  width: 1280
+  height: 720
+  field_pad_m: 0.6
+  show_trail: true
+  trail_len: 120

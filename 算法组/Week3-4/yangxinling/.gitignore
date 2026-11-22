@@ -1,0 +1,56 @@
+﻿# ---- 数据集与视频：体积大，不上传 ----
+video/
+raw_frames/
+raw_frames_marker/
+dataset/ball/images/
+dataset/ball/labels/
+dataset/marker/images/
+dataset/marker/labels/
+dataset/*/images/
+dataset/*/labels/
+
+# ---- 训练产物 ----
+runs/
+weights/*.pt
+weights/*.onnx
+weights/*.engine
+out/*.mp4
+out/*.avi
+out/_smoke/
+out/check/
+*.mp4
+*.avi
+
+# ---- Python ----
+.venv/
+venv/
+cquick_venv/
+env/
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+install/
+log/
+
+# ---- 系统/编辑器 ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# ---- 临时调试脚本 ----
+_*.py
+_thumbs/
+_probe.py
+
+# 说明：
+# 1) 细则要求"不上传整套抽帧图片和标注图片"，所以 dataset/*/images 与 labels 全部忽略，
+#    数据量统计写在 dataset/dataset_summary.md 里。
+# 2) best.pt / onnx 放实验室共享存储，README 写路径 + SHA256。
+# 3) 如果确实要提交少量示例图（例如 README 用的 1~2 张），用 `git add -f <path>` 显式加入。
+
+# 中文字体（19MB，画图用，不进仓库）
+.fonts/
+

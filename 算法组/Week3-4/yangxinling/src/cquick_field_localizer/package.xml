@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_field_localizer</name>
+  <version>1.0.0</version>
+  <description>Week3-4 招新考核：YOLO 足球检测 + 单目场地自定位（field.yaml 匹配）</description>
+  <maintainer email="you@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>cquick_soccer_interfaces</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <!-- 不使用 cv_bridge：见 cquick_field_localizer/rosimg.py 顶部说明
+       （numpy 2.x + Ubuntu 22.04 的 cv_bridge 会报 _ARRAY_API not found） -->
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

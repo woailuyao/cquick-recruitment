@@ -1,0 +1,7 @@
+path: /home/yangxinling/robocup/dataset/ball
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: ball
+nc: 1
