@@ -1,0 +1,4 @@
+# 相机外参配置
+camera_height: 0.70  # 相机离地高度 (米)
+pitch_angle: 0.0     # 俯仰角 (度)
+yaw_angle: 0.0       # 偏航角 (度)

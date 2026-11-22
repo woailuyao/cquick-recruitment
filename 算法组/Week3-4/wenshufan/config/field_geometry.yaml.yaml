@@ -1,0 +1,10 @@
+
+field:
+  length: 9.0       
+  width: 6.0        
+  origin: [0.0, 0.0, 0.0]  
+  z_axis: 0.0      
+
+coordinate_system:
+  x_axis: "指向球门 (正前方)"
+  y_axis: "面向球门时的左侧"
