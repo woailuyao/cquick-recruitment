@@ -1,0 +1,30 @@
+camera:
+  device_index: 1
+  backend: msmf
+  fx: 1567.7255197041407
+  fy: 1567.3522889390763
+  cx: 666.3368547413266
+  cy: 356.50973027450186
+  dist_coeffs:
+  - 0.21572228194280363
+  - -1.4294935983291437
+  - -0.002699182179562772
+  - -0.0014018608065318203
+  - 1.7854904460464684
+  image_width: 1280
+  image_height: 720
+  rms_reprojection_error: 0.2126
+  calibration_images: 20
+  calibration_date: '2026-11-18'
+  note: CALIBRATED 2026-11-18, board 9x6 @ 20mm, RMS 0.2126 px
+extrinsics:
+  reference_frame: base_link
+  camera_frame: camera_link
+  camera_height_m: 1.0
+  pitch_deg: -13.118
+  roll_deg: 0.0
+  yaw_offset_deg: 0.0
+  tx: 0.0
+  ty: 0.0
+  verified: true
+  method: TAPE-MEASURE 反解 3 点；距离平均误差 0.014m；样本 D=4.00m->v=382, D=6.00m->v=257, D=8.00m->v=191

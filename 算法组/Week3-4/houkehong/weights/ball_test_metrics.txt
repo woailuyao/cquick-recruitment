@@ -1,0 +1,5 @@
+Precision  0.981
+Recall     0.811
+mAP50      0.906
+mAP50-95   0.852
+epochs     30

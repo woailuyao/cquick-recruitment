@@ -1,0 +1,38 @@
+# ============================================================================
+# 演示用相机参数（**仅 demo 模式使用**，与真实相机无关）
+#
+# 为什么单独一份：
+#   demo 模式是算法自检——用合成画面 + 已知真值验证
+#   「像素 → 射线 → 地面 → 地图匹配 → 位姿」这条链路对不对，
+#   它跟手上这台真实相机的内参没有任何关系。
+#
+#   实测这台真实相机 hFOV 只有 44.4°（fx≈1567），如果 demo 也用这个内参，
+#   合成画面里同时能看到的场地标志会很少，导致每帧都报 insufficient_markers，
+#   自检就失去意义了。
+#
+# 所以 demo 固定用一个 74° 视场的虚拟相机，保证能同时看到足够多的标志。
+# ============================================================================
+
+camera:
+  fx: 850.0
+  fy: 850.0
+  cx: 640.0
+  cy: 360.0
+  dist_coeffs: [0.0, 0.0, 0.0, 0.0, 0.0]
+  image_width: 1280
+  image_height: 720
+
+  rms_reprojection_error: 0.0
+  calibration_date: null
+  note: "DEMO ONLY - 虚拟相机，无畸变，74 度视场"
+
+extrinsics:
+  reference_frame: base_link
+  camera_frame: camera_link
+  camera_height_m: 0.55
+  pitch_deg: -22.0
+  roll_deg: 0.0
+  yaw_offset_deg: 0.0
+  tx: 0.0
+  ty: 0.0
+  method: "DEMO ONLY - 虚拟安装参数"
