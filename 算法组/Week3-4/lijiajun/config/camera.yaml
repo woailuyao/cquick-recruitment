@@ -1,0 +1,39 @@
+device:
+  backend: MSMF
+  api_preference: ANY
+  index: 1
+  system_name: "USB Camera"
+  note: "内置摄像头是 USB2.0 HD UVC WebCam（index 0），本考核全程使用外接 USB Camera"
+
+capture:
+  width: 1280
+  height: 720
+  requested_fourcc: MJPG
+  reported_fourcc: UNKNOWN
+  requested_fps: 30
+  measured_capture_fps: 30.4
+  fps_method: "连续读 60 帧计时，非 CAP_PROP_FPS（后者恒返回 30.0 不可信）"
+  focus: "固定焦距、固定对焦（镜头无对焦环，属定焦模组，满足细则 2.1 要求）"
+  usb: "直插主机 USB 口，未经 hub"
+
+lens:
+  hfov_deg: 42.9
+  fx: 1622.0
+  fy: 1625.7
+  hfov_note: "窄角镜头。4 m 处单帧地面覆盖约 3.16 x 1.78 m，直接影响可同时观测的标志数量"
+
+calibration_files:
+  intrinsics: ../calibration/camera_intrinsics.yaml
+  extrinsics: ../calibration/camera_extrinsics.yaml
+
+field:
+  file: field.yaml
+  sha256: 70bb3a57f1bf5f7d340d02d8df8e71a8fc3c73949482a8b616da6e332419196c
+  n_features: 14
+  feature_classes: [TCross, LCross, XCross, PenalityPoint]
+  alias_note: "官方键名 PenalityPoint（少一个 t），模型类别名统一用 PenaltyPoint，解析时显式映射"
+
+runtime:
+  keep_fps: 2.0
+  ball_dataset: ../../../../../week34_data/dataset/ball
+  marker_dataset: ../../../../../week34_data/dataset/marker

@@ -1,0 +1,101 @@
+status: RECONSTRUCTED_2026-11-21
+published_by: 学生现场实测（场地方提供尺寸），非官方发布文件
+applies_to: 新场地（球门所在边为长边）
+units: meter
+handedness: 右手系，+Z 垂直地面向上
+reference_file: field.yaml
+
+frame:
+  origin: 两个 XCross 标志点连线的中点
+  origin_in_field_yaml: [0.0000, 0.0000]
+  origin_derivation: 本次直接以官方系建系，raw 系与官方系重合
+  x_positive: 由原点指向球门
+  y_positive: 面向 +X 时的球门左侧
+  yaw_positive: 逆时针
+  yaw_zero_reference: 地图 +X 方向
+
+transform_from_field_yaml:
+  note: 本次 raw 系即官方系，变换为单位阵
+  rotation: [[1.0, 0.0], [0.0, 1.0]]
+  rotation_deg: 0
+  formula: "p_official = p_yaml"
+  inverse: "p_yaml = p_official"
+
+field_extent_official:
+  x_range: [0.000, 3.880]
+  y_range: [-2.975, 2.975]
+  goal_line_x: 3.880
+  far_touchline_x: 0.000
+  note: 球门所在边为长边（长 5.95 m），纵深 3.88 m；原点在远端长边中点
+
+measurements:
+  goal_side_long_edge_m: 5.950
+  depth_m: 3.880
+  x_cross_spacing_m: 1.450
+  l_pair_near:
+    spacing_m: 2.940
+    distance_from_goal_m: 0.900
+  l_pair_far:
+    spacing_m: 3.930
+    distance_from_goal_m: 1.830
+  symmetry: y = 0
+
+features_official:
+  XCross1: [0.000, -0.725]
+  XCross2: [0.000, 0.725]
+  LCross3: [2.980, -1.470]
+  LCross4: [2.980, 1.470]
+  LCross5: [2.050, -1.965]
+  LCross6: [2.050, 1.965]
+  TCross2: [3.880, -1.475]
+  TCross3: [3.880, 1.455]
+  TCross1: [3.880, -1.945]
+  TCross4: [3.880, 1.955]
+  LCross1: [3.880, -2.975]
+  LCross2: [3.880, 2.975]
+  TCross5: [0.000, -2.975]
+  TCross6: [0.000, 2.975]
+
+lines:
+  constant_x:
+    - {value: 0.000, along_y: [-2.975, 2.975], endpoints: [TCross5, XCross1, XCross2, TCross6]}
+    - {value: 2.980, along_y: [-1.470, 1.470], endpoints: [LCross3, LCross4]}
+    - {value: 3.880, along_y: [-2.975, 2.975], endpoints: [LCross1, TCross1, TCross2, TCross3, TCross4, LCross2]}
+  constant_y:
+    - {value: -2.975, along_x: [0.000, 3.880], endpoints: [TCross5, LCross1]}
+    - {value: 2.975, along_x: [0.000, 3.880], endpoints: [TCross6, LCross2]}
+    - {value: -1.945, along_x: [2.050, 3.880], endpoints: [LCross5, TCross1]}
+    - {value: 1.955, along_x: [2.050, 3.880], endpoints: [LCross6, TCross4]}
+    - {value: -1.475, along_x: [2.980, 3.880], endpoints: [LCross3, TCross2]}
+    - {value: 1.455, along_x: [2.980, 3.880], endpoints: [LCross4, TCross3]}
+
+matching_invariants:
+  parallel_pairs:
+    constant_x_separations: [0.900, 2.980, 3.880]
+    constant_x_ambiguities: []
+    constant_y_separations: [0.495, 1.010, 1.505, 2.940, 3.435, 3.930, 4.445, 4.940, 5.950]
+    constant_y_ambiguities: []
+    tolerance_m: 0.25
+  crossing_pairs:
+    signature_order: [沿X线到其下端, 沿X线到其上端, 沿Y线到其左端, 沿Y线到其右端]
+    tolerance_m: 0.30
+    table:
+      - {lines: [3.880, -1.965], point: TCross1, signature: [1.010, 4.940, 1.830, 0.000]}
+      - {lines: [3.880, -1.470], point: TCross2, signature: [1.505, 4.445, 0.900, 0.000]}
+      - {lines: [3.880, 1.470], point: TCross3, signature: [4.445, 1.505, 0.900, 0.000]}
+      - {lines: [3.880, 1.965], point: TCross4, signature: [4.940, 1.010, 1.830, 0.000]}
+      - {lines: [3.880, -2.975], point: LCross1, signature: [0.000, 5.950, 3.880, 0.000]}
+      - {lines: [3.880, 2.975], point: LCross2, signature: [5.950, 0.000, 3.880, 0.000]}
+      - {lines: [0.000, -2.975], point: TCross5, signature: [0.000, 5.950, 0.000, 3.880]}
+      - {lines: [0.000, 2.975], point: TCross6, signature: [5.950, 0.000, 0.000, 3.880]}
+      - {lines: [2.980, -1.470], point: LCross3, signature: [0.000, 2.940, 0.000, 0.900]}
+      - {lines: [2.980, 1.470], point: LCross4, signature: [2.940, 0.000, 0.000, 0.900]}
+    collisions: 0
+
+notes:
+  - 尺寸来源（2026-11-21 现场）：球门侧长边 5.95 m，纵深 3.88 m，X 点间距 1.45 m
+  - L 近组间距 2.94 m、距球门 0.90 m；L 远组间距 3.93 m、距球门 1.83 m
+  - 球门线上的 T 与两组 L 同 y（T 的 y 于 2026-11-22 现场实测修正为 ±1.945 / ±1.475）
+  - 角点 L 与远端 T 位于两条长边端点
+  - 场地关于 Y=0 完全对称：镜像解在几何上等价，靠“场内 + 高度合理”挑选，必要时用多帧或单侧可见点消歧
+  - XCross1/XCross2 的连线在 X=0 上，其中点即官方原点，两点对称于 Y=0（±0.725）

@@ -44,3 +44,7 @@ conda-meta/
 # 数据集（如需样例图，放 data/images/ 里少量精选图即可）
 *.bag
 *.db3
+
+# ===== 第3-4周：抽帧数据集与标定图不入库（细则只要求 dataset_summary.md）=====
+算法组/week3-4/*/dataset/
+算法组/week3-4/*/calibration/images/

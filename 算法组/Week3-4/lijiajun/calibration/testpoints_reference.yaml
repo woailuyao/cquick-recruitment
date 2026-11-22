@@ -1,0 +1,104 @@
+# 2026-11-21：场地尺寸已换成新场地（球门侧长边 5.95 m、纵深 3.88 m），本文件里的 P1/P2/P3
+# 及下方 coordinate_convention 的尺寸描述都对应旧 C0 场地，已失效；新参考位姿待重测后再填。
+# 仅作历史记录保留，不要用于新场地的误差评定。
+status: POINTS_MEASURED_PENDING_LEADER_CONFIRM
+status_note: |
+  坐标系约定为官方发布（见 config/field_geometry.yaml，status: OFFICIAL），本文件的参考位姿已全部
+  换算到官方系。但三个测试点的位置本身仍是学生在 C0 场地自行量测的：细则 2.12 与 C0 节规定
+  测试参考位姿由组长设置并记录，正式验收前需由组长确认或替换为组长发布的参考表。
+  这些数值只用于事后误差评定，未作为算法输入。
+
+coordinate_convention:
+  source: config/field_geometry.yaml
+  origin: 两个 XCross 连线的中点，官方系下 (0.000, 0.000)
+  x_positive: 由原点指向球门
+  y_positive: 面向 +X 时的球门左侧
+  yaw_positive: counterclockwise
+  yaw_zero: 地图 +X 方向
+  field_center_in_map: [3.470, 0.045]
+  field_size_along_x_m: 6.940
+  field_size_along_y_m: 8.950
+  long_edges_at_x: [0.000, 6.940]
+  short_edges_at_y: [-4.430, 4.520]
+  edge_note: 长边在 X=0 与 X=6.940（沿 Y 延伸 8.950 m），短边在 Y=-4.430 与 Y=4.520（沿 X 延伸 6.940 m）；球门在长边 X=6.940 上
+
+transform_from_previous_convention:
+  note: 上一版参考值用的是 field.yaml 原生系，此处保留映射以便追溯，不是两套并列的有效约定
+  formula:
+    - "X = y_old + 4.010"
+    - "Y = 3.035 - x_old"
+    - "yaw_new = yaw_old - 90"
+  previous_points:
+    P1: [4.310, -0.540, 45.0]
+    P2: [5.840, -0.540, 45.0]
+    P3: [6.440, -1.800, -45.0]
+
+points:
+  P1:
+    measured_relative_to_field_center:
+      along_long_edge_m: 1.320
+      along_long_edge_side: "-Y 侧"
+      along_short_edge_m: 0.000
+    x_camera_map: 3.470
+    y_camera_map: -1.275
+    yaw_camera_map: -45.0
+  P2:
+    measured_relative_to_field_center:
+      along_long_edge_m: 2.850
+      along_long_edge_side: "-Y 侧"
+      along_short_edge_m: 0.000
+    x_camera_map: 3.470
+    y_camera_map: -2.805
+    yaw_camera_map: -45.0
+  P3:
+    measured_relative_to_field_center:
+      along_long_edge_m: 3.450
+      along_long_edge_side: "-Y 侧"
+      along_short_edge_m: 1.260
+      along_short_edge_side: "-X 侧（远离球门）"
+    x_camera_map: 2.210
+    y_camera_map: -3.405
+    yaw_camera_map: -135.0
+
+field_geometry_check:
+  item: "P2 到其最近短边线的垂直距离"
+  expected_m: 1.625
+  measured_m: 1.625
+  result: CONSISTENT
+  derivation: P2 官方 y=-2.805，最近短边为 y=-4.430，差值 1.625 m
+  verified_by: 学生实地核对，确认 C0 实际场地与官方 field.yaml 一致
+  verified_on: null
+  consequence: |
+    实地与地图一致，本文件的参考坐标可直接用于误差评定，不需要组长重新测量发布地图版本。
+    注意区分两件事：本条确认的是"场地几何 == 官方地图"；测试点位置由谁设置仍按细则 2.12
+    需组长确认，那是另一项，不要一并划掉。
+
+mirror_axis_note:
+  axis_y_m: 0.045
+  issue: |
+    官方原点（XCross 中点）比场地几何中线偏 4.5 cm，镜像对称面是 y=0.045 而不是 y=0。
+    消解镜像歧义时用 y=0 作对称面，会对 LCross1/LCross2、TCross5/TCross6 这类对称特征
+    引入 4.5 cm 系统偏差。
+  current_points_all_on_one_side: true
+  detail: 三点 y 均为负（-1.275 / -2.805 / -3.405），全部位于对称面同一侧，无法触发镜像歧义检验
+
+spread_warning:
+  x_span_m: 1.260
+  y_span_m: 2.130
+  max_pair_distance_m: 2.482
+  field_size_m: [6.940, 8.950]
+  issue: |
+    三个测试点集中在 x=2.21~3.47、y=-3.41~-1.28 的一小块区域，只占场地面积约 4%，
+    且全在对称面同侧。既不能验证全场精度，也不能检验匹配歧义的处理能力。
+  suggestion: |
+    若还能进入场地，补一个 +Y 侧的点（例如 x≈5.510, y≈3.535, yaw≈90），
+    该位置主要面对对称特征的另一侧，应能复现 status=ambiguous 的判定。
+
+extrinsics_recheck:
+  issue: |
+    原 h=0.727 m、pitch=8.233° 是三脚架旧安装状态下测得的，已随相机重装作废
+    （camera_extrinsics.yaml 现为 calibrated: false）。
+  action: |
+    最终安装状态下用卷尺量 h（3 次，极差 ≤5 mm）、用数字倾角仪量 pitch 与 roll（±1°）。
+    每个测试点搬动载体后复量 h；pitch/roll 属安装常数，只要相机与载体之间不松动就不必逐点重测。
+  forbidden: 不得再用共线地面标记反推 pitch/roll，二者沿误差谷不可分离辨识

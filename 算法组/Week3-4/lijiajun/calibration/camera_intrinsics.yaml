@@ -1,0 +1,82 @@
+image_size:
+- 1280
+- 720
+camera_matrix:
+- - 1621.950625767425
+  - 0.0
+  - 618.4996033180201
+- - 0.0
+  - 1625.7079109574065
+  - 329.70774462053396
+- - 0.0
+  - 0.0
+  - 1.0
+dist_coeffs:
+- -0.006833176273431394
+- 0.0
+- 0.005960604208675934
+- -0.002171532640172756
+- 0.0
+dist_order:
+- k1
+- k2
+- p1
+- p2
+- k3
+dist_model: k1 only (k2=k3=0 fixed)
+hfov_deg: 43.07
+rms_error: 0.5147
+reprojection_error_px: 0.411
+board_inner_corners:
+- 9
+- 9
+board_square_m: 0.0287
+board_cover_min: 0.22
+n_images: 34
+n_dropped_small: 2
+coverage:
+  左上: 5
+  右上: 8
+  左下: 6
+  右下: 7
+  中心: 8
+n_top_edge: 6
+board_distance_range_m:
+- 0.86
+- 2.32
+quality_fail_count: 2
+source_files:
+- calib_00_140330_OK.png
+- calib_00_140343_OK.png
+- calib_00_140351_OK.png
+- calib_00_140401_BAD.png
+- calib_00_140403_OK.png
+- calib_00_140407_OK.png
+- calib_00_140412_OK.png
+- calib_00_140414_OK.png
+- calib_00_140418_OK.png
+- calib_00_140420_OK.png
+- calib_00_140425_OK.png
+- calib_00_140431_OK.png
+- calib_00_140433_OK.png
+- calib_00_140435_OK.png
+- calib_00_140443_OK.png
+- calib_00_140447_OK.png
+- calib_00_140448_OK.png
+- calib_00_140457_OK.png
+- calib_00_140502_OK.png
+- calib_00_140506_OK.png
+- calib_00_140507_OK.png
+- calib_00_140524_OK.png
+- calib_00_140535_OK.png
+- calib_00_142018_OK.png
+- calib_00_142019_OK.png
+- calib_00_142053_OK.png
+- calib_00_142054_BAD.png
+- calib_00_142054_OK.png
+- calib_00_145032_OK.png
+- calib_00_145034_OK.png
+- calib_00_145036_OK.png
+- calib_00_145037_OK.png
+- calib_00_145042_OK.png
+- calib_00_145044_OK.png
