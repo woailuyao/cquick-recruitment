@@ -131,7 +131,7 @@ $ros2 param set /servo_driver replay_mode true Set parameter successful$ ros2 ba
 - 电池接控制板绿色端子，正负别反
 - 舵机插在白色三针壳子接口上，不是裸针排
 
-电池实测 7.85V，在 5~8.4V 区间内。
+电池实测 7.55V，在 5~8.4V 区间内。
 
 ## 九、任务 3：整机与动作组
 
