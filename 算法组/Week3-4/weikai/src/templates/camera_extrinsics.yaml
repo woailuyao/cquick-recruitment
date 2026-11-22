@@ -1,0 +1,36 @@
+# camera_extrinsics.yaml —— 相机外参（固定安装，实测值）
+#
+# 说明：任务书细则 2.6 要求相机与载体刚性固定、外参全程不变。
+# 固定安装重拍（M9~M15 各段）时相机固定在三脚架/支架上整架搬动，
+# 以下外参为卷尺 + 几何法实测，所有段共用同一组值，不随帧变化。
+#
+# 量测方法：
+#   height_m：镜头光心到地面的卷尺读数，实测 100.5 cm（1.005 m）。
+#   pitch_deg：几何法自测（在固定距离处看地面标志的像高）得到 15°，
+#              光轴向下为正；与重拍清单推导时用的 15° 一致。
+#   roll_nominal_deg：支架气泡/目测水平，取 0°。
+#   早期手持视频（M1~M8）的外参为随机波动值，本文件不再适用；
+#   固定外参版定位器用于固定安装段，最终验证取 M10/M14 两段
+#   （检测器换成 best_fixed_v2.pt 后复验）：
+#     M10 (0,0) 0.260m/3.10°、M14 (0,2.46 朝TCross2, yaw=-14.10°)
+#     0.375m/0.61°，均达标。
+#   M11 曾在旧地图坐标下算出 0.492m，地图修正后暴露为球门网误检
+#   凑出的假达标（1.367m 超差），作废；M9/M12/M13/M15 因过曝或
+#   站位几何退化作废，不参与结论。任务书「≥3 个不同位置/朝向」
+#   由评审现场安排测试点验收，不以离线自凑段数替代。
+
+carrier: fixed_mount        # 固定安装（三脚架/支架整架搬动）
+height_m: 1.005             # 光心离地 100.5 cm（卷尺实测）
+height_median_m: 1.005      # 兼容 locator_fixed.load_extrinsics 的键名
+height_range_m: [1.005, 1.005]  # 固定安装，无波动
+pitch_deg: 15.0             # 光轴向下俯角（几何法实测）
+pitch_median_deg: 15.0      # 兼容键名
+roll_deg: 0.0               # 支架水平，名义 0°
+roll_nominal_deg: 0.0       # 兼容键名
+mount: "fixed tripod/brace mount, whole rig relocated between shots"
+applies_to: [M9, M10, M11, M12, M13, M14, M15]
+valid_segments: [M10, M14]        # 最终验证采用的两段固定安装站位（均达标）
+
+# 关联文件：
+#   内参：/mnt/d/captures/calib/intrinsics.yaml（17 张棋盘格，rms 0.508 px）
+#   场地：templates/field.yaml（map_version 2，12 个 L/T 标志 + 点球点）

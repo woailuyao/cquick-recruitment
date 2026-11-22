@@ -1,0 +1,25 @@
+{
+  "run": "fixed_v2",
+  "data": "/mnt/d/captures/landmarks_v2/data.yaml",
+  "model": "yolov8n.pt",
+  "epochs": 120,
+  "imgsz": 640,
+  "batch": 16,
+  "lr0": 0.01,
+  "train_seconds": 141.8,
+  "overall_mAP50": 0.8075066911448068,
+  "overall_mAP50_95": 0.269077269536941,
+  "per_class": [
+    {
+      "class": "L",
+      "mAP50-95": 0.24795280567147066,
+      "mAP50": 0.7919488422317758
+    },
+    {
+      "class": "T",
+      "mAP50-95": 0.29020173340241134,
+      "mAP50": 0.8230645400578378
+    }
+  ],
+  "weights": "/mnt/d/captures/landmarks/weights/best_fixed_v2.pt"
+}

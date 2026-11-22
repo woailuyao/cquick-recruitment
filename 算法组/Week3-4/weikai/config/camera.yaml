@@ -1,0 +1,4 @@
+camera_intrinsics: ../calibration/camera_intrinsics.yaml
+camera_extrinsics: ../calibration/camera_extrinsics.yaml
+resolution: [1280, 720]
+note: "代码运行读取 src/templates/ 与 D:/captures/calib/intrinsics.yaml；本目录为提交口径副本，SHA256 以 README 为准"

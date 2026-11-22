@@ -1,0 +1,10 @@
+# 场地标志（L / T 两类）数据集配置 · 任务 2
+# 由 src/prepare_landmark_dataset.py 生成；数据集本体在本地 D:/captures/landmarks_v2，
+# 按细则不上传 GitHub，仅提交本配置与摘要说明。
+path: /mnt/d/captures/landmarks_v2
+train: images/train
+val: images/val
+names:
+  0: L
+  1: T
+nc: 2

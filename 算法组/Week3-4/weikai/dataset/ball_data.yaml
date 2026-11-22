@@ -1,0 +1,8 @@
+# 足球检测数据集配置（YOLO 格式，单类别 ball）
+# 使用时把 path 改为本目录在本机上的绝对路径，或直接用相对目录结构
+path: ./soccer_dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names: ['ball']
