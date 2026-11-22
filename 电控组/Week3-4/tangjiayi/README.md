@@ -224,7 +224,7 @@ ros2 action send_goal /move_servo cquick_servo_interfaces/action/MoveServo \
 **关键设计**：所有判断都走 `self._param(name)` 实时 `get_parameter()`，`__init__` 里**不缓存副本**。
 这一条是整节的根：缓存到 `self.pwm_max` 是本周最高频的坑，改完参数行为不变，还极难查。
 
-### 6.1 先分清两层限位，答辩一定会问
+### 6.1 
 
 | 层 | 范围 | 来源 | 能不能在线改 |
 | --- | --- | --- | --- |
@@ -234,7 +234,7 @@ ros2 action send_goal /move_servo cquick_servo_interfaces/action/MoveServo \
 外层防**烧舵机**（超出舵机能接受的 PWM 就物理损伤），内层防**顶结构**（是本机实测行程，换机器要重扫）。
 下面 ④ 打的是外层，②③ 打的是内层。
 
-### 6.2 实测：参数校验层（不需要舵机）
+### 6.2 实测
 
 ```bash
 ros2 param set /servo_driver pwm_max 1600      # ② 改小上限
@@ -305,13 +305,13 @@ ros2 bag play bag/run1
 | Messages | 260 |
 | 话题 | `/servo/state`（`std_msgs/msg/String`）257 条、`/servo/command`（`cquick_servo_interfaces/msg/ServoCommand`）3 条 |
 
-**关于时长 51.2 s（建议值 ≤30 s）**：这一段是**有意不剪**的。同一次录制里包含完整的一次「发 goal → 中途 Ctrl+C 取消 → 收到 `CANCELED`」，
+**关于时长 51.2 s：这一段是**有意不剪**的。同一次录制里包含完整的一次「发 goal → 中途 Ctrl+C 取消 → 收到 `CANCELED`」，
 取消之后到下一次发 goal 之间的等待本身就是演示的一部分，剪掉就只剩"能动"、看不到"能停"，而 `CANCELED` 语义正是任务 2 要证明的东西之一。
 回放时注意：`info` 里 260 条消息中真正带指令的只有 3 条，其余 257 条是 5 Hz 的状态心跳，所以 51.2 s 里大部分是静止等待，不是无效数据。
 
 bag 文件完整可回放（`bag/run1/run1_0.db3`，sqlite3 存储），`/servo/command` 3 条对应当时的 3 次 goal，条数对得上。
 
-一个容易踩的坑（代码里已经处理）：驱动节点**既发布又订阅** `/servo/command`（发布是为了把「我实际发了什么」记进 bag）。
+一个容易踩的坑（代码里已经处理）：驱动节点**既发布又订阅** `/servo/command`）。
 如果话题回调里也走 `_send_move(echo=True)`，就会自己喂自己 → 无限循环。
 所以回调里只调 `_write_frame()`，不回发。
 
@@ -342,7 +342,7 @@ bag 文件完整可回放（`bag/run1/run1_0.db3`，sqlite3 存储），`/servo/
 
 ---
 
-## 9. 动作 yaml 长什么样
+## 9. 动作 yaml 
 
 放在 `config/actions/`，和 `servo_params.yaml` 同一层。**换一套动作 = 加一个 yaml，一行 python 不改。**
 
@@ -447,6 +447,7 @@ steps:
 
 > 装配阶段的其他小坑（走线夹线、某个 ID 掉线）记在 `调试记录.md` 2.3 节。
 
+（尤其是这个任务三里的小问题，前前后后做了一周，最终才让他动起来，太不容易了）
 ---
 
 ## 11. 下电三步
@@ -534,7 +535,7 @@ python3 tools/safe_poweroff.py /dev/ttyUSB0
 
 仓库里不放视频，只放链接。7 段均为实机一次录制、**无剪辑无加速**，画面内同时含终端命令与舵机动作。
 
-B 站合集：**CQuick电控 第3-4周考核 · tangjiayi**
+B 站：**CQuick电控 第3-4周考核 · tangjiayi**
 
 | # | 内容 | 时长 | 对应评分项 | 链接 |
 | --- | --- | --- | --- | --- |
@@ -563,7 +564,7 @@ B 站合集：**CQuick电控 第3-4周考核 · tangjiayi**
 | 串口掉线自动重连 | +3 | `SerialLink` + `_on_reconnect_timer()` | 跑动作时拔 USB：节点不崩、日志 WARN；插回去 ≤1 秒打「串口已连接」，能继续发 goal |
 | pytest 单测 | +2 | `test/test_protocol.py`、`test/test_actions.py` | `colcon test`，汇总 `28 tests, 0 errors, 0 failures`（其中 pytest 用例 23 个） |
 
-### 13.1 udev 规则（贴出来，评审要看的）
+### 13.1 udev 规则
 
 ```
 SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
@@ -577,8 +578,7 @@ sudo cp src/cquick_servo/udev/99-cquick-servo.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ls -l /dev/cq_servo
 ```
-
-### 13.2 看门狗的边界设计（容易被追问）
+### 13.2 看门狗的边界设计
 
 - **只在收到过心跳之后才武装**：否则「刚 launch、还没起客户端」会被误判成卡死，第一次 goal 直接全卸力；
 - 跳闸后**锁死**：`goal_callback` 一律 REJECT，`/servo/command` 也忽略，不允许自己恢复；
@@ -638,43 +638,7 @@ cd ~/ros2_ws
 colcon build --packages-select cquick_servo_interfaces cquick_servo
 source install/setup.bash
 ros2 interface show cquick_servo_interfaces/action/MoveServo
-```
 
----
+15 心得体会
 
-## 15. 口头答辩预演（评审一定会问）
-
-| 问题 | 一句话答案 |
-| --- | --- |
-| **`execute_callback` 为什么不能阻塞？** | 阻塞会把 executor 线程占死，Cancel 请求和 feedback 都进不来；所以用 `MultiThreadedExecutor` + `ReentrantCallbackGroup`，且每条 goal 跑在自己的线程里，`sleep` 才不伤人 |
-| 两个节点靠什么对上号？ | 话题/服务/Action 名 + 消息类型同时一致 |
-| 为什么用 Action 不用话题？ | 话题只有「发」，没有 result 和 cancel；舵机动作有明确终点，需要 feedback 看进度、result 看到没到位、cancel 中途打断 |
-| 为什么先 `PULR`？ | 舵机上电默认是卸力状态，不发恢复扭力它接收指令但不发力，表现为「指令发出去了，舵机一动不动」 |
-| 为什么指令要 `!` 结尾？ | 串口是字节流，没有帧边界；`#` 和 `!` 是软件层的帧头帧尾，控制板靠它切帧 |
-| 波特率错了看到什么？ | 一堆乱码 / 完全没回显。串口助手默认 9600，舵机是 115200 |
-| 为什么必须装结构前标定 1500？ | 舵机绝对零点是出厂随机的，装好再标等于把偏差固化进结构，后面所有动作都偏且软件补不回来 |
-| `pwm` 能直接用 500~2500 吗？ | 不能。那是电气范围，安全范围要按结构实测（本机 1050~2100，下限 1007 是扫出来的） |
-| 动作组为什么不能用 `sleep` 同步？ | 舵机走完的时间不等于 `duration_ms`（有加减速和回差），`sleep` 的误差会累积，第三遍和第一遍就对不上 |
-| 串口为什么不能两套发送逻辑？ | 回放和 Action 一旦分叉，bag 回放出来的动作就和当时现场不一致，而 bag 的价值就是「原样重放」 |
-
----
-
-## 16. 验收方式（评审可以照着走一遍）
-
-- 两个包 `colcon build` 全通过 → `2 packages finished`；`ros2 interface show` 能看到 msg 和 action（见 `02_接口编译.png`）
-- 一条 `ros2 launch cquick_servo servo.launch.py` 全起来，不用开第二个终端
-- `port:=/dev/ttyUSB1` 能换端口
-- `send_goal --feedback` 有 feedback 滚动 + result（见 `02_action_反馈.png`）
-- 超限 pwm / 非法 id → goal rejected，日志给出原因（见 `02_限位保护.png`）
-- 执行中 Ctrl+C → 立即停、回中位、`message=canceled`（见 `02_取消生效.png`）
-- `ros2 param set` 当帧生效 → 第 6 节 6.2 那 5 步（见 `02_param_set现场.png`）
-- `pwm_max=100000`、`pwm_min>pwm_max` 被拒并返回 reason（同上）
-- 硬编码自检：`grep -rnE 'ttyUSB|115200|900|2100' src/cquick_servo/cquick_servo/servo_driver.py` 只命中 `PARAM_DEFAULTS` 和波特率白名单
-- `ros2 bag info bag/run1` 能看到 260 条（见 `02_bag_info.png`、录屏 P4）
-- 动作组换一份 yaml 不改代码就能跑（见 `03_动作组dry_run_补充.png`）
-- 两组实机动作组：`show_group.yaml`（4 step / 16 goal）与 `step8.yaml`（6 step / 20 goal），同一播放器只换 `action_file`
-- 串口设备被识别为 CH340（`1a86:7523`），`/dev/cq_servo` 与 `by-id/usb-1a86_USB_Serial-if00-port0` 指向同一节点（见 `01_串口设备.png`）
-- 看门狗：心跳停 1 秒 → 驱动打 `看门狗跳闸` 并全部 PULK 锁定，再发 goal 被拒（见 `04_看门狗跳闸_补充.png`）
-- 下电流程：`tools/safe_poweroff.py` 一条命令走完「归位 → 10 只 PULK」，卸力后手推 8 个可动关节均能自由转动（见 `04_安全下电_归位卸力.png`、第 11.2 节实测数据）
-- 7 段录屏均为实机一次录制、无剪辑无加速，画面内同时含终端命令与舵机动作（第 12 节）
-- `build/ install/ log/` 没有进仓库
+这次的任务比之前难多了，说实话我自己也没想到我能全部完成，这几天真正驱动整机的时候我非常兴奋，以至于我没有消去视频的原声，因为我也想在自己观看的时候回味一下当时的心情，虽然我一开始啥也不懂，还给队长带来了一点小震撼，但是到了后面这周做任务，我感觉自己通透了不少，也谨慎了不少，感谢这个机会让我接触这些新东西，也希望有机会和前辈们一起打比赛
