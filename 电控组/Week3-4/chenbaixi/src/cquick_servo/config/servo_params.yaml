@@ -1,7 +1,7 @@
 # ★ 最外层 key 必须等于节点名 servo_driver
 servo_driver:
   ros__parameters:
-    port: /dev/ttyUSB0
+    port: /dev/cq_servo
     baudrate: 115200
     allowed_baudrates: [9600, 19200, 38400, 57600, 115200, 230400]
     pwm_min: 900
