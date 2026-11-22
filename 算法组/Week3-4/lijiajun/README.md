@@ -142,3 +142,5 @@ python src/p3p.py --selftest
 > Windows 端发一帧，`ros2 topic echo /localization/field_pose` 能刷出 `x_camera_map -0.244 / y_camera_map -3.26 /
 > yaw_camera_map 22.82 / valid true / marker_count 3 / status "ok"`，全链路已验证。
 > 若最终要**上 RDK X5 板**跑，推理需转 ONNX / 用 BPU 才能实时（Windows 只作开发机）——这条待与组长确认。
+
+> 演示视频（实时分屏定位）：https://www.bilibili.com/video/BV1VuyLztE6P/
