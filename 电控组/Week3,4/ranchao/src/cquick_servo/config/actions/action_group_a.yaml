@@ -1,0 +1,8 @@
+# 动作组A「抬-收」：舵机2和4协同，一起抬到位再一起回中位
+# 数据驱动：改这份文件就能换动作，代码不动
+group_name: lift
+actions:
+  - {servo_id: 2, pwm: 1750, duration_ms: 900}
+  - {servo_id: 4, pwm: 1250, duration_ms: 900}
+  - {servo_id: 2, pwm: 1500, duration_ms: 800}
+  - {servo_id: 4, pwm: 1500, duration_ms: 800}
