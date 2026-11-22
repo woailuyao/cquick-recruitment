@@ -1,0 +1,16 @@
+image_width: 1280
+image_height: 720
+reprojection_error_px: 0.6217
+calib_images_used: 21
+camera_matrix:
+  fx: 1639.82
+  fy: 1633.74
+  cx: 692.29
+  cy: 319.41
+dist_coeffs:
+  k1: 0.3218
+  k2: -2.535834
+  p1: -0.004087
+  p2: 0.005229
+  k3: 6.131523
+note: "dist order: k1 k2 p1 p2 k3；棋盘格 9x6 内角点、20 mm 格；22 张标定图，成功使用 21 张"

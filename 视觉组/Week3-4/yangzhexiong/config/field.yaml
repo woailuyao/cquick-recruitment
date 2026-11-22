@@ -1,0 +1,101 @@
+meta:
+  version: 3
+  unit: meter
+  frame_id: map
+  origin_description: "原点 = 两个 XCross 的中点（位于中线上）；+X 指向球门；+Y 为面向 +X 时的左侧；Z 向上，地面 Z=0"
+  source: "队友核对图 + 2026-11-21 22:00 现场卷尺实测（线中心）"
+  measured_by: yangzhexiong
+  measured_date: "2026-11-21"
+  note: "场地非标准：中线到球门线 4.02 m，中线到对面底线 4.33 m，宽 6.00 m。以下坐标为实测值，未使用官方 field.yaml。"
+
+field:
+  length: 8.35
+  width: 6.00
+  half_length: 4.175
+  half_width: 3.00
+  boundary:
+    x_min: -4.33
+    x_max: 4.02
+    y_min: -3.00
+    y_max: 3.00
+
+markers:
+  # 球门侧两个角（L 形）
+  - id: LCross1
+    type: LCross
+    x: 4.02
+    y: -3.00
+    yaw: 0.0
+  - id: LCross2
+    type: LCross
+    x: 4.02
+    y: 3.00
+    yaw: 0.0
+  # 小禁区框远端两角：距球门线 0.93，横向 ±1.495
+  - id: LCross3
+    type: LCross
+    x: 3.09
+    y: -1.495
+    yaw: 0.0
+  - id: LCross4
+    type: LCross
+    x: 3.09
+    y: 1.495
+    yaw: 0.0
+  # 大禁区框远端两角：距球门线 1.93，横向 ±1.985
+  - id: LCross5
+    type: LCross
+    x: 2.09
+    y: -1.985
+    yaw: 0.0
+  - id: LCross6
+    type: LCross
+    x: 2.09
+    y: 1.985
+    yaw: 0.0
+  # 球门线上四个 T 形：大框两侧 ±1.985，小框两侧 ±1.495
+  - id: TCross1
+    type: TCross
+    x: 4.02
+    y: -1.985
+    yaw: 0.0
+  - id: TCross2
+    type: TCross
+    x: 4.02
+    y: -1.495
+    yaw: 0.0
+  - id: TCross3
+    type: TCross
+    x: 4.02
+    y: 1.495
+    yaw: 0.0
+  - id: TCross4
+    type: TCross
+    x: 4.02
+    y: 1.985
+    yaw: 0.0
+  # 中线与左右边线交点（T 形）
+  - id: TCross5
+    type: TCross
+    x: 0.0
+    y: -3.00
+    yaw: 0.0
+  - id: TCross6
+    type: TCross
+    x: 0.0
+    y: 3.00
+    yaw: 0.0
+  # 中圈与中线两个交点（X 形）
+  - id: XCross1
+    type: XCross
+    x: 0.0
+    y: -0.755
+    yaw: 0.0
+  - id: XCross2
+    type: XCross
+    x: 0.0
+    y: 0.755
+    yaw: 0.0
+
+constraints:
+  min_marker_distance: 0.5
