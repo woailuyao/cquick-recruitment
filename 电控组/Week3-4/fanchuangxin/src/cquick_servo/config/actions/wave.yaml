@@ -1,0 +1,19 @@
+action_name: 双舵机演示
+steps:
+  - step_name: 同步抬起
+    joints:
+      - id: 3
+        target_pwm: 1800
+        duration_ms: 800
+      - id: 4
+        target_pwm: 1800
+        duration_ms: 800
+
+  - step_name: 同步收回
+    joints:
+      - id: 3
+        target_pwm: 1500
+        duration_ms: 800
+      - id: 4
+        target_pwm: 1500
+        duration_ms: 800
