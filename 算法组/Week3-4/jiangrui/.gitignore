@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# IDE / 编辑器
+.idea/
+.vscode/
+
+# 写作工具缓存
+.writing/
+
+# 训练产物
+runs/
+
+# 本地过程材料（旧日志、旧截图、内部执行单），不随仓库提交
+local_history/
+
+# 权重文件（走网盘，见 README，校验见 weights/SHA256SUMS.txt）
+weights/*.pt
+
+# 视频（走 B 站，见 README）
+*.mp4
+*.avi
+*.mov
+
+# 系统文件
+.DS_Store
+Thumbs.db

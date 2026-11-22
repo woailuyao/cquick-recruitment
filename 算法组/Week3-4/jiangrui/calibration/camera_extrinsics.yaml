@@ -1,0 +1,27 @@
+# 相机外参（相机 -> 载体）
+#
+# 坐标系:
+#   camera  : OpenCV 光学系，x 右, y 下, z 沿光轴
+#   carrier : x 前, y 左, z 上；原点 = 相机光心在地面上的垂直投影
+#   平移固定为 [0, 0, h]，因此 carrier 位姿与相机光心的二维地图位姿一致。
+#
+# 标定方式: 卷尺量高度 + 地面点法/水平仪测安装角
+# 标定日期: 2026-11-22
+# 重投影误差: 无（手工测量）
+# 已用 4 个检测点回算复核，地图残差 0.028 m；现场如有条件，可用更多点做 PnP 复核。
+
+status: calibrated
+
+frame:
+  parent: carrier
+  child: camera_optical_frame
+
+translation_m: [0.0, 0.0, 0.6600]
+rotation_matrix: [ 0.000000, -0.230050,  0.973179, -1.000000,  0.000000,  0.000000,  0.000000, -0.973179, -0.230050]
+camera_height_m: 0.6600
+pitch_deg: 13.300
+roll_deg: 0.000
+
+calibration_method: 卷尺量高度 + 地面点法/水平仪测安装角
+reprojection_error_px: null
+calibration_date: 2026-11-22

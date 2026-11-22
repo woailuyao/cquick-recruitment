@@ -1,0 +1,33 @@
+# 相机外参 PnP 输入模板
+#
+# 复制成 docs/extrinsic_points.yaml 后按现场照片填写，然后运行：
+#   python src/calibrate_extrinsics.py --mode pnp --points docs/extrinsic_points.yaml --dry-run
+#   python src/calibrate_extrinsics.py --mode pnp --points docs/extrinsic_points.yaml
+#
+# 坐标说明：
+#   pixel = 原图（1280x720、未去畸变）中标志中心交点的像素坐标，
+#           可用 Windows「画图」打开截图，鼠标悬停读右下角坐标。
+#   map   = 实际使用的地图文件中该标志的 [x, y]
+#           （本队场地为 config/field_measured_near.yaml）。
+#
+# 要求：
+#   1. 至少 4 个点，越多越好，且不要全部落在同一条端线上；
+#   2. pixel 必须和 map 一一对应，错一个点结果即失效；
+#   3. 示例里的像素是占位值，不能直接使用。
+
+points:
+  - type: TCross3
+    pixel: [640.0, 300.0]
+    map: [3.800, 2.000]
+  - type: TCross2
+    pixel: [500.0, 330.0]
+    map: [3.800, -1.500]
+  - type: LCross4
+    pixel: [760.0, 320.0]
+    map: [2.850, -1.500]
+  - type: LCross3
+    pixel: [430.0, 350.0]
+    map: [2.850, 1.500]
+  - type: TCross4
+    pixel: [800.0, 285.0]
+    map: [3.800, -2.000]

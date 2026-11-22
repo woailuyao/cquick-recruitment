@@ -1,0 +1,32 @@
+# 相机采集与运行参数（本次考核实际使用）
+#
+# 说明：这是运行配置，不是标定结果；内参见 calibration/camera_intrinsics.yaml，
+#       外参见 calibration/camera_extrinsics.yaml。
+
+device:
+  type: 单目 RGB 摄像头
+  form: 外接 USB 摄像头
+  os: Windows 11
+  opencv_backend: 优先 CAP_MSMF，失败后回退 CAP_DSHOW（见 src/live_detect.py、src/live_locate.py）
+  device_index: 1            # OpenCV 索引 0 = 笔记本内置，1 = 外接 USB
+
+stream:
+  width: 1280
+  height: 720
+  nominal_fps: 30
+  measured_fps: 未测量    # CAP_PROP_FPS 返回 -1，驱动不支持该查询
+  color_order_on_capture: BGR   # OpenCV 默认；送入 YOLO 时由 ultralytics 内部转 RGB
+
+lens:
+  focal_length_mm: 未知
+  fixed_focus: 未确认    # 外接 USB 摄像头，焦距数值与自动对焦能否关闭均未确认
+  auto_zoom: 未确认
+  note: 采集、标定与推理使用同一设备、同一分辨率；考核期间未更换摄像头
+
+inference:
+  task1_model: weights/ball_v2_best.pt      # 权重下载地址见 README
+  task1_imgsz: 640
+  task1_conf: 0.40
+  task2_model: weights/marker_v3_best.pt
+  task2_imgsz: 960                           # 现场运行使用 --imgsz 960
+  task2_conf: 0.35
