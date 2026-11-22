@@ -1,0 +1,12 @@
+name: wave
+steps:
+  - name: 1 号先动（先后 = 拆成独立 step）
+    joints:
+      - {id: 1, pwm: 1750, duration_ms: 1200}
+  - name: 2 号跟上
+    joints:
+      - {id: 2, pwm: 1250, duration_ms: 1200}
+  - name: 一起收回
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}

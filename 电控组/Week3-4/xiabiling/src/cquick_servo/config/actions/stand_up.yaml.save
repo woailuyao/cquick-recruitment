@@ -1,0 +1,16 @@
+name: stand_up
+steps:
+  - name: 同时抬前两个关节
+    joints:
+      - {id: 1, pwm: 1650, duration_ms: 1200}
+      - {id: 2, pwm: 1350, duration_ms: 1200}
+  - name: 再抬后两个关节
+    joints:
+      - {id: 3, pwm: 1600, duration_ms: 1200}
+      - {id: 4, pwm: 1400, duration_ms: 1200}
+  - name: 全部回中位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200
