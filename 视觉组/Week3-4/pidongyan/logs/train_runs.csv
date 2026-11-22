@@ -1,8 +1,0 @@
-﻿time,name,preset,model,epochs,imgsz,batch,optimizer,lr0,mosaic,erasing,P,R,mAP50,mAP50_95,weights
-2026-11-19 23:31:00,train,baseline,yolov8n.pt,50,640,auto,auto,auto,1.0,0.4,0.2070,0.3230,0.2040,0.1020,D:\CQU\CQuick\week3\runs\detect\train\weights\best.pt
-2026-11-19 23:58:06,train_v2,small_ball,yolov8n.pt,120,960,auto,SGD,0.01,0.0,0.0,0.2051,0.1613,0.0555,0.0209,D:\CQU\CQuick\week3\runs\detect\train_v2\weights\best.pt
-2026-11-20 00:19:15,train_v3,baseline,yolov8n.pt,50,640,auto,auto,auto,1.0,0.4,0.6642,0.6774,0.6132,0.2122,D:\CQU\CQuick\week3\runs\detect\train_v3\weights\best.pt
-2026-11-20 01:44:20,train_v4,baseline,yolov8n.pt,50,640,auto,auto,auto,1.0,0.4,1.0000,0.9994,0.9950,0.4988,D:\CQU\CQuick\week3\runs\detect\train_v4\weights\best.pt
-2026-11-20 01:48:55,train_v3_seed1,baseline,yolov8n.pt,50,640,auto,auto,auto,1.0,0.4,0.1813,0.3871,0.1364,0.0421,D:\CQU\CQuick\week3\runs\detect\train_v3_seed1\weights\best.pt
-2026-11-20 01:51:40,train_v4_seed1,baseline,yolov8n.pt,50,640,auto,auto,auto,1.0,0.4,0.5819,0.6129,0.6127,0.2734,D:\CQU\CQuick\week3\runs\detect\train_v4_seed1\weights\best.pt
-2026-11-21 22:58:01,markers,baseline,yolov8n.pt,50,640,auto,auto,auto,1.0,0.4,0.9395,0.0500,0.1129,0.0338,D:\CQU\CQuick\week3\runs\detect\markers\weights\best.pt
