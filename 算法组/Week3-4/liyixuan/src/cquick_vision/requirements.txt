@@ -1,0 +1,7 @@
+# 建议的 Python 版本：3.10 ~ 3.12
+# opencv 锁在 4.x：cv2 5.x 与 ultralytics 组合还没充分验证，先用稳定的 4.x
+numpy>=1.24,<3
+opencv-python>=4.8,<5.0
+ultralytics>=8.1
+pyyaml>=6.0
+pillow>=10.0

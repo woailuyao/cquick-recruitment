@@ -1,0 +1,57 @@
+# 所有可调阈值集中在这里：评审现场会要求改参数并解释影响
+detector:
+  ball_model: "models/ball_best.pt"
+  marker_model: "models/marker_best.pt"
+  # 足球置信度：0.35 时球门网/白色网纹会被误检，实测提高到 0.60 后干净很多
+  conf_ball: 0.60
+  # 标志置信度：实测 0.35 时现场几乎全部漏检（2665 帧只有 4 帧定位成功），
+  # 降到 0.10 后 marker_count 稳定在 3~5，定位正常。标志的误检靠匹配残差把关。
+  conf_marker: 0.10
+  iou: 0.45
+  imgsz: 640
+  device: "0"          # "cpu" 表示不用 GPU（程序会自动检测，无 GPU 时强制 cpu）
+  # 单球假设：只保留置信度最高的那个球框。比赛/演示场景通常只有一个球，
+  # 这样能压掉球门网等误检（Booster 官方 vision.yaml 也有 single_ball_assumption）
+  single_ball: true
+
+refine:
+  enabled: true
+  white_v_min: 140     # 白线亮度阈值（HSV 的 V）
+  white_s_max: 70      # 白线饱和度上限
+  min_line_len: 15
+  max_line_gap: 5
+  min_area_px: 40
+  min_cross_angle_deg: 20.0
+  max_offset_ratio: 0.60   # 交点离 bbox 中心的最大距离 / bbox 对角线
+
+geometry:
+  max_ground_range_m: 8.0   # 超过该地面距离的标志直接判无效（精度会崩）
+  min_ray_downward: 0.001
+  delta_px: 1.0             # 假设的像素定位误差，用于计算 sigma
+  field_margin_m: 0.6
+
+matching:
+  pair_len_tol_ratio: 0.10  # 成对假设的长度一致性容差（相对）
+  pair_len_tol_abs_m: 0.05
+  min_obs_range_m: 0.4
+  max_obs_range_m: 8.0
+  gate_m: 0.35              # 内点门限
+  residual_max_m: 0.35      # 残差上限，超过判 high_residual
+  min_inliers: 2
+  min_inlier_spread_m: 0.8  # 内点最小散布，防止几何退化
+  max_hypotheses: 4000
+  ambiguity_pose_dist_m: 0.5
+  ambiguity_yaw_deg: 10.0
+  ambiguity_residual_ratio: 1.3
+  tracking_radius_m: 1.0    # 有先验时只在该半径内搜索
+  tracking_yaw_deg: 30.0
+
+filter:
+  ema_alpha_xy: 0.5
+  ema_alpha_yaw: 0.5
+  max_frames_hold: 15      # 连续无解超过该帧数就丢弃先验，回到 lost
+  obs_window: 4            # 累积最近 N 帧的观测一起匹配，抑制单帧检测抖动
+  # 时间一致性门控：新解与当前轨迹相差超过下面阈值就不采纳（画面不闪）
+  jump_xy_m: 0.8
+  jump_yaw_deg: 25.0
+  jump_reinit_frames: 6    # 连续跳变这么多帧就认为换了位置，允许重新收敛
