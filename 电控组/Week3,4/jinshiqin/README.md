@@ -78,6 +78,14 @@ ros2 launch cquick_servo servo.launch.py
 
 2 不知道那个ttl模块咋接线，一开始只是把线放在那里面，完全不紧，感觉有点奇怪，后来看到上面有螺丝，萌生出应该拧螺丝的想法，然后也看到群里有人遇到了和我一样的问题，就私信了一下他，他也非常善良地提示了我，
 不过我在A区，无法去实验室用螺丝刀，所以只能自掏腰包了。
+
+3 打开新的终端的时候经常会报文件不存在这些错误，然后发给ds，知道自己是没有重新source，现在终于真正理解为什么每次新开终端都要source，以前只是记得这句话
 ### 接线说明
 ttl模块的tx接控制器的rx，ttl模块的rx接控制器的tx，然后还要接地线。电池实测电压7.96V
+### 录屏链接
+1 正反转 https://t.bilibili.com/1273547276065701911?share_source=pc_native
+2 取消打断 https://t.bilibili.com/1273547447878025225?share_source=pc_native
+3 改参数生效 https://t.bilibili.com/1273547920323379200?share_source=pc_native
+4 bag回放 https://t.bilibili.com/1273548049139892226?share_source=pc_native
+
 
