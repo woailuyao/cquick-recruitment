@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""cquick_servo · move_client —— Action 客户端（任务 2.4）
+
+输入方式自选，这里给了三种：
+  ros2 run cquick_servo move_client            # 键盘：<id> <pwm> [duration_ms]
+  ros2 run cquick_servo move_client --auto     # 自动演示：1 号舵机 1700→1300→1500
+  ros2 run cquick_servo move_client --release  # 全部舵机 PULK 卸力（任务 4 用）
+
+注意：客户端只发 goal，不直接调底层函数；feedback 与 result 都按要求打印。
+"""
+import argparse
+import time
+
+import rclpy
+from rclpy.action import ActionClient
+from rclpy.node import Node
+
+from cquick_servo_interfaces.action import MoveServo
+from cquick_servo_interfaces.msg import ServoCommand
+
+
+class MoveClient(Node):
+    def __init__(self):
+        super().__init__('move_client')
+        self.declare_parameter('servo_ids', [1, 2, 3, 4, 5, 6])
+        self._client = ActionClient(self, MoveServo, 'move_servo')
+        self._current_id = 0
+
+    def wait_for_server(self):
+        while not self._client.wait_for_server(timeout_sec=1.0):
+            self.get_logger().info('等待 Action Server /move_servo ...')
+
+    def send_and_wait(self, sid, pwm, duration_ms):
+        """发 goal → 打印 feedback → 等 result 打印成功/失败原因。"""
+        self._current_id = sid
+        goal = MoveServo.Goal()
+        goal.command.id = sid
+        goal.command.pwm = pwm
+        goal.command.duration_ms = duration_ms
+
+        self.get_logger().info(
+            '发送 goal: id={} pwm={} duration_ms={}'.format(sid, pwm, duration_ms))
+        future = self._client.send_goal_async(goal, feedback_callback=self._feedback_cb)
+        rclpy.spin_until_future_complete(self, future)
+        goal_handle = future.result()
+        if goal_handle is None:
+            self.get_logger().error('goal 发送失败（server 未响应）')
+            return False
+        if not goal_handle.accepted:
+            self.get_logger().error('goal 被拒绝（超限 / ID 不存在 / duration 非法）')
+            return False
+        self.get_logger().info('goal 已接受')
+
+        result_future = goal_handle.get_result_async()
+        rclpy.spin_until_future_complete(self, result_future)
+        res = result_future.result().result
+        if res.success:
+            self.get_logger().info(
+                'RESULT ok: final_pwm={} msg="{}"'.format(res.final_pwm, res.message))
+        else:
+            self.get_logger().error(
+                'RESULT failed: final_pwm={} msg="{}"'.format(res.final_pwm, res.message))
+        return res.success
+
+    def _feedback_cb(self, fb_msg):
+        fb = fb_msg.feedback
+        # 考核要求的打印格式: id=1 pwm=1620 progress=0.62
+        self.get_logger().info(
+            'feedback: id={} pwm={} progress={:.2f}'.format(
+                self._current_id, fb.current_pwm, fb.progress))
+
+
+def main(args=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--auto', action='store_true', help='自动演示：1700→1300→1500')
+    parser.add_argument('--release', action='store_true', help='全部舵机 PULK 卸力')
+    parsed, _ = parser.parse_known_args()
+
+    rclpy.init()
+    node = MoveClient()
+    node.wait_for_server()
+
+    try:
+        if parsed.release:
+            # 任务 4 下电第 ① 步：卸力（PULK）
+            pub = node.create_publisher(ServoCommand, '/servo/command', 10)
+            for sid in node.get_parameter('servo_ids').value:
+                cmd = ServoCommand()
+                cmd.id = sid
+                cmd.mode = ServoCommand.MODE_RELEASE
+                pub.publish(cmd)
+                node.get_logger().info('已发 PULK -> id={}'.format(sid))
+            time.sleep(1.0)
+            return
+
+        if parsed.auto:
+            # 正转 → 反转 → 回中位，每步都有 feedback 打印。
+            # 用 servo_ids 的第一个 id（桌面阶段 yaml 里是 [4]），换机器只改 yaml
+            sid = int(node.get_parameter('servo_ids').value[0])
+            node.get_logger().info('自动演示舵机 id={}'.format(sid))
+            for pwm in (1700, 1300, 1500):
+                node.send_and_wait(sid, pwm, 1000)
+            return
+
+        # 键盘模式
+        print('用法: <id> <pwm> [duration_ms]，例: 1 1700 1000；输入 q 退出')
+        while rclpy.ok():
+            try:
+                line = input('> ')
+            except (EOFError, KeyboardInterrupt):
+                break
+            line = line.strip()
+            if not line or line.lower() == 'q':
+                break
+            parts = line.split()
+            try:
+                sid = int(parts[0])
+                pwm = int(parts[1])
+                dur = int(parts[2]) if len(parts) > 2 else 0
+            except (ValueError, IndexError):
+                print('格式错误，重输')
+                continue
+            node.send_and_wait(sid, pwm, dur)
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

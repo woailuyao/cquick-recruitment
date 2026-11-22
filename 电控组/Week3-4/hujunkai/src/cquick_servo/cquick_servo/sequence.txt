@@ -1,0 +1,116 @@
+#!/usr/bin/env python3
+"""cquick_servo · sequence_player —— 动作组播放器（任务 3 核心，8 分）
+
+动作是「数据」不是「代码」：
+  读 yaml → 展开成一串 goal → 同一 step 内同时下发 → 等 result 全回来才进下一步。
+换一套动作 = 换一个 yaml，不改一行 python。
+
+用法:
+  ros2 run cquick_servo sequence_player <yaml完整路径> [--loops N]
+
+  例（用包内自带动作，连跑三遍）:
+  ros2 run cquick_servo sequence_player \
+      $(ros2 pkg prefix cquick_servo)/share/cquick_servo/config/actions/stand_up.yaml --loops 3
+"""
+import argparse
+import sys
+
+import yaml
+
+import rclpy
+from rclpy.action import ActionClient
+from rclpy.node import Node
+
+from cquick_servo_interfaces.action import MoveServo
+
+
+class SequencePlayer(Node):
+    def __init__(self, loops):
+        super().__init__('sequence_player')
+        self._client = ActionClient(self, MoveServo, 'move_servo')
+        self._loops = loops
+
+    def play(self, action_def):
+        name = action_def.get('name', 'unnamed')
+        steps = action_def.get('steps', [])
+        if not steps:
+            self.get_logger().error('yaml 里没有 steps，动作组为空')
+            return False
+
+        self.get_logger().info(
+            '播放动作 "{}"：{} 个 step × {} 遍'.format(name, len(steps), self._loops))
+        for loop in range(1, self._loops + 1):
+            self.get_logger().info('===== 第 {}/{} 遍 ====='.format(loop, self._loops))
+            for step in steps:
+                cmds = step.get('commands', [])
+                self.get_logger().info(
+                    '[t={}] step "{}"：{} 个关节同时下发'.format(
+                        self._now_str(), step.get('name', '?'), len(cmds)))
+
+                # ① 一步之内多舵机协同：同一个 step 里所有 goal 同时下发
+                futures = []
+                for c in cmds:
+                    goal = MoveServo.Goal()
+                    goal.command.id = int(c['id'])
+                    goal.command.pwm = int(c['pwm'])
+                    goal.command.duration_ms = int(c.get('duration_ms', 0))
+                    futures.append((c, self._client.send_goal_async(goal)))
+                    self.get_logger().info(
+                        '  下发 goal: id={} pwm={} duration_ms={}'.format(
+                            goal.command.id, goal.command.pwm,
+                            goal.command.duration_ms or '默认'))
+
+                # ② 步与步之间串行：等本 step 的 result 全回来才进下一个。
+                #    用 result 当同步信号，绝不用 sleep 猜时间（会累积误差）。
+                all_ok = True
+                for c, fut in futures:
+                    rclpy.spin_until_future_complete(self, fut)
+                    gh = fut.result()
+                    if gh is None or not gh.accepted:
+                        self.get_logger().error('  id={} goal 被拒'.format(c['id']))
+                        all_ok = False
+                        continue
+                    rf = gh.get_result_async()
+                    rclpy.spin_until_future_complete(self, rf)
+                    res = rf.result().result
+                    ok = bool(res.success)
+                    all_ok = all_ok and ok
+                    # result 时间戳：验收要看的时序证据
+                    self.get_logger().info(
+                        '[t={}] id={} result: success={} final_pwm={} msg="{}"'.format(
+                            self._now_str(), c['id'], ok, res.final_pwm, res.message))
+                if not all_ok:
+                    self.get_logger().error('step 内有 goal 失败，动作组中止')
+                    return False
+        self.get_logger().info('动作 "{}" 播放完毕'.format(name))
+        return True
+
+    def _now_str(self):
+        s, ns = self.get_clock().now().seconds_nanoseconds()
+        return f'{s}.{ns // 1000000:03d}'
+
+
+def main(args=None):
+    parser = argparse.ArgumentParser()
+    parser.add_argument('yaml_path', help='动作定义 yaml 的完整路径')
+    parser.add_argument('--loops', type=int, default=1, help='连跑几遍（验收要求连跑三遍）')
+    parsed, _ = parser.parse_known_args()
+
+    with open(parsed.yaml_path, encoding='utf-8') as f:
+        action_def = yaml.safe_load(f)
+
+    rclpy.init()
+    node = SequencePlayer(parsed.loops)
+    if not node._client.wait_for_server(timeout_sec=5.0):
+        node.get_logger().error('Action Server 没起来，先执行 ros2 launch cquick_servo servo.launch.py')
+        node.destroy_node()
+        rclpy.shutdown()
+        return 1
+    ok = node.play(action_def)
+    node.destroy_node()
+    rclpy.shutdown()
+    return 0 if ok else 1
+
+
+if __name__ == '__main__':
+    sys.exit(main())

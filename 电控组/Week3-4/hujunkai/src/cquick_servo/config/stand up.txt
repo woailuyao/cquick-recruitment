@@ -1,0 +1,21 @@
+# 动作组 = 有序 step 列表（动作是数据，不是代码）
+# - 同一 step 内的 commands 同时下发（一步之内多舵机协同）
+# - step 之间串行：等上一个 step 全部 result 回来才进下一个
+# - 某个关节必须先动 → 单独给它开一个 step，别靠 duration_ms 硬凑先后
+name: stand_up
+loop: 1
+steps:
+  - name: 双肩同步抬起
+    commands:
+      - {id: 1, pwm: 1900, duration_ms: 1200}
+      - {id: 2, pwm: 1100, duration_ms: 1200}
+  - name: 双肩保持后回中
+    commands:
+      - {id: 1, pwm: 1500, duration_ms: 1200}
+      - {id: 2, pwm: 1500, duration_ms: 1200}
+  - name: 肘部先起（与肩错开，避免结构干涉）
+    commands:
+      - {id: 3, pwm: 1700, duration_ms: 800}
+  - name: 肘部再收
+    commands:
+      - {id: 3, pwm: 1500, duration_ms: 800}

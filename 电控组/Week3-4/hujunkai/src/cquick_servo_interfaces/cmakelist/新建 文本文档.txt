@@ -1,0 +1,28 @@
+cmake_minimum_required(VERSION 3.8)
+project(cquick_servo_interfaces)
+
+if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# 找到接口生成器（rosidl_default_generators）
+find_package(ament_cmake REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+# ⚠️ 关键：ServoState.msg 用到了 std_msgs/Header，
+# 必须先用 find_package 找到 std_msgs，否则 rosidl_generate_interfaces 会报
+# "the passed dependency 'std_msgs' has not been found before using find_package()"
+find_package(std_msgs REQUIRED)
+
+# 生成 msg / action 接口
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/ServoCommand.msg"
+  "msg/ServoState.msg"
+  "action/MoveServo.action"
+  DEPENDENCIES std_msgs
+)
+
+# 导出运行时依赖（rosidl_default_runtime），别的包运行期才能加载这些接口
+ament_export_dependencies(rosidl_default_runtime)
+ament_export_dependencies(std_msgs)
+
+ament_package()
