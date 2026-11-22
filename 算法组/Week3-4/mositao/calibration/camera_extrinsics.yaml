@@ -1,0 +1,29 @@
+camera_extrinsics:
+  R:
+  - - 0.0
+    - -0.33791671800332695
+    - 0.9411760152563706
+  - - -1.0
+    - 0.0
+    - 0.0
+  - - 0.0
+    - -0.9411760152563706
+    - -0.33791671800332695
+  t:
+  - 0.0
+  - 0.0
+  - 1.08
+  camera_height_m: 1.08
+  pitch_deg: 19.75
+  yaw_deg: 0.0
+  roll_deg: 0.0
+  demo: false
+  method: 人工点取 9 个交点（固定对应，跳过离群点 L5）+ 卷尺高度 1.08 m 的 PnP
+  residual_px: 10.74
+  source_image: data/ext_final/ext_final.png
+  expected_carrier_pose:
+    x: -2.668
+    y: -0.08
+    yaw_deg: -0.3
+    note: 标定帧里载体在地图中的位姿；用于实时首帧先验与结果核对
+  note: t 只保留高度，符合「载体原点=相机光心正下方地面点」的约定；相机在场地中的 x/y/yaw 属于 matcher 每帧估计的量，不写进外参。

@@ -1,0 +1,14 @@
+# 任务一 · 足球检测数据集（细则 §五「提交目录」点名的 ball_data.yaml）
+#
+# 与同目录的 data.yaml 内容完全一致：
+#   data.yaml 是本仓库训练/评估脚本的默认入口（tools/train.py、tools/evaluate.py）；
+#   ball_data.yaml 是提交规范里的文件名，二者指向同一套图片与标注。
+# 图片与标注整套不入库（细则 §五「GitHub 只提交轻量工程文件」），统计见 dataset_summary.md。
+
+path: dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names:
+- ball

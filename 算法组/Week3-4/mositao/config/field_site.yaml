@@ -1,0 +1,64 @@
+# 现场实测与官方 field.yaml 的差异登记
+#
+# 为什么单独建这个文件：
+#   官方 field.yaml 是组织方发布的文件，细则 2.11 不允许学生擅自改动它的数值。
+#   但现场实测与官方地图存在不一致之处，程序必须按「现场事实」定位，否则会算错。
+#   所以把差异单独记账，官方文件保持原样（SHA256 不变），差异由程序叠加。
+#
+# 使用：tools/realtime_field.py 与 tools/solve_extrinsics_auto.py 默认读本文件；
+#       加 --no-site 可只看官方原始数值。
+
+field_site_overrides:
+  version: 1
+  status: site_verified
+  note: |
+    本文件只记录「现场与官方的差异」，不改动 config/field.yaml 的任何数值。
+    程序加载顺序：官方 14 点 → 换算到场地系 → 对称补全 → 应用本文件的覆盖。
+
+  # ── 现场场地几何（2026-11-20 卷尺实测，白线中心→白线中心）─────────────
+  # 官方是 14×9 m 成年组场地；现场 7.60×6.03 m，且各条线的比例并不一致：
+  #   L 0.543  W 0.670  G 1.135  GB 0.738  DB 0.940  AW 0.658  DA 0.650  C 0.500
+  # 跨度从 0.50 到 1.14，单个缩放因子对齐不了，因此放弃缩放，
+  # 改为按「白线交点」参数化重建全部标志点（tools/site_field_map.py 与
+  # tools/realtime_field.py 共用同一套公式）。官方 field.yaml 保持原样，SHA256 不变。
+  site_geometry:
+    units: m
+    measured_by: mositao
+    measured_at: "2026-11-20"
+    measuring_rule: 白线中心到白线中心；从场地中心往两边量
+    basis: 阁下现场卷尺实测；拓扑（哪些白线相交）已对照 outputs/field_site_map_preview.png 确认
+    field_length_m: 7.60          # 3.80 + 3.80，中线在两半正中
+    field_width_m: 6.03
+    goal_width_m: 2.95            # 球门柱就在球门区两条竖线上（已确认）
+    goal_area_width_m: 2.95
+    goal_area_length_m: 0.94
+    penalty_area_width_m: 3.95
+    penalty_area_length_m: 1.95
+    circle_diameter_m: 1.50       # X1↔X2 的距离（=中圈直径，半径 0.75）
+    both_goals: true              # 两端都有球门
+    penalty_mark_visible: false   # 中圈圆心没有可见点球标记
+    camera_height_m: 1.08         # 镜头光心到地面（2026-11-21 19:2x 抬机位后卷尺重测，用户确认量的是镜片中心）
+    camera_height_history:
+      - {height_m: 1.375, measured_at: "2026-11-20", note: 桌面机位，外参已于 22:31 解出}
+      - {height_m: 0.73,  measured_at: "2026-11-21", note: 降低机位，外参需重解}
+      - {height_m: 1.08,  measured_at: "2026-11-21", note: 抬高机位到 1.08 m、俯角 19.75°，外参已用人工点 PnP 重解（残差以 calibration/camera_extrinsics.yaml 的 residual_px = 10.74 为准）}
+
+  # ── 点球点（PenaltyPoint）────────────────────────────────────────────
+  # 官方反推：x_field = file_y + 4.010, y_field = -file_x + 3.035
+  #           PenalityPoint [2.965, 0.885] → (4.895, 0.070)
+  # 现场实测：点球点位于场地中心，即 (0, 0)——正是中圈的圆心。
+  # 现场再确认：圆心处没有可见的点球标记（没有圆点、十字或任何实体标记），
+  #             那一点只有草皮。因此该点在几何上有效、在视觉上不可检测。
+  point_mark:
+    type: PenaltyPoint
+    official_xy: [4.895, 0.070]
+    site_xy: [0.0, 0.0]
+    basis: 阁下现场确认「我们的球场上，点球点位为场地中心」「没有点球标记，但就在中圈的圆心位置」
+    confirmed_at: "2026-11-20"
+    action: replace        # 用 site_xy 替换全部同类点（中心点自身对称，故只保留一个）
+    visible: false         # 现场没有可见标记 → 地面上看不到东西
+    detectable: false      # 不可被检测 → 不进入检测类别，也不参与地图匹配
+    note: |
+      因为不可检测，该点只作为几何参照保留（俯视图用空心圈表示），
+      不参与 matcher 的观测匹配。若日后场地补画了点球标记，把 visible/detectable
+      改成 true，并按 tools/annotate.py 补标若干帧后重训成 4 类模型即可。

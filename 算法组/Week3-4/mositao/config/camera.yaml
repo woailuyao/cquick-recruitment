@@ -1,0 +1,84 @@
+# 相机参数汇总（细则 §五「提交目录」点名的 config/camera.yaml）
+#
+# 说明：本文件是**给评审看的汇总**，把设备信息与内外参放在一处。
+# 程序实际读取的是 calibration/ 下的两个标定原始文件，改参数请改那两个，
+# 再同步到这里（或用 tools/estimate_extrinsics.py 重新生成）。
+#
+#   calibration/camera_intrinsics.yaml   ← 内参 + 畸变（21 张棋盘格，RMS 0.368 px）
+#   calibration/camera_extrinsics.yaml   ← 外参（人工点取 9 交点 PnP，残差 10.74 px）
+
+camera:
+  # ── 设备 ──────────────────────────────────────────────────
+  device:
+    type: USB 单目 RGB 摄像头（配发）
+    vid_pid: "0BDA:5844"
+    os_index: 1                    # Windows 索引 1（MSMF 后端）
+    linux_node: /dev/video1        # Linux 下按实际枚举为准
+    backend: MSMF
+  capture:
+    width: 1280
+    height: 720
+    target_fps: 30
+    measured_fps: 29.8             # camera_check.py 连续取帧法实测
+    freshness: 1.00                # 逐像素相同的帧对占比 = 0（无重复帧）
+    sharpness_laplacian_var: 153.4 # > 100 视为清晰
+  lens:
+    focus: 固定焦距、固定对焦（全程不动对焦环，改了内参即作废）
+    zoom: 无自动变焦
+    focal_length_mm: null          # 镜头筒身未标焦距，故只给像素焦距 fx/fy
+
+# ── 内参（calibration/camera_intrinsics.yaml）───────────────
+intrinsics:
+  fx: 1677.5747203858457
+  fy: 1672.2383583299893
+  cx: 674.1690497059957
+  cy: 380.71937511065863
+  width: 1280
+  height: 720
+  reprojection_error_px: 0.3680176783869652
+  distortion_model: k1          # 只用到 k1；k2/p1/p2 已标但量极小
+  calibration:
+    method: 张正友棋盘格标定
+    images: 21
+    board_cols: 9               # 内角点 9×6
+    board_rows: 6
+    square_mm: 25.0
+  # 顺序：k1, k2, p1, p2, k3（与 calibration/camera_intrinsics.yaml 逐位一致）
+  dist_coeffs:
+    - 0.09270429245620773
+    - 0.0
+    - 0.006651198331711839
+    - 0.004000391599643471
+    - 0.0
+
+# ── 外参（calibration/camera_extrinsics.yaml）───────────────
+extrinsics:
+  method: 人工点取 9 个白线交点（固定对应，跳过离群点 L5）+ 卷尺高度约束的 PnP
+  source_image: data/ext_final/ext_final.png
+  residual_px: 10.74
+  camera_height_m: 1.08          # 卷尺实测，镜头光心到地面
+  pitch_deg: 19.75               # 光轴俯角，向下为正
+  roll_deg: 0.0
+  yaw_deg: 0.0
+  translation_m: [0.0, 0.0, 1.08]
+  # 相机系 → 载体系的旋转（行主序）
+  rotation:
+    - [ 0.0, -0.33791671800332695,  0.9411760152563706]
+    - [-1.0,  0.0,                  0.0               ]
+    - [ 0.0, -0.9411760152563706,  -0.33791671800332695]
+  convention: |
+    载体参考原点 = 相机光心正下方地面点（细则 §2.2），故 t 只保留高度、yaw 归零；
+    相机在场地里的 x/y/yaw 由每帧定位算法求出，不写进外参。
+    若把地图位置塞进外参，定位结果会恒等于 0——那是一个假的「完美定位」。
+  expected_carrier_pose_at_source:
+    x: -2.668
+    y: -0.080
+    yaw_deg: -0.30
+    note: 标定帧拍摄时载体在地图中的位姿，用于核对定位结果
+
+# ── 坐标系 ────────────────────────────────────────────────
+frames:
+  camera: 相机光学系（右手系，x 向右、y 向下、z 沿光轴向前）
+  carrier: 载体地面系（原点 = 光心地面投影，x 指向车头，z 向上）
+  map: 场地系（原点 = 场地中心，+X 指向唯一球门，+Y 为面朝 +X 时左侧，Z 向上，yaw 从 +X 逆时针为正）
+  output_fields: [x_camera_map, y_camera_map, yaw_camera_map, x_carrier_map, y_carrier_map, yaw_carrier_map]
