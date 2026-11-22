@@ -1,4 +1,4 @@
-
+# 角点检测封装：YOLO 推理、同类去重、亚像素细化
 import cv2
 import numpy as np
 from ultralytics import YOLO

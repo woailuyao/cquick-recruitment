@@ -1,4 +1,4 @@
-
+# ROS2 节点：场地定位，发布 /camera_pose 与 /pose_status
 import math
 import os
 import sys
@@ -11,7 +11,28 @@ from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
 from std_msgs.msg import String
 
-GEOM_DIR = os.path.expanduser("~/vision_ws/k1_soccer_vision/src/geometry")
+PKG_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def _find_geometry():
+    roots = [PKG_DIR, os.getcwd()]
+    for r in list(roots):
+        cur = r
+        for _ in range(8):
+            roots.append(cur)
+            nxt = os.path.dirname(cur)
+            if nxt == cur:
+                break
+            cur = nxt
+    for r in roots:
+        for rel in ("geometry", os.path.join("src", "geometry")):
+            cand = os.path.join(r, rel)
+            if os.path.isfile(os.path.join(cand, "localize.py")):
+                return cand
+    return os.path.join(PKG_DIR, "geometry")
+
+
+GEOM_DIR = _find_geometry()
 if GEOM_DIR not in sys.path:
     sys.path.insert(0, GEOM_DIR)
 
@@ -133,9 +154,11 @@ class PoseNode(Node):
     def __init__(self):
         super().__init__("k1_vision_pose")
         self.declare_parameter("camera_url", "http://localhost:8000/stream")
+        self.declare_parameter("model", "")
         url = self.get_parameter("camera_url").value
+        path = self.get_parameter("model").value or MODEL
 
-        self.loc = Locator()
+        self.loc = Locator(path)
         self.cap = cv2.VideoCapture(url)
         self.pub = self.create_publisher(PoseStamped, "/camera_pose", 10)
         self.pub_st = self.create_publisher(String, "/pose_status", 10)

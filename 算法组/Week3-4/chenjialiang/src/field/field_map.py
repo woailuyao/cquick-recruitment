@@ -1,4 +1,4 @@
-
+# 场地俯视图绘制：白线、标志点、相机位姿和朝向箭头
 import os
 
 import matplotlib

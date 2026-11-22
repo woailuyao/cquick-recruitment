@@ -1,4 +1,4 @@
-
+# MJPEG 推流服务：把 RGB 帧推成本地网页流
 import threading
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer

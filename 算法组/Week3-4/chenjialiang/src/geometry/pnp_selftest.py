@@ -1,4 +1,4 @@
-
+# 合成数据自测：验证 PnP 解算与坐标系变换
 import cv2
 
 import numpy as np

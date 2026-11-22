@@ -1,4 +1,4 @@
-
+# 检测链路耗时基准：取帧、推理、后处理分段计时
 import os
 import sys
 import time

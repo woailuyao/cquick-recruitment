@@ -1,4 +1,4 @@
-
+# 像素到地面反投影：求该点相对相机的地面偏移
 import cv2
 import numpy as np
 

@@ -1,3 +1,4 @@
+# ament_python 打包配置：两个节点的入口点与 launch 安装
 from glob import glob
 import os
 
@@ -23,6 +24,7 @@ setup(
     entry_points={
         "console_scripts": [
             "pose_node = k1_vision_ros2.pose_node:main",
+            "ball_node = k1_vision_ros2.ball_node:main",
         ],
     },
 )

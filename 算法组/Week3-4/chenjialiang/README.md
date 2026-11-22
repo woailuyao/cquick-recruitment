@@ -154,41 +154,43 @@
 
 ## ROS2 接口
 
-已封装为独立的 ament_python 包 `k1_vision_ros2`（只含任务 2 的定位节点），代码见  
-`src/k1_vision_ros2/`。**已用 `colcon build` 构建通过，并完成启动自检**  
-（节点正常构造、进入 spin、干净退出）；因交付当天无相机可用，**话题输出未做实机联调**，  
-这一点如实标注。
+两个任务都封装成了 ament_python 包 `k1_vision_ros2`，代码在 `src/k1_vision_ros2/`。
+`colcon build` 通过，两个节点都能正常构造、进入 spin、干净退出。话题数值没有和分屏程序
+逐帧比对过，交付那天相机不在手上。
 
-- **节点名称**：`k1_vision_pose`
-- **足球话题**：未提供。任务 1 以独立分屏程序（`src/detect/detect_live.py`）交付，
-  未封装为 ROS2 节点；任务 2 的定位节点只发布位姿与诊断信息。
-- **定位话题**：`/camera_pose`（`geometry_msgs/PoseStamped`），`frame_id = "map"`
+节点：
 
-  | 字段                        | 含义                               | 单位 |
-  | ------------------------- | -------------------------------- | -- |
-  | `pose.position.x`         | `x_camera_map`                   | m  |
-  | `pose.position.y`         | `y_camera_map`                   | m  |
-  | `pose.position.z`         | 相机安装高度                           | m  |
-  | `pose.orientation.z / .w` | 由 `yaw_camera_map` 转成的四元数（绕 Z 轴） | —  |
+- `k1_vision_ball`：任务 1 足球检测
+- `k1_vision_pose`：任务 2 场地定位
 
-- **诊断话题**：`/pose_status`（`std_msgs/String`），输出  
-  `valid` / `status` / `markers` / `residual` / `x` / `y` / `yaw`，终端可直接观察。
-- **坐标约定**：`map` 系与 `config/field_geometry.yaml` 完全一致——原点在场地中心，  
-  `+X` 指向球门，`+Y` 指向面朝 `+X` 时的左侧，`yaw` 从 `+X` 逆时针为正。
-- **launch 文件**：`launch/vision.launch.py`，支持 `camera_url` 参数。
+话题：
 
-**构建与运行**：
+- `/ball/bbox`（`std_msgs/Float64MultiArray`），字段顺序 `[x1, y1, x2, y2, conf, cx, cy]`，
+  像素单位，没有球时数组为空
+- `/ball/status`（`std_msgs/String`），输出 `count` 和 `fps`
+- `/camera_pose`（`geometry_msgs/PoseStamped`，`frame_id = "map"`），x/y 单位为米，
+  z 为相机安装高度，朝向用绕 Z 轴的四元数
+- `/pose_status`（`std_msgs/String`），输出 `valid` / `status` / `markers` / `residual` / `x` / `y` / `yaw`
+
+`map` 系和 `config/field_geometry.yaml` 一致：原点在场地中心，`+X` 指向球门，
+`+Y` 指向面朝 `+X` 时的左侧，`yaw` 从 `+X` 逆时针为正。
+
+launch 文件 `launch/vision.launch.py` 一次起两个节点，可以单独关掉其中一个：
 
 ```bash
-cd 算法组/Week3-4/chenjialiang          # 本目录
+cd 算法组/Week3-4/chenjialiang
 source /opt/ros/humble/setup.bash
-python3 -m pip install --user -U packaging   # 若构建报 canonicalize_version 错误再执行
+
 colcon build --packages-select k1_vision_ros2 --base-paths src
 source install/setup.bash
-python -m k1_vision_ros2.pose_node       # 启动节点（需先有图像源 http://localhost:8000/stream）
-ros2 topic echo /camera_pose             # 另开终端观察位姿
-ros2 topic echo /pose_status             # 观察 valid / status / markers / residual
+
+ros2 launch k1_vision_ros2 vision.launch.py
+ros2 launch k1_vision_ros2 vision.launch.py run_pose:=false
+ros2 launch k1_vision_ros2 vision.launch.py camera_url:=http://localhost:8000/stream ball_model:=/path/to/best.pt
 ```
+
+权重不在仓库里，`runs/detect/train4/weights/best.pt` 和 `runs/detect/corner11/weights/best.pt`
+需要按 README 的网盘链接下下来放好，或者用 `ball_model` / `pose_model` 参数指到别处。
 
 ---
 
@@ -369,6 +371,37 @@ ros2 topic echo /pose_status             # 观察 valid / status / markers / res
 | 掠射射线保护 | 竖直方向 dz 绝对值小于 0.05 时丢弃该点，不输出 NaN 或超远坐标 |
 | 前后端歧义处理                | 双假设枚举 + 场界校验 + 时序连续性                           |
 | 三测试点误差                 | **11.1 / 17.8 / 21.5 cm，100% 有效帧**（`corner11`） |
+
+## 加分项
+
+**ONNX 导出与推理对比**
+
+用 `yolo export` 把 `train4` 的 best.pt 导成 ONNX（opset 12，simplify，12.2 MB），
+在 `rec_20261115_190154.mp4` 上取前 300 帧，两个引擎各跑一遍：
+
+| 引擎 | 设备 | 平均延迟 | FPS |
+|---|---|---|---|
+| PyTorch | CPU | 35.20 ms | 28.4 |
+| ONNX Runtime | CPU | 27.92 ms | 35.8 |
+| PyTorch | RTX 4060 | 24.60 ms | 40.6 |
+
+同设备（都是 CPU）比是 **1.26 倍**。检测结果基本一致：IoU≥0.5 的匹配率 98.8%，
+300 帧里漏 3 个框、多出 0 个，中心平均偏移 0.41 px。
+
+顺带一句实话：GPU 上的 PyTorch 比 CPU 上的 ONNX 还快一点，所以 ONNX 的意义在于
+没有 CUDA 的机器上跑得动，不是为了在这台机器上提速。
+
+对比脚本 `src/detect/bench_onnx.py`，可复跑：
+
+```bash
+python3 src/detect/bench_onnx.py <视频> --pt runs/detect/train4/weights/best.pt \
+    --onnx runs/detect/train4/weights/best.onnx --device cpu
+```
+
+**ROS2 双节点封装**
+
+任务 1 和任务 2 各有一个节点（`k1_vision_ball` / `k1_vision_pose`），
+`launch/vision.launch.py` 一次起两个，也能单独关掉其中一个。
 
 ## 可改进方向
 

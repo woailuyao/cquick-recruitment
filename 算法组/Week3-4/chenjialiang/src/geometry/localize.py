@@ -1,4 +1,4 @@
-
+# 任务2 主程序：检测白线角点，解算相机在场地坐标系的位姿
 import os
 import sys
 import time

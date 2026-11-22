@@ -1,4 +1,4 @@
-
+# 诊断脚本：检查两点间距与深度比值是否自洽
 import os
 import sys
 

@@ -1,3 +1,4 @@
+# 任务1 实时检测：左侧画框，右下角显示 FPS 与像素中心
 import os
 import sys
 import threading

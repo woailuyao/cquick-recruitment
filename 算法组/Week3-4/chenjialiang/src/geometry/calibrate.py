@@ -1,4 +1,4 @@
-
+# 相机俯角标定：由已知站位反解俯角，结果写回配置
 import os
 import re
 import sys
@@ -71,11 +71,8 @@ def apply_cfg(path, h, pitch):
     if not os.path.exists(path):
         return False
     s = open(path, encoding="utf-8").read()
-    stamp = time.strftime("%Y-%m-%d %H:%M")
-    s = re.sub(r"  height_m: [0-9.]+.*",
-               f"  height_m: {h:.2f}        # {stamp} calibrate.py 写入", s)
-    s = re.sub(r"  pitch_deg: [0-9.]+.*",
-               f"  pitch_deg: {pitch:.2f}        # {stamp} calibrate.py 反解", s)
+    s = re.sub(r"  height_m: [0-9.]+.*", f"  height_m: {h:.2f}", s)
+    s = re.sub(r"  pitch_deg: [0-9.]+.*", f"  pitch_deg: {pitch:.2f}", s)
     open(path, "w", encoding="utf-8").write(s)
     return True
 
