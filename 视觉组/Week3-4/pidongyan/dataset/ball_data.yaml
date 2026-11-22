@@ -1,0 +1,16 @@
+# 提交版：任务一 ball 数据集配置（细则建议路径 dataset/ball_data.yaml）
+# 实际训练入口是 config/data_aug.yaml（v3）与 config/data_aug2.yaml（v4）；
+# 本文件是个人提交目录里的轻量说明性副本，path 需按本地数据目录调整。
+# 图片 / 标签不上传 GitHub，统计见 dataset/dataset_summary.md。
+path: D:/CQU/CQuick/week3/dataset_aug
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names:
+  0: ball
+
+# 划分：按独立视频片段 70/20/10（seed=0），train 215 / val 35 / test 32
+# 正式训练数据 dataset_aug：train 384（215 原始 + 169 伪远距小球增强），
+# val/test 原样复制；v4 再追加 40 张类球干扰空标签负样本 -> train 424。

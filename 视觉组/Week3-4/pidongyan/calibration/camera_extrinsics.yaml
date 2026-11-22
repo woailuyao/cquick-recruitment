@@ -1,0 +1,38 @@
+'#': 相机外参（tools/check_extrinsics.py 墙脚线几何法生成，勿手改数值）
+carrier_definition: 独立移动测试架（桌边平板），按细则以相机光心为载体参考原点：x_carrier_map = x_camera_map。载体系：X前(光轴水平投影)
+  Y左 Z上，原点=光心。
+rotation_carrier_from_camera:
+  rows: 3
+  cols: 3
+  data:
+  - 0.0066476
+  - -0.25070934
+  - 0.96803958
+  - -0.99964866
+  - -0.02650584
+  - 0.0
+  - 0.0256587
+  - -0.96769947
+  - -0.25079746
+translation_carrier_from_camera_m:
+- 0.0
+- 0.0
+- 0.0
+install:
+  pitch_deg: 14.525
+  pitch_method: 墙脚线几何反推 atan(h/d) - atan((v-cy)/fy)
+  roll_deg: 1.519
+  roll_method: 画面真实竖直线倾斜角（墙角线）
+  phone_pitch_deg_ref: 17.0
+  lens_height_above_ground_m: 0.222
+  lens_height_above_board_bottom_m: 0.02
+  height_note: 现场换算：h_field = 板底离地高度 + lens_height_above_board_bottom_m；俯仰/滚转随刚性安装不变，无需重量。
+measurement:
+  date: '2026-11-10T13:27:48'
+  junction_video: wall_check_20261110_132324.mp4
+  junction_row_px: 575.5
+  junction_row_percent: 79.93
+  d_wall_m: 0.63
+  h_ground_m: 0.222
+  intrinsics_rms_px: 0.9687
+note: pitch 敏感度：每差 1°，3m 外地面点误差约 0.5m。到场地后建议用本工具+实测 h/d 复核一次。

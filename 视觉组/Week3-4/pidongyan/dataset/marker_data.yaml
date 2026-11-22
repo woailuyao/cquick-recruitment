@@ -1,0 +1,24 @@
+# 提交版：任务二 marker 数据集配置（细则建议路径 dataset/marker_data.yaml）
+# 实际训练入口是 config/marker.yaml；本文件为个人提交目录的轻量说明性副本。
+# 类别顺序即 YOLO 编号，与 task2 包的 field_by_class 一致，中途不得插类。
+# ✅ 2026-11-21 22:58 状态：210 张已全部标注完成（301 框、四类齐全），
+#    按视频段 seed=102 划分并已用 config/marker.yaml 完成基线训练。
+#    test 真实指标 P 0.940 / R 0.050 / mAP50 0.113 / mAP50-95 0.034（很差，如实记录）。
+#    本文件为个人提交目录的轻量说明性副本，实际训练入口是 config/marker.yaml。
+path: D:/CQU/CQuick/week3/dataset_markers
+train: images/train
+val: images/val
+test: images/test
+
+nc: 4
+names:
+  0: L_cross          # L 形拐角，field.yaml LCross1~8，共 8 个
+  1: T_cross          # T 形交点，TCross1~4，共 4 个
+  2: X_cross          # 中圈 ∩ 中线，XCross1~2，共 2 个
+  3: penalty_point    # 点球点，PenalityPoint，共 1 个
+
+# 素材：frames_pool_markers/ 210 张，来自 12 个视频段
+# （marker_run01~05 / pose_A·A2·B·C / field_check* / markers_sweep_20261120_175438），
+# 与任务一 ball_run* 段严格分离；新段为 11-20 C0 现场手持走位补录。
+# 标注工具（PowerShell 单行，整行复制，末尾不要加反斜杠）：
+# python tools/annotate_cv2.py --dir frames_pool_markers --classes L_cross,T_cross,X_cross,penalty_point

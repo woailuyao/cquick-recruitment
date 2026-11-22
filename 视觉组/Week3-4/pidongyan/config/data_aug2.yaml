@@ -1,0 +1,12 @@
+# 任务一 · 尺度增强 + 类球干扰负样本（v4 实验用）
+# 由 tools/make_negative_samples.py 生成：dataset_aug/ 完整副本 + train 追加
+# 40 张无球帧（空标签）。val/test 与 dataset/ 完全一致。
+# 不要再对本目录跑 split_dataset.py。
+path: D:/CQU/CQuick/week3/dataset_aug2
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names:
+  0: ball
