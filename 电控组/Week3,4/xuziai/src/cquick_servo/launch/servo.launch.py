@@ -44,7 +44,6 @@ def generate_launch_description():
         executable='sequence_player',
         name='sequence_player',
         output='screen',
-        # 👇 加上这一段，通过 ROS 2 参数传路径
         parameters=[{
             'yaml_file': default_action_yaml
         }],
