@@ -1,0 +1,9 @@
+# Transcribed from build_ball_split_v3.py. The original ball.yaml is in the
+# Ubuntu VM at the path below and was not exposed in the Windows workspace.
+path: /home/obsession/vision_ws/k1_soccer_vision/datasets/ball_split_v3
+train: images/train
+val: images/val
+test: images/test
+
+names:
+  0: ball

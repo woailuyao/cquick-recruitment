@@ -1,0 +1,72 @@
+# Full 9 m x 6 m KidSize field generated from BoosterRobotics
+# robocup_demo/src/brain/include/types.h:
+# FD_KIDSIZE{9, 6, 1.5, 2.6, 0.75, 2, 5, 1, 3}
+# Coordinates: origin at field centre, +x toward one goal, +y to the left.
+source: BoosterRobotics/robocup_demo FD_KIDSIZE
+units: m
+dimensions:
+  length: 9.0
+  width: 6.0
+  penalty_distance: 1.5
+  goal_width: 2.6
+  center_circle_radius: 0.75
+  penalty_area_length: 2.0
+  penalty_area_width: 5.0
+  goal_area_length: 1.0
+  goal_area_width: 3.0
+features:
+  PenaltyAreaCorner:
+    PenaltyAreaCorner_pos_left: [2.5, 2.5]
+    PenaltyAreaCorner_pos_right: [2.5, -2.5]
+    PenaltyAreaCorner_neg_left: [-2.5, 2.5]
+    PenaltyAreaCorner_neg_right: [-2.5, -2.5]
+  GoalAreaCorner:
+    GoalAreaCorner_pos_left: [3.5, 1.5]
+    GoalAreaCorner_pos_right: [3.5, -1.5]
+    GoalAreaCorner_neg_left: [-3.5, 1.5]
+    GoalAreaCorner_neg_right: [-3.5, -1.5]
+  PenaltyAreaGoalLineJunction:
+    PenaltyGoalLine_pos_left: [4.5, 2.5]
+    PenaltyGoalLine_pos_right: [4.5, -2.5]
+    PenaltyGoalLine_neg_left: [-4.5, 2.5]
+    PenaltyGoalLine_neg_right: [-4.5, -2.5]
+  GoalAreaGoalLineJunction:
+    GoalGoalLine_pos_left: [4.5, 1.5]
+    GoalGoalLine_pos_right: [4.5, -1.5]
+    GoalGoalLine_neg_left: [-4.5, 1.5]
+    GoalGoalLine_neg_right: [-4.5, -1.5]
+  LCross:
+    FieldCorner_pos_left: [4.5, 3.0]
+    FieldCorner_pos_right: [4.5, -3.0]
+    FieldCorner_neg_left: [-4.5, 3.0]
+    FieldCorner_neg_right: [-4.5, -3.0]
+    PenaltyAreaCorner_pos_left: [2.5, 2.5]
+    PenaltyAreaCorner_pos_right: [2.5, -2.5]
+    PenaltyAreaCorner_neg_left: [-2.5, 2.5]
+    PenaltyAreaCorner_neg_right: [-2.5, -2.5]
+    GoalAreaCorner_pos_left: [3.5, 1.5]
+    GoalAreaCorner_pos_right: [3.5, -1.5]
+    GoalAreaCorner_neg_left: [-3.5, 1.5]
+    GoalAreaCorner_neg_right: [-3.5, -1.5]
+  TCross:
+    PenaltyGoalLine_pos_left: [4.5, 2.5]
+    PenaltyGoalLine_pos_right: [4.5, -2.5]
+    PenaltyGoalLine_neg_left: [-4.5, 2.5]
+    PenaltyGoalLine_neg_right: [-4.5, -2.5]
+    GoalGoalLine_pos_left: [4.5, 1.5]
+    GoalGoalLine_pos_right: [4.5, -1.5]
+    GoalGoalLine_neg_left: [-4.5, 1.5]
+    GoalGoalLine_neg_right: [-4.5, -1.5]
+    CentreTouchline_left: [0.0, 3.0]
+    CentreTouchline_right: [0.0, -3.0]
+  XCross:
+    CentreCircle_left: [0.0, 0.75]
+    CentreCircle_right: [0.0, -0.75]
+  PenaltyPoint:
+    CentrePoint: [0.0, 0.0]
+aliases:
+  PenalityPoint: PenaltyPoint
+  P: PenaltyPoint
+  L: LCross
+  T: TCross
+  X: XCross

@@ -1,0 +1,18 @@
+image_width: 1280
+image_height: 720
+camera_matrix:
+  fx: 1490.3291634516265
+  fy: 1501.1247891348844
+  cx: 690.3055808809594
+  cy: 327.3470954106697
+distortion_model: plumb_bob
+distortion_coefficients:
+  k1: 0.15986872738605942
+  k2: -0.9979708282542827
+  p1: -0.002721193959994071
+  p2: -0.0021791026978977722
+  k3: 1.3694314276100565
+calibration:
+  pattern_inner_corners: [9, 9]
+  square_size_m: 0.027
+  rms_reprojection_error_px: 0.6281101600619807
