@@ -16,7 +16,6 @@ class ServoServer(Node):
     def __init__(self, node_name="servo_driver"):
         super().__init__(node_name)
 
-        # [关键] 让 ActionServer 和 timer 在可重入组中，允许并发回调
         self.action_cb_group = ReentrantCallbackGroup()
         self.timer_cb_group = ReentrantCallbackGroup()
 
@@ -44,20 +43,23 @@ class ServoServer(Node):
         self.servo_ids = self.get_parameter('servo_ids').value
         self.startup_reset = self.get_parameter('startup_reset').value
 
+        # 串口
         self.ser = None
         self.ser_lock = threading.Lock()
         self.ser_ref = 0
 
-        self.state_lock = threading.Lock()
-        self.active_ids = set()
-        self.active_goals = {}
-        self.feedback_timers = {}
-        self.servo_positions = {}
+        # 共享状态（Condition 用于跨线程等待/唤醒）
+        self.state_cond = threading.Condition()
+        self.active_ids = set()                       # 正在执行的舵机 id
+        self.active_goals = {}                        # key -> threading.Event
+        self.goal_by_id = {}                          # id -> key（同一时刻最多 1 个）
+        self.preempt_flags = {}                       # key -> bool（是否被抢占，检测旧action是否为抢占结束分支）
+        self.feedback_timers = {}                     # key -> timer
+        self.servo_positions = {}                     # id -> 当前位置
         self.action_running_count = 0
 
         self.state_pub = self.create_publisher(ServoCommand, "/servo/state", 10)
         self.command_pub = self.create_publisher(ServoCommand, "/servo/command", 10)
-
         self.subscriber_ = self.create_subscription(
             ServoCommand, "/servo/command", self.command_callback, 10)
 
@@ -67,7 +69,7 @@ class ServoServer(Node):
             self.startup_reset_func()
 
     # ------------------------------------------------------------------
-    # 参数回调（逻辑不变）
+    # 参数回调
     # ------------------------------------------------------------------
     def parameter_callback(self, params):
         bdr = [9600, 115200]
@@ -120,7 +122,7 @@ class ServoServer(Node):
         return SetParametersResult(successful=True)
 
     # ------------------------------------------------------------------
-    # 串口引用计数
+    # 串口引用计数（**不**访问 state_cond）
     # ------------------------------------------------------------------
     def _ensure_serial_open_locked(self):
         if self.ser is not None and self.ser.is_open:
@@ -147,13 +149,34 @@ class ServoServer(Node):
         with self.ser_lock:
             self._release_serial_locked()
 
+    # ------------------------------------------------------------------
+    # 计数
+    # ------------------------------------------------------------------
     def _inc_running(self):
-        with self.state_lock:
+        with self.state_cond:
             self.action_running_count += 1
 
     def _dec_running(self):
-        with self.state_lock:
+        with self.state_cond:
             self.action_running_count -= 1
+
+    # ------------------------------------------------------------------
+    # 抢占停止指令
+    # ------------------------------------------------------------------
+    def _send_pdst(self, sid):
+        with self.ser_lock:
+            if self.ser is None or not self.ser.is_open:
+                self.get_logger().warn(f"[servo:{sid}] 抢占 PDST 未发送：串口未打开")
+                return False
+            try:
+                self.ser.reset_input_buffer()
+                self.ser.write(f"#{sid:03d}PDST!".encode("ascii"))
+                self.ser.flush()
+                self.get_logger().warn(f"[servo:{sid}] 发送抢占停止指令：#{sid:03d}PDST!")
+                return True
+            except Exception as e:
+                self.get_logger().error(f"[servo:{sid}] 抢占 PDST 发送失败: {e}")
+                return False
 
     # ------------------------------------------------------------------
     # 启动回中
@@ -167,14 +190,14 @@ class ServoServer(Node):
             with self.ser_lock:
                 if self.ser is None or not self.ser.is_open:
                     self.ser = serial.Serial(self.port, self.baudrate, timeout=0.1)
-
                 self.ser.reset_input_buffer()
                 self.get_logger().info(f"启动时回中位：上力，发送：#{cmd.id:03d}PULR!")
                 self.ser.write(f"#{cmd.id:03d}PULR!".encode("ascii"))
                 self.ser.flush()
-
-                self.get_logger().info(f"启动时回中位：发送运动指令：#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!")
-                self.ser.write(f"#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!".encode("ascii"))
+                self.get_logger().info(
+                    f"启动时回中位：发送运动指令：#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!")
+                self.ser.write(
+                    f"#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!".encode("ascii"))
                 self.ser.flush()
             return True
         except Exception as e:
@@ -182,9 +205,11 @@ class ServoServer(Node):
             return False
 
     # ------------------------------------------------------------------
-    # 底层发送
+    # 底层发送：ser_lock 内不触碰 state_cond；state_cond 内不碰串口
     # ------------------------------------------------------------------
     def send_hardware_command_(self, cmd):
+        init_position = None
+        response_str = ""
         with self.ser_lock:
             if not self._ensure_serial_open_locked():
                 return False, -31, "串口打开失败"
@@ -198,8 +223,10 @@ class ServoServer(Node):
                 self.ser.flush()
                 response_str = self.ser.read(10).decode('ascii').strip()
 
-                self.get_logger().info(f"发送运动指令：#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!")
-                self.ser.write(f"#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!".encode("ascii"))
+                self.get_logger().info(
+                    f"发送运动指令：#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!")
+                self.ser.write(
+                    f"#{cmd.id:03d}P{cmd.pwm:04d}T{cmd.duration_ms:04d}!".encode("ascii"))
                 self.ser.flush()
             except Exception as e:
                 self._release_serial_locked()
@@ -208,20 +235,22 @@ class ServoServer(Node):
 
             if len(response_str) == 10 and response_str[0] == '#' and response_str[9] == '!':
                 init_position = int(response_str[5:9])
-                self.get_logger().info(f"初始位置：{init_position}")
-                with self.state_lock:
-                    self.servo_positions[cmd.id] = init_position
-                return True, init_position, response_str
             else:
                 self._release_serial_locked()
                 self.get_logger().warn(f"读取舵机初始位置失败: {response_str}")
                 return False, -31, "读取舵机初始位置失败"
 
+        # 锁外更新共享位置
+        with self.state_cond:
+            self.servo_positions[cmd.id] = init_position
+        self.get_logger().info(f"初始位置：{init_position}")
+        return True, init_position, response_str
+
     # ------------------------------------------------------------------
     # Topic 回放
     # ------------------------------------------------------------------
     def command_callback(self, msg):
-        with self.state_lock:
+        with self.state_cond:
             running = self.action_running_count > 0
         if running:
             self.get_logger().warn(f"[servo:{msg.id}] TEST: 回放被拦截")
@@ -233,6 +262,7 @@ class ServoServer(Node):
             self.get_logger().error(f"回放指令执行失败: {reason}")
             return
 
+        current_pos = None
         try:
             with self.ser_lock:
                 if self.ser and self.ser.is_open:
@@ -242,42 +272,84 @@ class ServoServer(Node):
                     response_str = self.ser.read(10).decode('ascii').strip()
                     if len(response_str) == 10:
                         current_pos = int(response_str[5:9])
-                        with self.state_lock:
-                            self.servo_positions[msg.id] = current_pos
-                        state_msg = ServoCommand()
-                        state_msg.id = msg.id
-                        state_msg.pwm = current_pos
-                        self.state_pub.publish(state_msg)
         except Exception:
             pass
         finally:
             self._release_serial()
 
+        if current_pos is not None:
+            with self.state_cond:
+                self.servo_positions[msg.id] = current_pos
+            state_msg = ServoCommand()
+            state_msg.id = msg.id
+            state_msg.pwm = current_pos
+            try:
+                self.state_pub.publish(state_msg)
+            except Exception:
+                pass
+
     # ------------------------------------------------------------------
-    # execute_callback
+    # Action 执行回调（含抢占）
     # ------------------------------------------------------------------
     def execute_callback(self, goal_handle):
         cmd = goal_handle.request.command
         result = MoveServo.Result()
         key = tuple(goal_handle.goal_id.uuid)
 
-        self.get_logger().info(f"[servo:{cmd.id}] 收到动作请求，正在执行...")
-
-        with self.state_lock:
-            if cmd.id in self.active_ids:
-                self.get_logger().warn(f"[servo:{cmd.id}] 该舵机已有任务在执行，拒绝并发")
-                goal_handle.abort()
-                result.successful = False
-                result.reason = f"[servo:{cmd.id}] 该舵机已有任务在执行"
-                result.prad = int(self.servo_positions.get(cmd.id, 0))
-                return result
-            self.active_ids.add(cmd.id)
-            finish_event = threading.Event()
-            self.active_goals[key] = finish_event
-
         self._inc_running()
         serial_held = False
+        registered = False
         try:
+            self.get_logger().info(f"[servo:{cmd.id}] 收到动作请求 (key={key[:4]})")
+
+            # ============ 阶段 1：抢占同 id 的旧 goal ============
+            preempt_old_key = None
+            with self.state_cond:
+                if cmd.id in self.active_ids:
+                    preempt_old_key = self.goal_by_id.get(cmd.id)
+                    if preempt_old_key is not None:
+                        self.preempt_flags[preempt_old_key] = True
+                        old_ev = self.active_goals.get(preempt_old_key)
+                        if old_ev is not None:
+                            old_ev.set() #停掉旧goal
+
+            if preempt_old_key is not None:
+                self.get_logger().warn(
+                    f"[servo:{cmd.id}] 检测到已有 action，执行抢占 (old_key={preempt_old_key[:4]})")
+                self._send_pdst(cmd.id)
+                with self.state_cond:
+                    released = self.state_cond.wait_for(
+                        lambda: cmd.id not in self.active_ids,
+                        timeout=1.0)
+                if not released:
+                    self.get_logger().error(
+                        f"[servo:{cmd.id}] 抢占超时：旧 action 未在 1s 内退出")
+                    goal_handle.abort()
+                    result.successful = False
+                    result.reason = f"[servo:{cmd.id}] 抢占超时"
+                    with self.state_cond:
+                        result.prad = int(self.servo_positions.get(cmd.id, 0))
+                    return result
+
+            # ============ 阶段 2：注册自己 ============
+            with self.state_cond:
+                if cmd.id in self.active_ids:
+                    # 极端竞态：另一路抢先注册
+                    self.get_logger().warn(
+                        f"[servo:{cmd.id}] 注册失败：设备仍被占用")
+                    goal_handle.abort()
+                    result.successful = False
+                    result.reason = f"[servo:{cmd.id}] 注册失败：设备被占用"
+                    result.prad = int(self.servo_positions.get(cmd.id, 0))
+                    return result
+                self.active_ids.add(cmd.id)
+                finish_event = threading.Event()
+                self.active_goals[key] = finish_event
+                self.goal_by_id[cmd.id] = key
+                self.preempt_flags[key] = False
+                registered = True
+
+            # ============ 阶段 3：正常执行 ============
             feedback_msg = MoveServo.Feedback()
             timeout_sec = max(cmd.duration_ms / 1000.0 * 1.1, 0.04)
 
@@ -306,16 +378,20 @@ class ServoServer(Node):
                 ),
                 callback_group=self.timer_cb_group,
             )
-            with self.state_lock:
+            with self.state_cond:
                 self.feedback_timers[key] = timer
 
             finish_event.wait(timeout=timeout_sec)
 
-            self._cancel_timer_only(key)   # [关键] 只 cancel，不 destroy
+            self._cancel_timer_only(key)
+
+            with self.state_cond:
+                was_preempted = self.preempt_flags.get(key, False)
 
             if goal_handle.is_cancel_requested:
                 with self.ser_lock:
                     if self.ser and self.ser.is_open:
+                        self.get_logger().warn(f"[servo:{cmd.id}] 任务已取消")
                         self.ser.reset_input_buffer()
                         self.ser.write(f"#{cmd.id:03d}PDST!".encode("ascii"))
                         self.ser.flush()
@@ -325,9 +401,22 @@ class ServoServer(Node):
                 goal_handle.canceled()
                 result.successful = False
                 result.reason = "canceled"
+                with self.state_cond:
+                    result.prad = int(self.servo_positions.get(cmd.id, 0))
                 return result
 
-            with self.state_lock:
+            if was_preempted: #抢占分支
+                self.get_logger().warn(
+                    f"[servo:{cmd.id}] action 被新 goal 抢占，abort")
+                goal_handle.abort()
+                result.successful = False
+                result.reason = f"[servo:{cmd.id}] 被新 goal 抢占"
+                with self.state_cond:
+                    result.prad = int(self.servo_positions.get(cmd.id, 0))
+                return result
+
+            # 正常完成
+            with self.state_cond:
                 current_pos = self.servo_positions.get(cmd.id, 0)
             result.prad = int(current_pos)
             if math.fabs(cmd.pwm - current_pos) <= 30:
@@ -343,23 +432,26 @@ class ServoServer(Node):
 
         finally:
             self._cancel_timer_only(key)
-            with self.state_lock:
-                self.active_ids.discard(cmd.id)
-                self.active_goals.pop(key, None)
+            with self.state_cond:
+                if registered:
+                    self.active_ids.discard(cmd.id)
+                    self.active_goals.pop(key, None)
+                    if self.goal_by_id.get(cmd.id) == key:
+                        self.goal_by_id.pop(cmd.id, None)
+                self.preempt_flags.pop(key, None)
+                self.state_cond.notify_all()      # 唤醒抢占等待者
             if serial_held:
                 self._release_serial()
             self._dec_running()
 
     # ------------------------------------------------------------------
-    # feedback timer callback（[关键] 增加终态守卫）
+    # 反馈 timer 回调（加终态守卫）
     # ------------------------------------------------------------------
     def feedback_timer_callback(self, feedback_msg, goal_handle,
                                 init_rad_distance, init_position, cmd, event):
-        # 如果 goal 已不在执行中（已取消/已成功/已中止），立即返回，绝不触碰 goal_handle
         if not goal_handle.is_active:
             event.set()
             return
-
         if goal_handle.is_cancel_requested:
             event.set()
             return
@@ -378,7 +470,7 @@ class ServoServer(Node):
         if len(response_str) == 10 and response_str[0] == '#' and response_str[9] == '!':
             position = int(response_str[5:9])
             feedback_msg.pwm = position
-            with self.state_lock:
+            with self.state_cond:
                 self.servo_positions[cmd.id] = position
 
             state_msg = ServoCommand()
@@ -397,11 +489,10 @@ class ServoServer(Node):
             if math.fabs(position - cmd.pwm) <= 30:
                 event.set()
         else:
-            with self.state_lock:
+            with self.state_cond:
                 last = self.servo_positions.get(cmd.id, 0)
             feedback_msg.pwm = last
 
-        # 再次检查，防止在读取串口期间 goal 被取消/完成
         if goal_handle.is_active:
             try:
                 goal_handle.publish_feedback(feedback_msg)
@@ -409,10 +500,10 @@ class ServoServer(Node):
                 pass
 
     # ------------------------------------------------------------------
-    # [关键] 只 cancel，不 destroy
+    # 只 cancel 不 destroy
     # ------------------------------------------------------------------
     def _cancel_timer_only(self, key):
-        with self.state_lock:
+        with self.state_cond:
             t = self.feedback_timers.pop(key, None)
         if t is not None:
             try:
@@ -421,7 +512,7 @@ class ServoServer(Node):
                 pass
 
     # ------------------------------------------------------------------
-    # goal_callback
+    # goal_callback：不再拒绝同 id 新 goal（交给 execute_callback 抢占）
     # ------------------------------------------------------------------
     def goal_callback(self, goal_request):
         cmd = goal_request.command
@@ -434,11 +525,6 @@ class ServoServer(Node):
         if not (0 <= cmd.duration_ms <= 9999):
             self.get_logger().warn(f"[servo:{cmd.id}] 非法duration_ms")
             return GoalResponse.REJECT
-
-        with self.state_lock:
-            if cmd.id in self.active_ids:
-                self.get_logger().warn(f"[servo:{cmd.id}] 该舵机已有任务在执行，拒绝新 goal")
-                return GoalResponse.REJECT
         return GoalResponse.ACCEPT
 
     # ------------------------------------------------------------------
@@ -446,7 +532,7 @@ class ServoServer(Node):
     # ------------------------------------------------------------------
     def cancel_callback(self, goal_handle):
         key = tuple(goal_handle.goal_id.uuid)
-        with self.state_lock:
+        with self.state_cond:
             event = self.active_goals.get(key)
         if event is not None:
             event.set()
@@ -458,7 +544,7 @@ class ServoServer(Node):
 def main(args=None):
     rclpy.init(args=args)
     node = ServoServer()
-    executor = MultiThreadedExecutor(num_threads=20)
+    executor = MultiThreadedExecutor(num_threads=8)
     executor.add_node(node)
     try:
         executor.spin()
