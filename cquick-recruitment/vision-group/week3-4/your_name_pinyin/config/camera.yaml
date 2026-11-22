@@ -1,0 +1,26 @@
+# =====================================================================
+# camera.yaml —— 相机运行配置（内参/外参请以 calibration/ 下标定结果为准）
+#
+# 内参：由 calibration/calibrate_intrinsics.py 标定后写入
+#       calibration/camera_intrinsics.yaml，本文件只引用关键运行参数。
+# 外参：由 calibration/camera_extrinsics.yaml 提供（相机相对载体/地面安装参数）。
+# =====================================================================
+
+camera:
+  # 设备节点，插拔后请用 `v4l2-ctl --list-devices` 确认
+  device: /dev/video0
+  width: 1280
+  height: 720
+  target_fps: 30
+  # 颜色通道顺序：OpenCV 默认 BGR；请明确记录
+  channel_order: BGR
+  # 固定焦距/固定对焦；焦距数值如已知可填，否则留空
+  focal_length_mm: null
+
+intrinsics_file: calibration/camera_intrinsics.yaml
+extrinsics_file: calibration/camera_extrinsics.yaml
+
+# 标志检测模型权重路径（任务2）
+marker_model: best_marker.pt
+# 足球检测模型权重路径（任务1）
+ball_model: best.pt
