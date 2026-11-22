@@ -1,0 +1,17 @@
+servo_driver:
+  ros__parameters:
+    port: /dev/cquick_servo
+    baudrate: 115200
+    pwm_min: 900
+    pwm_max: 2100
+    center_pwm: 1500
+    default_duration_ms: 800
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: true
+    feedback_hz: 5.0
+    prad_tolerance: 30
+    prad_retry: 1
+    serial_timeout: 0.2
+    state_rate_hz: 5.0
+    watchdog_enabled: true
+    watchdog_timeout: 1.0
