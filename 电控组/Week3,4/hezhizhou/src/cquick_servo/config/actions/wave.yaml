@@ -1,0 +1,20 @@
+# pwm 为占位值，需按实测安全区间调整
+name: wave
+description: 抬起右前肢挥两下再放下
+
+steps:
+  - name: 抬起右前肢
+    joints:
+      - {id: 0, pwm: 1300, duration_ms: 700}
+
+  - name: 挥出去
+    joints:
+      - {id: 0, pwm: 1450, duration_ms: 300}
+
+  - name: 挥回来
+    joints:
+      - {id: 0, pwm: 1250, duration_ms: 300}
+
+  - name: 放下
+    joints:
+      - {id: 0, pwm: 1500, duration_ms: 700}

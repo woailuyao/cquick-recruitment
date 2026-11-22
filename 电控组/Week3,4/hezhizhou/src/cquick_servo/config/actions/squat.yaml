@@ -1,0 +1,28 @@
+name: squat
+description: 双腿大幅下蹲再起立
+
+steps:
+  - name: 下蹲
+    joints:
+      - {id: 4, pwm: 1250, duration_ms: 2200}
+      - {id: 3, pwm: 1750, duration_ms: 2200}
+      - {id: 2, pwm: 1420, duration_ms: 2200}
+      - {id: 7, pwm: 1750, duration_ms: 2200}
+      - {id: 8, pwm: 1250, duration_ms: 2200}
+      - {id: 9, pwm: 1580, duration_ms: 2200}
+
+  - name: 蹲住
+    joints:
+      - {id: 4, pwm: 1250, duration_ms: 500}
+      - {id: 3, pwm: 1750, duration_ms: 500}
+      - {id: 7, pwm: 1750, duration_ms: 500}
+      - {id: 8, pwm: 1250, duration_ms: 500}
+
+  - name: 起立
+    joints:
+      - {id: 4, pwm: 1500, duration_ms: 2200}
+      - {id: 3, pwm: 1500, duration_ms: 2200}
+      - {id: 2, pwm: 1500, duration_ms: 2200}
+      - {id: 7, pwm: 1500, duration_ms: 2200}
+      - {id: 8, pwm: 1500, duration_ms: 2200}
+      - {id: 9, pwm: 1500, duration_ms: 2200}

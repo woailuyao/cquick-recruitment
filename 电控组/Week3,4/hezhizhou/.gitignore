@@ -1,0 +1,11 @@
+build/
+install/
+log/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# bag/run1 是交付物，必须进仓库，因此不忽略 .db3
+!bag/run1/*.db3
+!bag/run1/metadata.yaml
