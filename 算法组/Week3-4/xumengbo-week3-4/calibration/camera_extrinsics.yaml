@@ -1,0 +1,31 @@
+# 相机外参（相机相对场地参考系的安装参数）
+# 坐标系：原点=场地中心；+X 朝球门，+Y 面朝 +X 左侧，Z 向上、地面 Z=0；单位米。
+
+calibration:
+  date: "2026-11-22"
+  measured_by: "xumengbo"
+  method: "卷尺测高度与水平偏移；水平仪测俯仰/滚转；三角法测偏航；各测 3 次"
+  uncertainty: "高度 ±3cm；角度 ±2°~3°"
+
+camera_to_carrier:
+  translation:                # 光心相对场地原点的位置（米）
+    x: -3.87
+    y: -0.10
+    z: 0.68
+  orientation_base: "forward" # forward=水平朝前；legacy=旧骨架约定
+  rotation:                   # 小角度微调（度）：pitch 俯视为负；roll 右歪为正；yaw 相对 +X 逆时针为正
+    pitch: -2.0
+    roll: 4.07
+    yaw: 0.0
+
+measurements:                 # 三次测量原始读数
+  height_trials: [0.732, 0.73, 0.729]
+  pitch_trials: [-5.1, -4.9, -5.0]
+  roll_trials: [4.1, 4.0, 4.1]
+  yaw_trials: [-4.1, -3.9, -4.1]
+
+image:
+  resolution: "1280x720"
+  fps_target: 30
+  auto_focus: false
+  auto_zoom: false
