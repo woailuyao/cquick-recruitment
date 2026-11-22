@@ -1,0 +1,9 @@
+schema: cquick_field_adapter_v1
+verified: true
+units: m
+axes: x_to_goal_y_left_z_up_yaw_ccw
+version: huyuhan_formal_center_geometry_20261119
+field_sha256: d4999b23efee9782819f84fb9c65e5c6491c07d010916f0c21045793a0ab2c0f
+source_geometry_sha256: 4c032bf43f6702faa6da4804578866e6d5b9b743939fa444b37c4b09b4e532ae
+confirmation: 'Team lead: formal penalty reference is unmarked center (0,0); geometry
+  only, not a visual landmark.'

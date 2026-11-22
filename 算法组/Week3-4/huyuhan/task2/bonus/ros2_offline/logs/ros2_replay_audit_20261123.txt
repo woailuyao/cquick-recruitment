@@ -1,0 +1,47 @@
+CQuick ROS2 Offline Replay Audit
+Date: 2026-11-23
+Environment: Ubuntu 22.04.5 / ROS2 Humble
+
+Source frames: 2230
+
+Topic: /soccer/ball
+Total messages: 2230
+Valid messages: 2230
+Ball detection frames: 658
+Ball detection instances: 659
+Empty detection messages: 1572
+Status:
+  ok: 658
+  no_detection: 1572
+
+Topic: /localization/field_pose
+Total messages: 2230
+Valid localization: 631
+Invalid localization: 1599
+
+Status:
+  ok: 631
+  insufficient_markers: 1435
+  no_consistent_match: 150
+  ambiguous: 13
+  camera_outside_measured_half: 1
+
+Marker count among valid localization:
+  3 markers: 532
+  4 markers: 99
+
+JSON parsing errors: 0
+
+Original JSONL verification:
+  Total frames: 2230
+  Ball detection frames: 658
+  Ball instances: 659
+  Valid localization: 631
+
+Result:
+  Source and ROS2 subscriber statistics match.
+  Count-level offline replay verification PASSED.
+
+Scope:
+  Historical JSONL offline replay.
+  Not a live camera ROS2 integration test.

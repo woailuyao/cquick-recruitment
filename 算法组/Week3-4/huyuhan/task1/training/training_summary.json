@@ -1,0 +1,9 @@
+{
+  "epochs": 100,
+  "best_epoch": 87,
+  "best_validation_map50": 0.995,
+  "best_validation_map50_95": 0.93309,
+  "frozen_validation_map50_95": 0.9309796305145467,
+  "last_epoch": 100,
+  "last_validation_map50_95": 0.92927
+}

@@ -1,0 +1,7 @@
+path: "/home/hu_yuhan/Week3-4_delivery_staging_20261122/huyuhan/task1_reproducibility_source_20261122/rebuilt_yolo_ball_v3"
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names:
+  0: ball

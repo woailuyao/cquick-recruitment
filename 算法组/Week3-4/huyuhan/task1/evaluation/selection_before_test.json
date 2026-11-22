@@ -1,0 +1,11 @@
+{
+  "variant": "s",
+  "best": "/home/hu_yuhan/Cquick/Week3-4/results/task1_ball_yolo/formal_v3_20261114_214759_977028/ball_yolov8s_20261115_195246_886751/weights/best.pt",
+  "best_sha256": "732ecee9f41639b6888632e1cd8417569807f570a680423b29547c9752824eae",
+  "rule": "Choose model by validation mAP50-95, tie by smaller model; evaluate test only after choice is saved.",
+  "validation_map50_95": {
+    "n": 0.9179028656374065,
+    "s": 0.9309796305145467
+  },
+  "plan_sha256": "5de8ce62cd171d54dff06cf7dd81ee6889facc35f140292ce7eae01e5880e2a8"
+}
