@@ -1,0 +1,45 @@
+# 左右腿交替踏步 -> 双腿同抬 -> 八关节回中位
+#
+# 与 show_group.yaml 的结构刻意相反：
+#   show_group：左侧 1&2 与 3&4 依次抬 -> 四关节同时下压 -> 回中位（同步为主）
+#   step8     ：左腿抬/落 -> 右腿抬/落 -> 双腿同抬 -> 回中位（交替为主）
+# 同一套播放器、同一个 action 接口，只换 action_file，用来证明"动作是数据不是代码"。
+#
+# ID 分布（id=5 所在通道已过载隔离，id=6 与其镜像，两者都不参与）：
+#   左腿 1(踝) 2 3 4     |   右腿 10(踝) 9 8 7
+#   镜像对：(1,10) (2,9) (3,8) (4,7)
+#
+# 参数全部按实测结果放宽：duration_ms=2500（700~1500ms 时舵机走不完，
+# 读回只偏 ±10 步）、幅度 ±150（1650 / 1350）。任何一步同时发力的舵机不超过 4 只。
+
+name: step8
+description: 左腿抬落 -> 右腿抬落 -> 双腿同抬 -> 八关节回中位（左右交替，8 关节）
+
+steps:
+  - name: 01_左腿抬起
+    settle_ms: 1800
+    joints: [{id: 1, pwm: 1650, duration_ms: 2500}, {id: 2, pwm: 1650, duration_ms: 2500}]
+
+  - name: 02_左腿落下
+    settle_ms: 1500
+    joints: [{id: 1, pwm: 1500, duration_ms: 2500}, {id: 2, pwm: 1500, duration_ms: 2500}]
+
+  - name: 03_右腿抬起
+    settle_ms: 1800
+    joints: [{id: 9, pwm: 1650, duration_ms: 2500}, {id: 10, pwm: 1650, duration_ms: 2500}]
+
+  - name: 04_右腿落下
+    settle_ms: 1500
+    joints: [{id: 9, pwm: 1500, duration_ms: 2500}, {id: 10, pwm: 1500, duration_ms: 2500}]
+
+  - name: 05_双腿同时抬
+    settle_ms: 1800
+    joints: [{id: 1, pwm: 1650, duration_ms: 2500}, {id: 2, pwm: 1650, duration_ms: 2500},
+             {id: 9, pwm: 1650, duration_ms: 2500}, {id: 10, pwm: 1650, duration_ms: 2500}]
+
+  - name: 06_八关节回中位
+    settle_ms: 1800
+    joints: [{id: 1, pwm: 1500, duration_ms: 2500}, {id: 2, pwm: 1500, duration_ms: 2500},
+             {id: 3, pwm: 1500, duration_ms: 2500}, {id: 4, pwm: 1500, duration_ms: 2500},
+             {id: 7, pwm: 1500, duration_ms: 2500}, {id: 8, pwm: 1500, duration_ms: 2500},
+             {id: 9, pwm: 1500, duration_ms: 2500}, {id: 10, pwm: 1500, duration_ms: 2500}]
