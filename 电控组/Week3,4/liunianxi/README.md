@@ -336,6 +336,7 @@ colcon test --packages-select cquick_servo && colcon test-result --verbose
 ├── 03_用户座接线细节.png（「用户」串口座 `RX1 TX1 GND 5V` 放大图：3 根线插满第 1~3 针，第 4 针 5V 空着）
 ├── 03_整机正面.png（整机正视图，舵机编号 3/4/5/6/8 与手写姓名日期纸条同框）
 ├── 03_关节朝向_髋.png / 03_关节朝向_腿踝左.png / 03_关节朝向_腿踝右.png（细则 L424 要求：逐个关节的舵机朝向）
+├── 03_动作组抢占日志.png（加分项⑥：跑到一半被 `/sequence/play` 抢占，改跑另一组动作）
 ├── 调试记录.md
 ├── README.md（本文件）
 ├── bag/run1/{metadata.yaml, run1_0.db3}（真机录，5+5 条）
@@ -384,8 +385,8 @@ ros2 launch cquick_servo servo.launch.py port:=/dev/cq_servo
 | ② PRAD 闭环自动重发 | +3 | 已做 | 假舵机注入「第一次少走 80」→ 日志「未到位 → 重发一次」，结果 `ok(diff=0,retried)` |
 | ③ 安全看门狗 | +3 | 已做 | `param set watchdog_stall_test 2.0` → `看门狗超时…全部 PULK` + goal 被拒 → `rearm` 后恢复 |
 | ④ 串口掉线自动重连 | +3 | 已做 | 拔掉转接器 → `serial_error` + WARN，进程不崩；插回 → `串口已重连`，动作继续 |
-| ⑤ pytest | +2 | 已做（10 例） | `colcon test` → `10 tests, 0 errors, 0 failures` |
-| 动作组抢占 | +4 | 没做 | —— |
+| ⑤ pytest | +2 | 已做（12 例） | `colcon test` → `12 tests, 0 errors, 0 failures` |
+| ⑥ 动作组抢占 | +4 | 已做（2026-11-23 凌晨） | 跑到一半发 `/sequence/play` 换动作组 → 旧组在步间中止、在跑 goal 被取消、新组接着跑完，见 §17.4 与 `03_动作组抢占日志.png` |
 
 ### 17.1 三项验证的真实日志（仿真：socat + `fake_servo`）
 
@@ -421,3 +422,43 @@ success=True, message='rearmed'
 ### 17.3 真机回归待补
 
 上面三项是在仿真里验证的（真机那会儿转接器已拔）。真机复测只要插上 CH340、用 `port:=/dev/ttyUSB0` 或默认 `/dev/cq_servo` 起 launch，按 §11 的步骤走一遍即可，验证命令与 §17.1 完全相同。
+
+### 17.4 动作组抢占（+4，2026-11-23 凌晨）
+
+**要解决的问题**：动作组跑到一半想换一套动作，原来的播放器只能等这一组跑完，中间没法打断。
+
+**做法**（`cquick_servo/sequence_player.py` + 纯函数 `cquick_servo/sequence_logic.py`）：
+
+- 播放器默认订阅 `/sequence/play`（`std_msgs/String`，内容是 yaml 路径），参数 `listen_topic` 可关，`play_topic` 可改名；
+- **只在「步与步之间」中止**：一步里的多个关节要么都做完，要么都不开始，避免一组动作停在半截；
+- 正在等 result 时收到请求，就把这一组**所有在跑的 goal 一起取消**（`cancel_goal_async`），驱动侧按取消路径回中位 1500；
+- 已经在跑同一个 yaml 再发同一路径 → 直接忽略（否则脚本连发会自己把自己打断）；
+- 一个进程内最多接着跑 3 组（`MAX_CHAIN`），防止抢占风暴。
+
+**怎么演示**（两个终端）：
+
+```
+# 终端 A
+ros2 run cquick_servo sequence_player --ros-args \
+    -p actions_file:=$HOME/ros2_ws/src/cquick_servo/config/actions/stand_up.yaml
+# 终端 B：跑到一半时发这条
+ros2 topic pub --once /sequence/play std_msgs/msg/String \
+    "{data: $HOME/ros2_ws/src/cquick_servo/config/actions/squat.yaml}"
+```
+
+真实日志（对应截图 `03_动作组抢占日志.png`）：
+
+```
+[INFO] 抢占监听已开：/sequence/play（发 yaml 路径即可抢占）
+[INFO] 动作组「stand_up」：4 步 × 1 轮
+[WARN] 收到抢占请求：squat.yaml
+[WARN] 抢占：中断动作组「stand_up」（第 1 步，正在等 result）
+[WARN]   id=1 ... id=10 取消请求已受理
+[WARN] -> 开始「squat.yaml」
+[INFO] 动作组「squat」：3 步 × 2 轮
+[INFO] 动作组结束，失败 0 个 joint
+```
+
+**兼容性**：`-p listen_topic:=false` 时完全退回老行为（不订阅、不打印监听行），`nod.yaml` 跑 3 步仍 `失败 0 个 joint`；pytest 从 10 例加到 **12 例**，`colcon test` = `12 tests, 0 errors, 0 failures`。
+
+**踩到的两个坑**：① 取消消息里写的是中文「动作被取消」，只匹配英文 `cancel` 会被判成失败 → 改成中英都认；② 10 个 goal 同时跑时把 `MultiThreadedExecutor` 的 4 个线程抽干，心跳 timer 饿死导致看门狗误判 → 线程数加到 16 后再没误判。

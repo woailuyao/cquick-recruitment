@@ -16,6 +16,14 @@ from cquick_servo.servo_link import (
     parse_id,
     parse_pwm,
 )
+from cquick_servo.sequence_logic import (
+    STATUS_CANCELED,
+    STATUS_FAILED,
+    STATUS_OK,
+    classify_canceled,
+    pick_next_path,
+    should_abort,
+)
 
 
 def test_build_move_pads_id_to_three_digits():
@@ -69,3 +77,32 @@ def test_retry_duration_is_shorter_than_floor():
 def test_watchdog_budget_survives_three_heartbeats():
     # 心跳周期 ×3 必须不大于超时时间，否则节点正常运行也会被看门狗误判
     assert HEARTBEAT_PERIOD * 3 <= WATCHDOG_TIMEOUT
+
+
+# ---------------- 加分项：动作组抢占（纯函数，无硬件可跑） ----------------
+def test_sequence_should_abort_only_between_steps():
+    # 没请求抢占时永远不中止
+    assert should_abort(False, 1, 4) is False
+    assert should_abort(False, 4, 4) is False
+    # 有请求时，任何一步开始前都允许中止（步内不打断）
+    assert should_abort(True, 1, 4) is True
+    assert should_abort(True, 3, 4) is True
+    # 空动作组直接中止，别卡在循环里
+    assert should_abort(True, 1, 0) is True
+
+
+def test_sequence_pick_next_path_and_cancel_classification():
+    # 没有 pending、或 pending 就是当前这条，都不算抢占
+    assert pick_next_path("", "/a/stand_up.yaml") == ("/a/stand_up.yaml", False)
+    assert pick_next_path("/a/stand_up.yaml", "/a/stand_up.yaml") == (
+        "/a/stand_up.yaml",
+        False,
+    )
+    # 换了新路径才是抢占
+    assert pick_next_path("/a/squat.yaml", "/a/stand_up.yaml") == ("/a/squat.yaml", True)
+    # 被抢占时驱动回 success=False + message=canceled，不能算失败
+    assert classify_canceled(False, "canceled") == STATUS_CANCELED
+    assert classify_canceled(False, "动作被取消") == STATUS_CANCELED
+    # 正常到位、以及真失败，各归各位
+    assert classify_canceled(True, "ok(diff=0)") == STATUS_OK
+    assert classify_canceled(False, "not_reached:47") == STATUS_FAILED

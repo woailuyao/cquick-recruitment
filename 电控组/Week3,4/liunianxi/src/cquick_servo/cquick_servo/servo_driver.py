@@ -557,7 +557,8 @@ def main(argv=None) -> None:
     rclpy.init(args=argv)
     node = ServoDriver()
     # 这里必须多线程，如果单线程 + time.sleep 会把 cancel 回调搞没。
-    executor = MultiThreadedExecutor(num_threads=4)
+    # 线程数要压得住「一个动作组同时下发 10 个 goal」：10 个执行线程 + 心跳 + rearm + 重连定时器
+    executor = MultiThreadedExecutor(num_threads=16)
     executor.add_node(node)
     try:
         executor.spin()
