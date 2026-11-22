@@ -1,0 +1,52 @@
+# ============================================================
+# 场地几何与坐标系定义（与 field_measured.yaml 配套）
+# 原点 = 中圈中心（本人实测）
+# ============================================================
+
+field: C0
+version: measured-2026-11-21
+map_file: field_measured.yaml
+
+# 单位与坐标轴
+unit: m
+x_axis: "+X 向右，yaw 从 +X 轴逆时针为正"
+y_axis: "+Y 向上"
+z_axis: "地面为 Z=0，向上为正"
+yaw_convention: "从 +X 轴逆时针为正，单位 deg"
+origin:
+  note: "中圈中心（地面）"
+  x: 0.0
+  y: 0.0
+
+# 实测范围（由标志外接框得到）
+measured_extent:
+  x: [-3.00, 3.00]
+  y: [-3.90, 3.90]
+
+# 场地结构：两端各一套球门线/球门区/禁区，左右对称
+structure:
+  goal_line_y: 3.90          # 两端球门线
+  goal_area_depth: 0.95      # 球门区线 y = 2.95
+  penalty_area_depth: 1.90   # 禁区线   y = 2.00
+  field_width: 6.00          # x ∈ [-3, 3]
+  field_length: 7.80         # y ∈ [-3.9, 3.9]
+  symmetric: true            # 180° / 左右 / 前后 都对称
+
+# 相机安装（标定后回填）
+camera_mount: "固定支架，测试期间不移动"
+camera_height_m: 0.62          # 由 2m/3m 地面点反推，待 solvePnP 后覆盖
+camera_pitch_down_deg: 11.0    # 同上
+camera_roll_deg: 0.0
+
+# 场地结构解读（用于 README 说明）
+structure_notes:
+  - "y=+3.90 是 +Y 端球门线：LCross1/LCross2 为场地角点，TCross3~6 为球门区/禁区边线与球门线的丁字交点"
+  - "y=+2.95 是球门区线（距球门线 0.95 m），LCross3/LCross4 为球门区两角"
+  - "y=+2.00 是禁区线（距球门线 1.90 m），LCross5/LCross6 为禁区两角"
+  - "TCross1(0,+3.0) 与 TCross2(0,-3.0) 是两端球门区线的中点（中线与球门区线的交点）"
+  - "XCross 应为中圈与中线（y=0）的两个交点，左右各一个"
+
+notes:
+  - "地图为本人在 C0 场地实测，未做平移/旋转/缩放去迁就算法"
+  - "XCross2 的 x=4.0 与场地范围不符，待复核（疑似 0.4）"
+  - "PenalityPoint 落在中圈中心，物理上应为 CenterPoint，待复核"

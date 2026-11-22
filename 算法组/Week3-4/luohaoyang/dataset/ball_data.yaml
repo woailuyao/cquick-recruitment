@@ -1,0 +1,8 @@
+path: F:/robot/luohaoyang/week3_4/task1_football/dataset
+train: images/train
+val: images/val
+test: images/test
+
+nc: 1
+names:
+  0: ball
