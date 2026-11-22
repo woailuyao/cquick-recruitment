@@ -1,0 +1,30 @@
+# 参数文件：最外层 key 必须等于节点名 servo_driver，写错不报错、只是静默不加载。
+servo_driver:
+  ros__parameters:
+    # 串口设备：udev 规则把它固定成 /dev/cq_servo；
+    # 没装 udev 规则时临时用 port:=/dev/ttyUSB0 覆盖
+    port: /dev/ttyUSB0
+    baudrate: 115200
+
+    # 安全区间：由结构实测得到，不用电气的 500~2500
+    pwm_min: 900
+    pwm_max: 2100
+
+    # 客户端不给 duration_ms 时用这个时长
+    default_duration_ms: 1000
+
+    # 本机实际装了的舵机；不在列表里的 ID 会被 goal_callback 直接拒绝
+    servo_ids: [1, 2, 3, 4, 5, 6]
+
+    # 上电后是否把所有舵机先回中位（1500）
+    startup_reset: true
+
+    # PRAD 闭环：偏差在这个范围内算到位，否则自动重发一次
+    position_tolerance: 50
+
+    # 看门狗：超过这么多秒没有心跳就全部 PULK 卸力
+    watchdog_timeout_s: 1.0
+
+    # 读不到 PRAD 回显时：false = 用最后下发的 PWM 作为结果（message 标注 open-loop）；
+    # true = 严格模式，读不到就判失败。控制板支持回读时建议设 true
+    require_prad: false
