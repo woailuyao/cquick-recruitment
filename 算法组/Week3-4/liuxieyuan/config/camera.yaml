@@ -1,0 +1,10 @@
+﻿# 相机硬件与采集参数
+device: USB UVC 单目相机（免驱，固定焦距）
+windows_index: 0         # OpenCV CAP_DSHOW 索引
+linux_node: /dev/video0
+resolution: [640, 480]   # 实际采集
+fps: 30
+calibration_resolution: [1280, 720]
+autofocus: false
+auto_zoom: false
+lens: 固定焦距、手动对焦（焦距数值未记录）

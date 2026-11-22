@@ -1,0 +1,27 @@
+# 相机内参与安装参数（实测）
+# 标定分辨率 1280x720；实际采集 640x480，程序内按比例缩放内参
+
+image_width: 1280
+image_height: 720
+
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [1600.13, 0.0, 684.35,
+         0.0, 1611.72, 333.26,
+         0.0, 0.0, 1.0]
+
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.1870, -0.9677, -0.0073, 0.0041, 0.4217]
+
+# 安装外参
+camera_height_m: 0.73    # 光心离地高度（卷尺实测）
+pitch_deg: 19.0          # 俯仰角，向下为正（用地面对应点标定）
+
+# 说明
+notes: |
+  畸变系数顺序 k1 k2 p1 p2 k3（OpenCV 标准）。
+  俯仰角通过“点击一个已知地面点 + 输入卷尺实测 X,Y”反解，
+  见 src/task2_localization.py --pitch 或 run_task2.bat 的菜单 2。
