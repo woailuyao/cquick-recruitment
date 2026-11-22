@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo_interfaces</name>
+  <version>0.1.0</version>
+  <description>CQuick 电控组总线舵机接口定义（msg + action），纯 CMake 包，只放接口</description>
+  <maintainer email="373863921@qq.com">tangjiayi</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- 编译期：生成接口代码 -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- 运行期：别的包 import 这个接口时能加载 -->
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <!-- 位置有讲究，两处都卡：
+       1) rosidl 生成接口时要求在 package.xml 里能搜到这一行，写在 <export> 里面它会搜不到 → 编译直接失败
+       2) xmllint 又要求它排在所有 test_depend 之后、<export> 之前
+       所以只能放这里：顶层、所有 depend 之后、export 之前。两行注释别随手挪。 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

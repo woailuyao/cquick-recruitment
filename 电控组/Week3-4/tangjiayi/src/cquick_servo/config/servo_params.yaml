@@ -1,0 +1,46 @@
+# ============================================================
+# 最外层 key 必须等于【节点名】。
+# 写成 servo_driver_node / ServoDriver 之类的，参数一个都不加载，
+# 而且不报错、不警告 —— 然后你会以为是代码问题查到半夜。
+# ============================================================
+
+servo_driver:
+  ros__parameters:
+    # ---- 细则要求必须参数化的七个
+    port: /dev/cq_servo          # udev 固定名（加分项）。没装规则就 launch 时 port:=/dev/ttyUSB0
+    baudrate: 115200
+    pwm_min: 1050                # 实测下限：目标 1000 可到（读回 1008），950/900 卡在 1007 不动
+                                 # 取 1050 留 45 步余量，保证区间内每条 goal 都能进 pos_tolerance
+    pwm_max: 2100                # 实测 2100 可到（读回 2089）
+    default_duration_ms: 800     # 客户端不填 duration 时用这个；800ms 走完 900 步，肉眼是平滑的
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]   # 整机 10 个关节（两条腿各 5 个）
+                                 # 不在表里的 ID 一律 REJECT；加减舵机只改这一行，不动代码
+    startup_reset: true          # 上电全部回 1500，方便装配时对基准位
+
+    # ---- 本实现为「回中位 / 反馈 / 重连 / 看门狗」补的参数
+    pwm_center: 1500             # 中立位。取消动作、上电复位都回这里
+    center_duration_ms: 800      # 回中位用时；给小了会猛跳撞结构
+    feedback_period_ms: 200      # = 5 Hz，细则的下限，压线过不如留点余量
+    pos_tolerance: 30            # PRAD 与目标差多少算「到位」，±30 约 3°
+    retry_times: 1               # 未到位自动重发次数（PRAD 闭环加分项）
+    watchdog_enabled: true       # 看门狗总开关
+    watchdog_timeout_ms: 1000    # 1 秒没收到 /servo/heartbeat 就全部 PULK
+    reconnect_period_ms: 1000    # 串口掉线后多久重试一次打开
+    allow_preempt: true          # 同一 ID 允许新 goal 抢占旧动作
+
+move_client:
+  ros__parameters:
+    servo_id: 1
+    target_pwm: 1700
+    duration_ms: 1000
+    interactive: false
+    heartbeat_period_ms: 200
+    hold_after_goal: true        # 发完保持在线继续发心跳，方便演看门狗
+
+sequence_player:
+  ros__parameters:
+    action_file: ''              # 空字符串 = 必须用 launch 的 action_file:= 覆盖
+    loop_times: 1                # 0 = 一直循环
+    dry_run: false               # true = 只打印展开结果，不发 goal（无硬件也能验 yaml）
+    goal_timeout_s: 10.0
+    heartbeat_period_ms: 200

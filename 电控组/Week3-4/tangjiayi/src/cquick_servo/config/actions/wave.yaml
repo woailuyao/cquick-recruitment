@@ -1,0 +1,92 @@
+# 动作定义：wave（整机左右交替下压/抬起，摆动三轮，最后回中位）
+#
+# 为什么有两套：只交一套，容易被认为"把硬编码翻译成 yaml"。
+# 这套结构完全靠 step 数量堆出来（13 个 step、往复三轮），换 action_file 就能播。
+#
+# ID 分布同 stand_up.yaml：
+#   左腿 1(踝) 2 3 4 5(髋)  |  右腿 6(髋) 7 8 9 10(踝)
+# 幅度 ±80（约 18°）：看得清，又远没到结构限位。
+
+name: wave
+description: 左右腿交替下压与抬起，整机左右摆动三轮，最后回中位
+
+steps:
+  - name: 01_左腿下压
+    settle_ms: 100
+    joints: [{id: 1, pwm: 1580, duration_ms: 500}, {id: 2, pwm: 1580, duration_ms: 500},
+             {id: 3, pwm: 1580, duration_ms: 500}, {id: 4, pwm: 1580, duration_ms: 500},
+             {id: 5, pwm: 1580, duration_ms: 500}]
+
+  - name: 02_右腿抬起
+    settle_ms: 100
+    joints: [{id: 6, pwm: 1420, duration_ms: 500}, {id: 7, pwm: 1420, duration_ms: 500},
+             {id: 8, pwm: 1420, duration_ms: 500}, {id: 9, pwm: 1420, duration_ms: 500},
+             {id: 10, pwm: 1420, duration_ms: 500}]
+
+  - name: 03_左腿抬起
+    settle_ms: 100
+    joints: [{id: 1, pwm: 1420, duration_ms: 500}, {id: 2, pwm: 1420, duration_ms: 500},
+             {id: 3, pwm: 1420, duration_ms: 500}, {id: 4, pwm: 1420, duration_ms: 500},
+             {id: 5, pwm: 1420, duration_ms: 500}]
+
+  - name: 04_右腿下压
+    settle_ms: 120
+    joints: [{id: 6, pwm: 1580, duration_ms: 500}, {id: 7, pwm: 1580, duration_ms: 500},
+             {id: 8, pwm: 1580, duration_ms: 500}, {id: 9, pwm: 1580, duration_ms: 500},
+             {id: 10, pwm: 1580, duration_ms: 500}]
+
+  - name: 05_左腿下压
+    settle_ms: 100
+    joints: [{id: 1, pwm: 1580, duration_ms: 450}, {id: 2, pwm: 1580, duration_ms: 450},
+             {id: 3, pwm: 1580, duration_ms: 450}, {id: 4, pwm: 1580, duration_ms: 450},
+             {id: 5, pwm: 1580, duration_ms: 450}]
+
+  - name: 06_右腿抬起
+    settle_ms: 100
+    joints: [{id: 6, pwm: 1420, duration_ms: 450}, {id: 7, pwm: 1420, duration_ms: 450},
+             {id: 8, pwm: 1420, duration_ms: 450}, {id: 9, pwm: 1420, duration_ms: 450},
+             {id: 10, pwm: 1420, duration_ms: 450}]
+
+  - name: 07_左腿抬起
+    settle_ms: 100
+    joints: [{id: 1, pwm: 1420, duration_ms: 450}, {id: 2, pwm: 1420, duration_ms: 450},
+             {id: 3, pwm: 1420, duration_ms: 450}, {id: 4, pwm: 1420, duration_ms: 450},
+             {id: 5, pwm: 1420, duration_ms: 450}]
+
+  - name: 08_右腿下压
+    settle_ms: 120
+    joints: [{id: 6, pwm: 1580, duration_ms: 450}, {id: 7, pwm: 1580, duration_ms: 450},
+             {id: 8, pwm: 1580, duration_ms: 450}, {id: 9, pwm: 1580, duration_ms: 450},
+             {id: 10, pwm: 1580, duration_ms: 450}]
+
+  - name: 09_左腿下压
+    settle_ms: 100
+    joints: [{id: 1, pwm: 1580, duration_ms: 400}, {id: 2, pwm: 1580, duration_ms: 400},
+             {id: 3, pwm: 1580, duration_ms: 400}, {id: 4, pwm: 1580, duration_ms: 400},
+             {id: 5, pwm: 1580, duration_ms: 400}]
+
+  - name: 10_右腿抬起
+    settle_ms: 100
+    joints: [{id: 6, pwm: 1420, duration_ms: 400}, {id: 7, pwm: 1420, duration_ms: 400},
+             {id: 8, pwm: 1420, duration_ms: 400}, {id: 9, pwm: 1420, duration_ms: 400},
+             {id: 10, pwm: 1420, duration_ms: 400}]
+
+  - name: 11_左腿抬起
+    settle_ms: 100
+    joints: [{id: 1, pwm: 1420, duration_ms: 400}, {id: 2, pwm: 1420, duration_ms: 400},
+             {id: 3, pwm: 1420, duration_ms: 400}, {id: 4, pwm: 1420, duration_ms: 400},
+             {id: 5, pwm: 1420, duration_ms: 400}]
+
+  - name: 12_右腿下压
+    settle_ms: 150
+    joints: [{id: 6, pwm: 1580, duration_ms: 400}, {id: 7, pwm: 1580, duration_ms: 400},
+             {id: 8, pwm: 1580, duration_ms: 400}, {id: 9, pwm: 1580, duration_ms: 400},
+             {id: 10, pwm: 1580, duration_ms: 400}]
+
+  - name: 13_全部回中位
+    settle_ms: 250
+    joints: [{id: 1, pwm: 1500, duration_ms: 900}, {id: 2, pwm: 1500, duration_ms: 900},
+             {id: 3, pwm: 1500, duration_ms: 900}, {id: 4, pwm: 1500, duration_ms: 900},
+             {id: 5, pwm: 1500, duration_ms: 900}, {id: 6, pwm: 1500, duration_ms: 900},
+             {id: 7, pwm: 1500, duration_ms: 900}, {id: 8, pwm: 1500, duration_ms: 900},
+             {id: 9, pwm: 1500, duration_ms: 900}, {id: 10, pwm: 1500, duration_ms: 900}]

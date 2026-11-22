@@ -1,0 +1,92 @@
+CQuick 电控组 第3、4周招新考核 · 交付说明
+姓名拼音：tangjiayi
+整理时间：2026-11-20 20:40
+
+一、终端截图（12 张，均在本目录根下）
+  01_中立位标定.png              四机 1503/1496/1503/1503，带姓名+时间戳
+  02_接口编译.png                action 三段 + msg 三字段，带姓名+时间戳
+  02_参数自检.png                生效参数 8 行 + 硬编码自检，带姓名+时间戳
+  02_限位保护.png                三条 Goal was rejected（2500 / 1 / id9）
+  02_bag_info.png                bag：61.4 KiB / 260 条 / 51.2 s
+  02_action_反馈.png             feedback 1786→1513 逐级递减 + result readback
+  02_取消生效.png                CANCELED + message=canceled + readback 1506
+  03_ID扫描.png                  10 只全在线 1~10
+  02_param_set现场.png           改成功 → 回读 1600 → 超电气极限被拒
+                                 → min>max 被拒 → 恢复 2100（纯参数层 5 步）
+
+  以下 3 张为补充证据
+  02_参数自检_补充_param_dump.png  ros2 param dump 全参数
+  03_动作组dry_run_补充.png        6 step / 20 goal，证明动作组由 yaml 驱动
+  03_测试全绿_补充.png             28 tests, 0 errors, 0 failures
+
+二、实拍照片（6 张，2026-11-20 手机拍摄）
+  01_电池电压.png                UNI-T UT33D+ 直流档 7.98 V，电池 2S 1500mAh 45C
+                                 本体 + 表笔接触 XT60，三样同框
+  03_整机照片.png                正面全身，双腿对称、控制板居中、接线全部可见
+  03_整机照片_侧面.png           侧前 3/4 视角，另一角度
+  03_接线特写.png                控制板 + 白色排针座 + 舵机三线插头 + 绿色电源端子
+                                 + XT60 黄头，由俯拍原图裁切放大 2 倍
+  03_侧面五关节_补充.png         侧面看每腿 5 只舵机逐级堆叠，可数关节
+  03_单腿结构_补充.png           单腿特写，ZP20D 舵机标签清晰
+
+三、录屏（B 站 · 7 段，均实机一次录制、无剪辑无加速）
+  B 站合集：CQuick电控 第3-4周考核 · tangjiayi
+
+  P1  任务2 · 单舵机正转→反转→回中位（id=1）              0:25
+      feedback 逐级递减，四条 goal 全部 SUCCEEDED
+      https://www.bilibili.com/video/BV1ZhypzxE2p/
+
+  P2  任务2 · 执行中 Ctrl+C 取消（id=1）                   0:18
+      status: CANCELED / canceled: True / message: canceled，
+      随后自动回中位并 SUCCEEDED
+      https://www.bilibili.com/video/BV1BhypzxE48/
+
+  P3  任务2 · ros2 bag play 回放复现动作                   0:54
+      /servo/command 驱动舵机复现录制时同样的动作序列
+      https://www.bilibili.com/video/BV1BhypzxEpw/
+
+  P4  任务2 · bag 录制与 info 核验                         1:10
+      record -o bag/run1 /servo/command /servo/state
+      → 61.4 KiB / 51.2 s / 260 条（仅 2 话题，未用 -a）
+      https://www.bilibili.com/video/BV1BhypzxETR/
+
+  P5  任务3 · 整机 10 关节逐个控制（本次操作 id=2/3/5）    1:25
+      goal accepted + 位置 readback（1604 / 1628），
+      画面内为装配完成的整机
+      https://www.bilibili.com/video/BV1BhypzxEAY/
+
+  P6  任务3 · 多舵机动作组 show_group 实机执行             0:21
+      P1 抬 1&2→1700 / P2 抬 3&4→1700 / P3 四关节同时下压→1300
+      / P4 八关节回中位→1500，终端打印 phase 时间戳与 read_position
+      https://www.bilibili.com/video/BV1fLy5zeEq3/
+
+  P7  任务4 · 安全下电：归位 → 卸力 → 手推确认 → 断电池      0:17
+      8 只归位「到位 8/8」→ 1~10 全部 PULK（逐行 torque off）
+      → 卸力后位置不变 → 手推关节松脱 → 拔 XT60
+      https://www.bilibili.com/video/BV1zLy5zeEVL/
+
+  说明：录屏画面内均含终端命令行与舵机动作，可证明由 ROS2 指令驱动；
+  P5 因整机带载受热保护限制，为逐关节控制验证；
+  动作组实机执行见 P6（show_group.yaml 4 step / 16 goal），编排见第四节 dry_run 记录。
+
+四、任务书清单项对应关系
+  01_串口设备  →  01_中立位标定.png + 02_参数自检.png
+      前者运行时打印「端口: /dev/ttyUSB0」，设备已枚举并被脚本成功打开；
+      后者 port 行 `port: /dev/cq_servo`，udev 固定名已生效。
+  01_PID回显  →  03_ID扫描.png
+      `#001PVER!` 回 ZL-ZServo_AD_CBM V2.1.16STG（型号+固件），
+      `#001PRAD!` 回实时位置，10 只 ID 1~10 全在线。
+
+五、代码与数据
+  README.md        设计说明 + 实测输出 + 录屏链接 + 加分项 + 答辩预演（共 17 节）
+  调试记录.md      设计期 / 上机期 / 7 个必答问题
+  src/             两个包：cquick_servo_interfaces、cquick_servo
+  bag/run1/        metadata.yaml + run1_0.db3（61.4 KiB，51.2 s，260 条）
+  tools/           串口找口、探测、改 ID、手动指令四个桌面小工具
+
+六、任务三：整机带载连跑受热保护限制
+  整机装好后 10 只舵机一起带载，目标 1580 只走到 1508（差 −71），
+  目标 1420 / 1700 直接不动；同时用 PRAD 读温度，多只落在 T120~T159。
+  断电后手推每个关节能转、不卡 → 排除结构干涉 → 锁定负载 + 热保护。
+  处理办法：降低幅度（±40）、拉长单步时长（900 ms）、动作之间留停顿让温度回落、整机架空再跑。
+  完整排查过程写在 README 第 10 节 ④，调试记录.md 2.3 节有现场记录。

@@ -1,0 +1,24 @@
+# ============================================================
+# Goal - one complete command
+# Fields are flattened from ServoCommand.msg instead of nesting a command field,
+# so the reviewer can send a goal straight from the command line:
+#   ros2 action send_goal /move_servo cquick_servo_interfaces/action/MoveServo "{id: 1, pwm: 1700, duration_ms: 1000}"
+# ============================================================
+uint8 id             # servo ID, 1-254; rejected if not listed in servo_ids
+uint16 pwm           # target PWM; rejected if outside pwm_min..pwm_max
+uint16 duration_ms   # travel time in ms; 0 means use default_duration_ms
+---
+# ============================================================
+# Result - did it actually arrive
+# ============================================================
+bool success         # true only when in position (and the PRAD check passed)
+uint16 pwm_readback  # actual position read back by PRAD after the motion; 0 if unreadable
+string message       # one-line reason, see the Result.message dictionary in README:
+                     #   ok / canceled / preempted / watchdog_locked / serial_down
+                     #   / not_in_position
+---
+# ============================================================
+# Feedback - progress transparency, at least 5 Hz (200 ms per message)
+# ============================================================
+uint16 pwm_current   # current PWM (PRAD readback preferred, otherwise time interpolation)
+float32 progress     # 0.0-1.0 = elapsed / duration_ms

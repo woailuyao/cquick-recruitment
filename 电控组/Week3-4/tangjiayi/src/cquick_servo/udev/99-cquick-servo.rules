@@ -1,0 +1,28 @@
+# ============================================================
+# CQuick 总线舵机 —— udev 固定设备名（加分项 +2）
+#
+# 现场同时插着 TTL、摄像头、调试串口时，/dev/ttyUSB0 会变成 ttyUSB1、ttyUSB2。
+# 设备名一变，代码里的 port 参数就指错地方，表现是「昨天还好好的，今天就打不开串口」。
+# 这条规则把口按 USB 芯片的 VID/PID 绑成固定名字 /dev/cq_servo，拔了重插名字不变。
+#
+# 安装：
+#   sudo cp 99-cquick-servo.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules
+#   sudo udevadm trigger
+#   ls -l /dev/cq_servo          # 应该出现，指向 ttyUSBx
+#
+# 先确认自己模块的 VID/PID（不同批次的 USB 转 TTL 芯片可能不一样）：
+#   lsusb
+#   udevadm info -a -n /dev/ttyUSB0 | grep -E 'idVendor|idProduct'
+#
+# 下面两条覆盖实验室最常见的两种：
+#   1a86:7523  CH340      （最常见的那种蓝色小模块）
+#   10c4:ea60  CP2102
+# 如果你的不是这两种，把 VID/PID 换成 lsusb 里看到的即可。
+# ============================================================
+
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
+SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="cq_servo", MODE="0666", GROUP="dialout"
+
+# 说明：MODE="0666" 是给「来不及重新登录 dialout 组」的场合兜底。
+# 正常做法仍然是 sudo usermod -aG dialout $USER 之后重新登录，两条一起更稳。
