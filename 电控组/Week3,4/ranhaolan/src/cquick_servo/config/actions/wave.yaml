@@ -1,0 +1,9 @@
+steps:
+  - name: "双腿同时往外"
+    joints:
+      - {id: 1, pwm: 1600, duration_ms: 1500}
+      - {id: 2, pwm: 1400, duration_ms: 1500}
+  - name: "双腿收回"
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1500}
+      - {id: 2, pwm: 1500, duration_ms: 1500}
