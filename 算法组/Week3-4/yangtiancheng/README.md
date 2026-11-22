@@ -683,3 +683,64 @@ $py="C:\Users\Lenovo\Documents\Codex\2026-11-14\soccer-localization-continuation
 - 标志 YOLO 在实时画面上检出不足，当前验收依赖 HSV 前端 + 几何验真。
 - 足球在贴网、高亮、黑白纹理混杂场景存在 640 输入漏检。
 - 任务二定位依赖至少两个可信且几何上可区分的特征；不足时只能输出 INVALID。
+
+## 15. ONNX 推理对比
+
+导出与对比环境：
+
+```text
+Python            3.12.14
+Ultralytics       8.4.215
+torch             2.15.0+cpu
+onnx              1.23.2
+onnxruntime       1.32.0
+opset             12
+imgsz             640
+device            CPU
+```
+
+ONNX 文件：
+
+```text
+C:\Users\Lenovo\Documents\Codex\2026-11-19\du-q\outputs\ball_onnx_comparison_20261122\ball_v3_best.onnx
+SHA-256: DF1B87EEC374E9EC511E1F65E0030376FF81B18E8009F0A06A9FC52D429CC439
+```
+
+对比数据为同一批独立 test 的 77 张图片、36 个真值实例和 41 张无球背景，按 `ball_split_v3` 的视频来源 1、14、17 重建。
+
+表和框一致性测试固定使用：
+
+```text
+imgsz=640
+conf=0.25
+iou=0.7
+batch=1
+device=cpu
+```
+
+| 模型 | FPS | 单张延迟 | Precision | Recall | mAP50 | mAP50-95 |
+|---|---:|---:|---:|---:|---:|---:|
+| PyTorch `.pt` | 36.93 | 27.080 ms | 0.9944 | 0.8611 | 0.8650 | 0.7974 |
+| ONNX `.onnx` | 38.45 | 26.009 ms | 0.9887 | 0.8056 | 0.8315 | 0.7640 |
+
+框一致性按同类、匹配 IoU ≥ 0.5 配对，再用 IoU ≥ 0.99 判定几何一致：
+
+- 77 张图中 71 张框几何一致
+- 6 张不一致
+- ONNX 少 2 个框，没有多出框
+- 已配对框中有 6 个 IoU < 0.99
+
+差异图片：
+
+```text
+14_00010.jpg   1 个匹配框 IoU < 0.99
+14_00045.jpg   ONNX 少 1 个框
+14_00089.jpg   ONNX 少 1 个框，另有 1 个匹配框 IoU < 0.99
+14_00092.jpg   1 个匹配框 IoU < 0.99
+14_00093.jpg   1 个匹配框 IoU < 0.99
+1_00003.jpg    2 个匹配框 IoU < 0.99
+```
+
+ONNX 输出存在数值差异，匹配置信度平均差 `0.0362`、最大差 `0.4475`。上述对比使用部署 conf=0.25；5.2 节标准 test mAP 仍使用 `conf=0.001, iou=0.7`，两节的 conf 口径不同，不能直接混用。
+
+`.pt` 和 `.onnx` 权重本身都不进入提交包。
