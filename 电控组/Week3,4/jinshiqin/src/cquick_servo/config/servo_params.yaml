@@ -1,0 +1,11 @@
+# 最外层 key 必须等于节点名（Node 里叫 servo_driver）
+# 写错不报错、不警告，参数一个都不加载 —— 改完用 ros2 param get 核对
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    servo_ids: [1]        # 现在只有 001；六颗都改完再写 [1,2,3,4,5,6]
+    startup_reset: true
