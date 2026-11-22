@@ -1,0 +1,9 @@
+std_msgs/Header header
+bool valid
+float32 center_u
+float32 center_v
+float32 x
+float32 y
+float32 width
+float32 height
+float32 confidence

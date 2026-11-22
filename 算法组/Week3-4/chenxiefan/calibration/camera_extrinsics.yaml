@@ -1,0 +1,21 @@
+R_base_camera:
+- - 0.0
+  - -0.22495105
+  - 0.97437006
+- - -1.0
+  - 0.0
+  - 0.0
+- - 0.0
+  - -0.97437006
+  - -0.22495105
+t_base_camera:
+- 0.0
+- 0.0
+- 0.663
+camera_height_m: 0.663
+pitch_deg: 13.0
+roll_deg: 0.0
+yaw_deg: 0.0
+method: 卷尺 + 手机水平仪
+camera_frame: +X right, +Y down, +Z forward
+base_frame: +X forward, +Y left, +Z up

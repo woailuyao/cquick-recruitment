@@ -1,0 +1,7 @@
+path: dataset/marker
+train: images/train
+val: images/val
+names:
+  0: LCross
+  1: TCross
+  2: XCross

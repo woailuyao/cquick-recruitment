@@ -1,0 +1,37 @@
+# C0 场地几何（2026-11-21 坐标约定转换）
+
+field_id: C0
+map_version: C0-2026-11-21
+frame: map
+unit: m
+
+origin:
+  description: "中心圈圆心（中线中点，即全场场地中心）"
+  x: 0.0
+  y: 0.0
+
+axis:
+  x_direction: "指向唯一球门（距离点球点和两 XCross 最远的一端）"
+  y_direction: "面向 +X 时的左侧"
+  z_direction: "垂直地面向上"
+  yaw_positive: "逆时针为正"
+
+field_size:
+  length_m: 3.968   # X 方向，中线到球门线
+  width_m: 5.954    # Y 方向，球门线长度
+
+# 场地范围：x 从 0 到 3.968，y 从 -2.977 到 +2.977
+
+# 中心圈（圆心即地图原点）
+center_circle:
+  center_x: 0.0
+  center_y: 0.0
+  radius_m: 0.731
+
+# 实测条件与误差
+measurement:
+  date: "2026-11-18"
+  converted: "2026-11-21"
+  tool: "5 cm 宽胶带 + 卷尺，外沿到外沿，已按单条胶带宽度（50 mm）换算到中心线"
+  tolerance_m: 0.03
+  note: "胶带每天被踩，位置会漂移；正式验收前建议复测外框和球门区"
