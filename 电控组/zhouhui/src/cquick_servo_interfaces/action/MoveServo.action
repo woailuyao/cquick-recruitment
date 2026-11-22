@@ -1,0 +1,14 @@
+# 目标：一条完整指令
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# 结果
+bool success
+uint16 final_pwm    # 动作结束后 PRAD 读回的实际位置
+string message      # success / canceled / preempted / Not in place ... / serial lost
+uint8 code          # 0=成功 1=未到位 2=取消 3=被抢占 4=串口异常
+---
+# 反馈
+uint16 current_pwm  # PRAD 实测，不是自己算的
+float32 progress    # 0.0~1.0

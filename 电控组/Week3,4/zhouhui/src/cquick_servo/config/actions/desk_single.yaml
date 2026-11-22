@@ -1,0 +1,19 @@
+# 单舵机桌面测试：机器人还没拼好就能验证「yaml 驱动 + result 同步」这套机制。
+# 只用一个舵机（id 改成本机实际的那个），看日志里是不是「上一条 result 回来才发下一条」。
+# 注意：这个文件验证不了「step 内多关节并行」，那条要 ≥2 个舵机才算真验过。
+name: desk_single
+description: 单舵机 1500 → 1600 → 1400 → 1500，验证播放器与时序
+default_duration_ms: 800
+
+steps:
+  - label: 中位到 1600
+    moves:
+      - {id: 1, pwm: 1600, duration_ms: 800}
+
+  - label: 1600 到 1400
+    moves:
+      - {id: 1, pwm: 1400, duration_ms: 800}
+
+  - label: 回中位
+    moves:
+      - {id: 1, pwm: 1500, duration_ms: 800}
