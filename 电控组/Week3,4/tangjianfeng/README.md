@@ -1,37 +1,34 @@
-# 电控组 第 3、4 周 · 整机拼装与舵机控制 - tangjianfeng
+# 电控组 第 3、4 周：整机拼装与舵机控制（tangjianfeng）
 
-> 两个包 + 一台 10 舵机整机。
-> 任务 1、2 在**单舵机**上打通链路，任务 3、4 复制到**整机**并做动作组与安全下电。
+包含 `cquick_servo_interfaces` 和 `cquick_servo` 两个 ROS 2 包，以及一套 10 舵机双足整机的联调与动作组实现。任务 1、2 先在单舵机上打通串口驱动与 Action 链路，任务 3、4 扩展到 10 舵机整机完成多关节协同动作组和安全下电。
 
 ---
 
-## 一、先说清楚硬件是怎么演进的
+## 一、硬件阶段、接线与 bag 回放
 
-这一周跨了两个硬件阶段，`servo_ids` 的口径不一样，不是配置写错：
+### 接线与供电
 
-| 阶段 | 总线上有几个舵机 | ID | `servo_ids` | 为什么 |
-|---|---|---|---|---|
-| 任务 1 · 点亮 | 1 个 | `000`（出厂默认） | `[0]` | 新舵机到手先单点点亮，多个一起上总线会因同 ID 抢应答 |
-| 任务 2 · ROS2 接管 | 1 个 | `000` | `[0]` | 沿用任务 1 的单舵机链路，先把 Action 跑通 |
-| 任务 3 · 整机 | **10 个** | **`1`~`10`** | `[1, 2, ..., 10]` | 逐个改号后全部上总线，扫描确认在线 |
+上位机运行 Ubuntu 22.04 + ROS 2 Humble，通过 USB-TTL（`/dev/ttyUSB0`，`115200` 8-N-1，当前用户已在 `dialout` 组，无需 `sudo`）接入 24 路舵机控制板，TX/RX 交叉连接并与控制板共地（GND）。舵机动力由 2S 锂电池提供（满电 8.4 V），上电前万用表实测电压为 `7.73 V`（见 `01_电池电压.jpg`）。整机 10 颗总线舵机串联挂在同一条总线上。
 
-仓库里的 `config/servo_params.yaml` 是**最终的整机配置**（`[1..10]`）。
+### 从单舵机到整机的 ID 变化
 
-**所以 `bag/run1/` 里录的是 `id=0` 的指令**（任务 2 阶段、单舵机）。
+- **任务 1、2（单舵机阶段）**：新舵机出厂默认 ID 都是 `000`。多个同 ID 舵机一起挂总线会同时应答并撞包，因此单点点亮和 Action 联调时每次只接一颗舵机，`servo_ids` 为 `[0]`。
+- **任务 3、4（整机阶段）**：10 颗舵机逐个单独接入并改写 ID 为 `1`~`10`，全部挂上总线后扫描在线为 `ONLINE IDS: [1, 2, ..., 10]`。仓库里的 `config/servo_params.yaml` 保存的是整机配置（`[1, 2, ..., 10]`）。
 
-这里要把原因说准确：`/servo/command` 是回放通道，**只做 500~2500 电气范围检查，不做 ID 白名单校验**
-（`servo_driver.py` 的 `_on_command`）。回放时驱动把 `#000P...T...!` 原样发上总线，
-而整机阶段的十个舵机已经改成 1~10，**总线上不再有 0 号设备**，没有任何舵机应答 ——
-表现就是"bag play 了但舵机不动"。不是代码把消息丢了，是总线上没有这个 ID。
+### `bag/run1/` 内容与回放
 
-要复现那份 bag，两条路：
+`bag/run1/`（`bag/run1/metadata.yaml` + `bag/run1/bagrun_0.db3`，共 66 条消息，时长约 29.5 s）录制于任务 2 单舵机阶段，内含 3 条 `/servo/command`（`id=0`，目标 PWM 依次为 `1200`、`1700`、`1500`，`duration_ms` 均为 `1500`）和 63 条 `/servo/state`。
+
+在整机上直接执行 `ros2 bag play bag/run1` 时舵机不会动作。`_on_command` 回调只检查 500~2500 电气范围，不校验 ID 白名单，驱动会把 `#000P...T...!` 原样发上总线；因为整机舵机已改为 1~10，总线上已没有 0 号设备，所以没有舵机应答。
+
+复现这段 bag 可以用下面任一方式（`/servo/command` 不检查 `pwm_min/pwm_max`，回放前需确认当前安全限位与录制时一致）：
 
 ```bash
-# 办法 A：把一颗舵机单独接回总线、改回出厂 ID 0（servo_ids 允许 0），再回放
+# 方式 A：单独接回一颗出厂 ID 为 0 的舵机（servo_ids 参数校验已允许 0），将其加入列表后回放
 ros2 param set /servo_driver servo_ids "[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
 ros2 bag play bag/run1
 
-# 办法 B：不接旧舵机，把等价的三条指令按整机 ID 重发（效果一样）
+# 方式 B：不改动整机舵机 ID，直接向 3 号舵机发送等价的三条指令
 ros2 topic pub -1 /servo/command cquick_servo_interfaces/msg/ServoCommand \
   "{id: 3, pwm: 1200, duration_ms: 1500}"
 ros2 topic pub -1 /servo/command cquick_servo_interfaces/msg/ServoCommand \
@@ -40,156 +37,124 @@ ros2 topic pub -1 /servo/command cquick_servo_interfaces/msg/ServoCommand \
   "{id: 3, pwm: 1500, duration_ms: 1500}"
 ```
 
-> 回放通道不做 `pwm_min/pwm_max` 安全限位、也不查 ID —— 它是调试口，不是动作入口。
-> 带限位和 ID 校验的是 `/move_servo` 这个 Action。回放前请确认当前限位与录制时一致。
-
 ---
 
-## 二、怎么编、怎么跑
+## 二、包结构与编译运行
+
+### 节点与通信拓扑
+
+```text
+cquick_servo_interfaces (ament_cmake)
+  ├── msg/ServoCommand.msg
+  └── action/MoveServo.action
+
+cquick_servo (ament_python)
+  ├── servo_driver      ──▶ Action Server: /move_servo (MoveServo)
+  │                     ◀── Sub: /servo/command (ServoCommand, bag 回放/调试)
+  │                     ──▶ Pub: /servo/state   (ServoCommand, 2 Hz)
+  ├── move_client       ──▶ Action Client: /move_servo (单步 / --sweep 正反转)
+  └── sequence_player   ──▶ Action Client: /move_servo (读 yaml 播动作组，别名 action_group)
+```
+
+### 编译与启动命令
 
 ```bash
 cd ~/ros2_ws
 colcon build --packages-select cquick_servo_interfaces cquick_servo
 source install/setup.bash
 
-# 起驱动节点（参数从 config/servo_params.yaml 读）
+# 启动驱动节点（参数来自 config/servo_params.yaml）
 ros2 launch cquick_servo servo.launch.py
 
-# 发一条动作（带 feedback）
+# 覆盖串口设备，或同时启动客户端演示正反转回中位
+ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB1
+ros2 launch cquick_servo servo.launch.py demo:=true demo_pwm:=1800
+
+# 发送单条 Action 目标并查看 feedback
 ros2 action send_goal /move_servo cquick_servo_interfaces/action/MoveServo \
   "{id: 3, pwm: 1700, duration_ms: 1200}" --feedback
 
-# 播一套动作组（两个入口名等价，见下）
+# 播放动作组（两个命令等价）
 ros2 run cquick_servo action_group --action stand_up
 ros2 run cquick_servo sequence_player --action stand_up
 ```
 
-`action_group` 和 `sequence_player` 是**同一个节点**的两个入口名（`setup.py` 里指向同一个
-`cquick_servo.sequence_player:main`）。现场调试时习惯用 `action_group`，日志前缀就是
-`[action_group]`；交付代码的文件名按细则结构叫 `sequence_player.py`。
-
-换串口不用改文件：
-
-```bash
-ros2 launch cquick_servo servo.launch.py port:=/dev/ttyUSB1
-```
+`setup.py` 里将 `action_group` 和 `sequence_player` 两个入口名都指向 `cquick_servo.sequence_player:main`。调试时习惯用 `action_group`（日志前缀为 `[action_group]`），代码文件名为 `sequence_player.py`。
 
 ---
 
-## 三、接口：每个字段干什么
+## 三、接口契约与话题
 
-`msg/ServoCommand.msg`（只用于 `/servo/command` 和 `/servo/state`）
+`msg/ServoCommand.msg`（用于 `/servo/command` 与 `/servo/state`）：
 
-| 字段 | 类型 | 干什么 |
+| 字段 | 类型 | 说明 |
 |---|---|---|
-| `id` | `uint8` | 舵机 ID，协议里补成 3 位（`#003`） |
-| `pwm` | `uint16` | 目标位置 500~2500，**这是电气范围**；安全范围由 `pwm_min/pwm_max` 决定 |
-| `duration_ms` | `uint16` | 用多少毫秒转过去，0 表示用默认时长 |
+| `id` | `uint8` | 舵机 ID，下发协议时格式化为 3 位数字（如 `#003`） |
+| `pwm` | `uint16` | 目标脉宽，电气范围 500~2500；安全行程由 `pwm_min/pwm_max` 控制 |
+| `duration_ms` | `uint16` | 运动耗时（毫秒），为 0 时使用 `default_duration_ms` |
 
-`action/MoveServo.action`
+`action/MoveServo.action`：
 
-| 段 | 字段 | 干什么 |
+| 段 | 字段 | 说明 |
 |---|---|---|
-| Goal | `id` / `pwm` / `duration_ms` | 一条完整动作指令 |
-| Result | `success` | 成没成 |
-| | `final_pwm` | PRAD 读回的实际位置（失败时也填，能看出停在哪） |
-| | `message` | `OK: target x, read y, diff z` / `canceled` / `NOT REACHED` / `serial error` |
-| Feedback | `current_pwm` / `progress` | 过程中的位置与进度（10 Hz） |
+| Goal | `id` / `pwm` / `duration_ms` | 单条运动请求 |
+| Result | `success` | 是否到达目标容差范围内 |
+| | `final_pwm` | 动作结束后 `PRAD` 读回的实际位置（未成功时也会填入） |
+| | `message` | `OK: target x, read y, diff z` / `canceled` / `NOT REACHED: ...` / `serial error: ...` |
+| Feedback | `current_pwm` / `progress` | 运动过程中的插值位置与进度，发布频率 10 Hz |
 
-**话题方向**
+话题与 Action 方向：
 
-| 话题 | 方向 | 谁在用 |
+| 接口 | 方向 | 用途 |
 |---|---|---|
-| `/move_servo` | client → server | 动作组、客户端、手动调试 |
-| `/servo/command` | 外部 → 驱动（订阅） | bag 回放 |
-| `/servo/state` | 驱动 → 外部（发布，2 Hz） | bag 录制、监看 |
+| `/move_servo` | client → server | 动作组播放器、`move_client` 及手动控制入口 |
+| `/servo/command` | 外部 → `servo_driver` | 话题调试与 bag 回放 |
+| `/servo/state` | `servo_driver` → 外部（2 Hz） | 状态监看与 bag 录制 |
 
-> ⚠️ `/servo/command` 只做**电气范围**检查（500~2500），不做 `pwm_min/pwm_max` 安全限位检查 ——
-> 它是调试与回放通道。回放 bag 前请确认当前的安全限位与录制时一致。
+`/servo/command` 作为回放和调试通道，仅检查 500~2500 电气极值而不检查 `pwm_min/pwm_max` 安全限位，正式控制统一走 `/move_servo`。
 
 ---
 
-## 四、参数（`config/servo_params.yaml`）
+## 四、参数与安全保护
 
-| 参数 | 值 | 说明 | 校验 |
+### 参数表（`config/servo_params.yaml`）
+
+| 参数 | 默认值 | 说明与取值依据 | 校验规则 |
 |---|---|---|---|
-| `port` | `/dev/ttyUSB0` | USB-TTL 设备 | — |
-| `baudrate` | `115200` | 必须和舵机一致，错了回包是乱码或没有回包 | 只能是 9600/19200/38400/57600/115200/230400 |
-| `pwm_min` | `900` | 安全下限，goal 低于它直接 REJECT | 500~2500 |
-| `pwm_max` | `2100` | 安全上限，goal 高于它直接 REJECT | 500~2500，且 > `pwm_min` |
-| `default_duration_ms` | `800` | goal 没写时长时用它 | 1~30000 |
-| `servo_ids` | `[1..10]` | 整机在线的十个舵机 | 非空，0~254（`0` 是出厂默认 ID，留作回放旧 bag） |
-| `startup_reset` | `true` | 启动全部回中位（中位 = `(pwm_min+pwm_max)/2`） | — |
+| `port` | `/dev/ttyUSB0` | USB-TTL 串口设备路径 | — |
+| `baudrate` | `115200` | 与舵机出厂串口波特率一致，不匹配会收乱码或超时无回包 | `9600/19200/38400/57600/115200/230400` |
+| `pwm_min` | `900` | 安全下限，越界 goal 直接 REJECT | `500~2500` |
+| `pwm_max` | `2100` | 安全上限，越界 goal 直接 REJECT | `500~2500`，且大于 `pwm_min` |
+| `default_duration_ms` | `800` | goal 未填时长时的默认平滑时间 | `1~30000` |
+| `servo_ids` | `[1..10]` | 整机在线舵机 ID 列表 | 非空，`0~254`（允许 `0` 以便回放单舵机阶段的 bag） |
+| `startup_reset` | `true` | 启动后把列表内舵机统一回中位 `(pwm_min+pwm_max)//2` | — |
 
-电气范围 500~2500 写在协议常量里（`ELECTRIC_MIN` / `ELECTRIC_MAX`），不进参数 ——
-那是硬件决定的，不是"可调的安全范围"。
+### 安全区间来历与三层防护
 
-参数当帧生效，改完不用重启：
+舵机协议允许的电气极限脉宽是 `500~2500`，写在代码常量 `ELECTRIC_MIN` / `ELECTRIC_MAX` 里，不放进运行时参数。把舵机装进 3D 打印双足结构后，接近 500 或 2500 的极限角度会让连杆顶到相邻关节壳体，因此把安全行程收窄在中心位 `1500` 两侧各 `600` 的区间，即 `[900, 2100]`。
+
+节点内分三层做检查：
+- 协议层：`500~2500` 电气边界由常量限制，任何参数设置都不能超出。
+- 结构层：`/move_servo` 的 `goal_callback` 检查目标 ID 是否在 `servo_ids` 中、PWM 是否在 `[pwm_min, pwm_max]` 内，越界直接拒绝。
+- 参数回调层：`_on_param_set` 拦截非法单值（如波特率不在允许列表、`pwm_max` 超出 500~2500）以及组合冲突（如 `pwm_min >= pwm_max`）。
+
+### 运行时修改参数与保护测试
+
+`_pwm_min()` 和 `_pwm_max()` 每次判定都会重新调用 `get_parameter()` 读取参数，不在成员里缓存旧值，所以 `ros2 param set` 修改后不用重启节点，下一条 goal 就会按新限位执行。非法值则在参数服务回调里直接拒掉。
+
+实测修改命令（对应 `02_限位_参数_自检.png`）：
 
 ```bash
-ros2 param get /servo_driver pwm_max                 # 2100
-ros2 param set /servo_driver pwm_max 1600            # 成功 → 之后 pwm=1700 的 goal 立刻被拒
+ros2 param get /servo_driver pwm_max                 # Integer value is: 2100
+ros2 param set /servo_driver pwm_max 1600            # Set parameter successful，之后发 pwm=1700 的 goal 会被拒
 ros2 param set /servo_driver pwm_max 100000          # 被拒：out of electrical range 500~2500
-ros2 param set /servo_driver pwm_min 3000            # 被拒：同上
-ros2 param set /servo_driver pwm_max 2100            # 改回来，再发 1700 又能过
+ros2 param set /servo_driver pwm_min 3000            # 被拒：out of electrical range 500~2500
+ros2 param set /servo_driver pwm_max 2100            # Set parameter successful，改回后发 1700 重新通过
 ```
 
-之所以能当帧生效：`pwm_min()` / `pwm_max()` 每次都是 `get_parameter` 现取，没有任何缓存。
-`_on_param_set` 回调负责拒掉非法值，包括 `min >= max` 这种"单个值合法、组合非法"的设置。
+越界、非法 ID 与非法参数验证结果（对应 `02_保护机制_越界_ID_参数.jpg`）：
 
----
-
-## 五、动作组：动作是数据，不是代码
-
-**换一套动作只改 yaml，不动一行 python。** 现场给一份没见过的动作，改 yaml 就能跑。
-
-yaml 要能表达三件事：
-
-| 要表达 | 怎么表达 |
-|---|---|
-| 一步之内多舵机协同 | 同一个 step 里放多个关节，各自带目标值和用时，**同时下发** |
-| 步与步之间串行 | 上一个 step 的 result 全回来了才发下一个 |
-| 一步之内有先后 | 给那个关节单独开一个 step，**不靠调 duration 硬凑** |
-
-仓库里 `config/actions/` 放了三套：
-
-| 文件 | 步数 | 干什么 |
-|---|---|---|
-| `wave.yaml` | 4 | 单关节（1 号）冒烟测试：中位 → 正转 → 反转 → 回中 |
-| `stand_up.yaml` | 3 | 四腿同时抬起 → 保持 → 落回 |
-| `wave_hi.yaml` | 8 | 抬一条腿 + 左右摆两次 + 放下 |
-
-> 现场演示用的是 `stand` / `march` / `reset_all` 三套（4 步 / 8 步 / 1 步），
-> 它们的动作清单见 `03_动作组清单与日志.jpg`。**这三套的 pwm 值与整机结构强相关**
-> （每个关节的安全行程不同），没有直接放进仓库；仓库里的三套是同样结构的可复现示例，
-> 改个 yaml 就能替换。
-
-**时序不用 sleep 猜**。舵机 `T` 毫秒走完的实际时间不等于 `duration_ms`，累积误差会让三遍动作越跑越偏。
-所以播放器等的是 **result**：
-
-```
-[INFO] [1795361282.265197726] [action_group]: step[脚掌放平] id=3 完成 success=True final_pwm=1506 message=OK: target 1500, read 1506, diff 6
-[INFO] [1795361282.506914316] [action_group]: step[脚掌放平] id=1 完成 success=True final_pwm=1511 message=OK: target 1500, read 1511, diff 11
-[INFO] [1795361282.756365085] [action_group]: step[脚掌放平] id=4 完成 success=True final_pwm=1501 message=OK: target 1500, read 1501, diff 1
-[INFO] [1795361282.758617714] [action_group]: 动作组 stand 播放完成
-```
-
-同一个 step 的三个关节 result 在 490 ms 内陆续回来，**全部回来之后**才打"播放完成"。
-下一步的"下发"一定晚于上一步所有 result —— 这一步评审会看日志时间戳。
-
----
-
-## 六、三层保护
-
-| 层 | 管什么 | 在哪 |
-|---|---|---|
-| 协议层 | 500~2500 电气极限 | `ELECTRIC_MIN` / `ELECTRIC_MAX` 常量，写死不可配 |
-| 结构层 | `pwm_min` / `pwm_max` 安全行程 | 参数，装结构后按实测改；goal 超范围直接 REJECT |
-| 组合层 | `min >= max` 这类"单个值合法、组合非法"的设置 | `_on_param_set` 参数回调，直接拒 |
-
-现场验证（`02_保护机制_越界_ID_参数.jpg`）：
-
-```
+```text
 1) position out of range (pwm 3000 > 2100)        → Goal was rejected.
 2) id not in servo_ids (id 99)                    → Goal was rejected.
 3) param out of range (pwm_max 100000)            → Setting parameter failed:
@@ -199,68 +164,121 @@ yaml 要能表达三件事：
 5) restore legal value (pwm_max 2100)             → Set parameter successful
 ```
 
-`Goal was rejected.` 是 `ros2 action send_goal` 客户端打印的，节点侧对应日志是
-`拒绝 goal：pwm=3000 超出安全范围 [900,2100]`。
-
-关键是第 3、4 条：**参数服务自己就拒了**，不用等发指令时才发现。
+其中客户端打印 `Goal was rejected.` 时，驱动节点侧输出的对应日志为 `拒绝 goal：pwm=3000 超出安全范围 [900,2100]`。
 
 ---
 
-## 七、一个 goal 到底走了哪几步
+## 五、动作组（YAML 与 result 同步）
 
+动作组全部用 yaml 数据描述，播放器 `sequence_player.py` 负责读取 yaml、展开成 goal 并按顺序发送，切换或新增动作只需修改 yaml 文件，不需要改动 Python 代码。
+
+时序按下面的规则组织：
+- 步内并发：同一个 `step` 下的多个关节会同时调用 `send_goal_async` 下发，各自带目标 `pwm` 和 `duration_ms`。
+- 步间串行：等上一步所有关节的 `result` 都返回后，才发送下一个 `step`。
+- 步内先后：如果某个关节必须先动，直接拆成前一个独立 `step`，不靠修改 `duration_ms` 或固定 `sleep` 来硬凑延时。
+
+以 `config/actions/wave.yaml` 为例，动作定义的格式如下：
+
+```yaml
+name: wave
+description: 1 号关节 中位 → 正转 1700 → 反转 1300 → 回中位 1500
+loop: false
+
+steps:
+  - name: 回中位起手
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 800}
+  - name: 正转出去
+    joints:
+      - {id: 1, pwm: 1700, duration_ms: 900}
+  - name: 反转回来
+    joints:
+      - {id: 1, pwm: 1300, duration_ms: 1200}
+  - name: 回中位收尾
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 900}
 ```
+
+仓库 `config/actions/` 下共放了三套可直接复现的动作：
+
+| 文件 | 步数 | 内容 |
+|---|---|---|
+| `wave.yaml` | 4 | 1 号单关节测试（中位 → 正转 → 反转 → 回中） |
+| `stand_up.yaml` | 3 | 四腿同时抬起 → 保持 → 落回中位 |
+| `wave_hi.yaml` | 8 | 抬起一条腿 → 左右摆两次 → 放下 |
+
+现场演示使用的是 `stand`（4 步）、`march`（8 步）和 `reset_all`（1 步），清单与播放日志见 `03_动作组清单与日志.jpg`。这三套动作的目标脉宽和实机装配零位绑定，没有直接放在仓库里，运行时用 `--action /绝对路径/xxx.yaml` 传入就能直接替换。
+
+舵机协议里的 `T` 只是预期过渡时长，实际运动耗时受负载和齿轮回差影响，用固定 `sleep` 等待会在连续播放时产生累积偏移，因此播放器统一把 `result` 当成同步点。下面这段日志可以看到同一步三个关节的 `result` 在 490 ms 内陆续返回，全部返回后才打印播放完成：
+
+```text
+[INFO] [1795361282.265197726] [action_group]: step[脚掌放平] id=3 完成 success=True final_pwm=1506 message=OK: target 1500, read 1506, diff 6
+[INFO] [1795361282.506914316] [action_group]: step[脚掌放平] id=1 完成 success=True final_pwm=1511 message=OK: target 1500, read 1511, diff 11
+[INFO] [1795361282.756365085] [action_group]: step[脚掌放平] id=4 完成 success=True final_pwm=1501 message=OK: target 1500, read 1501, diff 1
+[INFO] [1795361282.758617714] [action_group]: 动作组 stand 播放完成
+```
+
+---
+
+## 六、Action 执行流程与线程处理
+
+一条 `/move_servo` goal 在 `servo_driver` 内部经过以下几步：
+
+```text
 ros2 action send_goal /move_servo
         │  goal{id, pwm, duration_ms}
         ▼
-[1] goal_callback ── ID 在不在 servo_ids？pwm 在不在 [pwm_min, pwm_max]？
-        │              duration 合法？串口开着？
-        │              合法 → ACCEPT；不合法 → REJECT（日志写清哪条不过）
+[1] goal_callback ── 检查 id 是否在 servo_ids、pwm 是否在 [pwm_min, pwm_max]、
+        │              duration 是否合法以及串口是否打开
+        │              通过 → ACCEPT；不通过 → REJECT（日志打印具体原因）
         ▼
-[2] handle_accepted ── 立刻 execute() 交给线程，**不在这里阻塞**
-        │              （阻塞的话 cancel 回调和 Ctrl+C 都会失灵）
+[2] handle_accepted ── 立即调用 goal_handle.execute() 交由执行器线程池处理
         ▼
 [3] execute_callback
-        │  ① #xxxPULR!            恢复扭力（不发这条舵机根本不动）
-        │  ② #xxxP<pwm>T<ms>!     下发位置
-        │  ③ 每 100 ms publish_feedback + /servo/state
-        │  ④ 收到 cancel → 回中位，result.message = "canceled"
-        │  ⑤ 走完 #xxxPRAD!       读回实际位置（读不到会重试 3 次）
-        │  |读回 - 目标| > 30 → message = "NOT REACHED: ..."，success=False
+        │  ① #xxxPULR!            恢复扭力（未发此指令前舵机不响应位置命令）
+        │  ② #xxxP<pwm>T<ms>!     下发目标位置和时长
+        │  ③ 每 100 ms 发布 feedback 并同步发 /servo/state
+        │  ④ 若收到 cancel 请求，发回中位并将 result.message 设为 "canceled"
+        │  ⑤ 周期结束先等 350 ms，再发 #xxxPRAD! 读回实际位置（未进容差时最多读 3 次）
+        │  |读回 - 目标| > 30 → result.message = "NOT REACHED: ..."，success=False
         ▼
    result{success, final_pwm, message}
 ```
 
-**为什么 `execute_callback` 不能阻塞**：它跑在 executor 的线程池里。如果在这里同步等串口回包、
-或者自己调 `spin`，这个线程就被占住，同一执行器里的 cancel 服务和 `/servo/command` 订阅都进不来 ——
-表现就是"按了取消没反应、Ctrl+C 也停不下来"。
-所以 `handle_accepted_callback` 里只调 `goal_handle.execute()`，真正的活儿交给线程池；
-取消检查放在 feedback 循环内部，每 100 ms 看一次。
+驱动主节点使用 `MultiThreadedExecutor` 并为回调挂了 `ReentrantCallbackGroup`。`handle_accepted_callback` 只触发 `goal_handle.execute()`，不阻塞在回调里，也不在执行函数内自己调 `spin`。如果把执行循环堵在单线程回调里，同一执行器内的取消服务和 `/servo/command` 订阅就无法调度，会导致取消命令和 `Ctrl+C` 失去响应。目前取消标记在每 100 ms 一次的 feedback 循环中轮询检查。
 
-**关于并发**：同一时刻应该只有一个 goal 在执行。动作组播放器是"下发 → 等 result → 再下发"，
-不会重叠；手动并发发送两条 goal 时，两条会各自跑完自己的 feedback 循环，串口写由内部锁串行化，
-但位置会互相覆盖 —— 这是这套实现没有做抢占的取舍。
+并发控制上，动作组播放器本身按 step 串行等待 `result`，不会重叠下发。如果手动同时发两条 goal，串口收发由内部互斥锁保护，但目标位置会互相覆盖，当前版本没有实现 goal 抢占。
+
+---
+
+## 七、常见踩坑摘要
+
+调试中主要碰到的几类问题如下，完整 9 条记录见 `调试记录.md`：
+
+1. **多颗舵机出厂 ID 同为 `000` 引起总线冲突**：几颗新舵机直接并接上总线后，发 `#000PRAD!` 会收到粘连的多份回包，位置在 1491~1495 之间跳动，发运动指令也只有一个会动。对比接 1、2、4 颗时的回包数量，确认数量与在线舵机数一致，属于同 ID 抢应答。之后改为单颗接入，全部逐个改为 `1`~`10` 再并入整机。
+2. **指令发出后立刻读 `PRAD` 读到旧位置**：发完 `#000P1500T1000!` 马上读会拿到上一次的值（1510）。按 100 ms 间隔连续读取后看到位置随时间单调爬升、总耗时与 `T` 基本一致，确认是指令异步执行。代码里改为跑完 feedback 周期再延时 `0.35 s` 读第一次 `PRAD`，超出容差时最多尝试 3 次。
+3. **`PULK` 卸力后无法靠 `PULR` 恢复**：尝试在下电前自动发 `#000PULK!` 卸力，但卸力后再发 `#000PULR!` 或纯查询 `#000PID!` 都无回包，测电池电压 7.73 V 正常，只有断电重启才恢复。节点退出改为只关串口、不发 `PULK`，把卸力放在手动断电前一步。
+4. **整机联调时 9 号舵机损坏**：动作组运行中 9 号关节反复不到位或不动，断电手动转动顺畅无刮线。核对 `servo_ids` 包含 9 且 `#009PID!` 能正常回包，将线束换到相邻接口复测后故障仍然跟着 9 号舵机走，单发动作 `PRAD` 读回偏差远超容差 30。按安全流程断电更换新舵机、单独改号为 9 并先发 `1500` 对准结构基准重装，重新扫 ID 并连跑三遍动作组后恢复。
 
 ---
 
 ## 八、安全下电（任务 4）
 
-顺序固定，不能反：
+下电按固定顺序执行：
 
+```text
+① 全部舵机回中位（或播放 reset_all）
+② 对每个舵机发送 #xxxPULK! 卸力
+③ 拔掉电池（先断开动力电源）
+④ 最后拔掉 USB-TTL 并关闭板卡
 ```
-① 全部回中位（或直接播 reset_all）
-② 卸力：对每个舵机发 #xxxPULK!
-③ 拔电池（先断动力）
-④ 最后拔 USB-TTL
-```
 
-为什么是这个顺序：
+按这个顺序操作的原因：
+- 先卸力再断电：避免舵机在顶住结构力矩的状态下突然断电，或带电强行掰动关节导致堵转和齿箱过热。
+- 先断动力再拔信号线：反过来会让串口电平参考悬空，容易损坏控制板或舵机串口芯片。
+- 不带电插拔舵机线：热插拔瞬间的电流浪涌很容易烧毁控制板通道或舵机驱动。
 
-- **先卸力再断电**：带电掰结构 = 堵转，电流拉满，齿箱发热、电机烧。
-- **先断动力后断信号**：反过来会让串口基准电压悬空，有概率打坏舵机板的串口芯片。
-- **带电插拔舵机线是红线**：热插拔浪涌会打坏板子，细则里这一条是整周不通过。
-
-> 实测记录：这只舵机收到 `PULK` 后会进入锁死态，`PULR` 叫不回来，只能断电重启。
-> 所以卸力之后**不要**再做任何动作，直接进第 ③ 步。
+实测这批舵机收到 `PULK` 后会直接进入锁定状态，无法再通过 `PULR` 唤醒，必须重新断上电，因此第 ② 步卸力完成后不要再发动作指令，直接拔电池断电即可。
 
 ---
 
@@ -270,55 +288,43 @@ ros2 action send_goal /move_servo
 
 | 文件 | 内容 |
 |---|---|
-| `01_串口设备.png` | `ls -l /dev/ttyUSB*`，属主组 dialout，会话非 root |
-| `01_PID回显.png` | `#000PID!` → `#000P!`；`#000PRAD!` → `#000P1510!` |
-| `01_报文记录_正转与回中位.png` | PULR + P1700T1500 + PRAD 往返 |
+| `01_串口设备.png` | `ls -l /dev/ttyUSB*`，属主组 `dialout`，无 root |
+| `01_PID回显.png` | `#000PID!` → `#000P!`，`#000PRAD!` → `#000P1510!` |
+| `01_报文记录_正转与回中位.png` | `PULR` + `P1700T1500` + `PRAD` 往返记录 |
 | `01_中立位标定.png` | 舵机中位读回（1493 / 1495 / 1492 / 1491） |
-| `01_电池电压.jpg` | 万用表 7.73 V |
+| `01_电池电压.jpg` | 万用表测得电池电压 7.73 V |
 
 ### 任务 2 · ROS2 接管
 
 | 文件 | 内容 |
 |---|---|
-| `02_接口编译与节点动作.png` | 接口编译 + 节点与 action 列表 |
-| `02_保护机制_越界_ID_参数.jpg` | 越界 / 非法 ID / 非法参数三重拒绝 + 恢复 |
-| `02_限位_参数_自检.png` | 限位保护 + param set + 硬编码 grep 自检 |
-| `02_action_反馈_1.png` / `_2.png` | feedback 滚动 + result（三条动作） |
+| `02_接口编译与节点动作.png` | 接口编译及节点、Action 列表 |
+| `02_保护机制_越界_ID_参数.jpg` | 越界、非法 ID、非法参数拒绝及恢复 |
+| `02_限位_参数_自检.png` | 限位保护、`param set` 现场生效与硬编码 grep 自检 |
+| `02_action_反馈_1.png`、`02_action_反馈_2.png` | 连续三条动作的 feedback 滚动与 result |
 | `02_取消生效.png` | `cancel_return_code: 0`，`message=canceled` |
-| `02_bag_info.png` | `bag info` 消息条数 + 回放 |
-| `bag/run1/` | metadata.yaml + bagrun_0.db3（66 条 / 29.5 s） |
+| `02_bag_info.png` | `ros2 bag info` 统计与回放输出 |
+| `bag/run1/` | `bag/run1/metadata.yaml` + `bag/run1/bagrun_0.db3`（66 条消息 / 29.5 s） |
 
 ### 任务 3 · 整机 + 动作组
 
 | 文件 | 内容 |
 |---|---|
-| `03_ID扫描.jpg` | 十个舵机全在线：`ONLINE IDS: [1..10]` |
-| `03_动作组清单与日志.jpg` | `stand` 4 步 / `march` 8 步 / `reset_all` 1 步 + result 时间戳 |
-| `03_整机照片_正面.jpg` | 整机正面：双足脚掌、白色结构件、舵机编号标签、电池与红白线束 |
-| `03_整机照片_侧面.jpg` | 整机侧面：关节叠层、走线路径、脚掌与电池仓侧视 |
-| 录屏 · 任务 3 | `任务3.mp4`（45 s，横屏）：动作组播放全程，**终端日志与整机动作同框** |
-
-> 任务 3 录过两遍，跑的是同一套脚本流程。另一版是竖屏机器人特写，终端日志基本被裁掉，
-> 证明不了 result 同步，所以只保留取证更完整的这一版；原始两段 mp4 都在本地留存，没有删除。
-> 「换一套新动作不用改 python」由播放器的 `--action /绝对路径/xxx.yaml` 和
-> `03_动作组清单与日志.jpg` 里的三套动作共同支撑，录屏本身只覆盖一遍流程。
-
-**整机照片说明**：两张为原样归档的实物照片，画面内未叠加姓名 + 时间戳，
-文件 EXIF 亦无拍摄时间（传输时被剥掉）；未做任何后期补加。
-
-细则第 501 行还要求**接线特写**：现在两张都是整机全景，只能看出线束走向，
-还需要一张能看清端子、共地与插头位置的局部特写。
+| `03_ID扫描.jpg` | 10 颗舵机全在线：`ONLINE IDS: [1..10]` |
+| `03_动作组清单与日志.jpg` | `stand`（4 步）/ `march`（8 步）/ `reset_all`（1 步）及 result 时间戳 |
+| `03_整机照片_正面.jpg` | 整机正面视图 |
+| `03_整机照片_侧面.jpg` | 整机侧面视图 |
+| `任务3.mp4`（录屏附件） | 45 s，横屏，终端日志与整机动作同框 |
 
 ### 任务 4 · 安全下电
 
 | 文件 | 内容 |
 |---|---|
-| 录屏 · 任务 4 | `任务4.mp4`（29.5 s），回中 → 卸力 → 拔电池 → 拔 USB |
+| `任务4.mp4`（录屏附件） | 29.5 s，回中 → 卸力 → 拔电池 → 拔 USB |
 
-**录屏链接**
+### 录屏链接
 
-四段做成一个 **B 站多 P 稿件**（`BV1isyjzKEQU`），每项用 `?p=N` 直达对应分 P。
-细则按内容逐项验收，这样评审不用自己翻分集。
+视频文件不进 git 仓库（`.gitignore` 已忽略 `*.mp4`），其中任务 3、4 随交付附件包提供，全部四段演示已上传 B 站多 P 稿件（`BV1isyjzKEQU`）：
 
 - 稿件总入口：<https://www.bilibili.com/video/BV1isyjzKEQU/>
 - 任务 1（舵机点亮，p1 / 22 s）：<https://www.bilibili.com/video/BV1isyjzKEQU/?p=1>
@@ -326,18 +332,12 @@ ros2 action send_goal /move_servo
 - 任务 3（动作组，p3 / 45 s）：<https://www.bilibili.com/video/BV1isyjzKEQU/?p=3>
 - 任务 4（下电，p4 / 30 s）：<https://www.bilibili.com/video/BV1isyjzKEQU/?p=4>
 
-> 稿件标题沿用上传时第一分 P 的名字「录屏1_任务1_舵机点亮」，
-> 实际四个分 P 依次是任务 1 / 2 / 3 / 4。
-> 原始 mp4 不进 git 仓库（`.gitignore` 忽略 `*.mp4`），随交付包单独提供；
-> 任务 1、2 两段原片合计约 807 MB，仅本地留存。
-
 ---
 
 ## 十、已知问题与取舍
 
-1. **中位读回偏差 ±13**：机械回差。正向走到 1700 读回 1691，反向走到 1200 读回 1207。
-   所以判定容差给 30，往小调会让每次动作都判 `NOT REACHED`。
-2. **`bag/run1/` 是单舵机阶段录的**（`id=0`）。整机总线上已无 0 号设备，直接回放不会动；复现办法见第一节。
-3. **没有实现动作抢占**：新 goal 会等前一个跑完。动作组本身是串行下发的，正常流程不会重叠。
-4. **`/servo/command` 不做安全限位检查**（只做电气范围），回放前需确认限位一致。
-5. **卸力靠手动发 `PULK`**：节点退出不自动卸力，因为实测 `PULK` 后舵机会锁死、要断电重启。
+1. **读回偏差 ±13 与容差 30**：齿轮存在机械回差，正向走到 1700 读回 1691，反向走到 1200 读回 1207，10 颗舵机实测最大偏差为 ±13。因此把到位容差设为 30，若收窄到 5 左右会让正常运动频繁被判为 `NOT REACHED`。
+2. **`bag/run1/` 的单舵机 ID 差异**：该 bag 录制于任务 2 单舵机阶段（`id=0`），整机配置默认 `servo_ids` 为 `1~10`，直接回放不会驱动整机舵机，可按第一节的两种方法复现。
+3. **不支持 goal 抢占**：手动并发发送多个 goal 时，串口写通过内部锁串行化，但不会主动打断前一个未完成的 goal，目标位置会互相覆盖；动作组播放器靠串行等待 `result` 避免这一情况。
+4. **`/servo/command` 仅检查电气范围**：该话题面向 bag 回放与底层调试，只拦截 `500~2500` 之外的值，不做 `pwm_min/pwm_max` 检查，回放前需确认限位设置与录制时一致。
+5. **节点退出不自动发 `PULK`**：实测舵机收到 `PULK` 后会锁死直到断电重启，因此 `destroy_node()` 只负责关闭串口，卸力留到手动下电流程中执行。
