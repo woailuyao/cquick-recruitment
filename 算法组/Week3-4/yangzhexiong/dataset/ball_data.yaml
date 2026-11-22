@@ -1,0 +1,11 @@
+# 足球检测数据集配置（YOLO 格式）
+# 说明：仓库内只保留配置文件，图片与权重不上传。
+# 复现时把 path 改成你本地 data/soccer_dataset 的绝对路径。
+
+path: ./soccer_dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names:
+  0: ball
