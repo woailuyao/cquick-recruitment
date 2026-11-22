@@ -1,0 +1,9 @@
+# 总线舵机 USB 转 TTL 固定设备名（装到 /etc/udev/rules.d/ 后执行
+#   sudo udevadm control --reload && sudo udevadm trigger
+# 插上模块后先用 lsusb 确认 VID:PID，再决定保留哪一行）
+
+# CH340（最常见）
+SUBSYSTEM=="tty", ATTRS{idVendor}=="1a86", ATTRS{idProduct}=="7523", SYMLINK+="cq_servo", MODE="0666"
+
+# CP2102（备选；用时把上面那行注释掉，再把下面这行取消注释）
+# SUBSYSTEM=="tty", ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60", SYMLINK+="cq_servo", MODE="0666"

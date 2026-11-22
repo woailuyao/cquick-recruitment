@@ -1,0 +1,9 @@
+name: stand_up
+description: 膝关节起立
+steps:
+  - name: 起立
+    servos:
+      - {id: 3, pwm: 1500, duration_ms: 800}
+      - {id: 4, pwm: 1500, duration_ms: 800}
+      - {id: 5, pwm: 1500, duration_ms: 800}
+      - {id: 6, pwm: 1500, duration_ms: 800}

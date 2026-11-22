@@ -1,0 +1,9 @@
+[flake8]
+max-line-length = 99
+max-complexity = 15
+exclude = .git,__pycache__,build,install,log,.venv
+# E203: 切片空格（与 black 冲突）；W503/W504: 断行运算符位置
+extend-ignore = E203,W503,W504
+per-file-ignores =
+    test/*:D103
+    setup.py:D100
