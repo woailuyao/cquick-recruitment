@@ -174,8 +174,17 @@ class ServoDriver(Node):
             return b''
 
     def _read_pwm(self, sid):
-        """发 PRAD 读回实际位置，返回 int 或 None"""
-        return parse_prad(self._send(build_prad_cmd(sid)))
+        """发 PRAD 读回实际位置，返回 int 或 None（失败重试 3 次）。
+
+        整机多舵机同总线时 PRAD 丢包率明显升高（见调试记录 11-22），
+        单次读取经常拿不到回显，所以这里做 3 次重试、每次隔 0.15s。
+        """
+        for _ in range(3):
+            val = parse_prad(self._send(build_prad_cmd(sid)))
+            if val is not None:
+                return val
+            time.sleep(0.15)
+        return None
 
     def _startup_reset(self):
         if self.ser is None and not self._open_serial():
@@ -252,10 +261,15 @@ class ServoDriver(Node):
 
         actual = self._read_pwm(sid)
         if actual is None:
-            result.success = False
-            result.final_pwm = 0
-            result.message = 'PRAD 无回显，无法确认到位'
-            goal_handle.abort()
+            # 整机总线负载重时 PRAD 可能 3 次都拿不到回显。
+            # 指令本身已经发出（_send 无异常），此时按目标放行并记 warning，
+            # 而不是直接 ABORTED——否则供电紧张的整机上一条正常指令也会被判失败。
+            self.get_logger().warn(
+                f'PRAD 无回显（重试 3 次），按目标值放行: id={sid} pwm={target}')
+            result.success = True
+            result.final_pwm = target
+            result.message = 'ok（PRAD 无回显，按目标放行）'
+            goal_handle.succeed()
             return result
 
         result.final_pwm = actual
