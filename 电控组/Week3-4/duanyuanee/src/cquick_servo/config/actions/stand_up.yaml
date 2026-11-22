@@ -1,0 +1,26 @@
+# 动作组：站起 (stand_up)
+# 结构：有序 step 列表；每个 step 是一组 {id, pwm, duration_ms}
+# 播放器按 step 顺序执行，同一 step 内多条指令一起下发，
+# 等该 step 所有 goal 都收到 result 后才进入下一步(用 result 做同步)。
+# 换动作只需新增一个 yaml，不改一行 python。
+name: stand_up
+description: 从收拢姿态展开到站起，再回到中立位
+steps:
+  - name: 归中准备
+    commands:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+  - name: 展开站起
+    commands:
+      - {id: 1, pwm: 1800, duration_ms: 1500}
+      - {id: 2, pwm: 1200, duration_ms: 1500}
+      - {id: 3, pwm: 1800, duration_ms: 1500}
+      - {id: 5, pwm: 2000, duration_ms: 1500}
+  - name: 保持
+    commands:
+      - {id: 1, pwm: 1800, duration_ms: 800}
+      - {id: 2, pwm: 1200, duration_ms: 800}
+      - {id: 3, pwm: 1800, duration_ms: 800}
+      - {id: 5, pwm: 2000, duration_ms: 800}
