@@ -1,0 +1,15 @@
+action_name: "stand_up"
+steps:
+  - step: 1
+    joints:
+      - id: 1
+        pwm: 1500
+        duration_ms: 1000
+      - id: 2
+        pwm: 1600
+        duration_ms: 1000
+  - step: 2
+    joints:
+      - id: 3
+        pwm: 1400
+        duration_ms: 800

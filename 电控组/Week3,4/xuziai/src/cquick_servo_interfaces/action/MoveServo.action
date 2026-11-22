@@ -1,0 +1,13 @@
+# Goal
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# Result
+bool success
+string message
+uint16 final_pwm
+---
+# Feedback
+float32 progress
+uint16 current_pwm
