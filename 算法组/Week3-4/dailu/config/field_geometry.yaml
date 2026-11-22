@@ -1,0 +1,14 @@
+﻿# C0 场地几何与坐标系说明
+# 组织方未单独发放 field_geometry.yaml，本文件记录本次实际使用的约定，
+# 坐标数值以 config/field.yaml 为准（个人未做任何平移/旋转/缩放）。
+version: "C0-2026-11 (个人整理版)"
+map_unit: "m"
+field_size: "8.0 x 6.0"        # 卷尺实测的场地尺寸（线内区域）
+axis:
+  x_positive: "上"
+  y_positive: "左"
+  yaw_positive: "从 +X 轴逆时针"
+  origin: "由 field.yaml 的坐标定义；标志点跨度 x∈[-3.880, 3.880], y∈[-2.975, 2.975]"
+ground_plane: "地图坐标系 Z = 0"
+marker_types_used: ["LCross(4)", "TCross(6)", "XCross(2)", "PenaltyPoint(1, 未用于定位)"]
+field_yaml_sha256: "491992759b907032acdf2851aa49e73a61d24e5a404d31ca01e72edc992b3b98" #防伪效验码
