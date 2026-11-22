@@ -1,0 +1,5 @@
+11月17日 ros2 启动launch节点明明usb检测没问题却报错 怀疑接线错了，写的程序有bug，ubuntu没读到usb 终端输入 ls-l/dev/ttyusb发现没问题后求助大肥鱼发现是之前启动的cutecom占用
+11 17 启动节点初始化回中位没有执行，舵机位置永远不变·  怀疑程序不对 deep seek建议在initi函数中加sleep终断几秒
+11 17 舵机根本不动，但明明action显示指令已发出 根本没啥怀疑的，认为代码有问题 deepseek回复是read_prad函数写在while循环内，而while循环频率太高，单片机处理不过来 
+11-17 用 ros2 param set 测试在线改参数 终端返回 Set parameters successful，但发超限的 goal 仍然被执行了，没有拦截 代码里在 __init__ 里把值存进了 self.pwm_max，改参数没触发更新 在 goal_callback 里加了 self.get_logger().info(f"当前限位:{self.pwm_max}") 打印，发现改参数后打印的还是旧值。 删掉 __init__ 里的缓存，改为在回调里实时 self.get_parameter('pwm_max').value
+11-17  测试中途按 Ctrl+C 取消动作 按了 Ctrl+C 没反应，舵机继续转完才停 execute_callback 里的 time.sleep() 阻塞了线程，导致取消回调进不来 查了官方文档，确认单线程 executor 会被阻塞。 引入 MultiThreadedExecutor 和 ReentrantCallbackGroup，将 time.sleep 改为 self.get_clock().sleep_for，并在循环里检查 is_cancel_requested。
