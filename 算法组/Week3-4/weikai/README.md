@@ -5,8 +5,8 @@
   两个任务均含实时演示录屏（B 站链接见「B 站演示录屏」节）；任务 2 完成
   场地实测、内参标定、标志检测训练、定点视频的定位精度验证（全部达标）
   与 ROS2 封装（接口包 + 视觉定位包，话题实测通过，见 2.7）。
-  加分项完成 ONNX 推理对比（+3）与地图匹配稳健化（+2），TensorRT 因工具链版本不匹配
-  未完成（见「加分项」）。C0 现场测试尚未开展。
+  加分项完成 ROS2 规范节点封装（+2）、ONNX 推理对比（+3）与地图匹配稳健化（+2），
+  TensorRT 因工具链版本不匹配未完成（见「加分项」）。C0 现场测试尚未开展。
 - 完成日期：2026-11-22
 - 摄像头类型：单目 RGB 摄像头（USB UVC，外接）
 - 摄像头接口 / 设备节点：Windows 侧 ffmpeg dshow 采集 MJPG 原始流 → HTTP 桥 `/snapshot.jpg` 供 WSL 取帧（相机不透传进 WSL，原因见「问题与解决过程」第 0 条）
@@ -289,9 +289,10 @@ WSL `~/vision_ws/ros2_ws` 编译）：
 - **`k1_vision_locate`**（ament_python）：`vision_node` 复用离线验证的同一套
   实现（`realtime_locate.py` 的检测 + `locator_fixed.py` 的固定外参解算），
   图像源支持 `net://127.0.0.1:8090`（Windows 桥接实时流）或视频文件；
-  提供 `launch/demo_launch.py`（默认参数在 `config/params.yaml`）。
-  视频源实测端到端约 28–31 fps；每个解算帧发布 `/localization/field_pose`，
-  每帧发布 `/soccer/ball`。
+  `launch/demo_launch.py` 先加载 `config/params.yaml`，再用 launch 参数覆盖其中
+  的 `source` / 权重路径。
+  实时流实测端到端约 28–31 fps，视频文件回放 44–47 fps；每个解算帧发布
+  `/localization/field_pose`，每帧发布 `/soccer/ball`。
 
 **设计说明：一个节点、两个话题。** 两个任务消费同一帧图像，且任务 1 的检测是任务 2
 解算的前置——拆成两个节点就要么把同一帧解码两次，要么额外开一路图像话题在进程间搬数据。
@@ -302,11 +303,12 @@ WSL `~/vision_ws/ros2_ws` 编译）：
 `cquick_interfaces` 里，若后续要多相机、换模型或单独重启某一路，拆成两个节点时
 消息定义与 launch 参数都不需要改。
 
-加分项（规范 ROS2 节点 + 可复用 launch，+2）的要素逐条对齐：标准 ament_python 包结构
+加分项 1（规范 ROS2 节点 + 可复用 launch，+2）的要素逐条对齐：标准 ament_python 包结构
 （`package.xml` / `setup.py` / `setup.cfg` / `resource/`）、独立的 `cquick_interfaces`
 消息包、`launch/demo_launch.py` 暴露 `source` / `ball_weights` / `marker_weights` /
 `venv_python` 四个 launch 参数（实时相机、视频回放换一行参数即可复用）、
-`config/params.yaml` 存放默认参数、节点内全部参数可被 `--ros-args -p` 覆盖。
+`config/params.yaml` 经 `--params-file` 加载为默认参数、节点内全部参数可被
+`--ros-args -p` 覆盖。
 
 运行（WSL 终端）：
 
@@ -338,7 +340,8 @@ marker_count=5, residual=0.094, status=OK`——与 2.5 节离线复验结论
 
 > 关于细则「建议目录结构」中 `src/<接口包名>/` 与 `src/<视觉定位包名>/`：
 > 即上述 `src/ros2/cquick_interfaces/` 与 `src/ros2/k1_vision_locate/`；
-> 平铺脚本与 ROS2 包并存于 `src/`，加分项（规范 ROS2 节点 + launch 文件，+2）已完成。
+> 平铺脚本与 ROS2 包并存于 `src/`，加分项 1（规范 ROS2 节点 + launch 文件，+2）已完成，
+> 要素对照表见「加分项 1」。
 
 ## ROS2 接口
 
@@ -351,10 +354,40 @@ demo_launch.py` 一键启动。M10 视频源实测话题输出与离线复验结
 
 ## 加分项
 
-三项加分项完成 2 项（ONNX 对比 +3、稳健匹配 +2）；TensorRT 因工具链版本不匹配未取得
-数据，如实标注为未完成、不计分。
+四项加分项完成 3 项（ROS2 规范节点封装 +2、ONNX 对比 +3、地图匹配稳健化 +2）；
+TensorRT 因工具链版本不匹配未取得数据，如实标注为未完成、不计分。
 
-### 加分项 1：ONNX 导出与 PyTorch / ONNX 推理对比（+3）— 已完成
+### 加分项 1：两个任务的规范 ROS2 节点封装与可复用 launch（+2）— 已完成
+
+完整实现与验证记录见 2.7 节，这里按加分项要求逐条对齐：
+
+| 要素 | 落地情况 |
+|---|---|
+| 规范节点包 | `src/ros2/k1_vision_locate/`，ament_python 标准结构（`package.xml` / `setup.py` / `setup.cfg` / `resource/`），`console_scripts` 注册可执行入口 `vision_node`（`rclpy` 节点类，非脚本硬跑） |
+| 消息接口包 | `src/ros2/cquick_interfaces/`（ament_cmake），`BallDetection.msg` 与 `FieldPose.msg` 独立成包，供其他节点复用 |
+| 两个任务都有输出 | 同一节点发布 `/soccer/ball`（任务 1，每帧）与 `/localization/field_pose`（任务 2，每 `solve_stride` 帧）；算法直接 import 离线验证用的 `realtime_locate.py` / `locator_fixed.py`，不复制逻辑 |
+| 可复用 launch | `launch/demo_launch.py`，暴露 `source` / `ball_weights` / `marker_weights` / `venv_python` 四个 launch 参数——实时流与视频回放只差一个 `source:=` |
+| 参数外置 | `config/params.yaml`（随包安装到 `share/k1_vision_locate/config/`）由 launch 以 `--params-file` 加载，`source` / `ball_weights` / `marker_weights` 再由 launch 参数经 `-p` 覆盖；其余参数（置信度、imgsz、增强模式、解算步长、平滑窗口、`residual_max`）同样可 `--ros-args -p` 覆盖 |
+| 实际跑通 | M10 视频源 `ros2 topic echo /localization/field_pose` 收到 `valid:true, x_camera_map=-0.051, y_camera_map=0.244, yaw_camera_map=-28.35, marker_count=5, residual=0.094`，与离线复验一致；视频源端到端 28–31 fps |
+
+设计上两项任务合并在一个节点（一个节点、两个话题），理由与拆分成本见 2.7 节「设计说明」；
+消息与 launch 参数已按可拆分的方式组织，后续要拆成两个节点不需要改接口。
+
+一条复现命令：
+
+```bash
+ros2 launch k1_vision_locate demo_launch.py source:=/mnt/d/captures/M10.mp4
+```
+
+参数链路复验（2026-11-22）：上述启动的日志首行为
+`参数 source=/mnt/d/captures/M10.mp4 imgsz=640 marker_conf=0.05 enhance=none
+solve_stride=5 residual_max=0.30 smooth=5`，与 `params.yaml` 一致；视频源
+317 帧处理完毕后节点自行退出（44–47 fps）。再用一份临时参数文件把
+`imgsz / solve_stride / smooth` 改成 512 / 7 / 9，启动日志同步变成
+`imgsz=512 ... solve_stride=7 ... smooth=9`，确认 `--params-file` 生效、
+命令行 `-p` 可覆盖。
+
+### 加分项 2：ONNX 导出与 PyTorch / ONNX 推理对比（+3）— 已完成
 
 足球与标志两个模型各导出 ONNX（opset 17、imgsz 640、simplify，与线上推理同口径）：
 
@@ -382,7 +415,7 @@ python onnx_compare.py --pt D:/captures/landmarks/weights/best_facing_v3.pt \
     --video /mnt/d/captures/M10.mp4 --conf 0.05 --stride 3 --max-frames 100
 ```
 
-### 加分项 2：TensorRT 推理与延迟 / FPS 对比（+3）— 未完成，如实标注
+### 加分项 3：TensorRT 推理与延迟 / FPS 对比（+3）— 未完成，如实标注
 
 环境是具备的：RTX 5060 Laptop 8 GB、驱动 591.66（CUDA 13.1），WSL2 下 `/dev/dxg` 正常、
 `torch.cuda.is_available()` 为 True；TensorRT 11.5.0.63（cu12 wheel）安装成功，
@@ -391,12 +424,12 @@ python onnx_compare.py --pt D:/captures/landmarks/weights/best_facing_v3.pt \
 1. ultralytics 的 `format=engine` 导出强制依赖 `nvidia-modelopt[onnx]>=0.44`，其自动安装
    又要求精确的 `torch==2.14.1+cu130`，该 build 不在软件源索引上，导出直接失败；
 2. `onnxruntime-gpu` 的 CUDA EP 也起不来（ORT 1.23 需 CUDA 12.x，本机 CUDA 13），
-   所以加分项 1 的对比只能在 CPU 上做。
+   所以加分项 2 的对比只能在 CPU 上做。
 
 因此 TensorRT 的延迟 / FPS 数据缺失，本项不作任何结论、不计分。可继续的方向是绕开
 ultralytics，直接用 TensorRT Python API 从 ONNX 建 engine 自测（需另排时间）。
 
-### 加分项 3：地图匹配的稳健化（RANSAC / 稳健位姿优化，+2）— 已完成
+### 加分项 4：地图匹配的稳健化（RANSAC / 稳健位姿优化，+2）— 已完成
 
 `src/robust_match.py` 在现有 `solve_pose_fixed`（穷举 2 点假设 + 内点投票）之外实现了
 两条稳健路线，输出结构与基线完全同构，可无缝替换：
@@ -449,7 +482,7 @@ python robust_match.py --mode real --video /mnt/d/captures/M10.mp4 \
 
 ### 任务 2 · 单目场地自定位
 
-**已完成并上传**，链接：<https://www.bilibili.com/video/BV1YnyGzpEZ1>
+**已完成并上传**，链接：<https://www.bilibili.com/video/BV1aVy7zYEuo>
 
 - 标题：任务二场地检测；时长 2 分 29 秒（149 s）；权限：公开；发布：2026-11-22。
 - 内容：加载最终检测权重 `best_fixed_v2.pt` 与固定外参（h=1.005 m / pitch=15° / roll=0），
@@ -555,9 +588,9 @@ weikai/
 │   ├── FIELD修改指南.md            field.yaml 新增 L/T 标志的实测/命名/重训步骤
 │   ├── realtime_locate.py          任务 2 实时左右分屏定位演示（左屏实时画面+检测框，右屏地图+光心+朝向箭头+x/y/yaw/marker_count/residual/valid/status）
 │   ├── extract_facing_x_frames.py  朝向 +X 素材抽帧（v3 训练数据来源，M5/M9）
-│   ├── onnx_compare.py             PyTorch / ONNX 同段推理对比（加分项 1）
-│   ├── robust_match.py             地图匹配稳健化：RANSAC + IRLS 与三组对比实验（加分项 3）
-│   ├── ros2/                       ROS2 colcon 包源码（接入 ~/vision_ws/ros2_ws 编译，见 2.7）
+│   ├── onnx_compare.py             PyTorch / ONNX 同段推理对比（加分项 2）
+│   ├── robust_match.py             地图匹配稳健化：RANSAC + IRLS 与三组对比实验（加分项 4）
+│   ├── ros2/                       ROS2 colcon 包源码（加分项 1，接入 ~/vision_ws/ros2_ws 编译，见 2.7）
 │   │   ├── cquick_interfaces/      接口包：BallDetection.msg / FieldPose.msg（字段对齐细则 2.11 建议表）
 │   │   └── k1_vision_locate/       视觉定位包：vision_node（发布 /soccer/ball 与 /localization/field_pose）+ launch + params
 │   ├── make_loc_figs.py            定位结果可视化（俯视散点 / 误差曲线 / 画面叠加）

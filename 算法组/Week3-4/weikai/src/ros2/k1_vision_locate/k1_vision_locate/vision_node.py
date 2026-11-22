@@ -76,6 +76,12 @@ class VisionNode(Node):
         marker_w = p("marker_weights")
         repo_src = p("repo_src")
 
+        self.get_logger().info(
+            "参数 source=%s imgsz=%d marker_conf=%.2f enhance=%s "
+            "solve_stride=%d residual_max=%.2f smooth=%d"
+            % (source, p("imgsz"), p("marker_conf"), p("enhance"),
+               p("solve_stride"), p("residual_max"), p("smooth")))
+
         # 仓库 src 加入 sys.path（复用离线验证的同一套实现）
         if repo_src and os.path.isdir(repo_src):
             sys.path.insert(0, repo_src)

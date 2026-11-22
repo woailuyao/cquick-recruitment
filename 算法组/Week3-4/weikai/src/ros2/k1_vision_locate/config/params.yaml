@@ -1,5 +1,5 @@
 # k1_vision_node 参数（launch 里可被命令行覆盖）
-/vision_node:
+/k1_vision_node:
   ros__parameters:
     # net://host:port = win_cam_bridge MJPEG 流；视频文件路径 = 回放；数字 = V4L2
     source: "net://127.0.0.1:8090"

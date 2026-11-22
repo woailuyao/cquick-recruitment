@@ -18,6 +18,7 @@ ultralytics/torch 来自 venv，同为 Python 3.10）。本 launch 已自动处�
 import os
 
 from ament_index_python.packages import get_package_prefix
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, ExecuteProcess, OpaqueFunction
 from launch.substitutions import LaunchConfiguration
@@ -29,10 +30,14 @@ VENV_PY_DEFAULT = ("/home/weikai/vision_ws/k1_soccer_vision/.venv/"
 def _make_process(context, *args, **kwargs):
     pkg_prefix = get_package_prefix("k1_vision_locate")
     script = os.path.join(pkg_prefix, "lib", "k1_vision_locate", "vision_node")
+    params = os.path.join(get_package_share_directory("k1_vision_locate"),
+                          "config", "params.yaml")
     cfg = lambda name: LaunchConfiguration(name).perform(context)
     cmd = [
         cfg("venv_python"), script,
         "--ros-args",
+        # 先读参数文件，再用 -p 覆盖 launch 参数（rcl 按出现顺序，后者生效）
+        "--params-file", params,
         "-p", "source:=" + cfg("source"),
         "-p", "ball_weights:=" + cfg("ball_weights"),
         "-p", "marker_weights:=" + cfg("marker_weights"),
