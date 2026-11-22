@@ -1,0 +1,18 @@
+# =============================================================================
+# ball_data.yaml —— 足球检测数据集（YOLO 格式）
+#
+# 按提交规范，图片/标注/原始视频均**不上传仓库**。
+# 本地把抽帧+标注好的数据集放在本文件同级，或修改下面的 path，例如：
+#   dataset/soccer_dataset_ball/images/{train,val}
+#   dataset/soccer_dataset_ball/labels/{train,val}
+#
+# 训练时使用的是绝对路径版本（见 dataset_summary.md），本文件为可移植版本。
+# =============================================================================
+path: ./soccer_dataset_ball
+train: images/train
+val: images/val
+# test: images/test        # 待补：当前没有独立 test 划分（见 dataset_summary.md）
+
+nc: 1
+names:
+  0: ball

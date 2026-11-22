@@ -1,0 +1,36 @@
+# =============================================================================
+# camera.yaml —— 相机设备与运行参数
+#
+# 内参/外参不放这里，见 ../calibration/：
+#   ../calibration/camera_intrinsics.yaml
+#   ../calibration/camera_extrinsics.yaml
+# =============================================================================
+camera:
+  type: "单目 RGB USB/UVC 摄像头（不限定品牌型号）"
+  interface: "USB / UVC"
+  mount: "固定在桌子边缘（与桌面刚性固定）——相机光心离地 0.82 m，光轴下倾 8°"
+  device_index_windows: 1          # OpenCV VideoCapture 索引（程序打不开时会回退 0/2）
+  device_node_linux: "/dev/video1" # 对应 Linux 设备节点
+  resolution: [640, 480]           # 采集/处理分辨率，与标定分辨率一致
+  nominal_fps: 30                  # 标称帧率
+  measured_fps: null               # 实际采集帧率：待现场用连续取帧耗时测量
+  autofocus: false                 # 固定焦距、固定对焦
+  auto_exposure: null              # 待确认设备实际设置
+  color_order: "BGR"               # OpenCV 默认通道顺序；模型输入由 ultralytics 转 RGB
+  intrinsics: "../calibration/camera_intrinsics.yaml"
+  extrinsics: "../calibration/camera_extrinsics.yaml"   # h=0.82 m, pitch=8°, roll=0°（已实测）
+
+processing:
+  proc_width: 640
+  proc_height: 480
+  ball_conf: 0.30
+  marker_conf: 0.30
+  ground_range_m: [0.30, 12.00]    # 像素->地面后保留的前向距离范围
+  ground_y_abs_max_m: 10.00
+  refine_marker_point: true        # L/T/X 白线求交细化
+  white_line_hsv: "V>=120, S<=95"
+
+models:
+  ball: "ball_best.pt"
+  marker: "marker_best.pt"
+  # 权重不上传仓库；放到 src/ 同目录或当前工作目录即可

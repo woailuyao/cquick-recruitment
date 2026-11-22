@@ -1,0 +1,10 @@
+# 运行依赖（实际测试版本见行尾注释）
+# 说明：opencv 必须用非 headless 版本，程序用 cv2.imshow 做左右分屏实时显示
+ultralytics>=8.0        # tested 8.4.215
+opencv-python>=4.8      # tested 5.0.0
+numpy>=1.24             # tested 2.4.6
+pyyaml>=6.0             # 可选：没安装时 match_map.py 会使用内置极简 YAML 解析
+matplotlib>=3.5         # ultralytics 依赖
+
+# PyTorch 由 ultralytics 自动安装；本机为 torch 2.7.0+cu128
+# 无 NVIDIA GPU 时安装 CPU 版即可，程序会自动回退 CPU 推理
