@@ -14,8 +14,7 @@
    - 内容：通过 ROS2 Action Client 发送 Goal，演示正反转、Ctrl+C 取消打断、修改参数当帧生效、越界拒绝以及 Bag 回放。
    - **视频链接**：[点击观看 (B站)](https://www.bilibili.com/video/BV12By5zUEUp/)
 3. **任务 3：整机装配与多舵机动作组**
-   - 内容：完成 4 个舵机的 ID 分配与整机装配。通过 YAML 定义动作组，播放器读取 YAML 执行连贯动作。
-   - **视频链接**：*(如果你有单独发，请贴在这里)*
+   - **视频链接**：[点击观看 (B站)](https://www.bilibili.com/video/BV1egy7zvEAq/)
 4. **任务 4：安全下电演示**
    - 内容：按标准流程执行“发 PULK 卸力 -> 拔动力电池 -> shutdown 关机”。
    - **视频链接**：[点击观看 (B站)](https://www.bilibili.com/video/BV1cuy5zzE82/)
