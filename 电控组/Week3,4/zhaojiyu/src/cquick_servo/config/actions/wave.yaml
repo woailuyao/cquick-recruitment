@@ -1,0 +1,24 @@
+name: wave
+description: 挥手 —— 顶端对称抬起，9 号来回摆两次，最后复位
+steps:
+  - name: 顶端抬起（9、10 同值）
+    moves:
+      - {id: 9, pwm: 1380, duration_ms: 1000}
+      - {id: 10, pwm: 1380, duration_ms: 1000}
+
+  - name: 往上摆
+    moves:
+      - {id: 9, pwm: 1300, duration_ms: 1000}
+
+  - name: 放下来一点
+    moves:
+      - {id: 9, pwm: 1420, duration_ms: 1000}
+
+  - name: 再往上摆
+    moves:
+      - {id: 9, pwm: 1300, duration_ms: 1000}
+
+  - name: 复位
+    moves:
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
