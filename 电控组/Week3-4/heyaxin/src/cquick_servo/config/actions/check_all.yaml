@@ -1,0 +1,116 @@
+# ============================================================
+# 动作组 03 · 逐关节自检（check_all）
+# ------------------------------------------------------------
+# 整机上电后按 3.3 的顺序验证用的，不是表演动作：
+#   ④ 逐个回中位 → ⑤ 单个舵机小幅正反转 → ⑥ 全部同时回中位
+#
+# 每个关节三步：1500 → +150 → -150。看三件事：
+#   ① 动的方向对不对  ② 是不是只有它自己动  ③ 有没有刮到结构
+# 一次只看一个关节 —— 一次动 10 个，出问题你根本不知道是哪个卡住。
+#
+#   python3 src/cquick_servo/tools/t1_servo.py scan     # 先确认在线 ID
+#   ros2 run cquick_servo sequence_player --action check_all
+#
+# ⚠️ 装完结构第一次跑，把 1650/1350 改成 1580/1420，确认不干涉再放大。
+# ⚠️ 按整机实扫结果写：在线 001~010 共 10 只（000 不在线）。重扫后 ID 变了只改这里。
+# ============================================================
+
+name: check_all
+description: 整机上电自检：10 个关节逐个回中位 + 小幅正反转
+
+defaults:
+  duration_ms: 1200
+
+steps:
+  # ---- 01 号 ----
+  - name: "01 回中位"
+    joints: [{id: 1, pwm: 1500, duration_ms: 1200}]
+  - name: "01 正向 +150"
+    joints: [{id: 1, pwm: 1540}]
+  - name: "01 反向 -150"
+    joints: [{id: 1, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 02 号 ----
+  - name: "02 回中位"
+    joints: [{id: 2, pwm: 1500, duration_ms: 1200}]
+  - name: "02 正向 +150"
+    joints: [{id: 2, pwm: 1540}]
+  - name: "02 反向 -150"
+    joints: [{id: 2, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 03 号 ----
+  - name: "03 回中位"
+    joints: [{id: 3, pwm: 1500, duration_ms: 1200}]
+  - name: "03 正向 +150"
+    joints: [{id: 3, pwm: 1540}]
+  - name: "03 反向 -150"
+    joints: [{id: 3, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 04 号 ----
+  - name: "04 回中位"
+    joints: [{id: 4, pwm: 1500, duration_ms: 1200}]
+  - name: "04 正向 +150"
+    joints: [{id: 4, pwm: 1540}]
+  - name: "04 反向 -150"
+    joints: [{id: 4, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 05 号 ----
+  - name: "05 回中位"
+    joints: [{id: 5, pwm: 1500, duration_ms: 1200}]
+  - name: "05 正向 +150"
+    joints: [{id: 5, pwm: 1540}]
+  - name: "05 反向 -150"
+    joints: [{id: 5, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 06 号 ----
+  - name: "06 回中位"
+    joints: [{id: 6, pwm: 1500, duration_ms: 1200}]
+  - name: "06 正向 +150"
+    joints: [{id: 6, pwm: 1540}]
+  - name: "06 反向 -150"
+    joints: [{id: 6, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 07 号 ----
+  - name: "07 回中位"
+    joints: [{id: 7, pwm: 1500, duration_ms: 1200}]
+  - name: "07 正向 +150"
+    joints: [{id: 7, pwm: 1540}]
+  - name: "07 反向 -150"
+    joints: [{id: 7, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 08 号 ----
+  - name: "08 回中位"
+    joints: [{id: 8, pwm: 1500, duration_ms: 1200}]
+  - name: "08 正向 +150"
+    joints: [{id: 8, pwm: 1540}]
+  - name: "08 反向 -150"
+    joints: [{id: 8, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 09 号 ----
+  - name: "09 回中位"
+    joints: [{id: 9, pwm: 1500, duration_ms: 1200}]
+  - name: "09 正向 +150"
+    joints: [{id: 9, pwm: 1540}]
+  - name: "09 反向 -150"
+    joints: [{id: 9, pwm: 1460, duration_ms: 1200}]
+
+  # ---- 10 号 ----
+  - name: "10 回中位"
+    joints: [{id: 10, pwm: 1500, duration_ms: 1200}]
+  - name: "10 正向 +150"
+    joints: [{id: 10, pwm: 1540}]
+  - name: "10 反向 -150"
+    joints: [{id: 10, pwm: 1460, duration_ms: 1200}]
+  # ---- 3.3 第 ⑥ 步：全部同时回中位 ----
+  - name: 全部同时回中位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1500}
+      - {id: 2, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}

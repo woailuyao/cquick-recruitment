@@ -1,0 +1,44 @@
+# ============================================================
+# 分段自检（第二段 · 5~7 号关节）
+# ------------------------------------------------------------
+# check_all 一次跑 31 步，实机上串口每 10 步左右会被舵机电流打掉一次，
+# 所以拆成三段跑：每段 3~4 个关节，跑完还能保住日志。
+#
+#   python3 ~/t1.py center                    # 先回中位
+#   ros2 run cquick_servo sequence_player --action check_b
+#
+# 判据：每个关节三步（1500 → +40 → -40）全部 success=True，
+#       且「是不是只有它自己在动」「方向对不对」。
+# ============================================================
+
+name: check_b
+description: 第二段 · 5~7 号关节
+defaults:
+  duration_ms: 1200
+
+steps:
+  - name: "05 回中位"
+    joints: [{id: 5, pwm: 1500}]
+  - name: "05 正向 +40"
+    joints: [{id: 5, pwm: 1540}]
+  - name: "05 反向 -40"
+    joints: [{id: 5, pwm: 1460}]
+
+  - name: "06 回中位"
+    joints: [{id: 6, pwm: 1500}]
+  - name: "06 正向 +40"
+    joints: [{id: 6, pwm: 1540}]
+  - name: "06 反向 -40"
+    joints: [{id: 6, pwm: 1460}]
+
+  - name: "07 回中位"
+    joints: [{id: 7, pwm: 1500}]
+  - name: "07 正向 +40"
+    joints: [{id: 7, pwm: 1540}]
+  - name: "07 反向 -40"
+    joints: [{id: 7, pwm: 1460}]
+  - name: 本段全部回中位
+    joints:
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 7, pwm: 1500, duration_ms: 1500}

@@ -1,0 +1,13 @@
+# ===== Goal：一条完整指令（直接嵌套 ServoCommand）=====
+cquick_servo_interfaces/ServoCommand command
+
+# ===== Result：成没成、最终读回多少、失败原因 =====
+---
+bool success
+uint16 final_pwm
+string message
+
+# ===== Feedback：当前 PWM、进度 0~1 =====
+---
+uint16 current_pwm
+float32 progress

@@ -1,0 +1,64 @@
+# ============================================================
+# 动作组 02 · 挥手（wave）
+# ------------------------------------------------------------
+# 这套动作专门用来演示「一步之内有先后」：
+# 肩先抬起来，前臂才能左右摆 —— 顺序反了会打到自己的结构。
+# 所以肩、前臂各占一个 step；前臂左-右-左 也必须拆成三个 step，
+# 因为同一个舵机在同一个 step 里不能有两条指令（播放器会直接报错）。
+#
+# ⚠️ 本文件按整机实扫结果写：在线 ID = 001~010 共 10 只。
+#    这里把 09 当"肩"、10 当"前臂"，装完按实际关节改 id 即可，不用动 python。
+#
+# 连跑三遍看是否一致：
+#   ros2 run cquick_servo sequence_player --action wave --repeat 3
+# ============================================================
+
+name: wave
+description: 抬肩 → 前臂左右摆三次 → 收回
+
+defaults:
+  duration_ms: 800         # 摆动幅度小，用时不长
+
+steps:
+  - name: 全部回中位
+    joints:
+      - {id: 1, pwm: 1500}
+      - {id: 2, pwm: 1500}
+      - {id: 3, pwm: 1500}
+      - {id: 4, pwm: 1500}
+      - {id: 5, pwm: 1500}
+      - {id: 6, pwm: 1500}
+      - {id: 7, pwm: 1500}
+      - {id: 8, pwm: 1500}
+      - {id: 9, pwm: 1500}
+      - {id: 10, pwm: 1500}
+
+  # ① 抬肩：必须先动，否则前臂摆动时贴着结构
+  - name: 肩抬起
+    joints:
+      - {id: 9, pwm: 1700, duration_ms: 1000}
+
+  # ②~⑦ 前臂左右摆三次：一个方向一个 step，靠 result 隔开
+  - name: 前臂向左
+    joints:
+      - {id: 10, pwm: 1650, duration_ms: 500}
+  - name: 前臂向右
+    joints:
+      - {id: 10, pwm: 1350, duration_ms: 700}
+  - name: 前臂向左
+    joints:
+      - {id: 10, pwm: 1650, duration_ms: 700}
+  - name: 前臂向右
+    joints:
+      - {id: 10, pwm: 1350, duration_ms: 700}
+  - name: 前臂向左
+    joints:
+      - {id: 10, pwm: 1650, duration_ms: 700}
+  - name: 前臂回中
+    joints:
+      - {id: 10, pwm: 1500, duration_ms: 700}
+
+  # ⑧ 收肩：前臂先回中再收肩，放两步更保险 —— 前臂还在半路时收肩会蹭到
+  - name: 肩收回
+    joints:
+      - {id: 9, pwm: 1500, duration_ms: 1000}
