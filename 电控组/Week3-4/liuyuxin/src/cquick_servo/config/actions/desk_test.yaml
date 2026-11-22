@@ -1,0 +1,24 @@
+# 动作组：桌面单舵机测试（不上整机也能验证播放器）
+#
+# 用途：硬件还在修、只有 1 个舵机在桌面时，用这套验证
+#   - yaml 能被读取、step 能被展开、换 yaml 不用改代码
+#   - 每个 goal 都等到 result 才发下一个（日志里有 result 时间戳）
+# 注意：只有 1 个舵机，「step 内并行」这条要靠整机 ≥2 个舵机才算真验过。
+
+name: desk_test
+description: 单个舵机小幅往返，验证动作组时序与 result 同步
+
+default_duration_ms: 800
+
+steps:
+  - name: 中位到 1600
+    joints:
+      - {id: 1, pwm: 1600, duration_ms: 800}
+
+  - name: 1600 到 1400
+    joints:
+      - {id: 1, pwm: 1400, duration_ms: 800}
+
+  - name: 回中位
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 800}
