@@ -1,0 +1,10 @@
+# 任务 2 场地标志（L/T/X）数据集
+# 数据集图片不随仓库提交（体积）。
+# 把 marker_dataset/ 放到本文件上一级目录（即 <姓名拼音>/marker_dataset/），即可直接训练；
+# 放在别处就把 path 改成你的实际路径。
+path: ../marker_dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 3
+names: ['L', 'T', 'X']

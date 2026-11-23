@@ -1,0 +1,21 @@
+# 由 calib_compute.py 自动生成
+calibrated_date: "2026-11-15"
+num_images: 20
+board: "9x6"
+square_mm: 20.0
+
+image_width: 640
+image_height: 480
+
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [501.559084, 0.000000, 333.165814, 0.000000, 501.635026, 236.450994, 0.000000, 0.000000, 1.000000]
+
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.078232, -0.002833, 0.002015, 0.000364, -0.224683]
+
+reprojection_error_px: 0.3936

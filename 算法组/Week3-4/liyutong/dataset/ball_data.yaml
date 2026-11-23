@@ -1,0 +1,10 @@
+# 任务 1 足球检测数据集
+# 数据集图片不随仓库提交（体积）。
+# 把 soccer_dataset/ 放到本文件上一级目录（即 <姓名拼音>/soccer_dataset/），即可直接训练；
+# 放在别处就把 path 改成你的实际路径。
+path: ../soccer_dataset
+train: images/train
+val: images/val
+test: images/test
+nc: 1
+names: ['ball']
