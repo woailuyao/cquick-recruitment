@@ -1,0 +1,39 @@
+{
+  "081036": {
+    "frames": 626,
+    "valid": 616,
+    "reference": [
+      -0.31,
+      0.14,
+      127.98
+    ],
+    "status": {
+      "ok": 616,
+      "ambiguous": 10
+    },
+    "median_errors": [
+      0.5271628756873541,
+      19.68872784235981
+    ],
+    "within": 0
+  },
+  "081354": {
+    "frames": 516,
+    "valid": 4,
+    "reference": [
+      -3.44,
+      0.52,
+      90
+    ],
+    "status": {
+      "ok": 4,
+      "ambiguous": 231,
+      "insufficient_markers": 281
+    },
+    "median_errors": [
+      1.0316723347505519,
+      5.622046732200317
+    ],
+    "within": 0
+  }
+}

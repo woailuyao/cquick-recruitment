@@ -1,0 +1,31 @@
+{
+  "source": "213930.jsonl, existing video detections",
+  "ros_distro": "humble",
+  "frame_range": [
+    75,
+    104
+  ],
+  "verified_messages": {
+    "ball": 30,
+    "pose": 30
+  },
+  "ball_boxes": 21,
+  "example": {
+    "frame_id": 80,
+    "stamp": 1795328205.494,
+    "balls": [
+      {
+        "name": "ball",
+        "confidence": 0.791881263256073,
+        "bbox": [
+          1224.17041015625,
+          165.16213989257812,
+          1279.892578125,
+          284.0366516113281
+        ],
+        "center_u": 1252.031494140625,
+        "center_v": 224.59939575195312
+      }
+    ]
+  }
+}

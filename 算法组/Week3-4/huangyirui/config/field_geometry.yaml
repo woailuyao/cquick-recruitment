@@ -1,0 +1,8 @@
+version: c0-measured-20261123
+length_m: 8.0
+width_m: 6.0
+center_circle_radius_m: 0.75
+origin: field_center
+x_positive: toward_unique_goal
+y_positive: left_when_facing_goal
+z_positive: up
