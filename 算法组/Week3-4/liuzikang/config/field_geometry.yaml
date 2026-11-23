@@ -1,0 +1,28 @@
+# 场地几何信息（尺寸、坐标轴、版本）
+# 测量日期：2026-11-19
+# 场地：C0 室内半场（有球门的一侧）
+
+version: "v1.0"
+source: "本人现场卷尺实测（组长要求：坐标由学生参考官方 field.yaml 自行定义）"
+
+dimensions:
+  field_width: 6.00        # 边线之间（Y 方向），米
+  half_length: 3.97        # 中线到球门线（X 方向），米
+  penalty_area:
+    width: 3.92            # 3.92 = 2 × 1.96，米
+    depth: 2.01            # 前沿在 X = 1.96，米
+  goal_area:
+    width: 2.96            # 2.96 = 2 × 1.48，米
+    depth: 1.02            # 前沿在 X = 2.95，米
+  x_distance_between_x_markers: 1.50   # 两个 X 交点间距，米
+
+axes:
+  origin: "场地中心（= 两个 X 交点的中点；地面无可见标记）"
+  x_axis: "指向球门（球门线在 X = +3.97）"
+  y_axis: "面向球门时的左侧（边线在 Y = ±3.00）"
+  z_axis: "垂直地面向上，地面 Z = 0"
+  yaw: "从 +X 轴逆时针为正，正对球门 = 0°"
+  unit: "米（m）"
+
+consistency_check:
+  note: "两套地图均按同一组实测尺寸绘制；合成数据测试中位置误差中位数 0.05 m，无错误解"

@@ -1,0 +1,7 @@
+﻿experiment,image,variant,detected,u,v,area,candidates,center_method
+A_S下界,my_01_clear.png,A: S >= 90  (textbook value),False,0.0,0.0,0.0,0,none
+A_S下界,my_01_clear.png,B: S >= 20  (tuned on my photos),True,280.48,374.47,37072.0,1,moments
+B_V下界,my_04_backlit.jpg,A: V >= 60,True,1696.09,377.24,53272.5,6,moments
+B_V下界,my_04_backlit.jpg,B: V >= 25  (reference),True,599.61,1274.74,608049.0,3,moments
+C_最小面积,my_03_occluded.png,A: min_area = 800,True,299.15,359.4,30730.0,2,moments
+C_最小面积,my_03_occluded.png,B: min_area = 50000,False,0.0,0.0,0.0,0,none

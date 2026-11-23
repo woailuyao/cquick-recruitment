@@ -1,0 +1,19 @@
+# 两个节点的默认参数。
+# 用法：ros2 run cquick_vision target_publisher --ros-args --params-file src/cquick_vision/config/params.yaml
+target_publisher:
+  ros__parameters:
+    image_dir: "data/images/photos"      # 我自己拍的 4 张实拍图（相对路径，从运行目录算）
+    publish_rate: 2.0                    # 每秒 2 条 -> 4 张图循环，2 秒一轮
+    use_fixed_test_data: false           # 最终验收必须是 false（发真实检测结果）
+    hsv_lower: [90, 20, 25]              # H 90~130 是蓝色段；S 只要求 >= 20，因为实拍物体是"浅灰蓝"
+    hsv_upper: [130, 255, 255]
+    min_area: 800.0                      # 小于 800 平方像素的轮廓当噪声
+    kernel: 5                            # 形态学核大小（奇数）
+    morph: true                          # 开运算去噪 + 闭运算补缺口
+    select: "largest"                    # 多候选时取面积最大
+    loop: true
+    output_dir: "output/ros2"            # 每帧的标注图存这里
+
+target_subscriber:
+  ros__parameters:
+    expected_count: 10                   # 收够 10 条打印一次"通信验证通过"

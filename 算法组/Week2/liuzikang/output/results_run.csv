@@ -1,0 +1,6 @@
+﻿file,detected,u,v,area,candidates,center_method,gt_u,gt_v,error_px,ms
+my_01_clear.png,True,280.48,374.47,37072.0,1,moments,,,,4.67
+my_02_two_blue.png,True,288.14,368.26,124384.0,1,moments,,,,1.21
+my_03_occluded.png,True,299.15,359.4,30730.0,2,moments,,,,1.05
+my_04_backlit.jpg,True,599.61,1274.74,608049.0,3,moments,,,,12.37
+my_05_no_target.jpg,False,0.0,0.0,0.0,0,none,,,,13.38
