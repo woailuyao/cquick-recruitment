@@ -1,0 +1,13 @@
+servo_driver:
+  ros__parameters:
+    port: /dev/cquick_servo          # 串口设备名；虚拟机里通常是 /dev/ttyUSB0
+    baudrate: 115200            # 众灵板出厂默认 115200，8-N-1
+    pwm_min: 900                # 安全下限，结构实测值（不是电气极限 500）
+    pwm_max: 2100               # 安全上限，结构实测值（不是电气极限 2500）
+    default_duration_ms: 800    # goal 里 duration_ms=0 时用这个
+    servo_ids: [0, 1]
+    startup_reset: true         # 启动时全部回中位（中位 = (pwm_min+pwm_max)/2）
+    position_tolerance: 30      # PRAD 回读与目标偏差 ≤30 才算到位
+    feedback_period: 0.2        # 反馈周期 0.2s = 5Hz
+    heartbeat_period: 0.5
+    watchdog_timeout: 1.0
