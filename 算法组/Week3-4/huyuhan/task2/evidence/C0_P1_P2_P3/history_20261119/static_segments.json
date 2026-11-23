@@ -1,0 +1,419 @@
+{
+  "P1": {
+    "raw_cm": {
+      "left": 153,
+      "midline": 15,
+      "aim_left": 296,
+      "aim_midline": 139,
+      "approx_height": 56
+    },
+    "run": "P1_20261119_144231_419596",
+    "recording": "屏幕录制 2026-11-19 144804.mp4",
+    "fixed_recording_sample_window_s": [
+      2,
+      20
+    ],
+    "first_frame": 13483,
+    "last_frame": 13660,
+    "start_china": "2026-11-19T14:47:40.228518+08:00",
+    "end_china": "2026-11-19T14:47:57.260975+08:00",
+    "selected": 178,
+    "valid": 178,
+    "status": {
+      "ok": 178
+    },
+    "pose_xyz_m": [
+      -0.13348847599461533,
+      1.2305226177542448,
+      0.6832948565808226
+    ],
+    "yaw_deg": -44.25342436405996,
+    "window_capture_duration_s": 17.870767799999157,
+    "loop_fps_median": 10.418502906890938,
+    "processed_per_second": 9.904442941730144,
+    "rms_px": {
+      "mean": 0.512806331864185,
+      "median": 0.51407025341264,
+      "p95": 0.5358632617990783
+    },
+    "jitter_xy_m": {
+      "mean": 0.0005243388690058682,
+      "median": 0.0004633498987855059,
+      "p95": 0.0011151597516741686
+    },
+    "conditionals": [
+      {
+        "camera_half": 1,
+        "umbrella_half": 1,
+        "reference_xy": [
+          0.175,
+          1.4475
+        ],
+        "umbrella_xy": [
+          1.4149999999999998,
+          0.01750000000000007
+        ],
+        "approx_yaw_deg": -49.070366373224815,
+        "position_error_m": {
+          "mean": 0.37721754396922463,
+          "median": 0.3771598505490468,
+          "p95": 0.3780923030602769
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 4.817782685083147,
+          "median": 4.816942009164848,
+          "p95": 4.830594458078679
+        }
+      },
+      {
+        "camera_half": 1,
+        "umbrella_half": -1,
+        "reference_xy": [
+          0.175,
+          1.4475
+        ],
+        "umbrella_xy": [
+          -1.4149999999999998,
+          0.01750000000000007
+        ],
+        "approx_yaw_deg": -138.03270261617698,
+        "position_error_m": {
+          "mean": 0.37721754396922463,
+          "median": 0.3771598505490468,
+          "p95": 0.3780923030602769
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 93.78011892803531,
+          "median": 93.77927825211702,
+          "p95": 93.79293070103085
+        }
+      },
+      {
+        "camera_half": -1,
+        "umbrella_half": 1,
+        "reference_xy": [
+          -0.175,
+          1.4475
+        ],
+        "umbrella_xy": [
+          1.4149999999999998,
+          0.01750000000000007
+        ],
+        "approx_yaw_deg": -41.96729738382302,
+        "position_error_m": {
+          "mean": 0.22096968993050883,
+          "median": 0.22091522926768437,
+          "p95": 0.22182423726277573
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 2.2852863043186455,
+          "median": 2.2861269802369293,
+          "p95": 2.2950646223239417
+        }
+      },
+      {
+        "camera_half": -1,
+        "umbrella_half": -1,
+        "reference_xy": [
+          -0.175,
+          1.4475
+        ],
+        "umbrella_xy": [
+          -1.4149999999999998,
+          0.01750000000000007
+        ],
+        "approx_yaw_deg": -130.9296336267752,
+        "position_error_m": {
+          "mean": 0.22096968993050883,
+          "median": 0.22091522926768437,
+          "p95": 0.22182423726277573
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 86.67704993863354,
+          "median": 86.67620926271525,
+          "p95": 86.68986171162908
+        }
+      }
+    ],
+    "formal_position_error_m": null,
+    "formal_yaw_error_deg": null
+  },
+  "P2": {
+    "raw_cm": {
+      "left": 245,
+      "midline": 5,
+      "aim_left": 190,
+      "aim_midline": 187,
+      "approx_height": 56
+    },
+    "run": "P2_20261119_151803_247037",
+    "recording": "屏幕录制 2026-11-19 152826.mp4",
+    "fixed_recording_sample_window_s": [
+      2,
+      20
+    ],
+    "first_frame": 37439,
+    "last_frame": 37617,
+    "start_china": "2026-11-19T15:28:01.179009+08:00",
+    "end_china": "2026-11-19T15:28:18.309325+08:00",
+    "selected": 179,
+    "valid": 179,
+    "status": {
+      "ok": 179
+    },
+    "pose_xyz_m": [
+      0.24715383686276002,
+      0.5228685996859286,
+      0.5227219746572502
+    ],
+    "yaw_deg": 20.005502190602517,
+    "window_capture_duration_s": 17.968029900002875,
+    "loop_fps_median": 10.400748347474654,
+    "processed_per_second": 9.906483960157008,
+    "rms_px": {
+      "mean": 2.2541342332111567,
+      "median": 2.252858782113895,
+      "p95": 2.2780968351481112
+    },
+    "jitter_xy_m": {
+      "mean": 0.00018484637286605345,
+      "median": 0.00015851096794270258,
+      "p95": 0.0004294093857689467
+    },
+    "conditionals": [
+      {
+        "camera_half": 1,
+        "umbrella_half": 1,
+        "reference_xy": [
+          0.07500000000000001,
+          0.5274999999999999
+        ],
+        "umbrella_xy": [
+          1.895,
+          1.0775000000000001
+        ],
+        "approx_yaw_deg": 16.814701567917986,
+        "position_error_m": {
+          "mean": 0.17222141556712078,
+          "median": 0.17221640157624035,
+          "p95": 0.17235256403228877
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 3.190937212928447,
+          "median": 3.1908006226845202,
+          "p95": 3.1963237114924254
+        }
+      },
+      {
+        "camera_half": 1,
+        "umbrella_half": -1,
+        "reference_xy": [
+          0.07500000000000001,
+          0.5274999999999999
+        ],
+        "umbrella_xy": [
+          -1.895,
+          1.0775000000000001
+        ],
+        "approx_yaw_deg": 164.40091419716074,
+        "position_error_m": {
+          "mean": 0.17222141556712078,
+          "median": 0.17221640157624035,
+          "p95": 0.17235256403228877
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 144.3952754163143,
+          "median": 144.39541200655822,
+          "p95": 144.40004622234807
+        }
+      },
+      {
+        "camera_half": -1,
+        "umbrella_half": 1,
+        "reference_xy": [
+          -0.07500000000000001,
+          0.5274999999999999
+        ],
+        "umbrella_xy": [
+          1.895,
+          1.0775000000000001
+        ],
+        "approx_yaw_deg": 15.59908580283924,
+        "position_error_m": {
+          "mean": 0.32219215109644816,
+          "median": 0.32218857655693617,
+          "p95": 0.3223264353509228
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 4.406552978007193,
+          "median": 4.406416387763272,
+          "p95": 4.4119394765711775
+        }
+      },
+      {
+        "camera_half": -1,
+        "umbrella_half": -1,
+        "reference_xy": [
+          -0.07500000000000001,
+          0.5274999999999999
+        ],
+        "umbrella_xy": [
+          -1.895,
+          1.0775000000000001
+        ],
+        "approx_yaw_deg": 163.18529843208202,
+        "position_error_m": {
+          "mean": 0.32219215109644816,
+          "median": 0.32218857655693617,
+          "p95": 0.3223264353509228
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 143.17965965123557,
+          "median": 143.1797962414795,
+          "p95": 143.18443045726934
+        }
+      }
+    ],
+    "formal_position_error_m": null,
+    "formal_yaw_error_deg": null
+  },
+  "P3": {
+    "raw_cm": {
+      "left": 372,
+      "midline": 15,
+      "aim_left": 433,
+      "aim_midline": 176,
+      "approx_height": 56
+    },
+    "run": "P3_20261119_154603_861036",
+    "recording": "屏幕录制 2026-11-19 154755.mp4",
+    "fixed_recording_sample_window_s": [
+      2,
+      20
+    ],
+    "first_frame": 49025,
+    "last_frame": 49203,
+    "start_china": "2026-11-19T15:47:29.391877+08:00",
+    "end_china": "2026-11-19T15:47:48.174921+08:00",
+    "selected": 179,
+    "valid": 179,
+    "status": {
+      "ok": 179
+    },
+    "pose_xyz_m": [
+      0.02251553054759591,
+      -0.8374509286940205,
+      0.6052941429358698
+    ],
+    "yaw_deg": -14.007484562605335,
+    "window_capture_duration_s": 17.968126799998572,
+    "loop_fps_median": 10.694628599701325,
+    "processed_per_second": 9.906430535653508,
+    "rms_px": {
+      "mean": 1.970379342597687,
+      "median": 1.9645973911556092,
+      "p95": 1.9976574609928224
+    },
+    "jitter_xy_m": {
+      "mean": 0.0002798992076733753,
+      "median": 0.00026773044714459505,
+      "p95": 0.000577869398306008
+    },
+    "conditionals": [
+      {
+        "camera_half": 1,
+        "umbrella_half": 1,
+        "reference_xy": [
+          0.175,
+          -0.7425000000000002
+        ],
+        "umbrella_xy": [
+          1.785,
+          -1.3525
+        ],
+        "approx_yaw_deg": -20.75079558959862,
+        "position_error_m": {
+          "mean": 0.17963475947853805,
+          "median": 0.17962204784305535,
+          "p95": 0.17979431593654108
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 6.742218899037956,
+          "median": 6.743311026993297,
+          "p95": 6.7488521920099345
+        }
+      },
+      {
+        "camera_half": 1,
+        "umbrella_half": -1,
+        "reference_xy": [
+          0.175,
+          -0.7425000000000002
+        ],
+        "umbrella_xy": [
+          -1.785,
+          -1.3525
+        ],
+        "approx_yaw_deg": -162.71257897164946,
+        "position_error_m": {
+          "mean": 0.17963475947853805,
+          "median": 0.17962204784305535,
+          "p95": 0.17979431593654108
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 148.70400228108878,
+          "median": 148.70509440904414,
+          "p95": 148.71063557406077
+        }
+      },
+      {
+        "camera_half": -1,
+        "umbrella_half": 1,
+        "reference_xy": [
+          -0.175,
+          -0.7425000000000002
+        ],
+        "umbrella_xy": [
+          1.785,
+          -1.3525
+        ],
+        "approx_yaw_deg": -17.287421028350547,
+        "position_error_m": {
+          "mean": 0.2191467376679223,
+          "median": 0.21915025687425105,
+          "p95": 0.21959361610515285
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 3.278844337789883,
+          "median": 3.279936465745209,
+          "p95": 3.285477630761875
+        }
+      },
+      {
+        "camera_half": -1,
+        "umbrella_half": -1,
+        "reference_xy": [
+          -0.175,
+          -0.7425000000000002
+        ],
+        "umbrella_xy": [
+          -1.785,
+          -1.3525
+        ],
+        "approx_yaw_deg": -159.2492044104014,
+        "position_error_m": {
+          "mean": 0.2191467376679223,
+          "median": 0.21915025687425105,
+          "p95": 0.21959361610515285
+        },
+        "approx_abs_yaw_delta_deg": {
+          "mean": 145.24062771984075,
+          "median": 145.24171984779605,
+          "p95": 145.24726101281274
+        }
+      }
+    ],
+    "formal_position_error_m": null,
+    "formal_yaw_error_deg": null
+  }
+}
