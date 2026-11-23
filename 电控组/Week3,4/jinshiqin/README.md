@@ -87,5 +87,96 @@ ttl模块的tx接控制器的rx，ttl模块的rx接控制器的tx，然后还要
 2 取消打断 https://t.bilibili.com/1273547447878025225?share_source=pc_native
 3 改参数生效 https://t.bilibili.com/1273547920323379200?share_source=pc_native
 4 bag回放 https://t.bilibili.com/1273548049139892226?share_source=pc_native
+### 安全区间
+900-2100 试的话是从1500出发，逐级往两极逼近，直到出现异常。
+## 7. bag 里录了什么、怎么回放、回放结果
+
+### 7.1 录了什么
+
+只录**两个话题**，不用 `-a`：
+
+| 话题 | 类型 | 作用 | 条数 |
+| --- | --- | --- | --- |
+| `/servo/command` | `cquick_servo_interfaces/msg/ServoCommand` | 驱动**真正发出**的每一条指令（id / pwm / duration_ms） | 3 |
+| `/servo/state` | `cquick_servo_interfaces/msg/ServoCommand` | 5Hz 状态心跳，当前 PWM 估计值 | 114 |
+
+不录全量（`-a`）：板卡上还有别的节点，全录会让 bag 变成几百 MB，而且和本次动作无关。
+
+### 7.2 怎么录的
+
+```bash
+cd ~/cquick_ws
+rm -rf bag/run1
+ros2 bag record -o bag/run1 /servo/command /servo/state
+# 另开终端发动作：1700 → 1300 → 1500
+# 录完 Ctrl+C，等提示符回来（会写 metadata.yaml）
+```
+
+关键点：
+
+- **先起驱动、再开录制、再发动作** —— 顺序反了录制会订阅不到话题；
+- 录制必须**正常结束**（等 `Recording stopped` 和提示符），中途强杀会导致缺 `metadata.yaml`，`ros2 bag play` 会报 `No storage id specified`；
+- 时长控制在 30 秒内，体积自然就小。
+
+### 7.3 `ros2 bag info` 实测输出
+
+```text
+Files:             run1_0.db3
+Bag size:          25.5 KiB
+Storage id:        sqlite3
+Duration:          22.599914041s
+Start:             Nov 21 2026 21:12:21.830950882 (1795266741.830950882)
+End:               Nov 21 2026 21:12:44.430864923 (1795266764.430864923)
+Messages:          117
+Topic information: Topic: /servo/state   | Type: cquick_servo_interfaces/msg/ServoCommand | Count: 114 | Serialization Format: cdr
+                   Topic: /servo/command | Type: cquick_servo_interfaces/msg/ServoCommand | Count: 3   | Serialization Format: cdr
+```
+
+体积 25.5 KiB，远小于 10 MB 的限制；时长 22.6 s，小于 30 s。
+
+### 7.4 怎么回放
+
+```bash
+ros2 bag play bag/run1 --topics /servo/command --disable-keyboard-controls
+```
+
+- `--topics /servo/command`：只灌指令，状态话题对回放没意义；
+- `--disable-keyboard-controls`：去掉一堆 `Press SPACE...` 提示，画面干净；
+- 可选 `-d 2` 延迟 2 秒开始，方便对准镜头。
+
+回放前确认驱动在跑：
+
+```bash
+ros2 node list | grep servo_driver
+ros2 topic info /servo/command      # Subscription count 必须是 1
+```
+
+### 7.5 回放结果
+
+回放后舵机**按录制时的顺序重做了一遍**：1700 → 1300 → 1500，动作幅度和速度与录屏一致；驱动终端同时打出：
+
+```text
+回放指令: id=1 pwm=1700 duration=1000ms
+回放指令: id=1 pwm=1300 duration=1000ms
+回放指令: id=1 pwm=1500 duration=1000ms
+```
+
+最后 `Playback finished`。
+
+### 7.6 为什么回放能复现（实现要点）
+
+`/servo/command` 是**发布 + 订阅同一个话题**：
+
+- 发布：`_send_move()` 每成功写一次串口，就把同一条指令发布到 `/servo/command`，所以录下来的是**指令流**；
+- 订阅：`_on_command_topic()` 收到后调用**同一个** `send_move()`，不是另写一套发送逻辑 —— 否则回放动作和录屏一定对不上。
+
+同话题自发自收会无限循环，所以驱动要吃掉自己的回显：每次发布登记一条 `(id, pwm, duration) + 时间戳`，收到完全相同的消息就丢一次（0.5 秒窗口）。这样：
+
+| 消息来源 | 处理 |
+| --- | --- |
+| 自己刚发布的回显 | 匹配到登记项 → 丢弃，不执行 |
+| bag 回放的消息 | 没有登记项 → 正常执行 → 执行时又发布一条 → 它的回显被丢弃 |
+
+每条消息最多被吃一次，不会级联。
 
 
