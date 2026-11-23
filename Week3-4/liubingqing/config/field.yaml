@@ -1,0 +1,58 @@
+meta:
+  version: 1              
+  unit: meter             
+  frame_id: map           
+  origin_description: "原点位于场地几何中心，X 轴正方向指向对方半场，Y 轴正方向指向左侧边线，Z轴向上。半场长 4. 0 m (X),宽 3.0 m (Y)。"
+field:
+  half_length: 4.0             
+  half_width: 3.0 
+  length: 8.0  
+  width: 6.0           
+  boundary:               
+    x_min: -4.0
+    x_max: 4.0
+    y_min: -3.0
+    y_max: 3.0
+markers:
+  - id: LCross_FL
+    type: LCross
+    x: 4.0
+    y: 3.0
+    yaw: 0.0
+  - id: LCross_FR
+    type: LCross
+    x: 4.0
+    y: -3.0
+    yaw: 0.0
+  - id: LCross_BL
+    type: LCross
+    x: -4.0
+    y: 3.0
+    yaw: 0.0  
+  - id: LCross_BR
+    type: LCross
+    x: -4.0
+    y: -3.0
+    yaw: 0.0
+  - id: TCross_left
+    type: TCross
+    x: 0.0
+    y: 3.0
+    yaw: 0.0
+  - id: TCross_right
+    type: TCross
+    x: 0.0
+    y: -3.0
+    yaw: 0.0
+  - id: XCross_1
+    type: XCross
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+  - id: PenaltyPoint_1
+    type: PenaltyPoint
+    x: 0.0
+    y: 0.0
+    yaw: 0.0
+constraints:
+  min_marker_distance: 0.5   

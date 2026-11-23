@@ -1,0 +1,33 @@
+meta:
+  version: 1
+  unit: meter
+  note: "本文件只描述标志自身形状，不含场地尺寸与标志位置（见 field.yaml）"
+line:
+  width: 0.05             
+  color: white            
+marker_geometry:
+  XCross:
+    arm_length: 0.00      
+    line_width: 0.00
+    intersection_offset: [0.0, 0.0]
+    symmetry: 4          
+  TCross:
+    arm_length: 0.00
+    line_width: 0.05
+    intersection_offset: [0.0, 0.0]
+    symmetry: 1           
+  LCross:
+    arm_length: 0.00
+    line_width: 0.05
+    intersection_offset: [0.0, 0.0]
+    symmetry: 1
+  PenaltyPoint:
+    radius: 0.025
+    line_width: 0.05          
+    filled: true
+    intersection_offset: [0.0, 0.0]
+    symmetry: 0
+detection:
+  min_arm_pixels: 15     
+  intersection_refine: true   
+  angle_tolerance_deg: 10.0  
