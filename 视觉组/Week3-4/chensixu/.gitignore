@@ -1,0 +1,24 @@
+# 训练权重、原始视频、训练产物按提交规范不上传仓库
+*.pt
+*.onnx
+*.engine
+*.avi
+*.mp4
+*.mov
+runs/
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# 数据集图片/标注/标定板图片（只在本地保存）
+dataset/images/
+dataset/labels/
+calib_imgs/
+field_images/
+data/
+
+# 运行时输出
+pose_output.yaml
+shot_*.png
+*_out.avi

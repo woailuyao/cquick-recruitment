@@ -1,0 +1,40 @@
+# =============================================================================
+# config/field_geometry.yaml —— 场地尺寸 / 地图原点 / 坐标轴 / 单位
+#
+# 本文件配合 field.yaml（本人参考官方格式自行定义的场地特征坐标表）使用。
+# 地图原点、轴向、单位必须与 field.yaml 中坐标的定义一致。
+#
+# 注意：field.yaml 只覆盖**球门侧半场（x >= 0）**，远端半场不参与定位，
+#       因此 marker_extent 的 x_min 为 0。
+# =============================================================================
+field_id: "C0"
+map_version: "C0-custom-v2"
+coverage: "球门侧半场（x >= 0），远端半场不参与定位"
+
+units: "m"
+
+# 地图坐标系定义（与《场地坐标系示意图（俯视图）》一致）
+origin:
+  description: "场地中心（中圈圆心），地面 Z=0"
+  x_axis: "+X 指向球门"
+  y_axis: "+Y 为面向 +X 时的左侧（与 +X、+Z 构成右手系）"
+  z_axis: "+Z 垂直地面向上"
+  yaw_positive: "从 +X 逆时针为正，单位：度（俯视）"
+
+# 标志点坐标范围（由 field.yaml 统计得到，仅作自检用）
+marker_extent:
+  x_min: 0.0
+  x_max: 3.96
+  y_min: -3.0
+  y_max: 3.0
+
+# 场地外轮廓尺寸（卷尺实测后填；未知时写 null）
+field_length: null
+field_width: null
+
+# 相机安装方式
+carrier:
+  type: "固定在桌子边缘（相机与桌面刚性固定）"
+  rig_origin: "相机光心在地面 Z=0 的投影点，因此 carrier_pose == camera_pose"
+  camera_height_m: 0.82
+  camera_pitch_deg: 8.0

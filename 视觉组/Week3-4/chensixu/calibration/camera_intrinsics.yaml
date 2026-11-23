@@ -1,0 +1,32 @@
+# =============================================================================
+# camera_intrinsics.yaml —— 单目相机内参与畸变系数
+#
+# 标定信息
+#   标定日期   : 2026-11-15
+#   标定板     : 棋盘格，内部角点 5 x 7（src/tools/calibrate.py 中 chessboard_size=(5,7)）
+#   有效图片   : 16 张（calib_imgs/img_1.jpg ... img_16.jpg）
+#   图像分辨率 : 640 x 480（与实时处理/推理分辨率一致）
+#   重投影误差 : 0.4660 px
+#   标定脚本   : src/tools/calibrate.py（cv2.calibrateCamera，默认畸变模型）
+#   畸变顺序   : [k1, k2, p1, p2, k3]
+#
+# 注意：k3 = -20.23 量级明显偏大（正常约 ±1），说明畸变模型在画面边缘过拟合。
+#       画面边缘像素去畸变对精度影响较大，若现场定位精度不足，建议补 20 张以上
+#       覆盖四角/不同倾斜的标定图重标，并加 cv2.CALIB_FIX_K3 或
+#       cv2.CALIB_ZERO_TANGENT_DIST。
+# =============================================================================
+image_width: 640
+image_height: 480
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [1096.95043, 0.0, 295.573704, 0.0, 1099.66694, 234.796376, 0.0, 0.0, 1.0]
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [0.257188658, -0.0428332999, -0.00793822676, -0.00659032058, -20.2262281]
+
+reprojection_error_px: 0.4660
+calibration_date: "2026-11-15"
+calibration_images: 16
+calibration_pattern: "chessboard 5x7 inner corners"
