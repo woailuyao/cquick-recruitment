@@ -451,16 +451,6 @@ class ServoDriver(Node):
         return CancelResponse.ACCEPT
 
     def execute_cb(self, goal_handle):
-        # ---- 抢占检查 ----
-        if self.cmd_seq != my_seq:
-            self.get_logger().warn('已被新指令抢占，跳过校验')
-            result = MoveServo.Result()
-            result.success = True
-            result.final_pwm = 0
-            result.message = 'preempted'
-            goal_handle.succeed()
-            return result
-
         """执行体：拼指令 -> 循环发 feedback -> 读回校验 -> 返回 result。
 
         批量模式把多个舵机拼成一条 {G0000#...!#...!} 指令，一次性写串口，
@@ -542,6 +532,19 @@ class ServoDriver(Node):
             if progress >= 1.0:
                 break
             time.sleep(0.2)
+
+        # ---- 抢占检查 ----
+        # 期间如果有更新的指令下发（cmd_seq 变了），说明本 goal 已被覆盖：
+        # 此时读回一定是"未到位"，校验和重发都会把机器拉回旧目标。
+        # 所以直接放弃校验，把控制权交给新指令。
+        if self.cmd_seq != my_seq:
+            self.get_logger().warn('已被新指令抢占，跳过校验')
+            result = MoveServo.Result()
+            result.success = True
+            result.final_pwm = 0
+            result.message = 'preempted'
+            goal_handle.succeed()
+            return result
 
         # ---- 读回校验 ----
         time.sleep(0.03)
