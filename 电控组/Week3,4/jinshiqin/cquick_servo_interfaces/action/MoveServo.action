@@ -1,0 +1,9 @@
+ServoCommand command
+---
+bool success
+uint16 actual_pwm
+string message
+---
+uint8 servo_id
+uint16 current_pwm
+float32 progress
