@@ -1,0 +1,13 @@
+# 最外层 key 必须等于节点名（servo_driver），写错不报错、参数静默不加载
+servo_driver:
+  ros__parameters:
+    port: "/dev/cq_servo"        # udev 固定名，规则见 udev/99-cquick-servo.rules
+    baudrate: 115200             # 总线舵机出厂波特率，串口助手默认 9600 会收到乱码
+    pwm_min: 900                 # 结构实测出来的安全下限，不是电气下限 500
+    pwm_max: 2100                # 结构实测出来的安全上限，不是电气上限 2500
+    default_duration_ms: 800     # 客户端不给 duration 时的兜底
+    servo_ids: [1, 2, 3, 4, 5, 6]  # 本机实际有的舵机，用来拒绝不存在的 ID
+    startup_reset: true          # 上电全部回 1500；装好后想直接摆站姿就改 false
+    speed_pwm_per_s: 600         # 限速，抢占后接上时不猛冲
+    watchdog_timeout_s: 1.0      # 动作停摆超过这个时间就 PULK + 上锁
+    prad_retry: 1                # 未到位自动重发的次数（PRAD 闭环加分项）

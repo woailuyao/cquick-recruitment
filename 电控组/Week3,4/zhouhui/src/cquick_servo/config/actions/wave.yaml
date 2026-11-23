@@ -1,0 +1,27 @@
+# 动作组 B：左右重心交替。第二套动作用来证明「换动作只加一个 yaml，不动 python」。
+# 只用两只脚踝（5/6）摆重心，两腿始终着地，不容易倒；幅度 150 PWM 左右，镜头里看得清。
+# 两个踝始终在同一 step 里反向下发：一个 +150 一个 -150，整机才是一起摆而不是先歪再补。
+name: wave
+description: 重心左移 → 回正 → 重心右移 → 回正
+default_duration_ms: 2000
+
+steps:
+  - label: 重心左移
+    moves:
+      - {id: 5, pwm: 1640, duration_ms: 2000}
+      - {id: 6, pwm: 1360, duration_ms: 2000}
+
+  - label: 回正
+    moves:
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 6, pwm: 1500, duration_ms: 2000}
+
+  - label: 重心右移
+    moves:
+      - {id: 5, pwm: 1360, duration_ms: 2000}
+      - {id: 6, pwm: 1640, duration_ms: 2000}
+
+  - label: 回正
+    moves:
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 6, pwm: 1500, duration_ms: 2000}

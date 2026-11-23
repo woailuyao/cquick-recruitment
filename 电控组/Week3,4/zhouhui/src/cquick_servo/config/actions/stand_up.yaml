@@ -1,0 +1,36 @@
+# 动作组 A：蹲下 → 起立 → 前压 → 归位。
+# 关节编号是占位（1/2 左髋膝，3/4 右髋膝，5/6 双脚踝），装完样机先对着实物改一遍再跑。
+# 幅度取 150~170 PWM（约 13~15°）：大于驱动 ±30 的到位容差，又离结构限位有余量。
+# 时长按「幅度 ÷ 舵机自身速度」给足（实测约 30~50 PWM/s），给小了会报 Not in place。
+name: stand_up
+description: 屈膝下蹲 → 起立 → 重心前压 → 全机归位
+default_duration_ms: 3000
+
+steps:
+  - label: 屈膝下蹲（双腿同时，step 内并行）
+    moves:
+      - {id: 2, pwm: 1360, duration_ms: 2500}
+      - {id: 4, pwm: 1360, duration_ms: 2500}
+      - {id: 1, pwm: 1420, duration_ms: 2500}
+      - {id: 3, pwm: 1420, duration_ms: 2500}
+
+  - label: 起立回中立位
+    moves:
+      - {id: 2, pwm: 1500, duration_ms: 2500}
+      - {id: 4, pwm: 1500, duration_ms: 2500}
+      - {id: 1, pwm: 1500, duration_ms: 2500}
+      - {id: 3, pwm: 1500, duration_ms: 2500}
+
+  - label: 重心前压（踝先动）
+    moves:
+      - {id: 5, pwm: 1580, duration_ms: 1500}
+      - {id: 6, pwm: 1580, duration_ms: 1500}
+
+  - label: 全机归位站稳
+    moves:
+      - {id: 1, pwm: 1500, duration_ms: 2000}
+      - {id: 2, pwm: 1500, duration_ms: 2000}
+      - {id: 3, pwm: 1500, duration_ms: 2000}
+      - {id: 4, pwm: 1500, duration_ms: 2000}
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 6, pwm: 1500, duration_ms: 2000}
