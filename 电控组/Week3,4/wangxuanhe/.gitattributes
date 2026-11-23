@@ -1,0 +1,13 @@
+# 行尾统一为 LF：在 Windows 上编辑后 push，Linux 侧 bash 不会因为 \r 报
+# 「$'\r': 未找到命令」。这是真实踩过的坑，见 调试记录.md 11-21 那行。
+* text=auto eol=lf
+
+*.sh    text eol=lf
+*.py    text eol=lf
+*.yaml  text eol=lf
+*.md    text eol=lf
+*.rules text eol=lf
+
+# 二进制，别做行尾转换
+*.png binary
+*.db3 binary
