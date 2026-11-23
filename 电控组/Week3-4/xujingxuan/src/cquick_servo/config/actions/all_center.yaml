@@ -1,0 +1,24 @@
+# 全部关节同时回中位（10 个舵机同一 step，用来验证多路并发）
+#
+# 用途：
+#   1) 上电验证第 ⑥ 步——全部舵机同时回中位
+#   2) 证明播放器一步内可以并发下发 10 个 goal（实测应 ≈ duration，不是 10×duration）
+#
+# 关节与 ID 的对应关系按实测填写，这里只按 ID 号列，不假设装在哪。
+
+name: all_center
+description: 10 个舵机同时回 1500 中位
+repeat: 1
+steps:
+  - name: 十个关节同时回中位
+    moves:
+      - {id: 1,  pwm: 1500, duration_ms: 1200}
+      - {id: 2,  pwm: 1500, duration_ms: 1200}
+      - {id: 3,  pwm: 1500, duration_ms: 1200}
+      - {id: 4,  pwm: 1500, duration_ms: 1200}
+      - {id: 5,  pwm: 1500, duration_ms: 1200}
+      - {id: 6,  pwm: 1500, duration_ms: 1200}
+      - {id: 7,  pwm: 1500, duration_ms: 1200}
+      - {id: 8,  pwm: 1500, duration_ms: 1200}
+      - {id: 9,  pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}

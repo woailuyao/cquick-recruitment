@@ -1,0 +1,65 @@
+# each_servo.yaml —— 逐个舵机动一次（10 个关节依次检查）
+#
+# 用途：任务三完成标准里那条「用任务 2 的 Action 能逐个控制每个舵机」。
+#   按 6→7→8→9→10→5→4→3→2→1 的顺序，每次只动一个关节到 1650（+150 ≈ 18°），
+#   最后一步 10 个关节同时回 1500。
+#
+# 每一步都是"发 goal → 等到 result 才发下一条"，不是靠 sleep 顺序。
+
+name: each_servo
+description: 10 个舵机依次各动一次，最后全体回中位
+repeat: 1
+
+steps:
+  - name: ID 6（左髋偏航）
+    moves:
+      - {id: 6, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 7（左大腿）
+    moves:
+      - {id: 7, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 8（左膝）
+    moves:
+      - {id: 8, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 9（左小腿）
+    moves:
+      - {id: 9, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 10（左踝横滚）
+    moves:
+      - {id: 10, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 5（右髋偏航）
+    moves:
+      - {id: 5, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 4（右大腿）
+    moves:
+      - {id: 4, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 3（右膝）
+    moves:
+      - {id: 3, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 2（右小腿）
+    moves:
+      - {id: 2, pwm: 1650, duration_ms: 1200}
+
+  - name: ID 1（右踝横滚）
+    moves:
+      - {id: 1, pwm: 1650, duration_ms: 1200}
+
+  - name: 全部回中位
+    moves:
+      - {id: 1, pwm: 1500, duration_ms: 1300}
+      - {id: 2, pwm: 1500, duration_ms: 1300}
+      - {id: 3, pwm: 1500, duration_ms: 1300}
+      - {id: 4, pwm: 1500, duration_ms: 1300}
+      - {id: 5, pwm: 1500, duration_ms: 1300}
+      - {id: 6, pwm: 1500, duration_ms: 1300}
+      - {id: 7, pwm: 1500, duration_ms: 1300}
+      - {id: 8, pwm: 1500, duration_ms: 1300}
+      - {id: 9, pwm: 1500, duration_ms: 1300}
+      - {id: 10, pwm: 1500, duration_ms: 1300}

@@ -1,0 +1,13 @@
+# 一条完整的动作指令：转哪个舵机、转到哪、用多久
+uint8 id
+uint16 pwm
+uint16 duration_ms
+---
+# 成没成、PRAD 实际读回多少、失败原因一句话
+bool success
+uint16 final_pwm
+string message
+---
+# 执行过程中的实时状态
+uint16 current_pwm
+float32 progress

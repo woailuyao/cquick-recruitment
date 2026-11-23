@@ -1,0 +1,10 @@
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    cancel_return_ms: 500
+    servo_ids: [0]
+    startup_reset: true

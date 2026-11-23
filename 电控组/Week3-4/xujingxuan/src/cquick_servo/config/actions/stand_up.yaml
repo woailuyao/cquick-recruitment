@@ -1,0 +1,31 @@
+# 动作组定义：一套动作 = 有序的 step 列表
+#
+# 规则（播放器按这个解释，改动作不需要改代码）：
+#   - 同一个 step 里的 moves 会【同时下发】，等它们全部 result 回来才进下一个 step
+#   - 需要某个关节先动，就把它单独写成一个 step（不要靠 duration 硬凑先后）
+#   - 所有 pwm 都会经过驱动的安全上限检查，超限直接 REJECT
+#
+# 字段：
+#   name         动作组名字（必填）
+#   description  一句话说明（可选）
+#   repeat       整套重复次数（可选，默认 1；命令行 -p repeat:= 可覆盖）
+#   steps[]      step 列表（必填，至少 1 个）
+#     - name    这一步干什么（可选，只用于日志）
+#       moves[] 同时下发的指令（必填，至少 1 条）
+#         id           舵机 ID
+#         pwm          目标 PWM
+#         duration_ms  这一步用多久走过去
+
+name: stand_up
+description: 双关节同时抬起，再同时收到中位（验证「同步下发」）
+repeat: 1
+steps:
+  - name: 两个关节同时抬
+    moves:
+      - {id: 0, pwm: 1300, duration_ms: 1000}
+      - {id: 1, pwm: 1700, duration_ms: 1000}
+
+  - name: 两个关节同时回中位
+    moves:
+      - {id: 0, pwm: 1500, duration_ms: 1000}
+      - {id: 1, pwm: 1500, duration_ms: 1000}
