@@ -1,0 +1,21 @@
+map_version: C0 measured (personal)
+source: 本人卷尺实测，坐标系按组长发布定义
+demo: false
+verified: true
+field_name: C0 field, origin at center circle, +X toward goal
+unit: m
+origin:
+  x: 0.0
+  y: 0.0
+  description: 场地中心（中圈圆心）
+axes:
+  x: 指向球门
+  y: 面向 +X 时的左侧
+  yaw_positive: 从 +X 逆时针
+bounds:
+  min_x: -0.8
+  max_x: 4.78
+  min_y: -2.78
+  max_y: 2.78
+ground_plane_z: 0.0
+notes: 坐标由本人卷尺实测。点球点按定义固定在场地中心 (0,0)。
