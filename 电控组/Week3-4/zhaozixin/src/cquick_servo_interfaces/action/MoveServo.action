@@ -1,0 +1,11 @@
+# Goal
+cquick_servo_interfaces/ServoCommand command
+---
+# Result
+bool success
+uint16 final_pwm
+string message
+---
+# Feedback
+uint16 current_pwm
+float32 progress
