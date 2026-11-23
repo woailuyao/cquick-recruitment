@@ -72,7 +72,7 @@ def main():
             "wait_records": flow["wait"],
             "selection_records": flow["selection"],
             "continuous_valid_segments": flow["continuous_valid_segments"],
-            "formal_error_status": "CONDITIONAL_ONLY_PENDING_FIELD_HALF_CONFIRMATION",
+            "formal_error_status": "HALF_SIGNS_CONFIRMED_PLUSX_PLUSX; HISTORICAL_MANUAL_PNP_ONLY; NOT_CURRENT_AUTO_YOLO_C0",
         })
 
         for c in d["conditionals"]:
@@ -91,7 +91,7 @@ def main():
                 "absolute_yaw_error_mean_deg": c["approx_abs_yaw_delta_deg"]["mean"],
                 "absolute_yaw_error_median_deg": c["approx_abs_yaw_delta_deg"]["median"],
                 "absolute_yaw_error_p95_deg": c["approx_abs_yaw_delta_deg"]["p95"],
-                "status": "CONDITIONAL_NOT_FORMAL",
+                "status": ("CONFIRMED_FIELD_CONDITION_HISTORICAL_ONLY" if c["camera_half"] == 1 and c["umbrella_half"] == 1 else "ALTERNATIVE_FIELD_CONDITION_NOT_SELECTED"),
             })
 
     summary_fields = list(summary[0].keys())
@@ -102,8 +102,10 @@ def main():
     print("PASS: parsed P1/P2/P3")
     print(f"PASS: wrote {len(summary)} rows to C0_history_20261119_stability_summary.csv")
     print(f"PASS: wrote {len(conditional)} rows to C0_history_20261119_conditional_errors.csv")
-    print("WARNING: conditional errors are not formal acceptance errors until field-half signs are confirmed.")
+    print("INFO: +X/+X field signs are user-confirmed for P1/P2/P3; alternative rows remain for audit.")
     print("WARNING: full-flow valid/source-record ratios use the source report's denominator, which includes repeated/stale active records.")
+    print("WARNING: historical manual PnP does not prove current-installation YOLO C0 accuracy.")
+    print("WARNING: yaw reference is approximate; angular uncertainty is not quantified.")
     print("WARNING: P95 XY jitter is within-window stability, not absolute position accuracy.")
 
 if __name__ == "__main__":
