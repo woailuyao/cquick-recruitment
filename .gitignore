@@ -1,15 +1,46 @@
-# OS / 编辑器
+# ===== OS / 编辑器 =====
 .DS_Store
 Thumbs.db
 Desktop.ini
+.vscode/
+.idea/
+*.swp
 
-# 截图缓存 / 临时文件
+# ===== 临时文件 / 压缩包（不要提交大文件）=====
 *.tmp
 *.log
-
-# 压缩包（不要提交大文件）
 *.zip
 *.rar
 *.7z
 
-# 若后续有 ROS 工程，可在此追加 build/ install/ log/
+# ===== ROS2 工作空间（编译产物，绝不提交）=====
+build/
+install/
+log/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.pytest_cache/
+venv/
+.venv/
+env/
+conda-meta/
+
+# ===== 视觉算法组：大文件不入库 =====
+# 视频原文件请放本地，只提交截图或处理结果
+*.mp4
+*.avi
+*.mov
+*.mkv
+# 模型权重
+*.pt
+*.pth
+*.onnx
+*.weights
+*.h5
+# 数据集（如需样例图，放 data/images/ 里少量精选图即可）
+*.bag
+*.db3
