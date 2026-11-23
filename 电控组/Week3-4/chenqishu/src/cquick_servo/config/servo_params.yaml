@@ -1,0 +1,16 @@
+# 舵机驱动节点参数
+# 注意：最外层 key 必须等于节点名 servo_driver，写错不报错但一个都不会加载
+servo_driver:
+  ros__parameters:
+    port: /dev/ttyUSB0
+    baudrate: 115200
+    # 安全区间：电气范围是 500~2500，这里是按结构实测收窄的
+    # 蹲下姿态实测最低 866（ID003），所以下限放到 800 留余量
+    pwm_min: 800
+    pwm_max: 2100
+    default_duration_ms: 800
+    # 双腿共 10 个舵机：0~9
+    servo_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    startup_reset: true
+    allowed_baudrates: [9600, 19200, 38400, 57600, 115200]
+    sim: false

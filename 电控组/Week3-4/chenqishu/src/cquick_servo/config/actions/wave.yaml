@@ -1,0 +1,36 @@
+# 动作组 2：挥手（演示"换一套动作只改 yaml"）
+# 和 stand_up.yaml 结构一样，只是内容不同 —— 播放器一行代码都不用改
+
+name: wave
+
+steps:
+  - name: 准备
+    joints:
+      - {id: 0, pwm: 1500, duration_ms: 600}
+      - {id: 1, pwm: 1500, duration_ms: 600}
+
+  - name: 抬手
+    joints:
+      - {id: 1, pwm: 1800, duration_ms: 700}
+
+  # 挥三下：明显是"一步之内只有一关节"，用连续 step 表达顺序
+  - name: 挥左
+    joints:
+      - {id: 1, pwm: 1650, duration_ms: 400}
+
+  - name: 挥右
+    joints:
+      - {id: 1, pwm: 1900, duration_ms: 400}
+
+  - name: 挥左2
+    joints:
+      - {id: 1, pwm: 1650, duration_ms: 400}
+
+  - name: 挥右2
+    joints:
+      - {id: 1, pwm: 1900, duration_ms: 400}
+
+  - name: 收手
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 700}
+      - {id: 0, pwm: 1500, duration_ms: 700}
