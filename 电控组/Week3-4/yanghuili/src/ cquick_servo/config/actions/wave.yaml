@@ -1,1 +1,22 @@
+name: wave
 
+steps:
+  - name: upper_pair_prepare
+    goals:
+      - {id: 103, pwm: 1500, duration_ms: 2000}
+      - {id: 104, pwm: 1500, duration_ms: 2000}
+
+  - name: wave_right
+    goals:
+      - {id: 103, pwm: 1520, duration_ms: 2000}
+      - {id: 104, pwm: 1480, duration_ms: 2000}
+
+  - name: wave_left
+    goals:
+      - {id: 103, pwm: 1480, duration_ms: 2000}
+      - {id: 104, pwm: 1520, duration_ms: 2000}
+
+  - name: return_center
+    goals:
+      - {id: 103, pwm: 1500, duration_ms: 2000}
+      - {id: 104, pwm: 1500, duration_ms: 2000}
