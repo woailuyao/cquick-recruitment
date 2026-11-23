@@ -1,0 +1,14 @@
+name: 蹲起
+steps:
+  - name: 屈膝
+    goals:
+      - {id: 3, pwm: 1560, duration_ms: 1200}
+      - {id: 8, pwm: 1440, duration_ms: 1200}
+      - {id: 5, pwm: 1540, duration_ms: 1200}
+      - {id: 6, pwm: 1460, duration_ms: 1200}
+  - name: 站直
+    goals:
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
