@@ -1,0 +1,149 @@
+{
+  "valid": false,
+  "status": "no_consistent_match",
+  "marker_count": 0,
+  "residual": null,
+  "residual_unit": "m",
+  "x_carrier_map": null,
+  "y_carrier_map": null,
+  "yaw_carrier_map": null,
+  "x_camera_map": null,
+  "y_camera_map": null,
+  "yaw_camera_map": null,
+  "matches": [],
+  "time_utc": "2026-11-19T23:43:05.224772+00:00",
+  "source_session": "synthetic_session",
+  "sequence": 5,
+  "capture_monotonic_s": 2.1,
+  "producer": {
+    "session": "synthetic_session",
+    "sequence": 5,
+    "protocol_version": 2,
+    "capture_monotonic_ns": 2100000000
+  },
+  "transport_status": "ok",
+  "read_age": {
+    "source_session": "synthetic_session",
+    "sequence": 5,
+    "capture_monotonic_ns": 2100000000,
+    "status": "ok",
+    "age_lower_ms": 70.0,
+    "age_upper_ms": 78.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "publish_age": {
+    "source_session": "synthetic_session",
+    "sequence": 5,
+    "capture_monotonic_ns": 2100000000,
+    "status": "ok",
+    "age_lower_ms": 88.0,
+    "age_upper_ms": 96.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "unpublished_localization_status": "no_consistent_match",
+  "marker_observation_count": 3,
+  "observation_indices": [
+    0,
+    1,
+    2
+  ],
+  "detections": {
+    "ball": [],
+    "field": [
+      {
+        "bbox": [
+          205,
+          385,
+          275,
+          455
+        ],
+        "class_id": 0,
+        "class_name": "LCross",
+        "confidence": 0.9
+      },
+      {
+        "bbox": [
+          620,
+          475,
+          690,
+          545
+        ],
+        "class_id": 1,
+        "class_name": "TCross",
+        "confidence": 0.9
+      },
+      {
+        "bbox": [
+          965,
+          565,
+          1035,
+          635
+        ],
+        "class_id": 2,
+        "class_name": "XCross",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "intersections": [
+    {
+      "detection_index": 0,
+      "class_id": 0,
+      "pixel_uv": [
+        241.0,
+        421.0
+      ],
+      "carrier_xy_m": [
+        1.974916073234386,
+        0.5958900166939289
+      ],
+      "map_xy_m": null,
+      "map_id": null,
+      "status": "projected_unmatched"
+    },
+    {
+      "detection_index": 1,
+      "class_id": 1,
+      "pixel_uv": [
+        656.0,
+        511.0
+      ],
+      "carrier_xy_m": [
+        1.7541562680918137,
+        0.05296530555676003
+      ],
+      "map_xy_m": null,
+      "map_id": null,
+      "status": "projected_unmatched"
+    },
+    {
+      "detection_index": 2,
+      "class_id": 2,
+      "pixel_uv": [
+        1001.0,
+        601.0
+      ],
+      "carrier_xy_m": [
+        1.5770986504918998,
+        -0.32003019650854914
+      ],
+      "map_xy_m": null,
+      "map_id": null,
+      "status": "projected_unmatched"
+    }
+  ],
+  "fps": 18.57042388497157,
+  "pose_update_hz": 0.0,
+  "timings_ms": {
+    "read_ms": 10.0,
+    "field_yolo_ms": 0.0,
+    "ball_yolo_ms": 0.0,
+    "refinement_ms": 12.603181000031327,
+    "projection_ms": 0.3949900001316564,
+    "matching_ms": 0.5346440000266739,
+    "total_to_publish_ms": 13.864591999890763
+  },
+  "input_kind": "synthetic geometry and controlled bridge clock"
+}

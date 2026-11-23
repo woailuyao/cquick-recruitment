@@ -1,0 +1,65 @@
+{
+  "valid": false,
+  "status": "insufficient_markers",
+  "marker_count": 0,
+  "residual": null,
+  "residual_unit": "m",
+  "x_carrier_map": null,
+  "y_carrier_map": null,
+  "yaw_carrier_map": null,
+  "x_camera_map": null,
+  "y_camera_map": null,
+  "yaw_camera_map": null,
+  "matches": [],
+  "time_utc": "2026-11-19T23:43:05.177891+00:00",
+  "source_session": "synthetic_session",
+  "sequence": 4,
+  "capture_monotonic_s": 2.0,
+  "producer": {
+    "session": "synthetic_session",
+    "sequence": 4,
+    "protocol_version": 2,
+    "capture_monotonic_ns": 2000000000
+  },
+  "transport_status": "ok",
+  "read_age": {
+    "source_session": "synthetic_session",
+    "sequence": 4,
+    "capture_monotonic_ns": 2000000000,
+    "status": "ok",
+    "age_lower_ms": 90.0,
+    "age_upper_ms": 98.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "publish_age": {
+    "source_session": "synthetic_session",
+    "sequence": 4,
+    "capture_monotonic_ns": 2000000000,
+    "status": "ok",
+    "age_lower_ms": 104.0,
+    "age_upper_ms": 112.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "unpublished_localization_status": "insufficient_markers",
+  "marker_observation_count": 0,
+  "observation_indices": [],
+  "detections": {
+    "ball": [],
+    "field": []
+  },
+  "intersections": [],
+  "fps": 16.442838527226275,
+  "pose_update_hz": 0.0,
+  "timings_ms": {
+    "read_ms": 10.0,
+    "field_yolo_ms": 0.0,
+    "ball_yolo_ms": 0.0,
+    "refinement_ms": 0.0016840001535456395,
+    "projection_ms": 0.009208999927068362,
+    "matching_ms": 0.012531000038507045,
+    "total_to_publish_ms": 0.25468400008321623
+  },
+  "input_kind": "synthetic geometry and controlled bridge clock"
+}

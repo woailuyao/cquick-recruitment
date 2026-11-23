@@ -1,0 +1,9 @@
+schema: cquick_field_adapter_v1
+verified: true
+units: m
+axes: x_to_goal_y_left_z_up_yaw_ccw
+version: huyuhan_measured_half_20261116
+field_sha256: a728c326af46966ede5867bb7b883e574da64ebe25b0b38d635b6cce4c4f23f1
+source_geometry_sha256: 4c032bf43f6702faa6da4804578866e6d5b9b743939fa444b37c4b09b4e532ae
+confirmation: Operator confirmed measured map, meters, leader coordinate convention
+  and actual-field match. Input coordinates unchanged.

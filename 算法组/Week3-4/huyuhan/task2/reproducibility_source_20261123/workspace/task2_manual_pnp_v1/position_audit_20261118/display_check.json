@@ -1,0 +1,34 @@
+{
+  "saved_image": "/mnt/c/Users/13991/Downloads/CQuick_reference_GH_20261118.png",
+  "image_sha256": "17701f37bae6d41cd2643a084ae4b26ebd756e02dd187f9a26baf8ee14084779",
+  "scope": "Different saved image. The tape is a visual candidate. No equality with P1/P2/P3 frozen frames is claimed.",
+  "scripted_reference_pixels": {
+    "small_front_right": [
+      1062,
+      478
+    ],
+    "small_end_right": [
+      947,
+      408
+    ],
+    "large_end_right": [
+      1153,
+      403
+    ],
+    "penalty_mark_site_20261118": [
+      251,
+      540
+    ]
+  },
+  "callback_round_trip_error_px": {
+    "small_front_right": 0.5428798002295891,
+    "small_end_right": 0.6286092125892513,
+    "large_end_right": 0.563189844118052,
+    "penalty_mark_site_20261118": 0.5029820251663407
+  },
+  "highgui_rendered_canvas_px": [
+    1280,
+    553
+  ],
+  "method": "Scripted callbacks and OpenCV WINDOW_AUTOSIZE image rectangle measurement"
+}

@@ -3,7 +3,7 @@
 ## 1. 项目概述
 
 本任务使用 YOLOv8 目标检测模型识别画面中的足球，类别为单类
-`ball`。本交付目录保存正式模型权重、训练日志、训练/验证可视化、模型选择记录、独立评估结果及典型错误案例。
+`ball`。本交付目录保存正式模型权重校验信息、训练日志、训练/验证可视化、模型选择记录、独立评估结果及典型错误案例。
 
 **正式模型：** YOLOv8s\
 **权重文件：** `weights/best.pt`\
@@ -19,7 +19,7 @@
 task1/
 ├── README.md
 ├── weights/
-│   └── best.pt
+│   └── best.pt（本机或共享存储，非 Git 文件）
 ├── training/
 │   ├── args.yaml
 │   ├── results.csv
@@ -56,12 +56,7 @@ task1/
 **交付范围说明：**
 
 本交付根目录包含独立的 `dataset/` 与 `reports/` 目录。本 README 位于 `task1/`，关联材料使用上级目录相对路径。
-原文列出的数据来源修复记录及错误分析报告，在当前暂存目录
-和原项目检索范围内均未找到，因此不将其列为已交付文件。
-
-若验收要求这些材料，应从原始数据与审计记录重新生成、
-复核后再补入。当前可核验材料以本目录实际存在的
-`evaluation/`、`error_cases/` 和 `training/` 为准。
+根目录的 `dataset/selection_v3_source_repair_audit.md` 和 `reports/` 下的任务一技术报告、错误分析已随当前 PR 提交；以仓库当前提交文件清单为准。
 
 ## 3. 数据集与划分
 
@@ -228,7 +223,7 @@ FPS；目前不能仅凭离线评估结果宣称已达到实时摄像头帧率�
 - [修复后的数据选择清单](../dataset/selection_v3_source_repaired.csv)
 - [任务一技术报告](../reports/task1_technical_report.md)
 - [任务一错误案例分析](../reports/task1_error_analysis.md)
-- [任务一可复现源码说明](../task1_reproducibility_source_20261122/rebuilt_yolo_ball_v3/README.md)
+- [任务一可复现源码说明](reproducibility_source_20261122/rebuilt_yolo_ball_v3/README.md)
 
 ## 2026-11-23 正式权重校验与提交说明
 
@@ -246,3 +241,8 @@ SHA256：
 
 B站实时演示：
 https://www.bilibili.com/video/BV1yesU6rEMp/
+
+
+## 已提交材料与权重获取状态（2026-11-23）
+
+正式模型 SHA256 已记录，但 `weights/best.pt` 不在本 PR 文件清单中。组织方要求模型放共享存储/指定网盘，真实链接仍待配置。不得把 README 的路径列表当作已提交的二进制文件。

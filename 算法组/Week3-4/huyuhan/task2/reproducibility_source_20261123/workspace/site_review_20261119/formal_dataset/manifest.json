@@ -1,0 +1,1548 @@
+[
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000000.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000000.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 0,
+    "split": "train",
+    "image_sha256": "258fa11ad6244a131e120a9eb01cf7d07b0f1ea3d0cd639606b0390c08351f6b",
+    "label_sha256": "98027d1304af43fd860994a9bece1b45c35a9fb992a453eb1080e1e16713f01b",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000030.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000030.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 30,
+    "split": "train",
+    "image_sha256": "352382697c34da7eea0f4b4337d53aea542dd2a6b99eb6ee210896174fe14ee5",
+    "label_sha256": "7974774eb4fad64c80d0adc33216eaace260c9977c80baa2ec9726f11f0417ab",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000060.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000060.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 60,
+    "split": "train",
+    "image_sha256": "2cb8813460f74df271250ba723601cf98cfa19be787b4445a9f6f3c4a1f64e3f",
+    "label_sha256": "58cc53e662eadf155405114c5f22861bfb70237e0922a8cb2eb3e9bb10994d07",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000090.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000090.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 90,
+    "split": "train",
+    "image_sha256": "6086f66fd22fe63966927cf9ebcd4c09058c810564944068babe6f139ce739f3",
+    "label_sha256": "03fd5c3bf8ea8f2834e3efc044d5dedaeaf5973c079a328e907f5ac5b23c1199",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000120.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000120.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 120,
+    "split": "train",
+    "image_sha256": "f8cbb25cd29f2f73268d11c12704bdeb9b40f23af575abebb35fcda95197d182",
+    "label_sha256": "18d8d96de80b60c1e475e47e5a1349dd9d387bbe7c08393703191c2ec6ec8740",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000180.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000180.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 180,
+    "split": "train",
+    "image_sha256": "5954f4eedb417ef8356558d2ad1ddbf372d89871457cc61a69287991a1dce483",
+    "label_sha256": "5e0c3c93b7ca5ac83324855ff0b514399dc97fd4c9a021c0f3810796522c8074",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000210.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000210.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 210,
+    "split": "train",
+    "image_sha256": "be25a3121cf80846f885444fdbcee0073057c8e60239f0dd4019dbe707c9b4e3",
+    "label_sha256": "b723cb6bc3af875e9857be0bc5b3919afa62f6dc0abb9cdd0f76b00caa8944d5",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000240.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000240.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 240,
+    "split": "train",
+    "image_sha256": "b197435759de9c5e680a6c76b78f63b4477ac4a4ac121a88f5d3693a4d649e2d",
+    "label_sha256": "0f5ddb9d95fdd7f13336d51270c4c53fb72d4b987898fed6e0487e2d0dde12b2",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000270.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000270.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 270,
+    "split": "train",
+    "image_sha256": "e77ef748efe8ade025c477e2271ec15f83c437cec16fd845a907e1f13dba86e8",
+    "label_sha256": "1a33443b755070bab29ae2cfbefe7fcf1080c2f1decb3631873e0b187a9679fc",
+    "classes": [
+      0,
+      0,
+      1,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000300.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000300.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 300,
+    "split": "train",
+    "image_sha256": "f3e17fe89dc36318f6d8ea8905600857b0f6b229d6e5b201aac56024028bb9ff",
+    "label_sha256": "1cbdc28956b520ce54e7ff32213eb98e22365e68253aee91478e8a04ddc0c8f6",
+    "classes": [
+      0,
+      0,
+      1,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000330.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000330.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 330,
+    "split": "train",
+    "image_sha256": "1f77eef78eef7ea1977189f3962a878072e4452b555cd4270498706a025fd702",
+    "label_sha256": "68b17ded9fd5c135a1bc65c26fafa60d41d7b45155d3a8cd7f4779fc1d80ec19",
+    "classes": [
+      0,
+      0,
+      1,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000360.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000360.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 360,
+    "split": "train",
+    "image_sha256": "4fc3fe785adc55f2744f81c2e8834cb4f70dd7b3d0669eb066231490cbef2907",
+    "label_sha256": "6bdce55abc11baa98428d3f6508f8f52447464b70443e1445ca4780ba74b3b80",
+    "classes": [
+      0,
+      1,
+      0,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000390.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000390.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 390,
+    "split": "train",
+    "image_sha256": "025a0c3edf4c3aca547f9d4a191600e541c06a454a3e5981ead388a444e2a860",
+    "label_sha256": "77aff75e3ca2a60fe384028b9b45a30affa15c496307994f43449d7f88dcff4a",
+    "classes": [
+      0,
+      1,
+      0,
+      0,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000491.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000491.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 491,
+    "split": "train",
+    "image_sha256": "e56bd6e5286684e543199afe9488b946ddda62a8f6e7628cd9559dca97967bfe",
+    "label_sha256": "c0691a77cfd37fb22ad0490346d62e6e24d4928ff42d3506132fb0acfa1ad4a1",
+    "classes": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000526.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000526.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 526,
+    "split": "train",
+    "image_sha256": "e936d22695158ce2bef1e5c38c0fe3ef0f3b3146c35cc5df38349b32d7544cab",
+    "label_sha256": "1fdd1fb951a5ea853065475a19420bf12169a0c53cf05c13e2dc25f1b3af6bbe",
+    "classes": [
+      0,
+      1,
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000556.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000556.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 556,
+    "split": "train",
+    "image_sha256": "6502028fbf3249198340f00b41e7849eae1a5593368cc56540e329d6ab8ba148",
+    "label_sha256": "a5b4815669721dcf3ee28dd09fbcddb960538f4625541bb14aeb7a663167175e",
+    "classes": [
+      1,
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_b02d2d5aaca29a66_f0000586.jpg",
+    "label": "labels/train/frozen_old_field_b02d2d5aaca29a66_f0000586.txt",
+    "source": "WIN_20261108_17_31_46_Pro(2).mp4",
+    "source_sha256": null,
+    "frame": 586,
+    "split": "train",
+    "image_sha256": "8240d02f37ea6462ff5524f2e023a7b39d0798eabdc0a95ffe87f9caf1331fe0",
+    "label_sha256": "473f8f2ec146cdb68ec0d8d8e38e833c4c8a662987c88291f9a8d86d1014c8c1",
+    "classes": [
+      1,
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000000.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000000.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 0,
+    "split": "train",
+    "image_sha256": "75b063e4b9994dc448dbf8fcc55f8c0d5f4ff5b09ce5df68b36d5ced2c1b9c24",
+    "label_sha256": "125ec28d9bffb8c3ca3183f09762dacee2cee94126e846f191fd8823333760f9",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000089.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000089.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 89,
+    "split": "train",
+    "image_sha256": "8538d4c3631c39049c547675f46bd0294405fce41abd313465c51e01dbe539bc",
+    "label_sha256": "6ca606d5be0a281e3c594d7ef6e10bc8d03111c903535e58dfabfee4edcebe55",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000179.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000179.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 179,
+    "split": "train",
+    "image_sha256": "10baba8404fdab8a96486ed045a684737be8a048a16daf31c1ffdb4a4185ee1d",
+    "label_sha256": "29d3535042b1f5419a43c0e1c97ef200201ec5bb08696526af3dd49d79243f52",
+    "classes": [
+      0,
+      1,
+      0,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000269.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000269.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 269,
+    "split": "train",
+    "image_sha256": "2356292e262fe3e2563881efe68b7f9b2554682755d97edfabdc1f784b218636",
+    "label_sha256": "b3dc3741be3c9aaae1786877daad2feed96e48e0d4f08c29e724b389353b0f91",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000358.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000358.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 358,
+    "split": "train",
+    "image_sha256": "9a1eb5fa34a702bf75b3d69a058bf2fbfea441c92c2378eb025e4f01c0b86090",
+    "label_sha256": "d8ed20203e8d6373e1e0480f19dd60b6d5dc53663dbdc50e02b6082d880ca92d",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000447.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000447.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 447,
+    "split": "train",
+    "image_sha256": "0b242ac40b1f35dccd113f5cb04a85e93ca5b2a0477d617003584bfe97610ccc",
+    "label_sha256": "8b9905558eeccddc8acc8b6393086364e53faa0c9f60280ed64b4b6b824843ee",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000537.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000537.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 537,
+    "split": "train",
+    "image_sha256": "d4a02bc178d0781254ec07d5e86246dacacc8c4ff5f64b6d24a6e9401bb8aa78",
+    "label_sha256": "9d8e180c415bee67430cdd366edba487d712ce82b184ae700eee408a35b91cfc",
+    "classes": [
+      0,
+      1,
+      0,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_e5e0e19781d3bf77_f0000627.jpg",
+    "label": "labels/train/frozen_old_field_e5e0e19781d3bf77_f0000627.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 627,
+    "split": "train",
+    "image_sha256": "e861e6e31398949143a92aca1efefc5f7ff3264d14c9ad9797943c693621bb40",
+    "label_sha256": "00b98a454bbbfa9c09ad04bd46aa72965d5cf1bd00a5c205ac5ee8e4097b266d",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0000000.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0000000.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 0,
+    "split": "val",
+    "image_sha256": "68102b7b565e798d6cc90dd9aae184967219bfbb792b090f5bcb2147ef4a3fa4",
+    "label_sha256": "010639c8ad54fae7b54254e32d0e9cafd7dade8aeb04d1f4b57fb80355974baf",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0000195.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0000195.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 195,
+    "split": "val",
+    "image_sha256": "0fb776f2599e78a60ad1d6b1f38fa5cc48e018e40ae41e2f8d7035ecfaa3e191",
+    "label_sha256": "e5dd1b2a9e6a7a18e263900440c9a4f8274d5fa262541602950123e00839b2ef",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0000375.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0000375.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 375,
+    "split": "val",
+    "image_sha256": "02a8f9aed612556d67df69751277ae19aaaf7198d3e731822784e7014e3fc3ac",
+    "label_sha256": "954e34f314089ea58a7db9cb1cff308041a775b13f8863252a1df5555cc5669c",
+    "classes": [
+      0,
+      0,
+      1,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0000570.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0000570.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 570,
+    "split": "val",
+    "image_sha256": "0dc6ae80142a0d809c04dd67ebd211df0bda34a1291d0fb9186ca4dc72156084",
+    "label_sha256": "a542f254a07a021019712e96485668ec2a8540f95a326fcfa678d9b28909252f",
+    "classes": [
+      0,
+      0,
+      1,
+      1,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0000765.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0000765.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 765,
+    "split": "val",
+    "image_sha256": "37871e65eeab9588570a194fa3af9ad79c9099f3c741e39d118e843a031a0859",
+    "label_sha256": "328c63a9a3e6b10fd79544cafc63d05d7dd49b38ea0de2b783f6823e645525f3",
+    "classes": [
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0000960.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0000960.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 960,
+    "split": "val",
+    "image_sha256": "0c74bf48620bf139f86bf7ed05c41f0b17615283516d1e30ce7e1dfd8dcf00e6",
+    "label_sha256": "dc8624486bb7705a893824cf74b92b67384bb3a53c1edcdfe77beb601759b4b2",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0001338.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0001338.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 1338,
+    "split": "val",
+    "image_sha256": "a67fad46a3a76b34871a2c9aa088b87a3d9c2e15a4a0f93ebd25881e21b36713",
+    "label_sha256": "acae2af4ece9a348ca4ca7899303a311dda793aa4ab2d647e667bf052e43adac",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0001533.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0001533.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 1533,
+    "split": "val",
+    "image_sha256": "8e7990809518338f2ce5f48a20a5b230e3851582b9b16949c116f2525c6cd01d",
+    "label_sha256": "1896ab804cbd0adb97d72322198a8e537ab84305b07a4196181b3fa99f9a5bae",
+    "classes": [
+      0,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0001728.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0001728.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 1728,
+    "split": "val",
+    "image_sha256": "3016a5e715ead2d101d40b7dd98c5dc1f0fae885e90c66c7c32e83ff8bda244a",
+    "label_sha256": "9d0795c4c353f684dbd6832681300702844b44327516ebaf4eeace0e262794fa",
+    "classes": [
+      0,
+      0,
+      1,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0001908.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0001908.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 1908,
+    "split": "val",
+    "image_sha256": "9f57900adc9f986824f6c3b2b84d32c5f5a0acf02c39970128eb44ebffb352a8",
+    "label_sha256": "2a30ca26a610a82b13f0ce96209c93db9f0e4d9f404c08190b70ad524dd88fd1",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_old_field_1ef83347889f828e_f0002103.jpg",
+    "label": "labels/val/frozen_old_field_1ef83347889f828e_f0002103.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 2103,
+    "split": "val",
+    "image_sha256": "b2fe92609dc69a67e0bdcd6b53c149cfc4d03dfec3959a978953df7b7cba865e",
+    "label_sha256": "bf754f4567c87f72f7e65c8888e1c55d2515e4f4414bb1045774e685ee6cb256",
+    "classes": [
+      0,
+      0,
+      1,
+      0,
+      1,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000000.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000000.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 0,
+    "split": "train",
+    "image_sha256": "f33b8094436efbc7ddb5e47ec77c1cdd849598f4fdf415091c2e52309fca2de7",
+    "label_sha256": "ac86abe89c35078e00aed6a29478f6e527aa92165f2b62826e47c10e5222667a",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000075.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000075.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 75,
+    "split": "train",
+    "image_sha256": "4e9a63ce149687b23b7db5b0c77f20e2916f5f2c72296ec0c89649ff85db3762",
+    "label_sha256": "d765dc1d4c63c31db34efe067cc7402f57f359f5787dff645fc7dacc6a8f37ef",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000150.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000150.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 150,
+    "split": "train",
+    "image_sha256": "37daee8a1a19858d2e7b45180f8420d01a80f19784556c78d450743650b9368b",
+    "label_sha256": "a08d2766256dfa9c8f7a96b6cc03d8eb89e84302fa544c260e59440324e615a5",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000225.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000225.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 225,
+    "split": "train",
+    "image_sha256": "100e536195f87f93259e3f19221606b464e07ebb404a1a5db8c029a9aee3a336",
+    "label_sha256": "af601ae94229577ed3bd64109b5a3f11ddf590945661d273a8e694dea0c0d46c",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000300.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000300.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 300,
+    "split": "train",
+    "image_sha256": "fb9c68194c5bdec1191b3797f51af5144525f57409219eb62fff74e6b56ceee8",
+    "label_sha256": "ae982d355822ca1979ff2f9ffe568b3d6293694ccb7f8bad8448b5dd2f8ced1b",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000375.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000375.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 375,
+    "split": "train",
+    "image_sha256": "133d2d54df3eb4cfdd690eed4f6fa3065cc563f2be13fb91843cc0fcf488b5a8",
+    "label_sha256": "e65c1b9557683cbdf2852ea99964a2a4f8e1f81a70b1569520ec0d9e243d6858",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_a8d13402fa34831f_f0000498.jpg",
+    "label": "labels/train/frozen_old_field_a8d13402fa34831f_f0000498.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 498,
+    "split": "train",
+    "image_sha256": "7751dd6d759d99e2ec5728e3bfbda41f803a0e4c23a532366aa7b4a5edd6f778",
+    "label_sha256": "7675841a49bf5e30c82a76726698bc831c5c093f267a7eff4467b3015d56e166",
+    "classes": [
+      0,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000080.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000080.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 80,
+    "split": "train",
+    "image_sha256": "cb1223778c6d932b614adda04571d79225d2a0b298f8f534279f65b386d0db7e",
+    "label_sha256": "d51433c55d96a2d529059008203c9716f1b2dabba75d6a58b776ed94c35f6854",
+    "classes": [
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000100.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000100.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 100,
+    "split": "train",
+    "image_sha256": "c3b0ccc0ad8be44806b1bb5f327a87fe871846aa2d64a91793316b23c4eda07c",
+    "label_sha256": "9ee7c7c9ea8c3e015e5aa6b1172291a2cea7fd8fcde67d5e6eef6f6ccb03edf5",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000128.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000128.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 128,
+    "split": "train",
+    "image_sha256": "d9784b59a73a56a35678dab1b89e8b3f6ec22038f092b612a9791b61e7c03e35",
+    "label_sha256": "9395d91774f98afd7a3e1751a02f6ab0da00651a9385811e41119a9bd2226edd",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000158.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000158.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 158,
+    "split": "train",
+    "image_sha256": "0cc968a2b7e8ff41b6fed5de8f6f1e258b6a018e96924b490d3357f60e827ffa",
+    "label_sha256": "dfb0b61b97788eb66c32d8a89e52dafcd58caaac3c0393f3003808e81a1ba2e8",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000188.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000188.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 188,
+    "split": "train",
+    "image_sha256": "f88bffae407b9725e14c3d3856f870c026673f8fbebd2ed1de2c9032bdff0ca3",
+    "label_sha256": "02e1170c7a7efb1543014e03dd61d9812ee46486e0918a81ec4bbac30928c9c0",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000232.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000232.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 232,
+    "split": "train",
+    "image_sha256": "f19c276f2ca2e5ef2763badbdca4db213f51524fb7f816c067d93727b2cb43aa",
+    "label_sha256": "e5c34f5d17a9c9654a92b3338c6c74c7d31a57f1d1a278cc65c3f0057b7c14e1",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000428.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000428.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 428,
+    "split": "train",
+    "image_sha256": "98092955b062dafbc0f4fe7658a1e8c5c3110500a56418ba24e96f82874e5410",
+    "label_sha256": "8bb50ea7353cec3d3446063e13423664ec3d1e9919961ded474bd502f334bac2",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000638.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000638.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 638,
+    "split": "train",
+    "image_sha256": "1322334bbccf2afccd0968ec03bac44b32d6c220e211275d451ed2b1d9d8edc4",
+    "label_sha256": "5c1ffa7428de32d26b09f11e49eb39524a83ff3e2920099cd6464eda9377bca7",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_old_field_6d5e0aa16c8f75fb_f0000971.jpg",
+    "label": "labels/train/frozen_old_field_6d5e0aa16c8f75fb_f0000971.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 971,
+    "split": "train",
+    "image_sha256": "5b4a939d9c12efca675b12b224a331ba953fd6b227b7269842c22a57d69c2623",
+    "label_sha256": "91972d00e82fb9f538f111eb7afb906347ad82e93d058f2a0efca20e452e003c",
+    "classes": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_delta_field_6d5e0aa16c8f75fb_f0000398.jpg",
+    "label": "labels/train/frozen_delta_field_6d5e0aa16c8f75fb_f0000398.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 398,
+    "split": "train",
+    "image_sha256": "a6d5f10b2a52522583744f179864fbddb0bc00228cb02bba8c2ccc580ee5d494",
+    "label_sha256": "be1af75ae15057de7707df80cd5934b0b29176865c6137bb75ab13150e32abf2",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_delta_field_a8d13402fa34831f_f0000330.jpg",
+    "label": "labels/train/frozen_delta_field_a8d13402fa34831f_f0000330.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 330,
+    "split": "train",
+    "image_sha256": "336341769560018d60278211907c63b875abef39fb96f7d016bea2cf9dec4d6c",
+    "label_sha256": "3dd24dc57a96eee3553bac35817dc0c9bc3c579fa43de684ad6095a930942bc1",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_delta_field_e5e0e19781d3bf77_f0000060.jpg",
+    "label": "labels/train/frozen_delta_field_e5e0e19781d3bf77_f0000060.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 60,
+    "split": "train",
+    "image_sha256": "55804ac70008638fb0997e4cad89cfd6d52fd8863bf4b4c7a5283c085bd8d5e5",
+    "label_sha256": "9354fec3f65c17db15d0220df25619a9f86c7cdb3f1b1017a50ac453e3d4bf8f",
+    "classes": [
+      0,
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_delta_field_e5e0e19781d3bf77_f0000567.jpg",
+    "label": "labels/train/frozen_delta_field_e5e0e19781d3bf77_f0000567.txt",
+    "source": "WIN_20261108_17_40_55_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 567,
+    "split": "train",
+    "image_sha256": "84f65b24506202b298e8af23d690ce6608a6760604865bbc602b40809ccaf838",
+    "label_sha256": "ca91557e00cd35d7a3abf8739c38fa2b9b1a66fad9c7a7e88d763bd1df22f03a",
+    "classes": [
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_delta_field_1ef83347889f828e_f0000315.jpg",
+    "label": "labels/val/frozen_delta_field_1ef83347889f828e_f0000315.txt",
+    "source": "WIN_20261108_17_43_17_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 315,
+    "split": "val",
+    "image_sha256": "87b28506ff15508455b069c7a4801f96c9b30c9a0243caf93b3ae5e115d9285d",
+    "label_sha256": "9ef9a01079fddfa1ce19d45044c65f18761ecfadf2245460b891863162912f11",
+    "classes": [
+      0,
+      0,
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_01_f0302.png",
+    "label": "labels/train/frozen_site_01_f0302.txt",
+    "source": "results/site_20261118/01_failure_train_20261118_194108_869979999/camera.avi",
+    "source_sha256": null,
+    "frame": 302,
+    "split": "train",
+    "image_sha256": "594ade47ea5bbfec6a4485ea254aece2b54fa2afe58d16358f1a15f547dd3098",
+    "label_sha256": "75096b3ac818c7d8345efcafb6e29107584eb517b8bb2c2abc0efa3ec943ea35",
+    "classes": [
+      0,
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_02_f0064.png",
+    "label": "labels/train/frozen_site_02_f0064.txt",
+    "source": "results/site_20261118/02_LT_train_20261118_194259_253909829/camera.avi",
+    "source_sha256": null,
+    "frame": 64,
+    "split": "train",
+    "image_sha256": "7d08c7982ddda6c80c4f83513c00f20048c80487336ed7dba18c02b8dfc2f012",
+    "label_sha256": "373220c4a5f86da421532886f326bd151ff91d859db9cc0b1626da9629381d8a",
+    "classes": [
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_02_f0169.png",
+    "label": "labels/train/frozen_site_02_f0169.txt",
+    "source": "results/site_20261118/02_LT_train_20261118_194259_253909829/camera.avi",
+    "source_sha256": null,
+    "frame": 169,
+    "split": "train",
+    "image_sha256": "7ea3e1b11062da4355995030bf2a800d1761a4e1c8e2c99426289af1dce8765f",
+    "label_sha256": "8f1812c9ef3ab9a32d3b6d73ad3addfb0b5deeb0a6cde9e7d2d13960ee4f0368",
+    "classes": [
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_03_f0114.png",
+    "label": "labels/train/frozen_site_03_f0114.txt",
+    "source": "results/site_20261118/03_X_train_20261118_194516_496109844/camera.avi",
+    "source_sha256": null,
+    "frame": 114,
+    "split": "train",
+    "image_sha256": "6a615edc3eeaccf17d4958150a19abd2dd9a941df8d92d9e0b8ee092159edd1b",
+    "label_sha256": "06f1daa1f6f977b27688baac3e8b7433ad7b58a54075a3b0bb05f61ceef3030a",
+    "classes": [
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_03_f0168.png",
+    "label": "labels/train/frozen_site_03_f0168.txt",
+    "source": "results/site_20261118/03_X_train_20261118_194516_496109844/camera.avi",
+    "source_sha256": null,
+    "frame": 168,
+    "split": "train",
+    "image_sha256": "22e200c30c3cbcc2c06aa537db6effb444a799e8f6be4526bce84b1902b8b76c",
+    "label_sha256": "7131aca4e2d82a198975728dee4fc89df12b17996327327beea776d4bd69da29",
+    "classes": [
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_03_f0274.png",
+    "label": "labels/train/frozen_site_03_f0274.txt",
+    "source": "results/site_20261118/03_X_train_20261118_194516_496109844/camera.avi",
+    "source_sha256": null,
+    "frame": 274,
+    "split": "train",
+    "image_sha256": "96928c47960589b88c8dc6b9bbb87a62bfab7765d65c1a455b261d5f28c10c8f",
+    "label_sha256": "d0ba4ca08c8b5f5b405e54796ab0167d77928aaf5bdc6aa1383af5749db0867a",
+    "classes": [
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_04_f0065.png",
+    "label": "labels/train/frozen_site_04_f0065.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 65,
+    "split": "train",
+    "image_sha256": "d83bb5953b8e0ec16c38500d78959706efe0733f752f54246044cab7aa08dd34",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_04_f0119.png",
+    "label": "labels/train/frozen_site_04_f0119.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 119,
+    "split": "train",
+    "image_sha256": "c42fb55294e0c170831732129d0e2e9098b2711bafccf64074e203ac2b688379",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_04_f0172.png",
+    "label": "labels/train/frozen_site_04_f0172.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 172,
+    "split": "train",
+    "image_sha256": "24f1c0cee9910774a48cf5be4caa3bbc394a9f0ca765a8f805e75037cecb63a8",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_04_f0222.png",
+    "label": "labels/train/frozen_site_04_f0222.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 222,
+    "split": "train",
+    "image_sha256": "afd27c483934b308f43e220886394d8243091305c5a9f05f09c939a2b317e60f",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/train/frozen_site_04_f0301.png",
+    "label": "labels/train/frozen_site_04_f0301.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 301,
+    "split": "train",
+    "image_sha256": "54719be2da8fb29260b1096276b68a2a6824096bffb24c07ad0143287fc53adb",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_site_05_f0010.png",
+    "label": "labels/val/frozen_site_05_f0010.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 10,
+    "split": "val",
+    "image_sha256": "2dd297849a510b0f74b13cc3c65518c764e5edee9fb1c76aa866d7da82aabc73",
+    "label_sha256": "9d2960a1eddb8f99e3230a2b51531d5c90ca68d27eee2dee2bf65019373b5815",
+    "classes": [
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_site_05_f0062.png",
+    "label": "labels/val/frozen_site_05_f0062.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 62,
+    "split": "val",
+    "image_sha256": "bdb80f38ae7254a5b49bf7d5ec36bc37f0fc521dd579b51c6256e69484e660b6",
+    "label_sha256": "c321205ce02775cac97c2438c68564f074ffb31cc93e4dc9297e27e08df45960",
+    "classes": [
+      1,
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_site_05_f0114.png",
+    "label": "labels/val/frozen_site_05_f0114.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 114,
+    "split": "val",
+    "image_sha256": "dd2a49cd8918f368176448479889e1800ff99dc73451a61db83671d82c998084",
+    "label_sha256": "8dbe2d29c4e5af930daf47b9cd916ab74991e504561792d14fc7daaf06777542",
+    "classes": [
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_site_05_f0218.png",
+    "label": "labels/val/frozen_site_05_f0218.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 218,
+    "split": "val",
+    "image_sha256": "664ba8f98f9cc4e489e861ac6d5bf44f501b9a273de31f61c207bb4dbd6c4e47",
+    "label_sha256": "6dbab71bb825f993ee0441b194ae79738f3a1c1e158a6acf699aa3eb523c78b6",
+    "classes": [
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/val/frozen_site_05_f0301.png",
+    "label": "labels/val/frozen_site_05_f0301.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 301,
+    "split": "val",
+    "image_sha256": "2f741d8d35acac050c4fad6d15cd744b78b764ed306c1a79715c0cc17f727286",
+    "label_sha256": "43ab4743d53e8978cf022958fb6110538225f7e946c09b1002a1f3c89a924120",
+    "classes": [
+      2,
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s05_0270.png",
+    "label": "labels/train/reviewed_delta_s05_0270.txt",
+    "source": "WIN_20261108_17_46_25_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 270,
+    "split": "train",
+    "image_sha256": "aaacdfbc221d46f0301afcf47fe92f7c296d0a4520ee1f56243dc040b61d286b",
+    "label_sha256": "51a5e7d5c4cd62e19ca38158c40d010f8a046caf956e72970bc5369e10010c39",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s06_0653.png",
+    "label": "labels/train/reviewed_delta_s06_0653.txt",
+    "source": "WIN_20261108_17_49_13_Pro(1).mp4",
+    "source_sha256": null,
+    "frame": 653,
+    "split": "train",
+    "image_sha256": "4bcfcae8a97acb2f03945b1d54cdb0568ab616a2f5eef4f375f006919afaf371",
+    "label_sha256": "4fcc6077e29d6969d18b448ea8a2a46f37b82b3ad78d03e389cd33d5ff4cf994",
+    "classes": [
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s09_0096.png",
+    "label": "labels/train/reviewed_delta_s09_0096.txt",
+    "source": "results/site_20261118/02_LT_train_20261118_194259_253909829/camera.avi",
+    "source_sha256": null,
+    "frame": 96,
+    "split": "train",
+    "image_sha256": "4499467c1d45fc61b0376af125e993c3b3276cf09308ecd8b268e4ee621e7f5e",
+    "label_sha256": "e920582cec9997ee2dbad608adc807d3cc2cf526ca8b08c485fb8fec3e71dd74",
+    "classes": [
+      1
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s09_0001.png",
+    "label": "labels/train/reviewed_delta_s09_0001.txt",
+    "source": "results/site_20261118/02_LT_train_20261118_194259_253909829/camera.avi",
+    "source_sha256": null,
+    "frame": 1,
+    "split": "train",
+    "image_sha256": "0fbad6279851587e8262bbc1b854544f5abe5bccc1aca98b15c12c6b9855515b",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s10_0314.png",
+    "label": "labels/train/reviewed_delta_s10_0314.txt",
+    "source": "results/site_20261118/03_X_train_20261118_194516_496109844/camera.avi",
+    "source_sha256": null,
+    "frame": 314,
+    "split": "train",
+    "image_sha256": "b830ecb569aef068f12b44de4eabd22bda632e5018029ee26943b77da2db14a6",
+    "label_sha256": "53aafc269c7311ed1e3e540592aa63c0e98cc6341f5c70b99d293c51578c9fae",
+    "classes": [
+      2
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s11_0001.png",
+    "label": "labels/train/reviewed_delta_s11_0001.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 1,
+    "split": "train",
+    "image_sha256": "b47d8d18e064ea374cd59910cfcbf531fa9f2206ea168b6cf2196d0b1e2d621a",
+    "label_sha256": "77129343842440e9658ca4e954cf1c66eb3ca48c5add2d85cec668445a8b5088",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_s11_0082.png",
+    "label": "labels/train/reviewed_delta_s11_0082.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 82,
+    "split": "train",
+    "image_sha256": "d1463a5b2f68803904132710037ea6b3b556c4a3a6eb0dc0903a41e0001ea3c5",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/train/reviewed_delta_focus_04_0207.png",
+    "label": "labels/train/reviewed_delta_focus_04_0207.txt",
+    "source": "results/site_20261118/04_penalty_train_20261118_194756_082844655/camera.avi",
+    "source_sha256": null,
+    "frame": 207,
+    "split": "train",
+    "image_sha256": "01be6530efd81c27954f9d90241746021521aa92e7294004f2fd4528f6d46c81",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/val/reviewed_delta_focus_05_0197.png",
+    "label": "labels/val/reviewed_delta_focus_05_0197.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 197,
+    "split": "val",
+    "image_sha256": "c6da34cf0257f63b0263ef1afc13ec6688dd7b8b4c99b3a6553dee8dc4215a9d",
+    "label_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "classes": [],
+    "review": null
+  },
+  {
+    "image": "images/val/reviewed_delta_s12_0109.png",
+    "label": "labels/val/reviewed_delta_s12_0109.txt",
+    "source": "results/site_20261118/05_validation_20261118_194925_863230996/camera.avi",
+    "source_sha256": null,
+    "frame": 109,
+    "split": "val",
+    "image_sha256": "d36f62c17a90967339dfc465a3cd8de13b0c4474867283cbfea9c43dbbd24bae",
+    "label_sha256": "a04a85626327012c7e630a7eaa4d0e49ae4c7e3bc8d945c89c14548eef3f5cd1",
+    "classes": [
+      0
+    ],
+    "review": null
+  },
+  {
+    "image": "images/train/retake_0006.png",
+    "label": "labels/train/retake_0006.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160700/camera.avi",
+    "source_sha256": "66c61db1f5f1e3045534cb0fe4248a94a4ed2cfebc49fb69ccc52e8416d297bf",
+    "frame": 6,
+    "split": "train",
+    "image_sha256": "b0356f1f6a801dd2bbf4a8a5e2097b53d923b267d068fdfe85cb0f81c3069c98",
+    "label_sha256": "e0303a25348e40d55835acff14c5aa41a773405c506ac27a1c47ae55e728c165",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/retake_0169.png",
+    "label": "labels/train/retake_0169.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160700/camera.avi",
+    "source_sha256": "66c61db1f5f1e3045534cb0fe4248a94a4ed2cfebc49fb69ccc52e8416d297bf",
+    "frame": 169,
+    "split": "train",
+    "image_sha256": "5b8e0ce17c771f367ec2b18fe83d9cdfbfa2e3dde3cf1137fe1720bfd50307cc",
+    "label_sha256": "f9af399f68b38535f6724e3bdda8c6afb205ff97bae9cf0955b8ee43561b3a4a",
+    "classes": [
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/retake_0232.png",
+    "label": "labels/train/retake_0232.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160700/camera.avi",
+    "source_sha256": "66c61db1f5f1e3045534cb0fe4248a94a4ed2cfebc49fb69ccc52e8416d297bf",
+    "frame": 232,
+    "split": "train",
+    "image_sha256": "ea20144cc30f971b4bf3d4114bf076ca2e9617e5d7494ca670e239fe463fc527",
+    "label_sha256": "389ca74aea60cdc0d87d18ac8da5684ba6cf4122f9dd7c4c16ad218d60234c5d",
+    "classes": [
+      1,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/retake_0375.png",
+    "label": "labels/train/retake_0375.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160700/camera.avi",
+    "source_sha256": "66c61db1f5f1e3045534cb0fe4248a94a4ed2cfebc49fb69ccc52e8416d297bf",
+    "frame": 375,
+    "split": "train",
+    "image_sha256": "f9a908eab9ca8a241deadc50e3b7bf75d7602a46fb373c685d18a0ece3c81181",
+    "label_sha256": "7360f7e94453cd444133d0099d5d17d6269eff0ccb4dbda7591e8aa1a1c1238e",
+    "classes": [
+      1,
+      1,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/retake_0436.png",
+    "label": "labels/train/retake_0436.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160700/camera.avi",
+    "source_sha256": "66c61db1f5f1e3045534cb0fe4248a94a4ed2cfebc49fb69ccc52e8416d297bf",
+    "frame": 436,
+    "split": "train",
+    "image_sha256": "793b4d3d4dc4874cc4939e429ee6fc9ae1ce0f4261bcbf5e7da4c2ab20393da0",
+    "label_sha256": "23eebdff1bc63038758c7cfe1f94ffe084772c43baec6c65fa4de907320f1fd6",
+    "classes": [
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/retake_0536.png",
+    "label": "labels/train/retake_0536.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160700/camera.avi",
+    "source_sha256": "66c61db1f5f1e3045534cb0fe4248a94a4ed2cfebc49fb69ccc52e8416d297bf",
+    "frame": 536,
+    "split": "train",
+    "image_sha256": "70e069bd0d75a9b6bdc7a32a75b444c9daafddf46911ecde77a416dd6f8d7422",
+    "label_sha256": "2472bf4128f1f3079ff3caae332c971e053d116b06baf88c185661935c65ef2f",
+    "classes": [
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/first_0015.png",
+    "label": "labels/train/first_0015.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160228/camera.avi",
+    "source_sha256": "0c063255357131268ac0dfc4111b8c7f41cf05a71c306f291b4f3abb71682690",
+    "frame": 15,
+    "split": "train",
+    "image_sha256": "9cbb1477ca28eda5fbe6383cf40895ea081cb1807e8007a6616f9945749259ed",
+    "label_sha256": "82e91500a0550d8c788ff173a4a10771b270927a59279a94dfe13b04bec070dd",
+    "classes": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/first_0547.png",
+    "label": "labels/train/first_0547.txt",
+    "source": "results/site_20261119/train_targeted_20261119_160228/camera.avi",
+    "source_sha256": "0c063255357131268ac0dfc4111b8c7f41cf05a71c306f291b4f3abb71682690",
+    "frame": 547,
+    "split": "train",
+    "image_sha256": "407cd9eb1a81c0615d17f123c4dc5ad535e929d1e895c5daf4dd1f05c87ffad4",
+    "label_sha256": "7326aa40e88eb482af56e53a706aee59b27d355ca4290ca78a9361ef14f19bf1",
+    "classes": [
+      1,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/val/validation_0079.png",
+    "label": "labels/val/validation_0079.txt",
+    "source": "results/site_20261119/val_targeted_20261119_160928/camera.avi",
+    "source_sha256": "b7ce6dfa588d82ac34f3a88273dcd9a22c1356c474f2d78041895fddc151c0ae",
+    "frame": 79,
+    "split": "val",
+    "image_sha256": "ef2de3b1b9e360374ea28f751b9b04ba030c077b2ae54d4b29bdd9cd3c29218b",
+    "label_sha256": "ea4ccc3f8faf65888a18b5af7f399484aac41a881521232e7d395b78ff6245f8",
+    "classes": [
+      0,
+      1,
+      1,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/val/validation_0296.png",
+    "label": "labels/val/validation_0296.txt",
+    "source": "results/site_20261119/val_targeted_20261119_160928/camera.avi",
+    "source_sha256": "b7ce6dfa588d82ac34f3a88273dcd9a22c1356c474f2d78041895fddc151c0ae",
+    "frame": 296,
+    "split": "val",
+    "image_sha256": "9a4457c4bb92b614bdfc5303940177e4a8428ce150cabfeabc8462359a6f8176",
+    "label_sha256": "eab9cc8bf46cc2b9508af2ace0831c1226a5da7d281159a833a6a1a3fcba25f8",
+    "classes": [
+      1,
+      1,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/val/validation_0424.png",
+    "label": "labels/val/validation_0424.txt",
+    "source": "results/site_20261119/val_targeted_20261119_160928/camera.avi",
+    "source_sha256": "b7ce6dfa588d82ac34f3a88273dcd9a22c1356c474f2d78041895fddc151c0ae",
+    "frame": 424,
+    "split": "val",
+    "image_sha256": "bc33e04d3a5f21aa3acf386eeaf1aff0a93fef7101f2439b16a8d37156eb2608",
+    "label_sha256": "7443286e53ea69a2604f096980671087c1d5e9ab85604a877da4255c3e16751e",
+    "classes": [
+      1,
+      1,
+      0,
+      0,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/val/validation_0606.png",
+    "label": "labels/val/validation_0606.txt",
+    "source": "results/site_20261119/val_targeted_20261119_160928/camera.avi",
+    "source_sha256": "b7ce6dfa588d82ac34f3a88273dcd9a22c1356c474f2d78041895fddc151c0ae",
+    "frame": 606,
+    "split": "val",
+    "image_sha256": "67c5595eda78aff5a11abe6cd01ea4d6140b3255fa03ce976f1073c702904dd8",
+    "label_sha256": "8e59a5a6d24f9c5702148166d893c72c3bb9c9039b5b98925f74076c1f629810",
+    "classes": [
+      1,
+      0
+    ],
+    "review": "Full original image checked before acceptance. Only L/T/X. Small white marks (including old half-field tape) remain background; no fabricated P. Individual T uses three locally visible ground branches. Carpet seam and curved warped line bends not labeled; unreliably exposed and duplicate transitions remain pending."
+  },
+  {
+    "image": "images/train/prior_probe_02_0252.png",
+    "label": "labels/train/prior_probe_02_0252.txt",
+    "source": "results/site_20261118/02_LT_train_20261118_194259_253909829/camera.avi",
+    "source_sha256": "e2793e4f90e8db89babeb1273575fab70b61f4bb8b4bab91e7e7bb1e41ee49a5",
+    "frame": 252,
+    "split": "train",
+    "image_sha256": "aa12d7603f9a407313d93bac8066ddd3a609ef2476008ea1fe7c5d3eed157339",
+    "label_sha256": "90e05333104cb8af1f48a1a46a42f1fd26f462fd0d68afaf4ebfdad78959eb23",
+    "classes": [
+      0
+    ],
+    "review": "原图可逐支确认 L；近距近俯视，竖支近直，和已采用 02_f0169 的斜向 L 及接缝布局不同。左侧散落白点不标。仅存待下一版合入，不修改已训练集。"
+  }
+]

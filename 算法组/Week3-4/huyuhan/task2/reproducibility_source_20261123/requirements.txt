@@ -1,0 +1,9 @@
+# Original frozen versions need confirmation from source environment.
+# Installing random torch builds on WSL/ROS can break CUDA; check actual environment.
+numpy
+opencv-python
+scipy
+PyYAML
+ultralytics
+matplotlib
+# Optional: ROS2 Humble rclpy and std_msgs from system apt packages

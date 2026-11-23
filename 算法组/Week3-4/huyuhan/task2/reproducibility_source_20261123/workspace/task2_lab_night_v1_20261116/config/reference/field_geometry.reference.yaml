@@ -1,0 +1,9 @@
+schema: cquick_field_adapter_v1
+verified: false
+units: m
+axes: x_to_goal_y_left_z_up_yaw_ccw
+version: huyuhan_penalty_reference_20261117
+field_sha256: 4b8faf623fe1c1a8ea6fadf516c8962913a57ffd474c1dfb5224639ebd03a0ba
+source_geometry_sha256: 4c032bf43f6702faa6da4804578866e6d5b9b743939fa444b37c4b09b4e532ae
+confirmation: Existing 14 points preserved. Penalty point is a peer-derived reference
+  only; actual position not confirmed.

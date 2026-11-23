@@ -18,7 +18,7 @@ huyuhan/
 ├── README.md
 ├── task1/
 │   ├── README.md
-│   ├── weights/
+│   ├── weights/（权重不随 Git 提交）
 │   ├── training/
 │   ├── evaluation/
 │   ├── visualizations/
@@ -36,14 +36,14 @@ huyuhan/
 
 采用 YOLOv8s 进行单类别足球检测。
 
-- 正式权重：`task1/weights/best.pt`
+- 正式权重：本机 `best.pt`；SHA256 见任务一 README，按组织方规范不提交二进制到 Git
 - 类别：`ball`
 - Test mAP50：99.50%
 - Test mAP50-95：94.786%
 - 固定置信度 0.50 时 Precision：97.3684%
 - 固定置信度 0.50 时 Recall：100%
 
-交付包含正式权重、训练参数、训练日志、模型选择记录、
+交付包含正式权重的校验值与本机来源说明、训练参数、训练日志、模型选择记录、
 独立测试结果、可视化和典型错误案例。
 
 当前轻量包不是完整的从零复现实验包，详细边界见任务一 README。
@@ -155,3 +155,16 @@ P1/P2/P3 现场测量已经完成，但坐标符号、
 ### 交付边界
 本目录保留工程源码、配置、指标、实验报告及必要证据。
 未完成的现场误差核验、当前安装外参验证和实时链路验证均如实披露。
+
+
+## 提交复现状态补充（2026-11-23）
+
+**复现与交付口径（以此段为准）**：本 PR 已包含任务一训练/评估材料及任务二部分自动定位代码；原 WSL 工作区源码的归档入口见 [任务二补交复现目录](task2/reproducibility_source_20261123/REPRODUCE.md)。
+
+- [数据集统计及来源说明](dataset/dataset_summary.md)，含 `ball_data.yaml` 与 `marker_data.yaml` 的来源状态；**整套原始图像、标签、视频不上传 GitHub**。
+- `calibration/` 和 `config/` 存放可追溯配置副本（其中个人测量地图尚待组长核对官方 C0 统一地图）。
+- 两个 `best.pt` 均不直接上传 Git；已有正式权重 SHA256 记载，但**尚无公共模型下载链接**，不能据此宣称异机完整复现。
+- 任务二依赖源码已尝试从原始 WSL 工作区按目录归档，实际完整性以 `task2/reproducibility_source_20261123/LOCAL_SOURCE_AUDIT.json` 为准；未通过导入与现场验证前不得声称完全可复现。
+- 原实测硬件记录：USB 单目 RGB，相机在 Windows DirectShow `camera 0` 获取 1280×720 图像后通过 v2 桥接给 WSL；WSL Ubuntu 22.04、Python 3.10、RTX 4050，ROS2 Humble。固定焦距/对焦状态及实际采集 FPS 需要结合现场证据核验；**不以标称 30 FPS 冒充实测**。
+- 2026-11-22 自动定位历史近似外参有效状态不能替代当前相机安装复核或 C0 三点真值误差验收。
+- 两个 B 站视频链接见本文第一节；历史日志中早期“待补链接”表述已过时。

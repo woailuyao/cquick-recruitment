@@ -1,0 +1,11 @@
+{
+  "weights": "/home/hu_yuhan/Cquick/Week3-4/site_review_20261119/training/formal_v1/weights/best.pt",
+  "sha256": "2603112118bcaf24b050f3870292dd8f23ba491bd407f7eae83f516ff6c82418",
+  "names": [
+    "LCross",
+    "TCross",
+    "XCross",
+    "PenaltyPoint"
+  ],
+  "note": "PenaltyPoint has zero GT, no valid evaluation"
+}

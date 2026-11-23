@@ -1,0 +1,8 @@
+path: /home/hu_yuhan/Cquick/Week3-4/site_review_20261119/dataset_expansion_20261119/dataset
+train: images/train
+val: images/val
+names:
+  0: LCross
+  1: TCross
+  2: XCross
+  3: PenaltyPoint
