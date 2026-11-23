@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>vision_detector</name>
+  <version>0.0.1</version>
+  <description>第 2 周任务 3：目标位置发布/订阅节点（含任务 1 的颜色检测模块）</description>
+
+  <maintainer email="pidongyan@example.com">pidongyan</maintainer>
+  <license>Apache-2.0</license>
+
+  <!-- buildtool：Python 包用 ament_python（注意与接口包的 ament_cmake 不同） -->
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <!-- 运行依赖：节点要用 rclpy，消息来自我们自己建的接口包 -->
+  <depend>rclpy</depend>
+  <depend>vision_interfaces</depend>
+
+  <!-- OpenCV / numpy：Ubuntu 上用 apt 装的系统包名（python3-opencv / python3-numpy） -->
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

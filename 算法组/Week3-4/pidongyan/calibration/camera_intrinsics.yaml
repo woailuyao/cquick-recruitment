@@ -1,0 +1,38 @@
+'#': '场地视频工作内参 v2（2026-11-15）：fx=fy=1620 来自平行板直测三档(1591/1662/1615)
+
+  与位姿反推(1600~1750)互证；cx/cy/畸变取自 2026-11-13 的 15 张健康标定
+
+  (config/camera_intrinsics_field.yaml, RMS 0.33px)。
+
+  弃用旧版直接沿用近距(2031)标定畸变的做法：该组系数 k3=-12.5 在画面边缘外
+
+  会使畸变多项式过零折叠(r_d<0)，undistortPoints 求逆可收敛到镜像分支，
+
+  几何解算会出灾难性错误——见 tools/run_task2.py selftest 的诊断记录。'
+camera_name: mono_usb_camera_fieldvideo_v2
+image_width: 1280
+image_height: 720
+camera_matrix:
+  rows: 3
+  cols: 3
+  data:
+  - 1620.0
+  - 0.0
+  - 602.411755
+  - 0.0
+  - 1620.0
+  - 365.033275
+  - 0.0
+  - 0.0
+  - 1.0
+distortion_model: plumb_bob
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data:
+  - 0.17091399
+  - -0.56531384
+  - -0.00845623
+  - -0.01488631
+  - 2.88758479
+note: 任务二场地视频几何解算专用；任务一去畸变用 camera_intrinsics.yaml。

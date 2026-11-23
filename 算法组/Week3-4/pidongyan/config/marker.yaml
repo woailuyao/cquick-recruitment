@@ -1,0 +1,19 @@
+# 任务二：标志检测数据集配置（frames_pool_markers 210 张，四类；含 11-20 现场补录 35 张）
+# 类别顺序即 YOLO 编号，与 task2 包的 FIELD_CLASSES 对应：
+#   0 L_cross        L 形拐角（field.yaml LCross1~8）
+#   1 T_cross        T 形交点（TCross1~4）
+#   2 X_cross        中圈∩中线交点（XCross1~2）
+#   3 penalty_point  点球点（PenalityPoint）
+# ⚠️ 标注时标签列表顺序必须与这里一致，中途不得插类。
+
+path: D:/CQU/CQuick/week3/dataset_markers
+train: images/train
+val: images/val
+test: images/test
+
+nc: 4
+names:
+  0: L_cross
+  1: T_cross
+  2: X_cross
+  3: penalty_point
