@@ -1,0 +1,45 @@
+# squat.yaml —— 下蹲 → 保持 → 站起（假设：左右腿「镜像安装」）
+#
+# 数值设计：
+#   膝 8/3   ±250  ≈ 30°      主弯曲
+#   髋 7/4   ±120  ≈ 15°      配合前倾
+#   踝 9/2   ±120  ≈ 15°      保持脚掌贴地
+#   髋偏航 6/5、踝横滚 10/1 不动（留 1500）
+#
+# ⚠️ 如果跑起来两条腿往相反方向掰（像劈叉），说明不是镜像 ——
+#    改用 squat_same.yaml（同向版，左右发相同的值）。
+#
+# 判据：下蹲时应该看到「两条腿同时向前弯、屁股往下沉」，
+#       如果是「一条腿往前、一条腿往后」，立刻停，换 squat_same.yaml。
+
+name: squat
+description: 下蹲保持再站起（镜像假设：左侧 +，右侧 -）
+repeat: 1
+
+steps:
+  - name: 下蹲（髋+膝+踝 六个关节同时进入）
+    moves:
+      - {id: 7, pwm: 1620, duration_ms: 1600}
+      - {id: 8, pwm: 1750, duration_ms: 1600}
+      - {id: 9, pwm: 1620, duration_ms: 1600}
+      - {id: 4, pwm: 1380, duration_ms: 1600}
+      - {id: 3, pwm: 1250, duration_ms: 1600}
+      - {id: 2, pwm: 1380, duration_ms: 1600}
+
+  - name: 保持下蹲 0.5s（验证姿态稳定）
+    moves:
+      - {id: 7, pwm: 1620, duration_ms: 1000}
+      - {id: 8, pwm: 1750, duration_ms: 1000}
+      - {id: 9, pwm: 1620, duration_ms: 1000}
+      - {id: 4, pwm: 1380, duration_ms: 1000}
+      - {id: 3, pwm: 1250, duration_ms: 1000}
+      - {id: 2, pwm: 1380, duration_ms: 1000}
+
+  - name: 站起（六个关节同时回站立位）
+    moves:
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 2, pwm: 1500, duration_ms: 1500}

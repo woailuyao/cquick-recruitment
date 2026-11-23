@@ -1,0 +1,45 @@
+# mirror_test.yaml —— 左右腿镜像关系测试（幅度很小，±120）
+#
+# 目的：确认左右同名关节在「PWM 增大」时是往同一侧弯还是相反侧弯。
+#   左腿 7(大腿) 4... 右侧是 4(大腿)、8/3(膝)、9/2(踝)
+#
+# 每一步同时给左右同名关节发「相同的 +120」，然后看：
+#   A) 两条腿都往同一侧弯（视觉上一条向前一条向后）→ 镜像安装，做动作时左右要发相反值
+#   B) 两条腿都朝身体前方弯 → 同向安装，做动作时左右用同值
+#
+# 跑完请按 A / B 回答三组：大腿(7,4)、膝(8,3)、踝(9,2)
+
+name: mirror_test
+description: 左右同名关节同向 +120，观察是否镜像
+repeat: 1
+
+steps:
+  - name: 大腿对（7 与 4）同时 +120
+    moves:
+      - {id: 7, pwm: 1620, duration_ms: 1000}
+      - {id: 4, pwm: 1620, duration_ms: 1000}
+
+  - name: 大腿对回位
+    moves:
+      - {id: 7, pwm: 1500, duration_ms: 800}
+      - {id: 4, pwm: 1500, duration_ms: 800}
+
+  - name: 膝对（8 与 3）同时 +120
+    moves:
+      - {id: 8, pwm: 1620, duration_ms: 1000}
+      - {id: 3, pwm: 1620, duration_ms: 1000}
+
+  - name: 膝对回位
+    moves:
+      - {id: 8, pwm: 1500, duration_ms: 800}
+      - {id: 3, pwm: 1500, duration_ms: 800}
+
+  - name: 踝对（9 与 2）同时 +120
+    moves:
+      - {id: 9, pwm: 1620, duration_ms: 1000}
+      - {id: 2, pwm: 1620, duration_ms: 1000}
+
+  - name: 踝对回位
+    moves:
+      - {id: 9, pwm: 1500, duration_ms: 800}
+      - {id: 2, pwm: 1500, duration_ms: 800}

@@ -1,0 +1,41 @@
+# squat_deep.yaml —— 深蹲（幅度加大版）：下蹲 → 保持 → 站起
+#
+# 与 squat.yaml 的区别（镜像假设：左侧 +，右侧 −）：
+#   膝 8/3   ±350  ≈ 42°   （原来 ±250 ≈ 30°）
+#   髋 7/4   ±160  ≈ 19°   （原来 ±120）
+#   踝 9/2   ±160  ≈ 19°   （原来 ±120）
+#
+# ⚠️ 幅度加大后必须有人扶住整机。若某关节报"未到位 差 ±50 以上"，
+#    说明顶到结构了，把这个关节的值往回收 50 再试。
+
+name: squat_deep
+description: 深蹲保持再站起（膝 ±350，髋踝 ±160）
+repeat: 3
+
+steps:
+  - name: 深蹲（六个关节同时进入）
+    moves:
+      - {id: 7, pwm: 1660, duration_ms: 1800}
+      - {id: 8, pwm: 1850, duration_ms: 1800}
+      - {id: 9, pwm: 1660, duration_ms: 1800}
+      - {id: 4, pwm: 1340, duration_ms: 1800}
+      - {id: 3, pwm: 1150, duration_ms: 1800}
+      - {id: 2, pwm: 1340, duration_ms: 1800}
+
+  - name: 保持深蹲
+    moves:
+      - {id: 7, pwm: 1660, duration_ms: 1000}
+      - {id: 8, pwm: 1850, duration_ms: 1000}
+      - {id: 9, pwm: 1660, duration_ms: 1000}
+      - {id: 4, pwm: 1340, duration_ms: 1000}
+      - {id: 3, pwm: 1150, duration_ms: 1000}
+      - {id: 2, pwm: 1340, duration_ms: 1000}
+
+  - name: 站起
+    moves:
+      - {id: 7, pwm: 1500, duration_ms: 1600}
+      - {id: 8, pwm: 1500, duration_ms: 1600}
+      - {id: 9, pwm: 1500, duration_ms: 1600}
+      - {id: 4, pwm: 1500, duration_ms: 1600}
+      - {id: 3, pwm: 1500, duration_ms: 1600}
+      - {id: 2, pwm: 1500, duration_ms: 1600}

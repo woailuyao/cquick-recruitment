@@ -1,0 +1,35 @@
+# lift_right.yaml —— 抬右腿：抬起 → 保持 → 放下
+#
+# 与 step.yaml 的区别：step 是左右交替小幅抬，这个是**单腿抬到位并保持**，
+# 幅度更大、能明显看出膝关节活动。
+#
+# 右腿三个关节（镜像：右侧 −，所以用负偏移）：
+#   膝 8  +300 ≈ 36°   主抬升
+#   髋 7  +120 ≈ 15°   配合前抬
+#   踝 9  -80  ≈ -10°  脚尖自然下垂
+# 左腿保持 1500 不动，作为支撑腿。
+#
+# ⚠️ 单腿抬起会让整机重心偏移 —— 第一次跑请用手扶住上半身，或用带子吊住。
+
+name: lift_right
+description: 抬起右腿 → 保持 → 放下（左腿支撑）
+repeat: 3
+
+steps:
+  - name: 抬右腿（膝 -300 / 髋 -120 / 踝 +80）
+    moves:
+      - {id: 3, pwm: 1200, duration_ms: 1500}
+      - {id: 4, pwm: 1380, duration_ms: 1500}
+      - {id: 2, pwm: 1580, duration_ms: 1500}
+
+  - name: 保持抬腿
+    moves:
+      - {id: 3, pwm: 1200, duration_ms: 1000}
+      - {id: 4, pwm: 1380, duration_ms: 1000}
+      - {id: 2, pwm: 1580, duration_ms: 1000}
+
+  - name: 放下（三个关节回站立位）
+    moves:
+      - {id: 3, pwm: 1500, duration_ms: 1400}
+      - {id: 4, pwm: 1500, duration_ms: 1400}
+      - {id: 2, pwm: 1500, duration_ms: 1400}
