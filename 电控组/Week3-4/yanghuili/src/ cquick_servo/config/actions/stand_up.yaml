@@ -1,0 +1,22 @@
+name: stand_up
+
+steps:
+  - name: prepare_center
+    goals:
+      - {id: 101, pwm: 1500, duration_ms: 2000}
+      - {id: 102, pwm: 1500, duration_ms: 2000}
+
+  - name: front_pair_out
+    goals:
+      - {id: 101, pwm: 1520, duration_ms: 2000}
+      - {id: 102, pwm: 1480, duration_ms: 2000}
+
+  - name: front_pair_reverse
+    goals:
+      - {id: 101, pwm: 1480, duration_ms: 2000}
+      - {id: 102, pwm: 1520, duration_ms: 2000}
+
+  - name: return_center
+    goals:
+      - {id: 101, pwm: 1500, duration_ms: 2000}
+      - {id: 102, pwm: 1500, duration_ms: 2000}
