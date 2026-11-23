@@ -93,7 +93,7 @@ class ServoDriver(Node):
         self.declare_parameter('min_duration_ms', 1000)
         self.declare_parameter('arrive_tolerance', 50)
         self.declare_parameter('cancel_return_ms', 500)   # 取消后回中位用多久，要快
-        self.declare_parameter('servo_ids', [0])          # 实测本机舵机 ID = 000
+        self.declare_parameter('servo_ids', list(range(0, 11)))  # 整机 1~10；0 保留给任务2单轴的 bag 回放
         self.declare_parameter('startup_reset', True)
         self.add_on_set_parameters_callback(self._on_set_parameters)
 
