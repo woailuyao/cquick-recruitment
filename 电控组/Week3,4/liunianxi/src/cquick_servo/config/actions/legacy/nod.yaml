@@ -1,0 +1,16 @@
+# 动作组：单舵机点头（今天只有 ID=003 一个舵机在位，用它演示“不改代码换动作”）
+# 名字叫 nod，动作就是 右 -> 左 -> 归中，走一遍 ~4 秒。
+name: nod
+repeat: 1
+steps:
+  - name: 向右偏
+    joints:
+      - {id: 3, pwm: 1700, duration_ms: 1000}
+
+  - name: 向左偏
+    joints:
+      - {id: 3, pwm: 1300, duration_ms: 1000}
+
+  - name: 回中位
+    joints:
+      - {id: 3, pwm: 1500, duration_ms: 1000}

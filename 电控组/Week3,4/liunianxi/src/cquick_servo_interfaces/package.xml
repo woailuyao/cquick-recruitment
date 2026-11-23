@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>cquick_servo_interfaces</name>
+  <version>0.1.0</version>
+  <description>第3,4周考核：舵机内部调试总线接口（ServoCommand / MoveServo）</description>
+  <maintainer email="wl122913@foxmail.com">liunianxi</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+
+  <!-- 编译期生成接口，运行期加载接口，两个都要 -->
+  <depend>builtin_interfaces</depend>
+  <exec_depend>rosidl_default_runtime</exec_depend>
+
+  <!-- 少了这一行，别的包引用不到本包的接口，而且报错跟这里八竿子打不着 -->
+  <member_of_group>rosidl_interface_packages</member_of_group>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

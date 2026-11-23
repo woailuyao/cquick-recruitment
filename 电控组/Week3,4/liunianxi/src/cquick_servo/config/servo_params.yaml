@@ -1,0 +1,24 @@
+# 舵机参数（顶层 key 必须等于节点名 servo_driver）
+# 换板子/换舵机只改这个文件，代码一行不动。
+# 下面这些值都是 2026-11-22 在本机 ZL-IS2 24 路板 + 10 个总线舵机（ID 1~10）上量出来的。
+servo_driver:
+  ros__parameters:
+    port: /dev/cq_servo     # 加分项①：99-cq-servo.rules 固定出来的名字；没装规则会自动退回 ttyUSB*
+    baudrate: 115200       # 8-N-1，实测可用
+    pwm_min: 1000          # 实测下限：比 1000 再低 PRAD 就卡在 1005（顶到机械限位了）
+    pwm_max: 2100          # 实测上限：2100 还跟得住（读回 2090），留 50 余量
+    default_duration_ms: 1000   # 本板 T<1000 的指令会被固件忽略
+    min_duration_ms: 1000       # 同上，低于它的请求由驱动自动抬到 1000
+    # 2026-11-22 扫 0~23：ID 1~10 全部应答（10 个舵机装在腿式机构上），11~23 无应答。
+    # 关节语义：1/2 踝（脚部侧向）、3~8 腿（弯曲）、9/10 髋（张合）。
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: true    # 启动时全部回中位 1500
+    # 实测：CH340 走「用户」口回读正常（#003PID! -> #003P!，#003PRAD! -> #003P1509!），
+    # 所以这里保持 true，走 PRAD 闭环校验。
+    readback_enabled: true
+    # 加分项③ 看门狗：节点 5 Hz 刷心跳，超过 1 s 没心跳就把 10 个舵机全部 PULK 卸力，
+    # 然后锁住不接受任何动作，必须有人调 /servo_driver/rearm 才恢复。
+    heartbeat_period: 0.2
+    watchdog_timeout: 1.0
+    # 故障注入开关，只用于演示/验证看门狗：>0 时让心跳停这么多秒。平时保持 0。
+    watchdog_stall_test: 0.0
