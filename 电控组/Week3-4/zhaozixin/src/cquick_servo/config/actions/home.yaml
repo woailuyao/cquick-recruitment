@@ -1,0 +1,22 @@
+# 初始姿态：1500 中立位就是整机正常站姿。
+# 上电由 driver 的 startup_reset 直接回 1500（每条 #001P1500T800!），本文件是同一姿态的
+# 数据化表达：以后换站姿只改这里，代码不动。
+#
+# 改站姿：ros2 run cquick_servo pose_tool set 2:+80 4:+80
+#        ros2 run cquick_servo pose_tool save home
+name: home
+description: 1500 中立位直立站姿（上电初始状态）
+default_duration_ms: 4000
+steps:
+  - name: 回中立位站姿
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 4000}
+      - {id: 2, pwm: 1500, duration_ms: 4000}
+      - {id: 3, pwm: 1500, duration_ms: 4000}
+      - {id: 4, pwm: 1500, duration_ms: 4000}
+      - {id: 5, pwm: 1500, duration_ms: 4000}
+      - {id: 6, pwm: 1500, duration_ms: 4000}
+      - {id: 7, pwm: 1500, duration_ms: 4000}
+      - {id: 8, pwm: 1500, duration_ms: 4000}
+      - {id: 9, pwm: 1500, duration_ms: 4000}
+      - {id: 10, pwm: 1500, duration_ms: 4000}

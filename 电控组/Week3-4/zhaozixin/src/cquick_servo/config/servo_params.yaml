@@ -1,0 +1,12 @@
+servo_driver:
+  ros__parameters:
+    port: "/dev/cq_servo"        # udev 固定名，规则见 加分项/99-cquick-servo.rules
+    baudrate: 115200
+    pwm_min: 900                  # 结构实测安全下限
+    pwm_max: 2100                 # 结构实测安全上限
+    default_duration_ms: 800
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]   # 实测：扫描 1~24，1~10 有回显，11 起离线
+    startup_reset: true           # 1500 中立位就是初始站姿：上电一次性 4 s 压到中立位并保持
+    speed_pwm_per_s: 600          # 抢占接续时的限速，防止新 goal 猛冲
+    watchdog_timeout_s: 1.0       # 心跳/执行停摆超过这个时间就卸力锁死
+    prad_retry: 1                 # 未到位自动重发次数

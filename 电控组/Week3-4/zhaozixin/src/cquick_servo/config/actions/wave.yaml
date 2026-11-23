@@ -1,0 +1,29 @@
+# 动作组：左右重心交替（第二套动作，用来证明“换动作只改 yaml、代码一行不动”）
+# 只用踝外摆 5/10 做摆心，两腿始终同时支撑，不容易倒；基准 1500。
+# 幅度 150 PWM ≈ 13.5°：高于 ±30 容差，横梁左右摆一眼能看出（70 PWM 那种幅度镜头里几乎看不出）
+# 摆幅太大整机会侧倒，150 是「明显但不翻」的临界，拍的时候手扶一下躯干。
+name: wave
+description: 重心左移 → 回正 → 重心右移 → 回正
+
+default_duration_ms: 2000
+
+steps:
+  - name: 重心左移
+    joints:
+      - {id: 5, pwm: 1650, duration_ms: 2000}
+      - {id: 10, pwm: 1350, duration_ms: 2000}
+
+  - name: 回正
+    joints:
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 10, pwm: 1500, duration_ms: 2000}
+
+  - name: 重心右移
+    joints:
+      - {id: 5, pwm: 1350, duration_ms: 2000}
+      - {id: 10, pwm: 1650, duration_ms: 2000}
+
+  - name: 回正
+    joints:
+      - {id: 5, pwm: 1500, duration_ms: 2000}
+      - {id: 10, pwm: 1500, duration_ms: 2000}
