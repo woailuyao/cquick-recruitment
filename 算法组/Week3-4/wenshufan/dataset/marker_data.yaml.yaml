@@ -1,0 +1,5 @@
+path: ./dataset_marker
+train: images/train
+val: images/val
+nc: 4
+names: ['Cross', 'T_cross', 'X_cross', 'PenaltyPoint']
