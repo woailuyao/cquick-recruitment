@@ -1,0 +1,49 @@
+# 场地模型（C0 实测量）
+# 坐标：原点场地中心，+X 长边，+Y 短边，Z 向上，单位 m
+
+meta:
+  version: c0-2025-11-21b
+  note: 小禁区深 1.0 x 宽 3.0 m；中圈直径 1.5 m（半径 0.75）；点球点位于场地正中
+  units: m
+
+field:
+  length: 8.0
+  width: 6.0
+  penalty_area_length: 2.0
+  penalty_area_width: 4.0
+  goal_area_length: 1.0
+  goal_area_width: 3.0
+  circle_radius: 0.75
+  penalty_dist: 4.0
+
+# 标志点：由上面的尺寸解析生成（改动尺寸后重新跑 tools/rebuild_field.py）
+#   X : 中线 × 中圈
+#   P : 场地正中（penalty_dist = L/2）
+#   T : 中线 × 边线 / 大禁区线 × 底线 / 小禁区线 × 底线
+#   L : 大禁区角 / 小禁区角 / 场地四角
+markers:
+- {type: X, id: X01, x:   0.00, y:   0.75}
+- {type: P, id: P01, x:   0.00, y:   0.00}
+- {type: X, id: X02, x:   0.00, y:  -0.75}
+- {type: T, id: T01, x:   0.00, y:   3.00}
+- {type: T, id: T02, x:   0.00, y:  -3.00}
+- {type: L, id: L01, x:   2.00, y:   2.00}
+- {type: T, id: T03, x:   4.00, y:   2.00}
+- {type: L, id: L02, x:   3.00, y:   1.50}
+- {type: T, id: T04, x:   4.00, y:   1.50}
+- {type: L, id: L03, x:   4.00, y:   3.00}
+- {type: L, id: L04, x:   2.00, y:  -2.00}
+- {type: T, id: T05, x:   4.00, y:  -2.00}
+- {type: L, id: L05, x:   3.00, y:  -1.50}
+- {type: T, id: T06, x:   4.00, y:  -1.50}
+- {type: L, id: L06, x:   4.00, y:  -3.00}
+- {type: L, id: L07, x:  -2.00, y:   2.00}
+- {type: T, id: T07, x:  -4.00, y:   2.00}
+- {type: L, id: L08, x:  -3.00, y:   1.50}
+- {type: T, id: T08, x:  -4.00, y:   1.50}
+- {type: L, id: L09, x:  -4.00, y:   3.00}
+- {type: L, id: L10, x:  -2.00, y:  -2.00}
+- {type: T, id: T09, x:  -4.00, y:  -2.00}
+- {type: L, id: L11, x:  -3.00, y:  -1.50}
+- {type: T, id: T10, x:  -4.00, y:  -1.50}
+- {type: L, id: L12, x:  -4.00, y:  -3.00}
