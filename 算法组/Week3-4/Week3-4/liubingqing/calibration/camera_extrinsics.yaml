@@ -1,0 +1,21 @@
+%YAML:1.0
+---
+R: !!opencv-matrix
+   rows: 3
+   cols: 3
+   dt: d
+   data: [ 0.99588206810657809, 0.063963016167462861,
+       0.064246704090762149, -0.082268634279222125, 0.93535300832396173,
+       0.34401543807385493, -0.038089082918818955, -0.34788429453206937,
+       0.93676343832385334 ]
+T: !!opencv-matrix
+   rows: 3
+   cols: 1
+   dt: d
+   data: [ -504.94969164988191, -182.42525301528505, 911.2893363835617 ]
+camera_height: 740.
+pitch_deg: 2.1828717243581397
+roll_deg: -20.373403142890002
+method: Ground Checkerboard solvePnP
+units: mm
+coordinate_system: "World: Z=0, Origin: Camera Vertical Projection"
