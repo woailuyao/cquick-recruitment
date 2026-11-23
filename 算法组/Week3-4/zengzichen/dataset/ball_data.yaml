@@ -1,0 +1,17 @@
+# 任务1：足球检测数据集配置（YOLO 检测格式）
+# 注意：图片与标签本身不上传 GitHub（按考核细则），此处仅记录目录结构与类别定义。
+
+# 仓库内相对路径（图片不入库，仅示意结构）
+path: .
+train: images/train
+val: images/val
+
+nc: 1
+names:
+  0: ball
+
+# ---- 训练时实际使用的绝对路径（本机） ----
+# path: /root/soccer_ws/soccer_dataset
+# 实际规模：train 97 张 / val 20 张（合计 117 张，见 dataset_summary.md）
+# 训练命令：
+#   yolo detect train model=yolov8n.pt data=<本文件> epochs=50 imgsz=640 device=cpu
