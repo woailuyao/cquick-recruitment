@@ -1,0 +1,7 @@
+# 运行环境（按你的实际版本改，README 里也要写一份）
+opencv-python>=4.9.0
+numpy>=1.24
+pyyaml>=6.0
+ultralytics>=8.3.0
+# 训练要用 GPU 时另装 torch（按 CUDA 版本选官方命令）
+# torch>=2.0

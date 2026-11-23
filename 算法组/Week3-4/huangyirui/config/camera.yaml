@@ -1,0 +1,39 @@
+# =============================================================================
+# camera.yaml —— 运行时参数（相机、检测阈值、几何与匹配参数）
+# 标定结果不在这里，在 calibration/ 下的两个 yaml。
+# =============================================================================
+
+camera:
+  device: 0                 # /dev/video0 或 Windows 下的 0
+  width: 1280               # 必须与内参标定时的分辨率一致
+  height: 720
+  fps: 30
+
+detect:
+  ball_weights: "weights/ball_best.pt"
+  marker_weights: "weights/marker_best.pt"
+  ball_conf: 0.45
+  marker_conf: 0.30
+  imgsz: 640
+  device: "cpu"             # 有显卡填 "0"
+
+geometry:
+  min_range_m: 0.30         # 离相机过近的地面点丢弃
+  max_range_m: 15.00        # 超出场地的地面点丢弃（地平线附近噪声大）
+
+match:
+  negative_half_only: true
+  min_markers: 2            # 少于 2 个标志无法定 (x, y, yaw)
+  max_markers: 8            # 参与组合搜索的观测上限
+  max_residual_m: 0.45      # 残差超过即判 high_residual
+  ambiguity_ratio: 0.85     # 次优/最优残差比超过即判 ambiguous
+
+filter:
+  enabled: true
+  alpha: 0.45               # 指数平滑系数
+  max_hold_frames: 0        # 定位失败时是否沿用旧位姿；0 = 立即判无效
+
+output:
+  jsonl: "outputs/field_pose.jsonl"
+  video: ""
+

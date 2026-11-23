@@ -1,0 +1,37 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 视频、权重、输出都不进仓库（细则要求）
+videos/raw/
+videos/test/
+videos/demo/
+*.mp4
+*.avi
+*.mov
+weights/*.pt
+weights/*.onnx
+outputs/*
+!outputs/.gitkeep
+calib_images/*.png
+calib_images/*.jpg
+
+# 抽帧图片体积大，不进仓库；标签是纯文本，要提交（数据集大小以 dataset_summary.md 为准）
+dataset/*/images/
+dataset/*/manifest.json
+
+# 训练产物
+runs/
+*.cache
+
+# 本机编辑器设置、练习页面、备份及临时文件
+.vscode/
+*.code-workspace
+visibleExplanation/
+*.bak
+tmp*cert.pem
+
+
+evidence/*.mp4
+
