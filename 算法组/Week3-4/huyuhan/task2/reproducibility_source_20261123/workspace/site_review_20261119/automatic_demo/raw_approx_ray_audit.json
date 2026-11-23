@@ -1,0 +1,21 @@
+{
+  "input": "site_review_20261119/automatic_demo/runs/raw_val_approx_20261120/frames.jsonl",
+  "ground_rejections_breakdown": {
+    "above_or_too_close_to_horizon": 988,
+    "beyond_10m_maximum_ground_ray": 179
+  },
+  "frames_with_at_least_three_observations": [
+    {
+      "sequence": 330,
+      "status": "no_consistent_match",
+      "marker_observation_count": 3
+    },
+    {
+      "sequence": 546,
+      "status": "no_consistent_match",
+      "marker_observation_count": 3
+    }
+  ],
+  "peak_observations": 3,
+  "note": "Computed from logged intersections with the explicitly selected historical transform. No extra model run."
+}

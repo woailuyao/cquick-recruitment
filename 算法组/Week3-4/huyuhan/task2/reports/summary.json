@@ -1,0 +1,46 @@
+{
+  "input_kind": "windows_v2_live",
+  "mount_qualification": "approximate_mount_20261116",
+  "status_counts": {
+    "ok": 631,
+    "no_consistent_match": 150,
+    "insufficient_markers": 1435,
+    "ambiguous": 13,
+    "camera_outside_measured_half": 1
+  },
+  "valid_frames": 631,
+  "counts_by_class": {
+    "LCross": {
+      "boxes": 2202,
+      "matched": 770,
+      "projected_unmatched": 736,
+      "duplicate_ground_point": 652,
+      "refinement_rejected": 33,
+      "ground_ray_rejected": 11
+    },
+    "TCross": {
+      "boxes": 2729,
+      "matched": 1222,
+      "duplicate_ground_point": 697,
+      "projected_unmatched": 746,
+      "refinement_rejected": 24,
+      "ground_ray_rejected": 40
+    },
+    "XCross": {
+      "boxes": 452,
+      "duplicate_ground_point": 73,
+      "projected_unmatched": 101,
+      "refinement_rejected": 230,
+      "ground_ray_rejected": 48
+    }
+  },
+  "milliseconds_median": {
+    "read_ms": 29.47037750027448,
+    "field_yolo_ms": 27.07875399983095,
+    "ball_yolo_ms": 41.32707849998951,
+    "refinement_ms": 49.140107500079466,
+    "projection_ms": 0.2802735000386747,
+    "matching_ms": 0.01575449982738064,
+    "total_to_publish_ms": 152.42459799992503
+  }
+}

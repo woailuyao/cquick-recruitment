@@ -1,0 +1,571 @@
+{
+  "freeze_0001_21193": {
+    "source_raw": "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/raw.png",
+    "raw_sha256": "2c7eabb96d6aa6b95f29abf9be9c81d9ce5ef0760d0791a1e80922872d6d3e1f",
+    "run_event_files": [
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0006_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0007_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0008_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0009_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0010_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0011_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0001_21193/0012_initialize.json"
+    ],
+    "old_core_sha256": "93e2f02f506975a29acff580db9801fb0742597e8b80ed7111cdbebcc6940870",
+    "new_core_sha256": "93e2f02f506975a29acff580db9801fb0742597e8b80ed7111cdbebcc6940870",
+    "old_status": "pnp_no_pose_within_reprojection_limits",
+    "new_status": "pnp_no_pose_within_reprojection_limits",
+    "point_ids": [
+      "large_front_right",
+      "small_front_right",
+      "small_end_right",
+      "large_end_right"
+    ],
+    "point_numbers": {
+      "large_front_right": 11,
+      "small_front_right": 7,
+      "small_end_right": 8,
+      "large_end_right": 12
+    },
+    "pixels": {
+      "large_front_right": [
+        1216.0,
+        643.470715835141
+      ],
+      "small_front_right": [
+        738.3414634146342,
+        449.80477223427334
+      ],
+      "small_end_right": [
+        683.7073170731708,
+        370.15184381778744
+      ],
+      "large_end_right": [
+        889.7560975609756,
+        387.3318872017354
+      ]
+    },
+    "source_size_wh": [
+      1280,
+      720
+    ],
+    "canvas_size_wh": [
+      1280,
+      605
+    ],
+    "image_rect_xywh": [
+      0,
+      48,
+      820,
+      461
+    ],
+    "src_to_display_xy_scale": [
+      0.640625,
+      0.6402777777777777
+    ],
+    "mouse_roundtrips": {
+      "large_front_right": [
+        779,
+        460
+      ],
+      "small_front_right": [
+        473,
+        336
+      ],
+      "small_end_right": [
+        438,
+        285
+      ],
+      "large_end_right": [
+        570,
+        296
+      ]
+    },
+    "world_xyz_m": {
+      "large_front_right": [
+        2.01,
+        -1.9075,
+        0.0
+      ],
+      "small_front_right": [
+        2.97,
+        -1.4375,
+        0.0
+      ],
+      "small_end_right": [
+        3.91,
+        -1.4375,
+        0.0
+      ],
+      "large_end_right": [
+        3.91,
+        -1.9075,
+        0.0
+      ]
+    },
+    "candidates": [
+      {
+        "root": 1,
+        "stage": "IPPE",
+        "camera_center_map_m": [
+          0.18476405477986643,
+          -1.0410468915195368,
+          0.5152761524857458
+        ],
+        "depths_m": [
+          1.942670206498815,
+          2.8532568814767054,
+          3.778634468581481,
+          3.813114265540383
+        ],
+        "all_point_rms_px": 4.2862646981838495,
+        "inlier_rms_px": 4.2862646981838495,
+        "inlier_indices": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "residual_px": [
+          4.569067451679915,
+          3.6917484754877967,
+          3.9903354088034915,
+          4.802093230308025
+        ],
+        "projection_px": [
+          [
+            1220.4099387444885,
+            642.2753842293262
+          ],
+          [
+            735.4343897751507,
+            447.52926577177163
+          ],
+          [
+            687.6945811639994,
+            369.9953134860952
+          ],
+          [
+            885.6197651928751,
+            389.77132441822084
+          ]
+        ],
+        "reason": "inlier_rms_above_3_px"
+      },
+      {
+        "root": 1,
+        "stage": "LM",
+        "camera_center_map_m": [
+          0.17205910006730715,
+          -1.0468727211492945,
+          0.5429707290954093
+        ],
+        "depths_m": [
+          1.958518276244928,
+          2.8697093015279376,
+          3.7943105703045488,
+          3.8273931812189295
+        ],
+        "all_point_rms_px": 3.3393048699440633,
+        "inlier_rms_px": 2.4871162233181074,
+        "inlier_indices": [
+          0,
+          1,
+          3
+        ],
+        "residual_px": [
+          0.8354152694096968,
+          2.423057303915456,
+          5.103585674097396,
+          3.4623858760189425
+        ],
+        "projection_px": [
+          [
+            1216.8353021258795,
+            643.4569669855856
+          ],
+          [
+            735.9254269678024,
+            449.98909419617326
+          ],
+          [
+            688.8105892594662,
+            370.09527770216954
+          ],
+          [
+            886.2963597415592,
+            387.1964982237679
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      },
+      {
+        "root": 2,
+        "stage": "IPPE",
+        "camera_center_map_m": [
+          4.901568853459557,
+          -1.9163153371841763,
+          0.23322988220647944
+        ],
+        "depths_m": [
+          2.729474769529325,
+          1.9915901854796751,
+          1.1181345413730144,
+          0.9639793186754355
+        ],
+        "all_point_rms_px": 190.36677611354276,
+        "inlier_rms_px": null,
+        "inlier_indices": [],
+        "residual_px": [
+          43.819013806356125,
+          71.15552838914567,
+          220.63423863684602,
+          298.8232844697581
+        ],
+        "projection_px": [
+          [
+            1174.899979550319,
+            628.2755096832843
+          ],
+          [
+            773.5706924281951,
+            511.6271843794541
+          ],
+          [
+            470.33252304731025,
+            314.0210631953668
+          ],
+          [
+            1188.0815420415297,
+            370.0899465692602
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      },
+      {
+        "root": 2,
+        "stage": "LM",
+        "camera_center_map_m": [
+          6.0996045467630475,
+          -2.870212551496881,
+          0.5341326719697397
+        ],
+        "depths_m": [
+          3.9972003559675215,
+          3.4496763756785436,
+          2.6690601520351516,
+          2.419359052858537
+        ],
+        "all_point_rms_px": 68.8477267582531,
+        "inlier_rms_px": null,
+        "inlier_indices": [],
+        "residual_px": [
+          59.68032049488473,
+          110.87641317624157,
+          55.2385850049357,
+          7.308692945254938
+        ],
+        "projection_px": [
+          [
+            1159.4843671902372,
+            624.2945873811433
+          ],
+          [
+            842.2091460969044,
+            488.60017780044643
+          ],
+          [
+            633.5925862147498,
+            346.9179241240394
+          ],
+          [
+            895.2005481585838,
+            392.2078435446719
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      }
+    ]
+  },
+  "freeze_0002_21657": {
+    "source_raw": "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0002_21657/raw.png",
+    "raw_sha256": "06bc9737195d87f0718732580e537243418a50ccce4410ae6ffa4cc1688d0101",
+    "run_event_files": [
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0002_21657/0006_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0002_21657/0007_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0002_21657/0008_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0002_21657/0009_initialize.json",
+      "site_review_20261119/integrated_demo/runs/preview_20261119_193523_047021/initializations/freeze_0002_21657/0010_initialize.json"
+    ],
+    "old_core_sha256": "93e2f02f506975a29acff580db9801fb0742597e8b80ed7111cdbebcc6940870",
+    "new_core_sha256": "93e2f02f506975a29acff580db9801fb0742597e8b80ed7111cdbebcc6940870",
+    "old_status": "pnp_no_pose_within_reprojection_limits",
+    "new_status": "pnp_no_pose_within_reprojection_limits",
+    "point_ids": [
+      "large_front_right",
+      "large_end_right",
+      "small_end_right",
+      "small_front_right"
+    ],
+    "point_numbers": {
+      "large_front_right": 11,
+      "large_end_right": 12,
+      "small_end_right": 8,
+      "small_front_right": 7
+    },
+    "pixels": {
+      "large_front_right": [
+        1158.2439024390244,
+        627.8524945770066
+      ],
+      "large_end_right": [
+        830.439024390244,
+        374.8373101952278
+      ],
+      "small_end_right": [
+        625.9512195121952,
+        357.65726681127984
+      ],
+      "small_front_right": [
+        688.390243902439,
+        434.18655097613885
+      ]
+    },
+    "source_size_wh": [
+      1280,
+      720
+    ],
+    "canvas_size_wh": [
+      1280,
+      605
+    ],
+    "image_rect_xywh": [
+      0,
+      48,
+      820,
+      461
+    ],
+    "src_to_display_xy_scale": [
+      0.640625,
+      0.6402777777777777
+    ],
+    "mouse_roundtrips": {
+      "large_front_right": [
+        742,
+        450
+      ],
+      "large_end_right": [
+        532,
+        288
+      ],
+      "small_end_right": [
+        401,
+        277
+      ],
+      "small_front_right": [
+        441,
+        326
+      ]
+    },
+    "world_xyz_m": {
+      "large_front_right": [
+        2.01,
+        -1.9075,
+        0.0
+      ],
+      "large_end_right": [
+        3.91,
+        -1.9075,
+        0.0
+      ],
+      "small_end_right": [
+        3.91,
+        -1.4375,
+        0.0
+      ],
+      "small_front_right": [
+        2.97,
+        -1.4375,
+        0.0
+      ]
+    },
+    "candidates": [
+      {
+        "root": 1,
+        "stage": "IPPE",
+        "camera_center_map_m": [
+          0.16836777717124207,
+          -0.9923891572710452,
+          0.4897212983249712
+        ],
+        "depths_m": [
+          1.9932156518163073,
+          3.855430736566521,
+          3.7981613770671174,
+          2.876854966717012
+        ],
+        "all_point_rms_px": 6.529071342589453,
+        "inlier_rms_px": null,
+        "inlier_indices": [],
+        "residual_px": [
+          7.525417710188776,
+          7.278962841257931,
+          5.400890421087606,
+          5.632962035080559
+        ],
+        "projection_px": [
+          [
+            1164.9070537883806,
+            624.3547344639635
+          ],
+          [
+            825.327069539662,
+            380.019126252367
+          ],
+          [
+            631.2127668751058,
+            356.43835882113285
+          ],
+          [
+            683.5886269953381,
+            431.2412604359541
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      },
+      {
+        "root": 1,
+        "stage": "LM",
+        "camera_center_map_m": [
+          0.14279622201947376,
+          -0.9920779347482401,
+          0.5431376029566768
+        ],
+        "depths_m": [
+          2.028039489928664,
+          3.886659072924721,
+          3.8305562861607063,
+          2.911028702994236
+        ],
+        "all_point_rms_px": 4.635316693823581,
+        "inlier_rms_px": 3.4922328381823857,
+        "inlier_indices": [
+          0,
+          1,
+          3
+        ],
+        "residual_px": [
+          1.2617661658578474,
+          4.612166831979784,
+          7.02549448935234,
+          3.704447846160094
+        ],
+        "projection_px": [
+          [
+            1159.4388764206883,
+            627.4474130537919
+          ],
+          [
+            825.8572589819044,
+            375.36599595156804
+          ],
+          [
+            632.8120369723449,
+            356.1450642460048
+          ],
+          [
+            684.9402284471539,
+            435.53574599659146
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      },
+      {
+        "root": 2,
+        "stage": "IPPE",
+        "camera_center_map_m": [
+          4.924110565760106,
+          -1.938578463866832,
+          0.22667052801182677
+        ],
+        "depths_m": [
+          2.780847611491038,
+          0.9972555440384845,
+          1.1412792045486775,
+          2.0236879116041506
+        ],
+        "all_point_rms_px": 181.29311712540508,
+        "inlier_rms_px": null,
+        "inlier_indices": [],
+        "residual_px": [
+          42.77137883906236,
+          281.1971944488007,
+          214.33885533304223,
+          68.01749296345272
+        ],
+        "projection_px": [
+          [
+            1118.4776085017875,
+            612.103440183429
+          ],
+          [
+            1111.5557140615163,
+            368.10908946889776
+          ],
+          [
+            419.8030248971178,
+            298.97109499522946
+          ],
+          [
+            723.1544970029547,
+            492.64872725616306
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      },
+      {
+        "root": 2,
+        "stage": "LM",
+        "camera_center_map_m": [
+          6.095927980667084,
+          -2.8995237711489397,
+          0.5191556682184835
+        ],
+        "depths_m": [
+          4.041116951919466,
+          2.4368037875136643,
+          2.6765549112631506,
+          3.4702677399691786
+        ],
+        "all_point_rms_px": 66.9158369602398,
+        "inlier_rms_px": null,
+        "inlier_indices": [],
+        "residual_px": [
+          57.74745446241424,
+          7.203591869205148,
+          53.14088437497271,
+          108.1679394252136
+        ],
+        "projection_px": [
+          [
+            1103.9503413564369,
+            608.1807452430012
+          ],
+          [
+            835.3641719635251,
+            380.094177817632
+          ],
+          [
+            578.3968524464469,
+            333.9394303768515
+          ],
+          [
+            788.9601052792627,
+            474.01124309225116
+          ]
+        ],
+        "reason": "fewer_than_four_inliers_at_5_px"
+      }
+    ]
+  }
+}

@@ -1,0 +1,173 @@
+{
+  "valid": true,
+  "status": "ok",
+  "marker_count": 3,
+  "residual": 0.0006627328163860745,
+  "residual_unit": "m",
+  "x_carrier_map": 0.35227999107981534,
+  "y_carrier_map": -0.24861476653465606,
+  "yaw_carrier_map": 5.7325886390877425,
+  "x_camera_map": 0.4736389943891082,
+  "y_camera_map": -0.15602971204001836,
+  "yaw_camera_map": 5.732588639087736,
+  "matches": [
+    {
+      "observation": 0,
+      "map_id": "synthetic_0"
+    },
+    {
+      "observation": 1,
+      "map_id": "synthetic_1"
+    },
+    {
+      "observation": 2,
+      "map_id": "synthetic_2"
+    }
+  ],
+  "time_utc": "2026-11-19T23:46:31.096880+00:00",
+  "source_session": "synthetic_session",
+  "sequence": 5,
+  "capture_monotonic_s": 2.1,
+  "producer": {
+    "session": "synthetic_session",
+    "sequence": 5,
+    "protocol_version": 2,
+    "capture_monotonic_ns": 2100000000
+  },
+  "transport_status": "ok",
+  "read_age": {
+    "source_session": "synthetic_session",
+    "sequence": 5,
+    "capture_monotonic_ns": 2100000000,
+    "status": "ok",
+    "age_lower_ms": 70.0,
+    "age_upper_ms": 78.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "publish_age": {
+    "source_session": "synthetic_session",
+    "sequence": 5,
+    "capture_monotonic_ns": 2100000000,
+    "status": "ok",
+    "age_lower_ms": 88.0,
+    "age_upper_ms": 96.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "mount_qualification": "synthetic_test",
+  "current_installation_verified": false,
+  "unpublished_localization_status": "ok",
+  "marker_observation_count": 3,
+  "observation_indices": [
+    0,
+    1,
+    2
+  ],
+  "detections": {
+    "ball": [],
+    "field": [
+      {
+        "bbox": [
+          205,
+          373,
+          275,
+          443
+        ],
+        "class_id": 0,
+        "class_name": "LCross",
+        "confidence": 0.9
+      },
+      {
+        "bbox": [
+          620,
+          583,
+          690,
+          653
+        ],
+        "class_id": 1,
+        "class_name": "TCross",
+        "confidence": 0.9
+      },
+      {
+        "bbox": [
+          965,
+          379,
+          1035,
+          449
+        ],
+        "class_id": 2,
+        "class_name": "XCross",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "intersections": [
+    {
+      "detection_index": 0,
+      "class_id": 0,
+      "pixel_uv": [
+        241.0,
+        409.0
+      ],
+      "carrier_xy_m": [
+        2.0073300649173964,
+        0.6028506838380019
+      ],
+      "map_xy_m": [
+        2.28935507097618,
+        0.5517245810984067
+      ],
+      "map_id": "synthetic_0",
+      "status": "matched"
+    },
+    {
+      "detection_index": 1,
+      "class_id": 1,
+      "pixel_uv": [
+        656.0,
+        619.0
+      ],
+      "carrier_xy_m": [
+        1.5405956777261656,
+        0.05579905096514051
+      ],
+      "map_xy_m": [
+        1.8795974962300106,
+        -0.03921129287928202
+      ],
+      "map_id": "synthetic_1",
+      "status": "matched"
+    },
+    {
+      "detection_index": 2,
+      "class_id": 2,
+      "pixel_uv": [
+        1001.0,
+        415.0
+      ],
+      "carrier_xy_m": [
+        1.990860414703504,
+        -0.40307874287817813
+      ],
+      "map_xy_m": [
+        2.373445752184106,
+        -0.4508191926320462
+      ],
+      "map_id": "synthetic_2",
+      "status": "matched"
+    }
+  ],
+  "fps": 17.278038989591707,
+  "pose_update_hz": 0.0,
+  "timings_ms": {
+    "read_ms": 10.0,
+    "field_yolo_ms": 0.0,
+    "ball_yolo_ms": 0.0,
+    "refinement_ms": 15.57341600005202,
+    "projection_ms": 0.3951270000470686,
+    "matching_ms": 0.9614139999030158,
+    "total_to_publish_ms": 17.30077000001984
+  },
+  "input_kind": "synthetic geometry and controlled bridge clock"
+}

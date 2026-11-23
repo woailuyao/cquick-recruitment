@@ -1,0 +1,152 @@
+{
+  "valid": false,
+  "status": "bridge_stale_capture",
+  "marker_count": 0,
+  "residual": null,
+  "residual_unit": "m",
+  "x_carrier_map": null,
+  "y_carrier_map": null,
+  "yaw_carrier_map": null,
+  "x_camera_map": null,
+  "y_camera_map": null,
+  "yaw_camera_map": null,
+  "matches": [],
+  "time_utc": "2026-11-19T23:53:45.501317+00:00",
+  "candidate_marker_count": 0,
+  "source_session": "synthetic_session",
+  "sequence": 2,
+  "capture_monotonic_s": 1.8,
+  "producer": {
+    "session": "synthetic_session",
+    "sequence": 2,
+    "protocol_version": 2,
+    "capture_monotonic_ns": 1800000000
+  },
+  "transport_status": "stale_capture",
+  "read_age": {
+    "source_session": "synthetic_session",
+    "sequence": 2,
+    "capture_monotonic_ns": 1800000000,
+    "status": "ok",
+    "age_lower_ms": 70.0,
+    "age_upper_ms": 78.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "publish_age": {
+    "source_session": "synthetic_session",
+    "sequence": 2,
+    "capture_monotonic_ns": 1800000000,
+    "status": "stale_capture",
+    "age_lower_ms": 503.0,
+    "age_upper_ms": 511.0,
+    "clock_roundtrip_ms": 8.0,
+    "calibration_age_ms": 5.0
+  },
+  "mount_qualification": "synthetic_test",
+  "current_installation_verified": false,
+  "unpublished_localization_status": "ok",
+  "marker_observation_count": 3,
+  "observation_indices": [
+    0,
+    1,
+    2
+  ],
+  "detections": {
+    "ball": [],
+    "field": [
+      {
+        "bbox": [
+          205,
+          373,
+          275,
+          443
+        ],
+        "class_id": 0,
+        "class_name": "LCross",
+        "confidence": 0.9
+      },
+      {
+        "bbox": [
+          620,
+          583,
+          690,
+          653
+        ],
+        "class_id": 1,
+        "class_name": "TCross",
+        "confidence": 0.9
+      },
+      {
+        "bbox": [
+          965,
+          379,
+          1035,
+          449
+        ],
+        "class_id": 2,
+        "class_name": "XCross",
+        "confidence": 0.9
+      }
+    ]
+  },
+  "intersections": [
+    {
+      "detection_index": 0,
+      "class_id": 0,
+      "pixel_uv": [
+        241.0,
+        409.0
+      ],
+      "carrier_xy_m": [
+        2.0073300649173964,
+        0.6028506838380019
+      ],
+      "map_xy_m": null,
+      "map_id": null,
+      "status": "stale_unpublished"
+    },
+    {
+      "detection_index": 1,
+      "class_id": 1,
+      "pixel_uv": [
+        656.0,
+        619.0
+      ],
+      "carrier_xy_m": [
+        1.5405956777261656,
+        0.05579905096514051
+      ],
+      "map_xy_m": null,
+      "map_id": null,
+      "status": "stale_unpublished"
+    },
+    {
+      "detection_index": 2,
+      "class_id": 2,
+      "pixel_uv": [
+        1001.0,
+        415.0
+      ],
+      "carrier_xy_m": [
+        1.990860414703504,
+        -0.40307874287817813
+      ],
+      "map_xy_m": null,
+      "map_id": null,
+      "status": "stale_unpublished"
+    }
+  ],
+  "fps": 0.0,
+  "pose_update_hz": 0.0,
+  "timings_ms": {
+    "read_ms": 10.0,
+    "field_yolo_ms": 0.0,
+    "ball_yolo_ms": 0.0,
+    "refinement_ms": 14.475371999878917,
+    "projection_ms": 0.872963000119853,
+    "matching_ms": 1.4369759999226517,
+    "total_to_publish_ms": 17.245100000081948
+  },
+  "input_kind": "synthetic geometry and controlled bridge clock"
+}

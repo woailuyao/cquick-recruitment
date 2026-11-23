@@ -1,0 +1,59 @@
+schema: cquick_measured_geometry_v1
+version: huyuhan_measured_half_20261116
+units: m
+origin: center_circle_center
+positive_x: toward_the_measured_goal_in_leader_diagram
+positive_y: left_when_facing_positive_x
+positive_z: up
+yaw: from_positive_x_toward_positive_y
+scope: one_measured_end_only_per_leader_instruction
+penalty_point_present: false
+raw_measurements_cm:
+  stripe_width: 5
+  clear_width: 590
+  clear_midline_to_measured_end: 386
+  small_box_clear_depth: 89
+  large_box_clear_depth: 185
+  small_box_side_clearances_left_right:
+  - 147
+  - 146
+  large_box_side_clearances_left_right:
+  - 96
+  - 99
+  circle_inner_diameter: 141
+  circle_outer_edge_to_sideline_inner_left_right:
+  - 221.5
+  - 216
+operator_confirmations:
+- Clear grass gaps exclude white stripes.
+- Small box side clearances 147/146 cm; large box 96/99 cm.
+- Leader requires measurement of one end only.
+- No penalty point exists.
+closure_adjustment:
+  raw_width_from_circle_gaps_cm: 588.5
+  direct_clear_width_cm: 590
+  closure_discrepancy_cm: 1.5
+  method: Preserve directly measured width and left-right gap difference; add 0.75cm
+    to each circle-side gap.
+  adjusted_circle_to_side_inner_cm:
+  - 222.25
+  - 216.75
+  reason: 'No silent averaging or mirroring: raw values retained; explicit equal-weight
+    closure reconciliation.'
+calculated_centerline_geometry_m:
+  width: 5.95
+  left_sideline_y: 3.0025
+  right_sideline_y: -2.9475000000000002
+  measured_endline_x: 3.9099999999999997
+  small_box_front_x: 2.9699999999999998
+  small_box_left_y: 1.4825
+  small_box_right_y: -1.4375000000000002
+  large_box_front_x: 2.01
+  large_box_left_y: 1.9925
+  large_box_right_y: -1.9075000000000002
+  circle_radius: 0.73
+warnings:
+- Independent circle-side measurements do not close exactly; 1.5cm mismatch is explicitly
+  reconciled.
+- The opposite end is not modeled or mirrored.
+- These are field feature coordinates, not the independent P1/P2/P3 references.

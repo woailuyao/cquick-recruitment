@@ -1,0 +1,11 @@
+# This file describes recorded hardware settings, not an independent C0 proof.
+source: windows_directshow_v2_bridge
+camera_index: 0
+width: 1280
+height: 720
+intrinsics_file: ../calibration/camera_intrinsics.yaml
+extrinsics_file: ../calibration/camera_extrinsics.yaml
+mount_qualification: approximate_mount_20261116
+current_installation_verified: false
+fps_actual: null  # measure from raw timestamps; not the nominal 30 fps
+focus_mode_verified: false

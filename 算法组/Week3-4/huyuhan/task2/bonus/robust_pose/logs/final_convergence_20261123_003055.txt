@@ -1,0 +1,39 @@
+========== IRLS收敛性专项诊断 ==========
+
+偏移=0.10m seed=11 原始迭代=50
+max_iter=200 converged=True iterations=102 yaw=0.96292deg pos=6.1264mm delta_yaw=0.000385deg delta_t=0.00206mm
+max_iter=500 converged=True iterations=102 yaw=0.96292deg pos=6.1264mm delta_yaw=0.000385deg delta_t=0.00206mm
+
+偏移=0.10m seed=15 原始迭代=50
+max_iter=200 converged=True iterations=55 yaw=0.84729deg pos=15.2849mm delta_yaw=0.000000deg delta_t=0.00000mm
+max_iter=500 converged=True iterations=55 yaw=0.84729deg pos=15.2849mm delta_yaw=0.000000deg delta_t=0.00000mm
+
+偏移=0.10m seed=28 原始迭代=50
+max_iter=200 converged=True iterations=96 yaw=1.16733deg pos=27.5236mm delta_yaw=0.000182deg delta_t=0.00282mm
+max_iter=500 converged=True iterations=96 yaw=1.16733deg pos=27.5236mm delta_yaw=0.000182deg delta_t=0.00282mm
+
+偏移=0.18m seed=3 原始迭代=50
+max_iter=200 converged=True iterations=101 yaw=1.17909deg pos=6.8628mm delta_yaw=0.000477deg delta_t=0.00236mm
+max_iter=500 converged=True iterations=101 yaw=1.17909deg pos=6.8628mm delta_yaw=0.000477deg delta_t=0.00236mm
+
+偏移=0.18m seed=7 原始迭代=50
+max_iter=200 converged=True iterations=145 yaw=0.99987deg pos=16.4288mm delta_yaw=0.006441deg delta_t=0.06357mm
+max_iter=500 converged=True iterations=145 yaw=0.99987deg pos=16.4288mm delta_yaw=0.006441deg delta_t=0.06357mm
+
+偏移=0.18m seed=12 原始迭代=50
+max_iter=200 converged=True iterations=166 yaw=1.15390deg pos=21.6278mm delta_yaw=0.010071deg delta_t=0.25256mm
+max_iter=500 converged=True iterations=166 yaw=1.15390deg pos=21.6278mm delta_yaw=0.010071deg delta_t=0.25256mm
+
+偏移=0.18m seed=17 原始迭代=50
+max_iter=200 converged=True iterations=81 yaw=0.53560deg pos=18.0964mm delta_yaw=0.000057deg delta_t=0.00099mm
+max_iter=500 converged=True iterations=81 yaw=0.53560deg pos=18.0964mm delta_yaw=0.000057deg delta_t=0.00099mm
+
+偏移=0.18m seed=20 原始迭代=50
+max_iter=200 converged=True iterations=184 yaw=1.50455deg pos=33.1518mm delta_yaw=0.017855deg delta_t=0.34139mm
+max_iter=500 converged=True iterations=184 yaw=1.50455deg pos=33.1518mm delta_yaw=0.017855deg delta_t=0.34139mm
+
+偏移=0.18m seed=28 原始迭代=50
+max_iter=200 converged=False iterations=200 yaw=1.20875deg pos=21.6650mm delta_yaw=0.099475deg delta_t=1.69980mm
+max_iter=500 converged=True iterations=313 yaw=1.20866deg pos=21.6635mm delta_yaw=0.099566deg delta_t=1.70136mm
+
+CONVERGENCE DIAGNOSTIC COMPLETE

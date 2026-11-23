@@ -1,0 +1,29 @@
+{
+  "counts": {
+    "train": {
+      "images": 73,
+      "negative": 8,
+      "sources": 10,
+      "instances": {
+        "LCross": 96,
+        "TCross": 102,
+        "XCross": 24,
+        "PenaltyPoint": 0
+      }
+    },
+    "val": {
+      "images": 23,
+      "negative": 1,
+      "sources": 3,
+      "instances": {
+        "LCross": 38,
+        "TCross": 28,
+        "XCross": 19,
+        "PenaltyPoint": 0
+      }
+    }
+  },
+  "manifest_sha256": "3eda034ba29c6049a8410c182d70d4660527f51f18963c0447d275fe4c668651",
+  "class3": "N/A: unmarked circle center; no GT boxes and no FN",
+  "test": "06 sealed, neither opened nor sampled"
+}

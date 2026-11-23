@@ -1,0 +1,98 @@
+{
+  "mode": "automatic_yolo_ground_map",
+  "axes": "x_to_goal_y_left_z_up_yaw_ccw",
+  "map_path": "/home/hu_yuhan/Cquick/Week3-4/site_review_20261119/formal_map/field.yaml",
+  "map_sha256": "d4999b23efee9782819f84fb9c65e5c6491c07d010916f0c21045793a0ab2c0f",
+  "map_version": "huyuhan_formal_center_geometry_20261119",
+  "intrinsics_path": "/home/hu_yuhan/Cquick/Week3-4/site_review_20261119/formal_map/camera_intrinsics.yaml",
+  "intrinsics_sha256": "7a6afef54528f4b218654c3c7af05e25cbe0ee0cd2e5a3395c4b956cd555007d",
+  "image_size_px": [
+    1280,
+    720
+  ],
+  "opencv_version": "5.0.0",
+  "camera_matrix": [
+    [
+      1608.097259883693,
+      0.0,
+      633.3734334687093
+    ],
+    [
+      0.0,
+      1601.0835739405425,
+      402.01991961807613
+    ],
+    [
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "distortion_coefficients": [
+    0.22083832379263663,
+    -1.6370419288610905,
+    0.008907589056676164,
+    0.005465091600586419,
+    1.891825632923824
+  ],
+  "installation": {
+    "path": "/home/hu_yuhan/Cquick/Week3-4/site_review_20261119/automatic_demo/current_installation.yaml",
+    "status": "extrinsics_current_installation_missing"
+  },
+  "fit_limits": {
+    "association_gate_m": 0.22,
+    "max_rms_m": 0.15,
+    "ambiguity_margin_m": 0.04,
+    "minimum_points": 3
+  },
+  "camera_bounds_map_m": [
+    [
+      0.0,
+      -2.9475000000000002
+    ],
+    [
+      3.9099999999999997,
+      3.0025
+    ]
+  ],
+  "axes_carrier": "x_forward_y_left_z_up",
+  "ground_plane": "carrier_z=0_m",
+  "yaw_unit": "deg_ccw_from_map_positive_x",
+  "detectors": {
+    "ball": {
+      "path": "/home/hu_yuhan/Cquick/Week3-4/results/task1_ball_yolo/formal_v3_20261114_214759_977028/ball_yolov8s_20261115_195246_886751/weights/best.pt",
+      "sha256": "732ecee9f41639b6888632e1cd8417569807f570a680423b29547c9752824eae",
+      "names": {
+        "0": "ball"
+      },
+      "classes_shown": [
+        0
+      ],
+      "imgsz": 640,
+      "conf": 0.25,
+      "iou": 0.7,
+      "device": "0",
+      "verbose": false
+    },
+    "field": {
+      "path": "/home/hu_yuhan/Cquick/Week3-4/site_review_20261119/training/formal_v1/weights/best.pt",
+      "sha256": "2603112118bcaf24b050f3870292dd8f23ba491bd407f7eae83f516ff6c82418",
+      "names": {
+        "0": "LCross",
+        "1": "TCross",
+        "2": "XCross",
+        "3": "PenaltyPoint"
+      },
+      "classes_shown": [
+        0,
+        1,
+        2
+      ],
+      "imgsz": 640,
+      "conf": 0.25,
+      "iou": 0.7,
+      "device": "0",
+      "verbose": false
+    }
+  }
+}

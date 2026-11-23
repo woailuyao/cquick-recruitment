@@ -1,0 +1,67 @@
+{
+  "source_screenshot": "/mnt/c/Users/13991/Pictures/Screenshots/\u5c4f\u5e55\u622a\u56fe 2026-11-19 194055.png",
+  "image_screen_rect_xywh": [
+    30,
+    178,
+    820,
+    461
+  ],
+  "canvas_screen_origin": [
+    30,
+    130
+  ],
+  "sample_match_score": 0.9994229078292847,
+  "exact_pixels": 363539,
+  "image_pixels": 378020,
+  "click_screen_audit": {
+    "large_front_right": {
+      "expected_screen_px": [
+        772,
+        580
+      ],
+      "distance_to_cross_color_within_2px": 2,
+      "center_bgr": [
+        97,
+        242,
+        132
+      ]
+    },
+    "large_end_right": {
+      "expected_screen_px": [
+        562,
+        418
+      ],
+      "distance_to_cross_color_within_2px": 2,
+      "center_bgr": [
+        97,
+        242,
+        132
+      ]
+    },
+    "small_end_right": {
+      "expected_screen_px": [
+        431,
+        407
+      ],
+      "distance_to_cross_color_within_2px": 2,
+      "center_bgr": [
+        97,
+        242,
+        132
+      ]
+    },
+    "small_front_right": {
+      "expected_screen_px": [
+        471,
+        456
+      ],
+      "distance_to_cross_color_within_2px": 2,
+      "center_bgr": [
+        97,
+        242,
+        132
+      ]
+    }
+  },
+  "note": "Qt callback uses canvas-image coordinates, screenshot Desktop origin includes title/toolbar/blank; no raw OS click events recorded."
+}

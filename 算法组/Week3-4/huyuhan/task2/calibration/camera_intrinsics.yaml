@@ -1,0 +1,86 @@
+schema: cquick_intrinsics_v1
+verified: true
+validation_scope: reprojection and coarse image coverage; independent ground check
+  still required
+width: 1280
+height: 720
+camera_matrix:
+- - 1608.097259883693
+  - 0.0
+  - 633.3734334687093
+- - 0.0
+  - 1601.0835739405425
+  - 402.01991961807613
+- - 0.0
+  - 0.0
+  - 1.0
+dist_coeffs:
+- 0.22083832379263663
+- -1.6370419288610905
+- 0.008907589056676164
+- 0.005465091600586419
+- 1.891825632923824
+rms_pixels: 0.6412131291546335
+per_view_rms_pixels:
+- 0.5558613538742065
+- 0.5244321227073669
+- 0.4660584032535553
+- 0.5288717150688171
+- 0.5541552305221558
+- 1.1018356084823608
+- 0.5395016670227051
+- 0.42554008960723877
+- 0.7278966903686523
+- 0.6647120118141174
+- 0.6283375024795532
+- 0.785255491733551
+- 1.1573885679244995
+- 0.38728585839271545
+- 0.40172550082206726
+- 0.5291799306869507
+- 0.6615359783172607
+- 0.5275403261184692
+- 0.7352571487426758
+- 0.6775229573249817
+- 0.4751463830471039
+- 0.4996170103549957
+- 0.5996615886688232
+- 0.5734934210777283
+views: 24
+files:
+- board_001.png
+- board_002.png
+- board_003.png
+- board_004.png
+- board_005.png
+- board_006.png
+- board_007.png
+- board_008.png
+- board_009.png
+- board_010.png
+- board_011.png
+- board_012.png
+- board_013.png
+- board_014.png
+- board_015.png
+- board_016.png
+- board_017.png
+- board_018.png
+- board_019.png
+- board_020.png
+- board_021.png
+- board_022.png
+- board_023.png
+- board_024.png
+inner_corners:
+- 9
+- 9
+measured_square_m: 0.029
+board_center_span_normalized:
+- 0.526741075515747
+- 0.28374890221489807
+numerical_check_passed: true
+coarse_coverage_check_passed: true
+note: Use the same actual camera, resolution and unchanged lens/focus. A low RMS alone
+  does not prove all calibration accuracy.
+source: windows_live_camera_v2_bridge

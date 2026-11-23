@@ -1,0 +1,39 @@
+{
+  "ultralytics_version": "8.4.208",
+  "split": "val",
+  "imgsz": 640,
+  "conf": 0.001,
+  "iou": 0.7,
+  "max_det": 300,
+  "results": [
+    {
+      "batch": 1,
+      "precision_mode": "FP32",
+      "map50_95": 0.9309796305145467
+    },
+    {
+      "batch": 1,
+      "precision_mode": "FP16",
+      "map50_95": 0.9331632022512746
+    },
+    {
+      "batch": 4,
+      "precision_mode": "FP32",
+      "map50_95": 0.9309580326155903
+    },
+    {
+      "batch": 4,
+      "precision_mode": "FP16",
+      "map50_95": 0.933153090172358
+    },
+    {
+      "batch": 8,
+      "precision_mode": "quantize=16",
+      "map50_95": 0.933153090172358,
+      "precision": 0.9996225669077202,
+      "recall": 1.0,
+      "map50": 0.995
+    }
+  ],
+  "note": "Metrics transcribed from the corresponding validation console outputs. This is a summary record, not a raw execution log."
+}

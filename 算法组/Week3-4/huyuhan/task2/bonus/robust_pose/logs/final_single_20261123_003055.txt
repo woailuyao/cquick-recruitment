@@ -1,0 +1,18 @@
+========== 实验1：正常噪声 ==========
+RMS: 0.0036132715472022093
+Weights: [1. 1. 1. 1. 1.]
+Converged: True
+
+========== 实验2：加入异常匹配点 ==========
+Baseline:
+Yaw error: 7.816869174232946 deg
+Position error: 0.017208809097049003 m
+
+Huber IRLS:
+Yaw error: 0.5482454947792121 deg
+Position error: 0.001866962872633056 m
+Weights: [1.         1.         1.         1.         0.03619174]
+RMS: 0.24732560822686334
+Iterations: 11
+
+PASS: 合成异常点实验通过

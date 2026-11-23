@@ -1,0 +1,65 @@
+========== 双异常点鲁棒性实验 ==========
+每组30个随机种子
+Huber delta = 0.02 m
+
+N=5, 异常点=1, 偏移=0.10m
+SVD: yaw=0.7142° pos=20.226mm pass=30/30
+IRLS: yaw=0.2278° pos=6.447mm pass=30/30
+异常点权重=0.2220 raw_RMS=40.839mm weighted_RMS=21.996mm
+
+N=5, 异常点=1, 偏移=0.18m
+SVD: yaw=1.0227° pos=37.122mm pass=30/30
+IRLS: yaw=0.2226° pos=5.876mm pass=30/30
+异常点权重=0.1163 raw_RMS=77.172mm weighted_RMS=29.881mm
+
+N=5, 异常点=2, 偏移=0.10m
+SVD: yaw=0.9745° pos=32.512mm pass=30/30
+IRLS: yaw=0.3954° pos=11.141mm pass=30/30
+异常点权重=0.2158 raw_RMS=58.356mm weighted_RMS=34.593mm
+
+N=5, 异常点=2, 偏移=0.18m
+SVD: yaw=1.8017° pos=59.127mm pass=30/30
+IRLS: yaw=0.4271° pos=12.460mm pass=30/30
+异常点权重=0.1188 raw_RMS=107.102mm weighted_RMS=47.728mm
+
+N=8, 异常点=1, 偏移=0.10m
+SVD: yaw=0.3680° pos=12.989mm pass=30/30
+IRLS: yaw=0.1331° pos=3.884mm pass=30/30
+异常点权重=0.2115 raw_RMS=33.882mm weighted_RMS=17.180mm
+
+N=8, 异常点=1, 偏移=0.18m
+SVD: yaw=0.6784° pos=24.039mm pass=30/30
+IRLS: yaw=0.1165° pos=4.013mm pass=30/30
+异常点权重=0.1145 raw_RMS=61.974mm weighted_RMS=22.965mm
+
+N=8, 异常点=2, 偏移=0.10m
+SVD: yaw=0.3874° pos=17.599mm pass=30/30
+IRLS: yaw=0.1498° pos=5.680mm pass=30/30
+异常点权重=0.2108 raw_RMS=47.332mm weighted_RMS=25.190mm
+
+N=8, 异常点=2, 偏移=0.18m
+SVD: yaw=0.7380° pos=30.327mm pass=30/30
+IRLS: yaw=0.1283° pos=5.744mm pass=30/30
+异常点权重=0.1147 raw_RMS=87.167mm weighted_RMS=34.248mm
+
+N=10, 异常点=1, 偏移=0.10m
+SVD: yaw=0.2146° pos=9.863mm pass=30/30
+IRLS: yaw=0.0708° pos=2.762mm pass=30/30
+异常点权重=0.2093 raw_RMS=30.793mm weighted_RMS=15.587mm
+
+N=10, 异常点=1, 偏移=0.18m
+SVD: yaw=0.4108° pos=17.616mm pass=30/30
+IRLS: yaw=0.0635° pos=2.761mm pass=30/30
+异常点权重=0.1141 raw_RMS=55.758mm weighted_RMS=20.525mm
+
+N=10, 异常点=2, 偏移=0.10m
+SVD: yaw=0.4063° pos=15.375mm pass=30/30
+IRLS: yaw=0.1214° pos=4.152mm pass=30/30
+异常点权重=0.2071 raw_RMS=43.706mm weighted_RMS=22.492mm
+
+N=10, 异常点=2, 偏移=0.18m
+SVD: yaw=0.7409° pos=28.285mm pass=30/30
+IRLS: yaw=0.1480° pos=3.703mm pass=30/30
+异常点权重=0.1133 raw_RMS=79.342mm weighted_RMS=30.128mm
+
+MULTI-OUTLIER EXPERIMENT COMPLETE

@@ -1,0 +1,29 @@
+{
+  "old_map_sha256": "b0db7a5ed05f322c0e22defaaa008ac60eba3ca8e93b618c24ed958f76c205df",
+  "new_map_sha256": "d4999b23efee9782819f84fb9c65e5c6491c07d010916f0c21045793a0ab2c0f",
+  "retired": [
+    {
+      "id": "penalty_mark_site_20261118",
+      "type": "PenaltyPoint",
+      "x": 2.585,
+      "y": -0.1225,
+      "verified": true,
+      "marking": "white_tape_approximately_5x5cm",
+      "measurement_source": "user_confirmed_site_measurement_20261118"
+    }
+  ],
+  "new_reference": [
+    {
+      "id": "formal_penalty_circle_center",
+      "type": "PenaltyPoint",
+      "x": 0.0,
+      "y": 0.0,
+      "verified": true,
+      "visible": false,
+      "detectable": false,
+      "matchable": false
+    }
+  ],
+  "unchanged_points": 14,
+  "verified_policy": "No class-3 visual correspondences; no use of previous mechanical extrinsics."
+}

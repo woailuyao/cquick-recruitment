@@ -1,0 +1,25 @@
+
+# Large model binaries and deployment engines
+*.pt
+*.onnx
+*.engine
+
+# Raw videos and complete image/label datasets
+*.mp4
+*.avi
+*.mkv
+*.mov
+*.zip
+*.tar.gz
+**/videos/
+**/images/
+**/labels/
+
+# Training/runtime artifacts
+**/.venv/
+**/runs/
+**/__pycache__/
+*.pyc
+*.bak*
+task2/reports/frames.jsonl
+**/review_state.json

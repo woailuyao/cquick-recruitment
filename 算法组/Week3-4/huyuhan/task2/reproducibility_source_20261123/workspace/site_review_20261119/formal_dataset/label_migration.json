@@ -1,0 +1,62 @@
+[
+  {
+    "image": "images/train/frozen_site_01_f0302.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain L/T/X"
+  },
+  {
+    "image": "images/train/frozen_site_04_f0065.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/train/frozen_site_04_f0119.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/train/frozen_site_04_f0172.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/train/frozen_site_04_f0222.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/train/frozen_site_04_f0301.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/val/frozen_site_05_f0010.png",
+    "split": "val",
+    "old_tape_boxes_removed": 1,
+    "action": "retain L/T/X"
+  },
+  {
+    "image": "images/train/reviewed_delta_s11_0082.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/train/reviewed_delta_focus_04_0207.png",
+    "split": "train",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  },
+  {
+    "image": "images/val/reviewed_delta_focus_05_0197.png",
+    "split": "val",
+    "old_tape_boxes_removed": 1,
+    "action": "retain image as former-tape hard negative"
+  }
+]

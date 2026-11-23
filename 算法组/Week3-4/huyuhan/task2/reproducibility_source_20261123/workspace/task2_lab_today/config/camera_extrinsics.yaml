@@ -1,0 +1,102 @@
+schema: cquick_extrinsics_v1
+verified: true
+validation_scope: six measured ground fit points; two independent ground check points
+R_carrier_camera:
+- - 0.02104203947454064
+  - -0.14444756729057756
+  - 0.9892887004704878
+- - -0.9994923905645714
+  - -0.026714108552417404
+  - 0.0173585024632974
+- - 0.02392057228141814
+  - -0.9891517864858175
+  - -0.14493636366918294
+t_carrier_camera:
+- 0.01625453007885178
+- -0.0458248182051944
+- 0.5751819840972346
+carrier_axes: x_forward_y_left_z_up
+camera_axes: x_right_y_down_z_forward
+fit_rms_pixels: 1.9965862308349687
+fit_errors_pixels:
+- 0.9499744121926522
+- 2.401874538107946
+- 1.785582609155024
+- 0.2679628948110448
+- 2.558307335650251
+- 2.727937131162011
+check_errors_m:
+- 0.024047299697880737
+- 0.03213693822326564
+check_max_error_m: 0.03213693822326564
+check_estimated_xy_m:
+- - 2.7459528477100363
+  - 0.2600841991863942
+- - 2.7380376148256573
+  - -0.23165504374722912
+measured_height_m: 0.58
+camera_horizontal_offset_from_measured_origin_m: 0.04862225531198047
+limits:
+  fit_rms_pixels: 3
+  check_max_error_m: 0.1
+  height_difference_m: 0.1
+point_records:
+- id: A
+  x_forward_m: 2.165
+  y_left_m: 0.49
+  role: fit
+- id: B
+  x_forward_m: 2.165
+  y_left_m: 0.06
+  role: fit
+- id: C
+  x_forward_m: 2.165
+  y_left_m: -0.46
+  role: fit
+- id: D
+  x_forward_m: 3.28
+  y_left_m: 0.46
+  role: fit
+- id: E
+  x_forward_m: 3.28
+  y_left_m: 0.06
+  role: fit
+- id: F
+  x_forward_m: 3.28
+  y_left_m: -0.4
+  role: fit
+- id: G
+  x_forward_m: 2.77
+  y_left_m: 0.26
+  role: check
+- id: H
+  x_forward_m: 2.77
+  y_left_m: -0.235
+  role: check
+image_pixels:
+- - 265.0
+  - 581.0
+- - 580.0
+  - 586.0
+- - 963.0
+  - 603.0
+- - 415.0
+  - 443.0
+- - 610.0
+  - 450.0
+- - 832.0
+  - 452.0
+- - 482.0
+  - 498.0
+- - 767.0
+  - 507.0
+note: Checks are not fit inputs or a way to choose the pose. This does not validate
+  field-map localization.
+reference_image: calibration/ground_20261116_152900_corrected/reference.jpg
+intrinsics_file: config/camera_intrinsics.yaml
+intrinsics_sha256: 7a6afef54528f4b218654c3c7af05e25cbe0ee0cd2e5a3395c4b956cd555007d
+source_capture_record: calibration/ground_20261116_152900_corrected/capture_record.json
+source_original_extrinsics: calibration/ground_20261116_152900_corrected/camera_extrinsics_original_failed.yaml
+measurement_correction_record: calibration/ground_20261116_152900_corrected/measurement_corrections.json
+recalculated_from_saved_reference: true
+calculation_generated_at: '2026-11-16T07:39:58.465486+00:00'

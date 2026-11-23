@@ -1,0 +1,4 @@
+3b5d16e77015782bf8a9ca4ea932ee92748865984c56f9eddc57bc2c82d388c2  ./logs/ros2_replay_audit_20261123.txt
+4bd0a1be59489089d2e93d379d9f84542bb42fe606731ca79dca8b9e9408eb8c  ./logs/source_frames_sha256.txt
+51bbb6b39cd10e244c817f204c3e681036980464bb707e5d10dd82cc06d2563b  ./README.md
+fa66c55e1dd7494ae8d9c1d076f009e553034f5b703fabf0f3352ac936e67f30  ./scripts/cquick_ros_replay_audit_v2.py

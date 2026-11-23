@@ -1,0 +1,20 @@
+{
+  "static_python_parse": "PASS",
+  "python_file_count": 36,
+  "python_failures": [],
+  "missing_essential_modules": [],
+  "source_files_present": {
+    "dataset/dataset_summary.md": true,
+    "dataset/ball_data.yaml": true,
+    "dataset/marker_data.yaml": true,
+    "config/field.yaml": true,
+    "config/field_geometry.yaml": true,
+    "config/camera.yaml": true,
+    "calibration/camera_intrinsics.yaml": true,
+    "calibration/camera_extrinsics.yaml": true,
+    "task2/reproducibility_source_20261123/windows_bridge/bridge_transport.py": true,
+    "task2/reproducibility_source_20261123/workspace/site_review_20261119/start_automatic_demo.sh": true
+  },
+  "end_to_end_reproduction": "NOT TESTED; original weights, camera and environment required",
+  "C0_independent_error": "NOT VERIFIED"
+}
