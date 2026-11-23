@@ -140,5 +140,5 @@ steps:
 - 取消打断：【Cquick电控组作业Week3-4:用ros2 action实现舵机正反转、复位以及cancel中断】 https://www.bilibili.com/video/BV1ymy5zkEwr/?share_source=copy_web&vd_source=3a22558c03be4f58b55c8013662e489c
 - 改参数生效6步演示：【Cquick电控组作业Week3-4:改参数后行为变化的六步演示】 https://www.bilibili.com/video/BV1bqy5zJEGc/?share_source=copy_web&vd_source=3a22558c03be4f58b55c8013662e489c
 - bag 复现：【Cquick电控组考核作业Week3-4:bag复现与运行日志】 https://www.bilibili.com/video/BV1UBy5zUE75/?share_source=copy_web&vd_source=3a22558c03be4f58b55c8013662e489c
-- 动作组连跑三次，换动作，动作组日志：【Cquick电控组作业Week3-4:整机动作组连跑三遍、换动作组、动作组日志】 https://www.bilibili.com/video/BV1iTy7zqEiN/?share_source=copy_web&vd_source=3a22558c03be4f58b55c8013662e489c
+- 动作组连跑三次，换动作，动作组日志：【Cquick电控Week3-4:动作连跑三遍、换动作、工作日志】 https://www.bilibili.com/video/BV1vYyXziEbr/?share_source=copy_web&vd_source=3a22558c03be4f58b55c8013662e489c
 - 安全下电流程：【Cquick电控组作业Week3-4:安全下电流程程程程】 https://www.bilibili.com/video/BV1cGy5zqE8M/?share_source=copy_web&vd_source=3a22558c03be4f58b55c8013662e489c
