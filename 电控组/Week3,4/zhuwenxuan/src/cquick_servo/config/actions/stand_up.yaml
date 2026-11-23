@@ -1,0 +1,22 @@
+# 动作 1：站立
+# 站姿实测：膝 5/6 = 1200，前后摆 7/8 = 1500，其余 1500
+name: stand_up
+steps:
+  - name: 两侧髋摆正
+    moves:
+      - {id: 9,  pwm: 1500, duration_ms: 900}
+      - {id: 10, pwm: 1500, duration_ms: 900}
+  - name: 前后摆归中
+    moves:
+      - {id: 7, pwm: 1500, duration_ms: 900}
+      - {id: 8, pwm: 1500, duration_ms: 900}
+  - name: 屈膝进入站姿
+    moves:
+      - {id: 5, pwm: 1200, duration_ms: 1400}
+      - {id: 6, pwm: 1200, duration_ms: 1400}
+  - name: 脚掌放平
+    moves:
+      - {id: 1, pwm: 1500, duration_ms: 700}
+      - {id: 2, pwm: 1500, duration_ms: 700}
+      - {id: 3, pwm: 1500, duration_ms: 700}
+      - {id: 4, pwm: 1500, duration_ms: 700}
