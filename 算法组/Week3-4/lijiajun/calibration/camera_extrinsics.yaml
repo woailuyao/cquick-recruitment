@@ -1,0 +1,43 @@
+calibrated: false
+note: 旧三脚架装置下测得的 h/pitch/roll 全部作废（相机已重装，安装关系改变）。本文件保留字段结构，
+  数值必须在最终安装状态下重新测量后填入；未填之前 2.7/2.8 只能用下面的 preset_* 假设值运行，
+  输出结果一律带 assumed_extrinsics 标记。
+  注意区分：这里是相机→载体的安装参数，是常数；相机在地图中的 x/y/yaw 是算法输出，不是标定值。
+preset_height_m: 0.6
+preset_pitch_deg: 0.0
+preset_roll_deg: 0.0
+preset_basis: 安装方式给定的名义值，未经量具确认；pitch=0 表示光轴水平
+preset_warning: pitch=0 时地平线在 v=cy=329.7，地面只占画面下半部，可见地面约从 2.5 m 延伸到无穷，
+  远处强烈压缩；此假设对匹配精度的影响尚未用真实量具核算
+rig: 未固定，需写明安装方式（机器人机身 / 移动测试架 / 手持）以及相机与载体之间是否可能松动
+
+height_m: null
+height_samples_m: []
+height_method: 卷尺量镜头中心到载体脚底所在地面，至少 3 次；每次移动载体后必须复量
+
+pitch_deg: null
+pitch_method: 数字倾角仪或手机水平仪贴相机前面板测量（镜头光轴垂直于前面板）；不要用卷尺量两端高差除基线宽度
+pitch_uncertainty_deg: null
+
+roll_deg: null
+roll_method: 数字倾角仪贴相机顶面沿光轴方向测量
+roll_uncertainty_deg: null
+
+yaw_offset_deg: 0.0
+yaw_offset_method: 定义量：载体原点取相机光心在地面的投影，+X 轴取光轴水平投影方向，故 yaw_offset 恒为 0
+yaw_offset_note: 若改为以机器人机身几何轴作为 +X，则本量必须实测，且 pitch/roll 也要换成机身系下的值
+
+mark_distances_m: []
+mark_pixel_centers: []
+distance_residual_cm: []
+distance_residual_rms_cm: null
+acceptance: 距离残差 rms 应 <= 3 cm，且残差不随距离单调增长；单调增长说明 pitch 有系统偏差
+
+pitch_roll_identifiability: 共线的地面标记无法分离 pitch 与 roll，二者沿一条误差谷互相补偿。上一版装置实测：
+  roll=0 时必须 pitch=8.310，roll=4.29 时必须 pitch=7.800，两组各自残差 rms 约 1.8 cm，而交叉混用
+  （pitch=8.233 配 roll=4.29）残差恶化到 10.5 cm。因此 pitch 与 roll 必须用倾角仪独立量出，
+  不能只靠地面标记反解
+roll_measure_warning: 用卷尺在 40 mm 基线上量 3 mm 高差得到的 roll，不确定度约 ±3°，与 0 无法区分，不可用
+
+measured_on: null
+source_files: []
