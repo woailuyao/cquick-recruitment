@@ -95,6 +95,9 @@ class ServoDriver(Node):
         self._stall_until: Optional[float] = None
         self._beat_count = 0
         self._locked = False
+        # _armed：看门狗武装开关。__init__ 里 startup_reset 要连续写 10 个舵机、耗时可能 >1 s，
+        # 而那时 rclpy 还没 spin、心跳定时器一次都没跑过，不能把“还没开始”误判成“卡死”。
+        self._armed = False
         self._lock = threading.Lock()
         # _shutdown 是看门狗线程的退出开关：main() 里 stop_watchdog() 会把它置 True。
         self._shutdown = False
@@ -144,6 +147,11 @@ class ServoDriver(Node):
         # 启动回中位是安全默认：上电先全部 1500，避免上次停在奇怪姿态卡住机械结构。
         if self.get_parameter("startup_reset").value:
             self._startup_reset()
+
+        # 武装看门狗：从这一刻起才要求“每 0.2 s 必须有心跳”。
+        # 同时把 _last_beat 重置为现在，否则 startup_reset 花掉的时间会立刻触发超时。
+        self._last_beat = time.monotonic()
+        self._armed = True
 
         self.get_logger().info(
             "servo_driver 就绪：port=%s baudrate=%d 安全区间=[%d,%d] ids=%s"
@@ -202,6 +210,10 @@ class ServoDriver(Node):
             # 看门狗是独立 daemon 线程：即使 16 个 executor 线程全被动作占满，它照样能跑。
             while not self._shutdown:
                 time.sleep(WATCHDOG_POLL)
+                # 未武装：节点还在 __init__ 里（startup_reset 要连续写 10 个舵机），
+                # 此时 rclpy 还没开始 spin，心跳定时器根本不会触发，不能算故障。
+                if not self._armed:
+                    continue
                 if self._locked:
                     continue
                 # 唯一判据：距上次心跳超过阈值 => 认为上层卡死，执行紧急卸力。

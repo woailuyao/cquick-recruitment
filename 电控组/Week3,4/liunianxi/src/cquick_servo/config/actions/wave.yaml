@@ -18,17 +18,17 @@ steps:
       - {id: 9, pwm: 1500, duration_ms: 1200}
       - {id: 10, pwm: 1500, duration_ms: 1200}
 
-  - name: 重心压向左侧（髋 9 内收 60、髋 10 张开 60，两侧腿配合各 40）
+  - name: 重心压向左侧（髋 ±30 已够：真机髋关节行程只到约 1470~1530，超了会顶结构）
     joints:
-      - {id: 9, pwm: 1440, duration_ms: 1000}
-      - {id: 10, pwm: 1560, duration_ms: 1000}
+      - {id: 9, pwm: 1470, duration_ms: 1200}
+      - {id: 10, pwm: 1530, duration_ms: 1200}
       - {id: 3, pwm: 1540, duration_ms: 1000}
       - {id: 4, pwm: 1460, duration_ms: 1000}
 
-  - name: 重心压向右侧（与上一步反向）
+  - name: 重心压向右侧（与上一步反向，髋同样只到 ±30）
     joints:
-      - {id: 9, pwm: 1560, duration_ms: 1000}
-      - {id: 10, pwm: 1440, duration_ms: 1000}
+      - {id: 9, pwm: 1530, duration_ms: 1200}
+      - {id: 10, pwm: 1470, duration_ms: 1200}
       - {id: 3, pwm: 1460, duration_ms: 1000}
       - {id: 4, pwm: 1540, duration_ms: 1000}
 

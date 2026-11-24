@@ -95,7 +95,7 @@ ros2 launch cquick_servo servo.launch.py port:=/tmp/ttySERVO demo:=true \
 
 launch arg：`params_file`（默认 `config/servo_params.yaml`）、`port`（非空时覆盖 yaml 里的 port）、`demo`（`true` 才额外起动作组播放器）、`actions_file`、`log_level`。
 
-> `config/actions/` 里现有五套动作组（全部是纯数据，换 yaml 不用改一行代码）：`stand_up.yaml`（站立：回中→髋张开→腿微曲→站起）、`squat.yaml`（小幅蹲起，偏热身）、`wave.yaml`（左右重心摆动，**2026-11-22 按腿部语义重写**）、`crouch.yaml`（**蹲下**：先髋加宽稳定支撑 → 六腿下蹲 ±80 → 踝补偿贴地 → 起身，4 步 × 2 轮）、`split.yaml`（**劈叉**：两侧髋向外张 ±80 → 六腿外展 ±60 → 收回，4 步 × 1 轮）。机械臂时代的旧版 `wave.yaml` / `nod.yaml` 留在 `config/actions/legacy/` 留档，不再被命令引用。
+> `config/actions/` 里现有五套动作组（全部是纯数据，换 yaml 不用改一行代码）：`stand_up.yaml`（站立：回中→髋张开→腿微曲→站起）、`squat.yaml`（小幅蹲起，偏热身）、`wave.yaml`（左右重心摆动，**2026-11-22 按腿部语义重写**；髋实测量程只有约 ±30，超出会顶结构读不回，所以 `wave.yaml` 里髋取 ±30、腿取 ±40）、`crouch.yaml`（**蹲下**：先髋加宽稳定支撑 → 六腿下蹲 ±80 → 踝补偿贴地 → 起身，4 步 × 2 轮）、`split.yaml`（**劈叉**：两侧髋向外张 ±80 → 六腿外展 ±60 → 收回，4 步 × 1 轮）。机械臂时代的旧版 `wave.yaml` / `nod.yaml` 留在 `config/actions/legacy/` 留档，不再被命令引用。
 >
 > 两个新动作组都有 `dry_run` 自检记录（`sequence_player -p dry_run:=true` 输出「动作组结束，失败 0 个 joint」）；`split.yaml` 里 9/10 是左右镜像安装，若现场看到往内夹，把第 2 步两组数值对调即可（方向不确定时先用 1460/1540 小幅度试）。
 
