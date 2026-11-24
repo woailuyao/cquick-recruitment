@@ -4,14 +4,19 @@
 #   而且和 /servo/command 的载荷完全一致，bag 回放才能一条消息还原一次动作。
 
 # ===== Goal =====
+# Goal 直接嵌套整条命令：CLI 里只要写 command.id/pwm/duration_ms 三段。
 cquick_servo_interfaces/ServoCommand command
+# 默认 true：走完必读 PRAD 校验，这是“到位证据”的来源。
 bool verify_on_finish true    # 走完是否读 PRAD 校验（默认校验）
 ---
 # ===== Result =====
+# success 由驱动判：只有读回落在容差内才算 true。
 bool   success
 uint16 prad_actual            # 实际读回的 PWM；读不到时为 0
+# message 是给人看的判定结果字符串，脚本可以按前缀判断。
 string message                # ok / out_of_range / canceled / serial_error / not_reached:45
 ---
 # ===== Feedback =====
+# feedback 每 50 ms 一条：屏幕上数字连续变化就靠它。
 uint16  pwm_current           # 当前估算位置（有回读时用回读值，没有就用插值）
 float32 progress              # 0.0 ~ 1.0

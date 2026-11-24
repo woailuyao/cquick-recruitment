@@ -31,11 +31,13 @@ def test_build_move_pads_id_to_three_digits():
     assert build_move(24, 900, 500) == "#024P900T500!"
 
 
+# 锁住“verb 自带 P”这个约定：谁多补一个 P，这条测试立刻炸（曾经的真 bug）。
 def test_build_verb():
     assert build_verb(3, "PULK") == "#003PULK!"
     assert build_verb(1, "PID") == "#001PID!"
 
 
+# 三种输入一起测：正常回包、带前导零的回包、垃圾串（必须返回 None）。
 def test_parse_pwm_reads_prad_reply():
     assert parse_pwm("#001P1500!") == 1500
     assert parse_pwm("#012P0900!") == 900
@@ -47,6 +49,7 @@ def test_parse_id():
     assert parse_id("nope") is None
 
 
+# 电气极限是协议约定：防止有人为了“跑更远”偷偷把它改大。
 def test_electric_range_constants():
     # 电气极限是协议约定，不能被参数放大（安全区间的裁剪另算）
     assert PWM_ELECTRIC_MIN == 500
@@ -68,18 +71,21 @@ def test_clamp_duration_keeps_longer_move():
     assert clamp_duration(1500, 1000) == 1500
 
 
+# 锁住“重发时长小于固件下限”的设计关系：实际靠 clamp_duration 抬上来。
 def test_retry_duration_is_shorter_than_floor():
     # 重发用的短行程故意比固件下限短，靠 clamp_duration 抬上来，测试锁住这个关系
     assert RETRY_DURATION_MS < 1000
     assert clamp_duration(RETRY_DURATION_MS, 1000) == 1000
 
 
+# 心跳预算断言：心跳周期×3 必须 ≤ 超时，否则正常运行也会被看门狗误杀。
 def test_watchdog_budget_survives_three_heartbeats():
     # 心跳周期 ×3 必须不大于超时时间，否则节点正常运行也会被看门狗误判
     assert HEARTBEAT_PERIOD * 3 <= WATCHDOG_TIMEOUT
 
 
 # ---------------- 加分项：动作组抢占（纯函数，无硬件可跑） ----------------
+# 抢占规则的单测：步间可中止、步内不打断、空动作组直接中止。
 def test_sequence_should_abort_only_between_steps():
     # 没请求抢占时永远不中止
     assert should_abort(False, 1, 4) is False
@@ -102,6 +108,7 @@ def test_sequence_pick_next_path_and_cancel_classification():
     assert pick_next_path("/a/squat.yaml", "/a/stand_up.yaml") == ("/a/squat.yaml", True)
     # 被抢占时驱动回 success=False + message=canceled，不能算失败
     assert classify_canceled(False, "canceled") == STATUS_CANCELED
+    # 中文 message 也必须识别——这是我们踩过的真 bug（只认英文 cancel 会误判成失败）。
     assert classify_canceled(False, "动作被取消") == STATUS_CANCELED
     # 正常到位、以及真失败，各归各位
     assert classify_canceled(True, "ok(diff=0)") == STATUS_OK

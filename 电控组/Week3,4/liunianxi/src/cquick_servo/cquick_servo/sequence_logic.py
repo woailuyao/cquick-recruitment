@@ -7,11 +7,13 @@ from __future__ import annotations
 
 from typing import Optional, Tuple
 
+# 三种状态字符串：对外返回、日志、pytest 断言都用同一套常量，避免写错字。
 STATUS_OK = "ok"
 STATUS_CANCELED = "canceled"
 STATUS_FAILED = "failed"
 
 
+# 进入“下一步”之前问一次：要不要中止？——步间中止是安全（不停半路）与响应速度的折中。
 def should_abort(preempt_requested: bool, step_index: int, total_steps: int) -> bool:
     """要不要在「进入下一步之前」中止当前动作组。
 
@@ -20,21 +22,26 @@ def should_abort(preempt_requested: bool, step_index: int, total_steps: int) -> 
     """
     if not preempt_requested:
         return False
+    # 空动作组也认抢占，否则空表会让抢占请求永远排队。
     if total_steps <= 0:
         return True
+    # 步号在合法范围内才中止；越界说明数据坏了，此时按“不中止”处理更安全。
     return 1 <= step_index <= total_steps
 
 
+# 决定下一棒跑哪个：有 pending 且与当前不同才算“发生抢占”。
 def pick_next_path(pending: Optional[str], current: str) -> Tuple[str, bool]:
     """返回 (接下来要跑的路径, 是否发生抢占)。
 
     pending 为空、或和当前这条一样，就当作没抢占（继续跑 current）。
     """
+    # 同路径重复请求不算抢占，否则动作组会自己打断自己。
     if pending and pending != current:
         return pending, True
     return current, False
 
 
+# 这是修过的真坑：驱动返回的中文 message 是“动作被取消”，不识别中文就会被当成失败。
 def classify_canceled(result_ok: bool, message: str) -> str:
     """把一次 result 分成 ok / canceled / failed。
 
@@ -44,6 +51,7 @@ def classify_canceled(result_ok: bool, message: str) -> str:
     text = (message or "").lower()
     if result_ok:
         return STATUS_OK
+    # 英文与中文两种写法都认，日志里才不会凭空多出“失败 N 个 joint”。
     if "cancel" in text or "取消" in text:
         return STATUS_CANCELED
     return STATUS_FAILED
