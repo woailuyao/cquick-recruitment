@@ -1,0 +1,44 @@
+# C0 场地标志坐标（2026-11-24 精测版）
+#
+# 原点：中心圈圆心（中线中点）
+# +X：指向唯一球门
+# +Y：面向 +X 时的左侧
+# +Z：垂直地面向上，地面 Z=0
+# 单位：米，yaw 从 +X 轴逆时针为正
+#
+# 说明：
+#   1. 尺寸来自同学现场精测，单位厘米换算为米；
+#   2. 半场：长 3.975，宽 5.955；
+#   3. 禁区左右深度不同：左 1.925，右 1.850；
+#   4. 球门区左右深度不同：左 0.930，右 0.900；
+#   5. 禁区宽 3.975，球门区宽 2.940；
+#   6. 现场没有点球点物理标记，PenaltyPoint 仅作地图参考，不参与匹配。
+
+frame: map
+unit: m
+map_version: C0-2026-11-24
+origin: "中心圈圆心（中线中点）"
+axis:
+  x_direction: "指向唯一球门"
+  y_direction: "面向 +X 时的左侧"
+  z_direction: "垂直地面向上"
+  yaw_positive: "逆时针为正"
+field_size:
+  length_m: 3.975
+  width_m: 5.955
+markers:
+  - {type: LCross, x: 3.975, y: -2.9775, note: "球门线右端"}
+  - {type: TCross, x: 3.975, y: -1.9875, note: "禁区右端"}
+  - {type: TCross, x: 3.975, y: -1.4700, note: "球门区右端"}
+  - {type: TCross, x: 3.975, y: 1.4700, note: "球门区左端"}
+  - {type: TCross, x: 3.975, y: 1.9875, note: "禁区左端"}
+  - {type: LCross, x: 3.975, y: 2.9775, note: "球门线左端"}
+  - {type: LCross, x: 3.075, y: -1.4700, note: "球门区右前角"}
+  - {type: LCross, x: 3.045, y: 1.4700, note: "球门区左前角"}
+  - {type: LCross, x: 2.125, y: -1.9875, note: "禁区右前角"}
+  - {type: LCross, x: 2.050, y: 1.9875, note: "禁区左前角"}
+  - {type: XCross, x: 0.000, y: -0.7200, note: "中心圈右交点"}
+  - {type: XCross, x: 0.000, y: 0.7200, note: "中心圈左交点"}
+  - {type: TCross, x: 0.000, y: -2.9775, note: "中线右端"}
+  - {type: TCross, x: 0.000, y: 2.9775, note: "中线左端"}
+  - {type: PenaltyPoint, x: 0.000, y: 0.000, note: "中心圈圆心"}

@@ -1,0 +1,33 @@
+# C0 场地几何（2026-11-24 精测版）
+
+field_id: C0
+map_version: C0-2026-11-24
+frame: map
+unit: m
+
+origin:
+  description: "中心圈圆心（中线中点）"
+  x: 0.0
+  y: 0.0
+
+axis:
+  x_direction: "指向唯一球门"
+  y_direction: "面向 +X 时的左侧"
+  z_direction: "垂直地面向上"
+  yaw_positive: "逆时针为正"
+
+field_size:
+  length_m: 3.975
+  width_m: 5.955
+
+center_circle:
+  center_x: 0.0
+  center_y: 0.0
+  radius_m: 0.730
+
+measurement:
+  date: "2026-11-24"
+  converted: "2026-11-24"
+  tool: "现场精测，单位厘米换算为米"
+  tolerance_m: 0.02
+  note: "禁区左右深度分别为 1.925 / 1.850 米，球门区左右深度分别为 0.930 / 0.900 米"

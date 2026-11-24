@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+runs/
+data/raw/
+data/output/
+models/*.pt
+models/*.onnx
+*.mp4
+.DS_Store
