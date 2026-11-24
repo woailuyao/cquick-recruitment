@@ -1,24 +1,22 @@
-# C0 场地标志坐标（2026-11-21 坐标约定转换）
+# C0 场地标志坐标（2026-11-24 精测版）
 #
-# 原点：中心圈圆心（中线中点，即全场场地中心）
-# +X：指向唯一球门（距离点球点和两个 XCross 最远的一端）
+# 原点：中心圈圆心（中线中点）
+# +X：指向唯一球门
 # +Y：面向 +X 时的左侧
 # +Z：垂直地面向上，地面 Z=0
 # 单位：米，yaw 从 +X 轴逆时针为正
 #
 # 说明：
-#   1. 坐标由 2026-11-18 实测数据换算而来，换算关系：
-#        x_new = 3.968 - y_old
-#        y_new = x_old - 2.977
-#      旧坐标原点为 LCross2，+X_old 沿球门线指向 LCross1，+Y_old 指向场内；
-#   2. 场地是半场：x 从 0（中线）到 3.968（球门线），y 从 -2.977 到 +2.977；
-#   3. 新增 LCross 位于 TCross4 竖直线与 LCross5 水平线交点，按左右对称补齐；
-#   4. 实测误差约 ±30 mm；
-#   5. 现场没有点球点物理标记，PenaltyPoint 与原点重合，仅作地图参考，不参与匹配。
+#   1. 尺寸来自同学现场精测，单位厘米换算为米；
+#   2. 半场：长 3.975，宽 5.955；
+#   3. 禁区左右深度不同：左 1.925，右 1.850；
+#   4. 球门区左右深度不同：左 0.930，右 0.900；
+#   5. 禁区宽 3.975，球门区宽 2.940；
+#   6. 现场没有点球点物理标记，PenaltyPoint 仅作地图参考，不参与匹配。
 
 frame: map
 unit: m
-map_version: C0-2026-11-21
+map_version: C0-2026-11-24
 origin: "中心圈圆心（中线中点）"
 axis:
   x_direction: "指向唯一球门"
@@ -26,25 +24,21 @@ axis:
   z_direction: "垂直地面向上"
   yaw_positive: "逆时针为正"
 field_size:
-  length_m: 3.968
-  width_m: 5.954
+  length_m: 3.975
+  width_m: 5.955
 markers:
-  # 球门线（x = 3.968）
-  - {type: LCross, x: 3.968, y: -2.977, note: "球门线左端（旧 LCross2）"}
-  - {type: TCross, x: 3.968, y: -1.952, note: "球门线上（旧 TCross4）"}
-  - {type: TCross, x: 3.968, y: -1.460, note: "球门区左端（旧 TCross3）"}
-  - {type: TCross, x: 3.968, y: 1.492, note: "球门区右端（旧 TCross2）"}
-  - {type: TCross, x: 3.968, y: 1.983, note: "球门线上（旧 TCross1）"}
-  - {type: LCross, x: 3.968, y: 2.977, note: "球门线右端（旧 LCross1）"}
-  # 球门区前角（x = 3.044）
-  - {type: LCross, x: 3.044, y: -1.460, note: "球门区左前角（旧 LCross4）"}
-  - {type: LCross, x: 3.044, y: 1.492, note: "球门区右前角（旧 LCross3）"}
-  # 中后场
-  - {type: LCross, x: 2.051, y: 1.983, note: "右侧（旧 LCross5）"}
-  - {type: LCross, x: 2.051, y: -1.952, note: "左侧，按左右对称补齐（新增）"}
-  # 中线（x = 0）
-  - {type: XCross, x: 0.000, y: -0.720, note: "中心圈左交点（旧 XCross2）"}
-  - {type: XCross, x: 0.000, y: 0.720, note: "中心圈右交点（旧 XCross1）"}
-  - {type: TCross, x: 0.000, y: -2.977, note: "中线左端（旧 TCross6）"}
-  - {type: TCross, x: 0.000, y: 2.977, note: "中线右端（旧 TCross5）"}
-  - {type: PenaltyPoint, x: 0.000, y: 0.000, note: "中心圈圆心，与原点重合，仅地图参考"}
+  - {type: LCross, x: 3.975, y: -2.9775, note: "球门线右端"}
+  - {type: TCross, x: 3.975, y: -1.9875, note: "禁区右端"}
+  - {type: TCross, x: 3.975, y: -1.4700, note: "球门区右端"}
+  - {type: TCross, x: 3.975, y: 1.4700, note: "球门区左端"}
+  - {type: TCross, x: 3.975, y: 1.9875, note: "禁区左端"}
+  - {type: LCross, x: 3.975, y: 2.9775, note: "球门线左端"}
+  - {type: LCross, x: 3.075, y: -1.4700, note: "球门区右前角"}
+  - {type: LCross, x: 3.045, y: 1.4700, note: "球门区左前角"}
+  - {type: LCross, x: 2.125, y: -1.9875, note: "禁区右前角"}
+  - {type: LCross, x: 2.050, y: 1.9875, note: "禁区左前角"}
+  - {type: XCross, x: 0.000, y: -0.7200, note: "中心圈右交点"}
+  - {type: XCross, x: 0.000, y: 0.7200, note: "中心圈左交点"}
+  - {type: TCross, x: 0.000, y: -2.9775, note: "中线右端"}
+  - {type: TCross, x: 0.000, y: 2.9775, note: "中线左端"}
+  - {type: PenaltyPoint, x: 0.000, y: 0.000, note: "中心圈圆心"}
