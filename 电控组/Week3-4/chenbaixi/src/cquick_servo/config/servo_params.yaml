@@ -1,0 +1,21 @@
+# ★ 最外层 key 必须等于节点名 servo_driver
+servo_driver:
+  ros__parameters:
+    port: /dev/cq_servo
+    baudrate: 115200
+    allowed_baudrates: [9600, 19200, 38400, 57600, 115200, 230400]
+    pwm_min: 900
+    pwm_max: 2100
+    home_pwm: 1500
+    default_duration_ms: 800
+    servo_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: true
+    prad_tolerance: 30
+    prad_retry: true
+    read_timeout_ms: 250
+    feedback_period_ms: 200
+    state_period_ms: 200
+    cmd_timeout_ms: 0
+    watchdog_enable: false
+    watchdog_timeout_ms: 1000
+    watchdog_reset: false

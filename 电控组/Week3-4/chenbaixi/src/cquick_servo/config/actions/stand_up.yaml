@@ -1,0 +1,40 @@
+# 整机 10 舵机动作（pwm 用实测安全值；本版 ±40）
+name: stand_up
+default_duration_ms: 900
+steps:
+  - name: 前半组收拢
+    commands:
+      - {id: 1, pwm: 1540, duration_ms: 900}
+      - {id: 3, pwm: 1460, duration_ms: 900}
+      - {id: 5, pwm: 1540, duration_ms: 900}
+      - {id: 7, pwm: 1460, duration_ms: 900}
+  - name: 前半组展开
+    commands:
+      - {id: 1, pwm: 1460, duration_ms: 900}
+      - {id: 3, pwm: 1540, duration_ms: 900}
+      - {id: 5, pwm: 1460, duration_ms: 900}
+      - {id: 7, pwm: 1540, duration_ms: 900}
+  - name: 后半组收拢
+    commands:
+      - {id: 2, pwm: 1540, duration_ms: 900}
+      - {id: 4, pwm: 1460, duration_ms: 900}
+      - {id: 6, pwm: 1540, duration_ms: 900}
+      - {id: 8, pwm: 1460, duration_ms: 900}
+  - name: 后半组展开
+    commands:
+      - {id: 2, pwm: 1460, duration_ms: 900}
+      - {id: 4, pwm: 1540, duration_ms: 900}
+      - {id: 6, pwm: 1460, duration_ms: 900}
+      - {id: 8, pwm: 1540, duration_ms: 900}
+  - name: 全部回中位
+    commands:
+      - {id: 1, pwm: 1500, duration_ms: 900}
+      - {id: 2, pwm: 1500, duration_ms: 900}
+      - {id: 3, pwm: 1500, duration_ms: 900}
+      - {id: 4, pwm: 1500, duration_ms: 900}
+      - {id: 5, pwm: 1500, duration_ms: 900}
+      - {id: 6, pwm: 1500, duration_ms: 900}
+      - {id: 7, pwm: 1500, duration_ms: 900}
+      - {id: 8, pwm: 1500, duration_ms: 900}
+      - {id: 9, pwm: 1500, duration_ms: 900}
+      - {id: 10, pwm: 1500, duration_ms: 900}
