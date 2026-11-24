@@ -8,10 +8,14 @@ servo_driver:
     pwm_max: 2100
     home_pwm: 1500
     default_duration_ms: 800
-    prad_tolerance: 30
-    feedback_period_ms: 200
-    servo_ids: [0, 1, 2, 3, 4, 5]
+    servo_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     startup_reset: true
-  watchdog_enable: false
-  watchdog_timeout_ms: 1000
-  watchdog_reset: false
+    prad_tolerance: 30
+    prad_retry: true
+    read_timeout_ms: 250
+    feedback_period_ms: 200
+    state_period_ms: 200
+    cmd_timeout_ms: 0
+    watchdog_enable: false
+    watchdog_timeout_ms: 1000
+    watchdog_reset: false

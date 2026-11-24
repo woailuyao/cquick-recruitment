@@ -2,6 +2,7 @@
 """舵机串口驱动：Action 服务端 + 全参数化 + 调试话题 + 掉线重连 + PRAD 重发 + 看门狗"""
 
 import re
+import threading
 import time
 
 import rclpy
@@ -67,12 +68,13 @@ class ServoDriver(Node):
         self.declare_parameter('watchdog_enable', False)
         self.declare_parameter('watchdog_timeout_ms', 1000)
         self.declare_parameter('watchdog_reset', False)
-        self.declare_parameter('servo_ids', [0, 1, 2, 3, 4, 5])
+        self.declare_parameter('servo_ids', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         self.declare_parameter('startup_reset', True)
 
         self.add_on_set_parameters_callback(self._on_param_set)
 
         self.ser = None
+        self._io_lock = threading.RLock()   # 串口 IO 互斥锁（并行 goal 时防回包交错）
         self._last_sent = None
         self._last_reopen_try = 0.0
         self._last_cmd_time = time.monotonic()
@@ -170,6 +172,10 @@ class ServoDriver(Node):
         return False
 
     def _send(self, payload):
+        with self._io_lock:
+            return self._send_locked(payload)
+
+    def _send_locked(self, payload):
         if self.ser is None:
             self._try_reopen()
         if self.ser is None:
@@ -224,6 +230,10 @@ class ServoDriver(Node):
         return buf
 
     def _read_pwm(self, servo_id):
+        with self._io_lock:
+            return self._read_pwm_locked(servo_id)
+
+    def _read_pwm_locked(self, servo_id):
         """先清旧数据 -> 发 PRAD -> 等完整回包 -> 解析"""
         if self.ser is None:
             return None
