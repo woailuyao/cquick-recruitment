@@ -1,0 +1,57 @@
+# 动作组：蹲下（crouch）—— 10 个舵机，蹲下去再站起来
+# 关节语义（2026-11-22 装配后确认）：
+#   1, 2      踝关节 —— 控制脚部的侧向弯曲
+#   3~8       腿部关节 —— 控制腿部弯曲（左侧 3/5/7，右侧 4/6/8）
+#   9, 10     髋关节 —— 控制腿张开或合上
+#
+# 和 squat.yaml 的区别：
+#   squat.yaml 是「下蹲 → 踝外翻 → 起身」3 步 × 2 轮，动作幅度小、偏热身；
+#   crouch.yaml 是「先加宽支撑 → 再蹲到底 → 踝补偿贴地 → 起身」4 步 × 2 轮，
+#   支撑更宽、蹲得更低，看起来更像"蹲下"。
+#
+# 安全：本板固件忽略 T<1000 的移动指令，duration_ms 全部 >=1000；
+#       幅度控制 ±80（实测 ±100 时 id=5 会顶到机械限位，PRAD 读回卡在 1005/2090）。
+name: crouch
+repeat: 2
+steps:
+  - name: 第1步：全部回中位 1500（准备姿态）
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
+
+  - name: 第2步：髋加宽 + 六条腿下蹲（髋 9/10 各 ±60，腿 3/4/5 与 6/7/8 反向各 80）
+    joints:
+      - {id: 9, pwm: 1560, duration_ms: 1200}
+      - {id: 10, pwm: 1440, duration_ms: 1200}
+      - {id: 3, pwm: 1580, duration_ms: 1200}
+      - {id: 4, pwm: 1580, duration_ms: 1200}
+      - {id: 5, pwm: 1580, duration_ms: 1200}
+      - {id: 6, pwm: 1420, duration_ms: 1200}
+      - {id: 7, pwm: 1420, duration_ms: 1200}
+      - {id: 8, pwm: 1420, duration_ms: 1200}
+
+  - name: 第3步：踝关节补偿（1、2 各 ±30，保持脚掌贴地）
+    joints:
+      - {id: 1, pwm: 1530, duration_ms: 1000}
+      - {id: 2, pwm: 1470, duration_ms: 1000}
+
+  - name: 第4步：起身（腿与髋一起回中位）
+    joints:
+      - {id: 3, pwm: 1500, duration_ms: 1200}
+      - {id: 4, pwm: 1500, duration_ms: 1200}
+      - {id: 5, pwm: 1500, duration_ms: 1200}
+      - {id: 6, pwm: 1500, duration_ms: 1200}
+      - {id: 7, pwm: 1500, duration_ms: 1200}
+      - {id: 8, pwm: 1500, duration_ms: 1200}
+      - {id: 9, pwm: 1500, duration_ms: 1200}
+      - {id: 10, pwm: 1500, duration_ms: 1200}
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}

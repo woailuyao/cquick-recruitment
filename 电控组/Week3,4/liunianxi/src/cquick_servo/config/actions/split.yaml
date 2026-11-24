@@ -1,0 +1,54 @@
+# 动作组：劈叉（split）—— 左右腿向两侧张开到最大，再收回
+# 关节语义（2026-11-22 装配后确认）：
+#   9, 10     髋关节（左右各一个）—— 控制腿张开或合上 ← 劈叉主要靠这两个
+#   3~8       腿部关节（左侧 3/5/7，右侧 4/6/8）—— 张开时跟着外展，避免膝盖内扣
+#   1, 2      踝关节 —— 收回时同步回中，防止脚掌别住
+#
+# 方向说明（重要）：9 与 10 是左右镜像安装的，同样写 1420 时两侧转的方向是相反的。
+#   本文件按「9 减小 / 10 增大 = 向外张开」写；如果你在现场看到是往内夹，
+#   把第 2 步的 9 和 10 两组数值对调即可（这就是"改动作代码"的最小示例）。
+#
+# 安全：幅度用 ±80（髋）/ ±60（腿），duration_ms 全部 >=1200 让动作慢一点；
+#       真机第一次跑建议先把 repeat 改成 1、把 1420/1580 改成 1460/1540 试方向。
+name: split
+repeat: 1
+steps:
+  - name: 第1步：全部回中位 1500（准备姿态）
+    joints:
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
+      - {id: 3, pwm: 1500, duration_ms: 1000}
+      - {id: 4, pwm: 1500, duration_ms: 1000}
+      - {id: 5, pwm: 1500, duration_ms: 1000}
+      - {id: 6, pwm: 1500, duration_ms: 1000}
+      - {id: 7, pwm: 1500, duration_ms: 1000}
+      - {id: 8, pwm: 1500, duration_ms: 1000}
+      - {id: 9, pwm: 1500, duration_ms: 1000}
+      - {id: 10, pwm: 1500, duration_ms: 1000}
+
+  - name: 第2步：两侧髋关节向外张开（9→1420、10→1580，各 80）
+    joints:
+      - {id: 9, pwm: 1420, duration_ms: 1500}
+      - {id: 10, pwm: 1580, duration_ms: 1500}
+
+  - name: 第3步：六条腿跟着外展（左 3/5/7 与右 4/6/8 反向各 60）
+    joints:
+      - {id: 3, pwm: 1560, duration_ms: 1500}
+      - {id: 4, pwm: 1560, duration_ms: 1500}
+      - {id: 5, pwm: 1560, duration_ms: 1500}
+      - {id: 6, pwm: 1440, duration_ms: 1500}
+      - {id: 7, pwm: 1440, duration_ms: 1500}
+      - {id: 8, pwm: 1440, duration_ms: 1500}
+
+  - name: 第4步：收回（髋、腿、踝一起回中位 1500）
+    joints:
+      - {id: 9, pwm: 1500, duration_ms: 1500}
+      - {id: 10, pwm: 1500, duration_ms: 1500}
+      - {id: 3, pwm: 1500, duration_ms: 1500}
+      - {id: 4, pwm: 1500, duration_ms: 1500}
+      - {id: 5, pwm: 1500, duration_ms: 1500}
+      - {id: 6, pwm: 1500, duration_ms: 1500}
+      - {id: 7, pwm: 1500, duration_ms: 1500}
+      - {id: 8, pwm: 1500, duration_ms: 1500}
+      - {id: 1, pwm: 1500, duration_ms: 1000}
+      - {id: 2, pwm: 1500, duration_ms: 1000}
