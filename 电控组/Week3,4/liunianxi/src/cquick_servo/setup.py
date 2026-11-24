@@ -8,7 +8,7 @@ package_name = "cquick_servo"
 setup(
     name=package_name,
     version="0.1.0",
-    packages=[package_name],
+    packages=[package_name, f"{package_name}.tools"],
     data_files=[
         ("share/ament_index/resource_index/packages", [os.path.join("resource", package_name)]),
         (os.path.join("share", package_name), ["package.xml"]),
@@ -29,6 +29,8 @@ setup(
             "move_client = cquick_servo.move_client:main",
             "sequence_player = cquick_servo.sequence_player:main",
             "fake_servo = cquick_servo.fake_servo:main",
+            "cancel_demo = cquick_servo.tools.cancel_demo:main",
+            "scan_ids = cquick_servo.tools.scan_ids:main",
         ],
     },
 )

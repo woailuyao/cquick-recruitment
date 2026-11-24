@@ -4,13 +4,17 @@
   socat -d -d pty,raw,echo=0,link=/tmp/ttySERVO pty,raw,echo=0,link=/tmp/ttyFAKE
   ros2 run cquick_servo fake_servo --ros-args -p port:=/tmp/ttyFAKE
 
-它只实现协议里用得到的那几条：
-  #001PID!        -> #001!
-  #001PULR!       -> #001PULR!
-  #001PULK!       -> #001PULK!
+它只实现协议里用得到的那几条（与真机 ZL-IS2 的实测回包一致）：
+  #001PID!        -> #001P!
+  #001PULR!       -> （不回包，静默上力）
+  #001PULK!       -> （不回包，静默卸力）
   #001P1500T1000! -> 记录目标与用时，PRAD 按时间线性插值返回
   #001PRAD!       -> #001P<当前pwm>!
-回包格式按「回显 ID + 命令」实现，真舵机若有差异改 _reply 一处即可。
+回包格式按真机实测实现，真舵机若有差异改 _handle 一处即可。
+
+present_ids：板子上真实存在的舵机编号（默认 1~10）。不在这个列表里的 ID
+（比如空通道 11~23）**一律不回包**，与真机"空通道没人应答"的行为一致——
+否则扫描 0~23 会得到 24 个假应答，和硬件现场对不上。
 """
 from __future__ import annotations
 
@@ -34,6 +38,8 @@ class FakeServo(Node):
         # 演示/验证用：>0 时每个 ID 的第一次动作故意少走这么多 pwm，
         # 这样驱动会判"未到位"并自动重发一次（加分项②的验证手段）。平时是 0。
         self.declare_parameter("first_move_short", 0)
+        # 板子上真实存在的舵机编号；其它 ID 当作空通道，不回包（与真机一致）
+        self.declare_parameter("present_ids", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         self._tested: set[int] = set()
         self._port = str(self.get_parameter("port").value)
         # id -> (from_pwm, to_pwm, t0, duration_s)
@@ -66,6 +72,10 @@ class FakeServo(Node):
         return int(from_pwm + (to_pwm - from_pwm) * ratio)
 
     # ---------------------------------------------------------------- 收命令
+    def _present(self) -> set[int]:
+        """板子上真实存在的舵机编号（每次现读参数，方便 param set 现场改）。"""
+        return {int(v) for v in self.get_parameter("present_ids").value}
+
     def _poll(self) -> None:
         if self._link is None:
             return
@@ -85,8 +95,11 @@ class FakeServo(Node):
         return
 
     def _handle(self, text: str) -> None:
+        present = self._present()
         for frame_id, pwm, duration in MOVE_RE.findall(text):
             frame_id = int(frame_id)
+            if frame_id not in present:
+                continue  # 空通道：真机上没人应答，这里也不理
             from_pwm = self.current_pwm(frame_id)
             target = int(pwm)
             short = int(self.get_parameter("first_move_short").value)
@@ -98,14 +111,21 @@ class FakeServo(Node):
                 )
             self._motion[frame_id] = (from_pwm, target, time.monotonic(), int(duration) / 1000.0)
             self.get_logger().info(f"收到动作 #{frame_id:03d}P{int(pwm)}T{int(duration)}!")
+            # 真机收到动作指令会回一条 #IDP<目标>!（当日真机截图里 1700 动作回 #003P1693! 是走完后的位置，
+            # 这里回目标值，语义一致：表示“这条动作我收到了”）
+            self._reply(f"#{frame_id:03d}P{int(pwm):04d}!")
         for frame_id, verb in VERB_RE.findall(text):
             frame_id = int(frame_id)
+            if frame_id not in present:
+                continue  # 空通道：静默
             if verb == "PID":
-                self._reply(f"#{frame_id:03d}!")
+                # 真机回的是 #003P!（只有 ID + P，没有 "ID" 两个字）
+                self._reply(f"#{frame_id:03d}P!")
             elif verb == "PRAD":
                 self._reply(f"#{frame_id:03d}P{self.current_pwm(frame_id):04d}!")
             else:
-                self._reply(f"#{frame_id:03d}P{verb}!")
+                # PULR / PULK：真机不回声（静默执行）
+                pass
 
     def _reply(self, text: str) -> None:
         if self._link is None:
