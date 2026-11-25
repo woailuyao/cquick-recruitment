@@ -1,0 +1,39 @@
+steps:
+  - step_name: "第一步：直立基准姿态"
+    actions:
+      - {id: 1, pwm: 1497, duration_ms: 1200}
+      - {id: 2, pwm: 1452, duration_ms: 1200}
+      - {id: 3, pwm: 1511, duration_ms: 1200}
+      - {id: 4, pwm: 1506, duration_ms: 1200}
+      - {id: 5, pwm: 1513, duration_ms: 1200}
+      - {id: 6, pwm: 1501, duration_ms: 1200}
+      - {id: 7, pwm: 1484, duration_ms: 1200}
+      - {id: 8, pwm: 1534, duration_ms: 1200}
+      - {id: 9, pwm: 1495, duration_ms: 1200}
+      - {id: 10, pwm: 1504, duration_ms: 1200}
+
+  - step_name: "第二步：胯屈 + 膝弯，下蹲"
+    actions:
+      - {id: 1, pwm: 1497, duration_ms: 1500}
+      - {id: 2, pwm: 1502, duration_ms: 1500}   # 1452 + 50，左大腿往前
+      - {id: 3, pwm: 1611, duration_ms: 1500}   # 1511 + 100，左膝后折
+      - {id: 4, pwm: 1506, duration_ms: 1500}
+      - {id: 5, pwm: 1513, duration_ms: 1500}
+      - {id: 6, pwm: 1501, duration_ms: 1500}
+      - {id: 7, pwm: 1434, duration_ms: 1500}   # 1484 - 50，右大腿往前（镜像）
+      - {id: 8, pwm: 1434, duration_ms: 1500}   # 1534 - 100，右膝后折
+      - {id: 9, pwm: 1495, duration_ms: 1500}
+      - {id: 10, pwm: 1504, duration_ms: 1500}
+
+  - step_name: "第三步：起立回基准"
+    actions:
+      - {id: 1, pwm: 1497, duration_ms: 1200}
+      - {id: 2, pwm: 1452, duration_ms: 1200}
+      - {id: 3, pwm: 1511, duration_ms: 1200}
+      - {id: 4, pwm: 1506, duration_ms: 1200}
+      - {id: 5, pwm: 1513, duration_ms: 1200}
+      - {id: 6, pwm: 1501, duration_ms: 1200}
+      - {id: 7, pwm: 1484, duration_ms: 1200}
+      - {id: 8, pwm: 1534, duration_ms: 1200}
+      - {id: 9, pwm: 1495, duration_ms: 1200}
+      - {id: 10, pwm: 1504, duration_ms: 1200}

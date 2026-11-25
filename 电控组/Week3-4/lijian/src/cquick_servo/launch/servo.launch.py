@@ -16,6 +16,7 @@ def generate_launch_description():
     params_file = LaunchConfiguration("params_file")
     port = LaunchConfiguration("port")
     demo = LaunchConfiguration("demo")
+    watchdog = LaunchConfiguration("watchdog")
 
     driver = Node(
         package="cquick_servo",
@@ -24,6 +25,8 @@ def generate_launch_description():
         parameters=[
             params_file,
             {"port": ParameterValue(port, value_type=str)},
+            # 加分项开关：默认关，watchdog:=true 时启动即开启
+            {"watchdog_enabled": ParameterValue(watchdog, value_type=bool)},
         ],
         output="screen",
     )
@@ -39,8 +42,11 @@ def generate_launch_description():
 
     return LaunchDescription([
         DeclareLaunchArgument("params_file", default_value=default_params),
-        DeclareLaunchArgument("port", default_value="/dev/ttyUSB0"),
+        DeclareLaunchArgument("port", default_value="/dev/cq_servo"),
         DeclareLaunchArgument("demo", default_value="false"),
+        DeclareLaunchArgument(
+            "watchdog", default_value="false",
+            description="启动时是否打开安全看门狗（演示期间保持 false）"),
         driver,
         client,
     ])

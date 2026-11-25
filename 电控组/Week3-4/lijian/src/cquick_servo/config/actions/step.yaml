@@ -1,0 +1,14 @@
+steps:
+  - step_name: "左腿往前迈"
+    actions:
+      - {id: 1, pwm: 1597, duration_ms: 1000}
+  - step_name: "左腿收回"
+    actions:
+      - {id: 1, pwm: 1497, duration_ms: 1000}
+  - step_name: "右腿往前迈"
+    actions:
+      - {id: 6, pwm: 1401, duration_ms: 1000} # 1501减100
+  - step_name: "右腿收回"
+    actions:
+      - {id: 6, pwm: 1501, duration_ms: 1000}
+

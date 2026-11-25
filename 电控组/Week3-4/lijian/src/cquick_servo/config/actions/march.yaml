@@ -1,0 +1,30 @@
+steps:
+  - step_name: "第一步：直立基准姿态"
+    actions:
+      - {id: 1, pwm: 1497, duration_ms: 1000}
+      - {id: 2, pwm: 1452, duration_ms: 1000}
+      - {id: 3, pwm: 1511, duration_ms: 1000}
+      - {id: 4, pwm: 1506, duration_ms: 1000}
+      - {id: 5, pwm: 1513, duration_ms: 1000}
+      - {id: 6, pwm: 1501, duration_ms: 1000}
+      - {id: 7, pwm: 1484, duration_ms: 1000}
+      - {id: 8, pwm: 1534, duration_ms: 1000}
+      - {id: 9, pwm: 1495, duration_ms: 1000}
+      - {id: 10, pwm: 1504, duration_ms: 1000}
+
+  - step_name: "第二步：抬左腿（左胯屈 + 左膝弯）"
+    actions:
+      - {id: 2, pwm: 1502, duration_ms: 1200}
+      - {id: 3, pwm: 1611, duration_ms: 1200}
+
+  - step_name: "第三步：放下左腿，抬右腿"
+    actions:
+      - {id: 2, pwm: 1452, duration_ms: 1200}
+      - {id: 3, pwm: 1511, duration_ms: 1200}
+      - {id: 7, pwm: 1434, duration_ms: 1200}
+      - {id: 8, pwm: 1434, duration_ms: 1200}
+
+  - step_name: "第四步：放下右腿回基准"
+    actions:
+      - {id: 7, pwm: 1484, duration_ms: 1200}
+      - {id: 8, pwm: 1534, duration_ms: 1200}

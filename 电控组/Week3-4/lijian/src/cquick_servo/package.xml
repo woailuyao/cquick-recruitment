@@ -3,13 +3,14 @@
 <package format="3">
   <name>cquick_servo</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>舵机驱动节点：Action Server + 参数化 + 加分项</description>
   <maintainer email="leyili@todo.todo">leyili</maintainer>
   <license>TODO: License declaration</license>
 
   <depend>rclpy</depend>
   <depend>cquick_servo_interfaces</depend>
   <depend>std_srvs</depend>
+  <exec_depend>python3-serial</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

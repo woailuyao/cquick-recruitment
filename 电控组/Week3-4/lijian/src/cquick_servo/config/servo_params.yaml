@@ -1,9 +1,11 @@
 servo_driver:
   ros__parameters:
-    port: "/dev/ttyUSB0"
+    port: "/dev/cq_servo"
     baudrate: 115200
     pwm_min: 900
     pwm_max: 2100
     default_duration_ms: 800
-    servo_ids: [1, 2, 3, 4]   # 改这一行
-    startup_reset: true
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: false
+    watchdog_enabled: false
+    watchdog_timeout_s: 5.0
