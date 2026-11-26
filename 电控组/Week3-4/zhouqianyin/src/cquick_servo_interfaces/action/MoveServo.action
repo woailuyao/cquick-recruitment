@@ -1,19 +1,12 @@
-# Action 名：/move_servo
-# 设计要点：Goal 字段摊平（不嵌套 ServoCommand），命令行 send_goal 可直接写 "{id: 1, pwm: 1800, duration_ms: 1000}"
-#           Result 带回真实回读值，Feedback 带进度，客户端可判断"真到位"而非"发完就算成功"
-
-# ---- Goal：一条完整指令 ----
 uint8 id           # 舵机 ID，1~254
-uint16 pwm         # 目标 PWM，安全区间内才接受（越界在 goal_callback 直接 REJECT）
-uint16 duration_ms # 运动时间(ms)，0 = 用参数默认值；上限 30000
+uint16 pwm         # 目标 PWM，安全区间内才接受
+uint16 duration_ms # 运动时间(ms)，0 = 用参数默认值
 
 ---
-# ---- Result：成没成、最终读回、原因 ----
-bool success       # 是否到位（PRAD 回读与目标偏差 ≤ position_tolerance 才算 true）
-uint16 final_pwm   # 结束时 PRAD 实际回读值；失败时为实际值或 0（串口异常）
-string message     # ok: ... / 未到位: ... / canceled / serial_error: ...
+bool success
+uint16 final_pwm   # PRAD 回读值
+string message
 
 ---
-# ---- Feedback：运动过程中的进度 ----
-uint16 current_pwm # 按插值估算的当前 PWM（不是回读值，回读只在结束时做一次）
-float32 progress   # 进度 0.0 ~ 1.0
+uint16 current_pwm
+float32 progress   # 0.0 ~ 1.0

@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
-"""CQuick 舵机 Action 客户端：只发 goal，打印 feedback / result
-
-三种用法：
-    move_client --id 1 --pwm 1800 --duration 1000         单次
-    move_client --id 1 --sweep 1200,1800,1500 --duration 1200   序列（等 result 再发下一条）
-    move_client --id 1 --pwm 2000 --duration 8000 --cancel-after 1.5   长动作中途取消
+"""用法：
+    move_client --id 1 --pwm 1800 --duration 1000
+    move_client --id 1 --sweep 1200,1800,1500 --duration 1200
+    move_client --id 1 --pwm 2000 --duration 8000 --cancel-after 1.5
 """
 import argparse
 import sys
@@ -25,20 +23,18 @@ class MoveClient(Node):
     def __init__(self):
         super().__init__('servo_client')
         self._client = ActionClient(self, MoveServo, ACTION_NAME)
-        self._active_id = 0     # 记录当前操作的舵机 ID，feedback 里要用
+        self._active_id = 0
 
     def wait_for_server(self, timeout=5.0):
         self.get_logger().info(f'等待 Action 服务 {ACTION_NAME} ...')
         return self._client.wait_for_server(timeout_sec=timeout)
 
     def feedback_cb(self, feedback_msg):
-        """每 ~0.2s 被调一次，打印 progress 让评审看到舵机在动"""
         fb = feedback_msg.feedback
         self.get_logger().info(
             f'feedback: id={self._active_id} pwm={fb.current_pwm} progress={fb.progress:.2f}')
 
     def send_goal(self, servo_id, pwm, duration_ms):
-        """发一个 goal 并等结果；返回是否 success"""
         goal = MoveServo.Goal()
         goal.id = servo_id
         goal.pwm = pwm
@@ -50,7 +46,6 @@ class MoveClient(Node):
         rclpy.spin_until_future_complete(self, send_future)
         goal_handle = send_future.result()
 
-        # 被拒说明 pwm 越界或 ID 不在 servo_ids —— 这是正常功能，不是程序错
         if goal_handle is None or not goal_handle.accepted:
             self.get_logger().error('goal 被拒绝（pwm 越界 / ID 不在 servo_ids 中）')
             return False
@@ -65,7 +60,6 @@ class MoveClient(Node):
         return result.success
 
     def send_goal_cancellable(self, servo_id, pwm, duration_ms, cancel_after):
-        """长动作 + 定时取消：用来录「取消生效」那段"""
         goal = MoveServo.Goal()
         goal.id = servo_id
         goal.pwm = pwm
@@ -82,7 +76,6 @@ class MoveClient(Node):
             self.get_logger().error('goal 被拒绝')
             return
 
-        # 用 Timer 在另一个线程里触发取消，主线程继续 spin 等 result
         threading.Timer(cancel_after, lambda: self.cancel(goal_handle)).start()
 
         result_future = goal_handle.get_result_async()
@@ -111,7 +104,6 @@ def parse_args(argv=None):
 
 def main():
     rclpy.init()
-    # 只把非 ROS 参数交给 argparse，否则 --ros-args 会被误判为未知参数
     args = parse_args(remove_ros_args(args=sys.argv)[1:])
     node = MoveClient()
     if not node.wait_for_server():
@@ -121,7 +113,6 @@ def main():
         return
     try:
         if args.sweep:
-            # 序列模式：一条的 result 回来才发下一条，不靠 sleep 硬等
             targets = [int(v.strip()) for v in args.sweep.split(',') if v.strip()]
             node.get_logger().info(f'动作序列: {targets}（逐个等 result 再发下一条）')
             for pwm in targets:
@@ -137,5 +128,5 @@ def main():
         rclpy.shutdown()
 
 
-if __name__ == '__&#8203;main__':
+if __name__ == '__main__':
     main()

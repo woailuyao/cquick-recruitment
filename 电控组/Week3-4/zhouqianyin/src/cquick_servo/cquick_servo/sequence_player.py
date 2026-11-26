@@ -1,20 +1,6 @@
 #!/usr/bin/env python3
-"""CQuick action sequence player (Task 3).
-
-Read config/actions/*.yaml, expand it into goals, and play step by step.
-
-Design rules (the reviewer will ask about these):
-  1. Motions are DATA: adding a new motion only needs a new yaml file.
-     This python file never changes.
-  2. Steps are strictly serial: wait for ALL results of one step before
-     sending the next step. No sleep-based guessing.
-  3. Moves inside one step are sent together (multi-joint coordination).
-     If one joint must move first, give it its own step.
-
-Usage:
+"""Usage:
   ros2 run cquick_servo sequence_player --file stand_up.yaml --repeat 3
-  ros2 run cquick_servo sequence_player --file wave.yaml
-  ros2 run cquick_servo sequence_player --file stand_up.yaml --ids 1
 """
 
 import argparse
@@ -35,12 +21,10 @@ ACTION_NAME = 'move_servo'
 
 
 def stamp():
-    """Millisecond timestamp, printed in every log line to prove ordering."""
     return datetime.now().strftime('%H:%M:%S.%f')[:-3]
 
 
 def resolve_path(file_arg):
-    """Absolute path first, then cwd, then the package share directory."""
     if os.path.isabs(file_arg) or os.path.exists(file_arg):
         return file_arg
     share = get_package_share_directory('cquick_servo')
@@ -48,7 +32,6 @@ def resolve_path(file_arg):
 
 
 def load_action(path):
-    """Return (name, [(step_name, [goal_dict, ...]), ...])."""
     with open(path, 'r', encoding='utf-8') as f:
         data = yaml.safe_load(f)
     if not isinstance(data, dict) or not isinstance(data.get('steps'), list):
@@ -77,7 +60,6 @@ class Player(Node):
         self._client = ActionClient(self, MoveServo, ACTION_NAME)
 
     def play_step(self, index, name, moves, total):
-        """Send all goals of one step together, then collect every result."""
         if self._only_ids is not None:
             moves = [m for m in moves if m['id'] in self._only_ids]
         if not moves:
@@ -90,7 +72,6 @@ class Player(Node):
             '[%s] >>> step %d/%d "%s" send %d goals together'
             % (stamp(), index, total, name, len(moves)))
 
-        # 1) Send every goal first, without waiting for any of them.
         pending = []
         for k, m in enumerate(moves):
             if k:
@@ -104,7 +85,6 @@ class Player(Node):
                 '[%s]     goal -> id=%d pwm=%d duration=%d'
                 % (stamp(), m['id'], m['pwm'], m['duration_ms']))
 
-        # 2) Check acceptance, then register all result futures.
         ok = True
         handles = []
         for m, fut in pending:
@@ -130,7 +110,6 @@ class Player(Node):
             if not res.success:
                 ok = False
 
-        # 3) This line is the proof that results are the sync signal.
         self.get_logger().info(
             '[%s] <<< step %d/%d all results collected in %.3fs, next step'
             % (stamp(), index, total, time.monotonic() - t0))

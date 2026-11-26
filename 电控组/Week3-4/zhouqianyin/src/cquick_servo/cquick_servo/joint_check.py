@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""整机逐关节验证（任务 3 · 3.3 / 3.5 第 4 条）
-
-对每个舵机走「回中位 -> 小幅正向 -> 小幅反向 -> 回中位」，每条 goal 等 result
-回来再发下一条，末尾输出 markdown 表，可直接粘进调试记录。
-用法：
-  ros2 run cquick_servo joint_check            # 默认读 servo_ids 参数
-  python3 joint_check.py --ids 1,2 --delta 100 # 手动指定
+"""逐关节验证。用法：
+  ros2 run cquick_servo joint_check
+  python3 joint_check.py --ids 1,2 --delta 100
 """
 import argparse
 import sys
