@@ -1,0 +1,12 @@
+uint8 id           # 舵机 ID，1~254
+uint16 pwm         # 目标 PWM，安全区间内才接受
+uint16 duration_ms # 运动时间(ms)，0 = 用参数默认值
+
+---
+bool success
+uint16 final_pwm   # PRAD 回读值
+string message
+
+---
+uint16 current_pwm
+float32 progress   # 0.0 ~ 1.0

@@ -1,0 +1,24 @@
+# 动作一：起身（整机 10 关节，安全版）
+# 只做屈膝/伸膝这类前后方向的动，不做任何横向内收，避免双腿互撞。
+name: stand_up
+description: "双膝小幅屈伸 -> 四关节协同 -> 全体回中位"
+
+steps:
+  - name: "双膝小幅屈（3/8 协同）"
+    moves:
+      - {servo_id: 3, target_pwm: 1440, duration_ms: 1500}
+      - {servo_id: 8, target_pwm: 1440, duration_ms: 1500}
+
+  - name: "四关节协同屈（3/4/8/9）"
+    moves:
+      - {servo_id: 3, target_pwm: 1400, duration_ms: 1600}
+      - {servo_id: 4, target_pwm: 1400, duration_ms: 1600}
+      - {servo_id: 8, target_pwm: 1400, duration_ms: 1600}
+      - {servo_id: 9, target_pwm: 1400, duration_ms: 1600}
+
+  - name: "全体回中位"
+    moves:
+      - {servo_id: 3, target_pwm: 1500, duration_ms: 1400}
+      - {servo_id: 4, target_pwm: 1500, duration_ms: 1400}
+      - {servo_id: 8, target_pwm: 1500, duration_ms: 1400}
+      - {servo_id: 9, target_pwm: 1500, duration_ms: 1400}

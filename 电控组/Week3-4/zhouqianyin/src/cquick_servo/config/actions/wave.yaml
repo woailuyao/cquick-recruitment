@@ -1,0 +1,20 @@
+name: wave
+description: "左右膝交替小幅屈伸（无横向动作，不会互撞）"
+
+steps:
+  - name: "左膝屈"
+    moves:
+      - {servo_id: 3, target_pwm: 1420, duration_ms: 1300}
+      - {servo_id: 4, target_pwm: 1440, duration_ms: 1300}
+
+  - name: "左膝伸 / 右膝屈"
+    moves:
+      - {servo_id: 3, target_pwm: 1500, duration_ms: 1300}
+      - {servo_id: 4, target_pwm: 1500, duration_ms: 1300}
+      - {servo_id: 8, target_pwm: 1420, duration_ms: 1300}
+      - {servo_id: 9, target_pwm: 1440, duration_ms: 1300}
+
+  - name: "全体回中位"
+    moves:
+      - {servo_id: 8, target_pwm: 1500, duration_ms: 1300}
+      - {servo_id: 9, target_pwm: 1500, duration_ms: 1300}
