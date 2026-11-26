@@ -1,0 +1,14 @@
+# 动作三：致意。现场新增这一个文件、不改任何代码，--file greet.yaml 直接跑。
+name: greet
+description: "双髋同步致意：低头 -> 回中位"
+
+steps:
+  - name: "低头致意"
+    moves:
+      - {servo_id: 1, target_pwm: 1620, duration_ms: 1400}
+      - {servo_id: 6, target_pwm: 1620, duration_ms: 1400}
+
+  - name: "抬头回中位"
+    moves:
+      - {servo_id: 1, target_pwm: 1500, duration_ms: 1500}
+      - {servo_id: 6, target_pwm: 1500, duration_ms: 1500}

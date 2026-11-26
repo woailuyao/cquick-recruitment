@@ -1,13 +1,15 @@
+# 最外层 key 必须等于节点名（servo_driver），写错不会报错，参数一个都不加载
 servo_driver:
   ros__parameters:
-    port: /dev/cquick_servo          # 串口设备名；虚拟机里通常是 /dev/ttyUSB0
-    baudrate: 115200            # 众灵板出厂默认 115200，8-N-1
-    pwm_min: 900                # 安全下限，结构实测值（不是电气极限 500）
-    pwm_max: 2100               # 安全上限，结构实测值（不是电气极限 2500）
-    default_duration_ms: 800    # goal 里 duration_ms=0 时用这个
-    servo_ids: [0, 1]
-    startup_reset: true         # 启动时全部回中位（中位 = (pwm_min+pwm_max)/2）
-    position_tolerance: 30      # PRAD 回读与目标偏差 ≤30 才算到位
-    feedback_period: 0.2        # 反馈周期 0.2s = 5Hz
-    heartbeat_period: 0.5
-    watchdog_timeout: 1.0
+    port: /dev/cquick_servo
+    baudrate: 115200
+    pwm_min: 900
+    pwm_max: 2100
+    default_duration_ms: 800
+    # 整机 [1..10]；单舵机任务临时改 [0]。启动时读取一次，改完必须重启 launch
+    servo_ids: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    startup_reset: true     # 启动即 PULR + 回中位
+    position_tolerance: 30  # PRAD 到位判定容差
+    feedback_period: 0.2    # 5 Hz 反馈
+    heartbeat_period: 0.5   # 位置帧心跳
+    watchdog_timeout: 2.0   # 安全看门狗阈值
